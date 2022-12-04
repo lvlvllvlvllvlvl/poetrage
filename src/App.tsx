@@ -32,11 +32,28 @@ import axios from "axios";
 import numeral from "numeral";
 import { PathOfExile, PoENinja } from "poe-api-ts";
 import React, { useEffect, useMemo, useState } from "react";
+import { getBuilds } from "./apis/getBuilds";
+import { getExp } from "./apis/getExp";
+import { getLeagues } from "./apis/getLeagues";
 import "./App.css";
 import { filterOutliers } from "./filterOutliers";
-import { Builds, Leagues } from "./models";
-import { useAsync } from "./hooks/useAsync";
-import useDebouncedState from "./hooks/useDebouncedState";
+import { forEach } from "./helpers/forEach";
+import { useAsync } from "./helpers/useAsync";
+import useDebouncedState from "./helpers/useDebouncedState";
+import {
+  bestMatch,
+  betterOrEqual,
+  compareGem,
+  copy,
+  exceptional,
+  exists,
+  Gem,
+  GemDetails,
+  getType,
+  modifiers,
+  vaal,
+  VaalData,
+} from "./models/Gems";
 
 const query: any = {
   query: {
@@ -59,242 +76,18 @@ const query: any = {
   sort: { price: "asc" },
 };
 
-//PathOfExile.Settings.userAgent = "testing, testing";
-//document.cookie = 'POESESSID=9495397070d7edea6c144d9345b33d2f';
-
+const billion = 1000000000;
 const poe = /https:\/\/(www.)?pathofexile.com/;
+const ninja = "https://poe.ninja";
 
 axios.interceptors.request.use((config) => {
   if (config.data && Object.keys(config.data).length === 0) delete config.data;
   if (config.headers) delete config.headers["Content-Type"];
   config.url = config?.url
-    ?.replace("https://poe.ninja", "http://localhost:8080/ninja")
+    ?.replace(ninja, "http://localhost:8080/ninja")
     ?.replace(poe, "http://localhost:8080/poe");
   return config;
 });
-
-const getBuilds = (league: string) =>
-  fetch(
-    `http://localhost:8080/ninja/api/data/x/getbuildoverview?overview=${league
-      .toLowerCase()
-      .replaceAll(" ", "-")}&type=exp&language=en`
-  ).then((r) => {
-    if (r.status !== 200) {
-      throw r.json();
-    }
-    return r.json() as Promise<Builds>;
-  });
-
-const getLeagues = () =>
-  fetch("http://localhost:8080/ninja/api/data/getindexstate").then((r) => {
-    if (r.status !== 200) {
-      throw r.json();
-    }
-    return r.json() as Promise<Leagues>;
-  });
-
-const levelRange = Array.from(Array(41).keys());
-const toInt = (n: string) => parseInt(n);
-const getExp = async () => {
-  let offset = 0;
-  let result: { [key: string]: { [key: number]: number } } = {};
-  let json: any;
-  do {
-    const data = await fetch(
-      "http://localhost:8080/wiki/w/api.php?action=cargoquery&tables=items,skill_levels&group_by=items._pageID&join_on=items._pageID=skill_levels._pageID&fields=items.name,GROUP_CONCAT(skill_levels.level),GROUP_CONCAT(skill_levels.experience)&order_by=level&where=skill_levels.experience%20IS%20NOT%20NULL&format=json&limit=500&offset=" +
-        offset
-    );
-    json = await data.json();
-    json?.cargoquery?.forEach(
-      ({
-        title: { name, "level)": levelData, "experience)": xpData },
-      }: {
-        title: { [key: string]: string };
-      }) => {
-        const level = levelData?.split(",")?.map(toInt) || [];
-        const xp = xpData?.split(",")?.map(toInt) || [];
-        const levels: { [key: number]: number } = {};
-        levelRange.forEach((l) => {
-          levels[l] = xp[level.indexOf(l)];
-        });
-        result[name] = levels;
-      }
-    );
-    offset += 500;
-  } while (json?.cargoquery && json?.cargoquery.length && Object.keys(result).length === offset);
-  return result;
-};
-
-type VaalData = { gem: Gem; chance: number; outcomes: string[] };
-type GemType = ReturnType<typeof getType>;
-
-type Gem = {
-  baseName: string;
-  Name: string;
-  Level: number;
-  Quality: number;
-  Type: GemType;
-  Corrupted: boolean;
-  Vaal: boolean;
-  canVaal?: boolean;
-  Price: number;
-  Meta: number;
-  XP: number;
-  Listings: number;
-};
-
-type GemDetails = Gem & {
-  xpData?: (Gem & {
-    xpValue: number;
-    gcpCount: number;
-    gcpCost: number;
-  })[];
-  gcpData?: (Gem & {
-    gcpValue: number;
-    gcpCount: number;
-    gcpCost: number;
-  })[];
-  vaalValue?: number;
-  vaalData?: VaalData[];
-  templeValue?: number;
-  templeData?: VaalData[];
-};
-
-const exists = (v: any) => v !== undefined;
-const copy = (
-  {
-    baseName,
-    Name,
-    Level,
-    Quality,
-    Type,
-    Corrupted,
-    Vaal,
-    canVaal,
-    Price,
-    Meta,
-    XP,
-    Listings,
-  }: Gem,
-  overrides: Partial<Gem> = {}
-): Gem => ({
-  baseName,
-  Name,
-  Level,
-  Quality,
-  Type,
-  Corrupted,
-  Vaal,
-  canVaal,
-  Price,
-  Meta,
-  XP,
-  Listings,
-  ...overrides,
-});
-async function forEach<T>(array: T[], callbackfn: (value: T, index: number, array: T[]) => void) {
-  for (let i = 0; i < array.length; i++) {
-    await callbackfn(array[i], i, array);
-  }
-}
-const altQualities = ["Anomalous", "Divergent", "Phantasmal"] as const;
-const modifiers = ["Anomalous ", "Divergent ", "Phantasmal ", "Vaal "];
-const exceptional = ["Enlighten", "Empower", "Enhance"];
-
-const getType = (name: string) => {
-  for (const q of altQualities) {
-    if (name.includes(q)) return q;
-  }
-  if (name.includes("Awakened")) {
-    return "Awakened";
-  } else {
-    return "Superior";
-  }
-};
-
-const betterOrEqual = (gem: Gem, other: Gem) => {
-  if (other.baseName !== gem.baseName || other.Type !== gem.Type) {
-    console.debug("mismatched gem comparison", gem, other);
-  }
-  return (
-    (gem.Vaal || !other.Vaal) &&
-    (other.Corrupted || !gem.Corrupted) &&
-    other.Level <= gem.Level &&
-    other.Quality <= gem.Quality
-  );
-};
-const bestMatch = (gem: Gem, data: Gem[], minListings: number) =>
-  data.reduce(
-    (l, r) =>
-      l
-        ? r.Price > l.Price && (!r.XP || r.Listings > minListings) && betterOrEqual(gem, r)
-          ? r
-          : l
-        : (!r.XP || r.Listings > minListings) && betterOrEqual(gem, r)
-        ? r
-        : undefined,
-    undefined as Gem | undefined
-  ) || data.reduce((l, r) => (r.Price > l.Price && betterOrEqual(gem, r) ? r : l), gem);
-const compareGem = (a: Gem, b: Gem) => {
-  if (a.baseName !== b.baseName || a.Type !== b.Type) {
-    console.debug("mismatched gem comparison", a, b);
-  }
-  if (a.Level !== b.Level) {
-    return b.Level - a.Level;
-  } else if (a.Vaal !== b.Vaal) {
-    return b.Vaal ? 1 : -1;
-  } else if (a.Quality !== b.Quality) {
-    return b.Quality - a.Quality;
-  } else if (a.Corrupted !== b.Corrupted) {
-    return b.Corrupted ? -1 : 1;
-  } else {
-    return b.Price - a.Price;
-  }
-};
-
-const vaal = (gem: Gem, chance: number = 1, outcomes: string[] = []) =>
-  [
-    {
-      gem: copy(gem, { Corrupted: true }),
-      chance: chance * 0.25,
-      outcomes: [...outcomes, "No effect"],
-    },
-    {
-      gem: gem.canVaal ? copy(gem, { Corrupted: true, Vaal: true, Name: "Vaal " + gem.Name }) : gem,
-      chance: chance * 0.25,
-      outcomes: [...outcomes, gem.canVaal ? "Vaal" : "Vaal (no outcome)"],
-    },
-    {
-      gem: copy(gem, { Corrupted: true, Level: gem.Level + 1 }),
-      chance: chance * 0.125,
-      outcomes: [...outcomes, "Add level"],
-    },
-    {
-      gem: copy(gem, { Corrupted: true, Level: gem.Level - 1 }),
-      chance: chance * 0.125,
-      outcomes: [...outcomes, "Remove level"],
-    },
-    ...Array.from(Array(20).keys()).map((i) => ({
-      gem: copy(gem, {
-        Corrupted: true,
-        Quality: Math.min(gem.Quality + 20 - i, 23),
-      }),
-      chance: (chance * 0.125) / 20,
-      outcomes: [...outcomes, "Add quality"],
-    })),
-    ...Array.from(Array(20).keys()).map((i) => ({
-      gem: copy(gem, {
-        Corrupted: true,
-        Quality: Math.max(gem.Quality - i - 1, 0),
-      }),
-      chance: (chance * 0.125) / 20,
-      outcomes: [...outcomes, "Remove quality"],
-    })),
-  ]
-    .filter(exists)
-    .filter((v) => v?.chance && v.chance > 0) as VaalData[];
-
-const billion = 1000000000;
 function App() {
   const [showOptions, setShowOptions] = useState(false);
   const [sorting, setSorting] = React.useState<SortingState>([]);
