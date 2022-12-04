@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const levelRange = Array.from(Array(41).keys());
 const toInt = (n: string) => parseInt(n);
 export const getExp = async () => {
@@ -5,11 +7,12 @@ export const getExp = async () => {
   let result: { [key: string]: { [key: number]: number } } = {};
   let json: any;
   do {
-    const data = await fetch(
-      "http://localhost:8080/wiki/w/api.php?action=cargoquery&tables=items,skill_levels&group_by=items._pageID&join_on=items._pageID=skill_levels._pageID&fields=items.name,GROUP_CONCAT(skill_levels.level),GROUP_CONCAT(skill_levels.experience)&order_by=level&where=skill_levels.experience%20IS%20NOT%20NULL&format=json&limit=500&offset=" +
-        offset
-    );
-    json = await data.json();
+    json = (
+      await axios.get(
+        "http://localhost:8080/wiki/w/api.php?action=cargoquery&tables=items,skill_levels&group_by=items._pageID&join_on=items._pageID=skill_levels._pageID&fields=items.name,GROUP_CONCAT(skill_levels.level),GROUP_CONCAT(skill_levels.experience)&order_by=level&where=skill_levels.experience%20IS%20NOT%20NULL&format=json&limit=500&offset=" +
+          offset
+      )
+    ).data;
     json?.cargoquery?.forEach(
       ({
         title: { name, "level)": levelData, "experience)": xpData },

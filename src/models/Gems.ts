@@ -1,10 +1,12 @@
-
+import { Variant } from "poe-api-ts/dist/ninja/apis/items/clusterjewels";
 
 export type VaalData = { gem: Gem; chance: number; outcomes: string[] };
-export type GemType = ReturnType<typeof getType>;
+export const gemTypes = ["Anomalous", "Divergent", "Phantasmal", "Awakened", "Superior"] as const;
+export type GemType = typeof gemTypes[number];
 
 export type Gem = {
   baseName: string;
+  variant: string;
   Name: string;
   Level: number;
   Quality: number;
@@ -14,16 +16,19 @@ export type Gem = {
   canVaal?: boolean;
   Price: number;
   Meta: number;
-  XP: number;
+  XP?: number;
   Listings: number;
+  lowConfidence: boolean;
 };
 
 export type GemDetails = Gem & {
+  xpValue: number;
   xpData?: (Gem & {
     xpValue: number;
     gcpCount: number;
     gcpCost: number;
   })[];
+  gcpValue: number;
   gcpData?: (Gem & {
     gcpValue: number;
     gcpCount: number;
@@ -39,6 +44,7 @@ export const exists = (v: any) => v !== undefined;
 export const copy = (
   {
     baseName,
+    variant,
     Name,
     Level,
     Quality,
@@ -50,10 +56,12 @@ export const copy = (
     Meta,
     XP,
     Listings,
+    lowConfidence,
   }: Gem,
   overrides: Partial<Gem> = {}
 ): Gem => ({
   baseName,
+  variant,
   Name,
   Level,
   Quality,
@@ -65,6 +73,7 @@ export const copy = (
   Meta,
   XP,
   Listings,
+  lowConfidence,
   ...overrides,
 });
 export const altQualities = ["Anomalous", "Divergent", "Phantasmal"] as const;
@@ -90,21 +99,11 @@ export const betterOrEqual = (gem: Gem, other: Gem) => {
     (gem.Vaal || !other.Vaal) &&
     (other.Corrupted || !gem.Corrupted) &&
     other.Level <= gem.Level &&
-    other.Quality <= gem.Quality
+    (other.Quality <= gem.Quality || exceptional.find((e) => gem.Name.includes(e)))
   );
 };
-export const bestMatch = (gem: Gem, data: Gem[], minListings: number) =>
-  data.reduce(
-    (l, r) =>
-      l
-        ? r.Price > l.Price && (!r.XP || r.Listings > minListings) && betterOrEqual(gem, r)
-          ? r
-          : l
-        : (!r.XP || r.Listings > minListings) && betterOrEqual(gem, r)
-        ? r
-        : undefined,
-    undefined as Gem | undefined
-  ) || data.reduce((l, r) => (r.Price > l.Price && betterOrEqual(gem, r) ? r : l), gem);
+export const bestMatch = (gem: Gem, data: Gem[], lowConfidence: boolean = false) =>
+  data.find((other) => (lowConfidence || !other.lowConfidence) && betterOrEqual(gem, other)) || gem;
 export const compareGem = (a: Gem, b: Gem) => {
   if (a.baseName !== b.baseName || a.Type !== b.Type) {
     console.debug("mismatched gem comparison", a, b);
@@ -130,7 +129,9 @@ export const vaal = (gem: Gem, chance: number = 1, outcomes: string[] = []) =>
       outcomes: [...outcomes, "No effect"],
     },
     {
-      gem: gem.canVaal ? copy(gem, { Corrupted: true, Vaal: true, Name: "Vaal " + gem.Name }) : gem,
+      gem: gem.canVaal
+        ? copy(gem, { Corrupted: true, Vaal: true, Name: "Vaal " + gem.Name })
+        : copy(gem, { Corrupted: true }),
       chance: chance * 0.25,
       outcomes: [...outcomes, gem.canVaal ? "Vaal" : "Vaal (no outcome)"],
     },

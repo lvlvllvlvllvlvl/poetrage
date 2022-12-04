@@ -3,8 +3,10 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
+  Checkbox,
   Container,
   FormControl,
+  FormControlLabel,
   InputLabel,
   LinearProgress,
   MenuItem,
@@ -20,15 +22,17 @@ import {
 } from "@mui/material";
 import {
   ColumnDef,
+  ColumnFiltersState,
+  FilterFn,
   flexRender,
   getCoreRowModel,
+  getFacetedMinMaxValues,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   SortingState,
   useReactTable,
 } from "@tanstack/react-table";
-import axios from "axios";
 import numeral from "numeral";
 import { PathOfExile, PoENinja } from "poe-api-ts";
 import React, { useEffect, useMemo, useState } from "react";
@@ -36,11 +40,13 @@ import { getBuilds } from "./apis/getBuilds";
 import { getExp } from "./apis/getExp";
 import { getLeagues } from "./apis/getLeagues";
 import "./App.css";
+import Filter from "./components/Filter";
 import { filterOutliers } from "./filterOutliers";
-import { forEach } from "./helpers/forEach";
-import { useAsync } from "./helpers/useAsync";
-import useDebouncedState from "./helpers/useDebouncedState";
+import { forEach } from "./functions/forEach";
+import { useAsync } from "./functions/useAsync";
+import useDebouncedState from "./functions/useDebouncedState";
 import {
+  altQualities,
   bestMatch,
   betterOrEqual,
   compareGem,
@@ -76,26 +82,20 @@ const query: any = {
   sort: { price: "asc" },
 };
 
-const billion = 1000000000;
-const poe = /https:\/\/(www.)?pathofexile.com/;
-const ninja = "https://poe.ninja";
+const million = 1000000;
 
-axios.interceptors.request.use((config) => {
-  if (config.data && Object.keys(config.data).length === 0) delete config.data;
-  if (config.headers) delete config.headers["Content-Type"];
-  config.url = config?.url
-    ?.replace(ninja, "http://localhost:8080/ninja")
-    ?.replace(poe, "http://localhost:8080/poe");
-  return config;
-});
+const includes: FilterFn<GemDetails> = (row, columnId, filterValue: any[]) =>
+  (filterValue?.length || 0) > 0 && filterValue.includes(row.getValue(columnId));
+
 function App() {
   const [showOptions, setShowOptions] = useState(false);
   const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
   const [league, setLeague] = useState("");
-  const [templePriceDisplay, templePrice, setTemplePrice] = useDebouncedState(0);
-  const [incQualDisplay, incQual, setIncQual] = useDebouncedState(30);
-  const [minMetaDisplay, minMeta, setMinMeta] = useDebouncedState(1);
-  const [minListingsDisplay, minListings, setMinListings] = useDebouncedState(10);
+  const templePrice = useDebouncedState(0);
+  const incQual = useDebouncedState(30);
+  const fiveWay = useDebouncedState(60);
+  const [lowConfidence, setLowConfidence] = useState(false);
   const [progress, setProgress] = useState(0);
   const [progressMsg, setProgressMsg] = useState("");
   const leagues = useAsync(getLeagues);
@@ -108,10 +108,10 @@ function App() {
   );
   const temples = useAsync(league ? PathOfExile.PublicAPI.Trade.search : undefined, league, query);
   const builds = useAsync(league ? getBuilds : undefined, league);
-  // temples.value is changed by this call; can't include it in the dependencies
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const fetchPage = useMemo(
     () => (temples.done ? temples.value.getNextItems.bind(temples.value) : undefined),
+    // temples.value is changed by this call; can't include it in the dependencies
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [temples.done]
   );
   const templePage = useAsync(fetchPage, 10);
@@ -165,22 +165,35 @@ function App() {
     (async () => {
       const vaalGems: { [key: string]: boolean } = {};
       let result = gems.value.entries.map(
-        ({ name, chaosValue, gemLevel, gemQuality, corrupted, listingCount }) => {
+        ({
+          name,
+          variant,
+          chaosValue,
+          gemLevel,
+          gemQuality,
+          corrupted,
+          listingCount,
+          sparkline,
+        }) => {
           const baseName = modifiers.reduce((name, mod) => name.replace(mod, ""), name);
           const Vaal = name.includes("Vaal");
+          const Type = getType(name);
           vaalGems[baseName] = vaalGems[baseName] || Vaal;
           return {
             Name: name,
             baseName,
+            variant,
             Level: gemLevel,
-            XP: xp.value[baseName]?.[gemLevel] || -1,
+            XP: xp.value[Type === "Awakened" ? name : baseName]?.[gemLevel],
             Quality: gemQuality || 0,
             Corrupted: corrupted || false,
             Vaal,
-            Type: getType(name),
+            Type,
             Price: Math.round(chaosValue || 0),
             Meta: gemMeta[name] || 0,
             Listings: listingCount,
+            lowConfidence:
+              !sparkline?.data?.length || sparkline.data[sparkline.data.length - 1] === null,
           } as GemDetails;
         }
       );
@@ -205,13 +218,15 @@ function App() {
       await new Promise((resolve) => (timeout = setTimeout(resolve, 1)));
       let timeSlice = Date.now() + 200;
 
+      const oneGcp = currencyMap["Gemcutter's Prism"] || 1;
+
       await forEach(result, async (gem, i) => {
         if (i % 1000 === 0) {
           if (cancel) return;
           const p = (100 * i) / result.length;
           setProgress(p);
           if (Date.now() > timeSlice) {
-            console.debug("yielding to ui thread", Date.now() - timeSlice);
+            console.debug("yielding to ui", Date.now() - timeSlice);
             await new Promise((resolve) => (timeout = setTimeout(resolve, 1)));
             console.debug("resumed processing", Date.now() - timeSlice);
             timeSlice = Date.now() + 200;
@@ -219,25 +234,24 @@ function App() {
         }
 
         //GCP
-        if (!gem.Corrupted && gem.Quality) {
+        if (!gem.Corrupted) {
           gem.gcpData = result
             .filter(
               (other) =>
+                (lowConfidence || !other.lowConfidence) &&
                 other.Name === gem.Name &&
                 !other.Corrupted &&
                 other.Level === gem.Level &&
-                other.Quality < gem.Quality &&
-                other.Price < gem.Price
+                other.Quality < gem.Quality
             )
             .map((other) => {
               const gcpCount = gem.Quality > other.Quality ? gem.Quality - other.Quality : 0;
-              if (gcpCount && gem.Corrupted) return undefined as any;
-              const gcpCost = gcpCount * (currencyMap["Gemcutter's Prism"] || 1);
+              const gcpCost = gcpCount * oneGcp;
               const gcpValue = gem.Price - (other.Price + gcpCost);
-              return gcpValue > 0 ? { ...other, gcpCount, gcpCost, gcpValue } : (undefined as any);
+              return { ...other, gcpCount, gcpCost, gcpValue };
             })
-            .filter(exists)
             .sort((a, b) => b.gcpValue - a.gcpValue);
+          gem.gcpValue = gem.gcpData[0]?.gcpValue || 0;
         }
       });
 
@@ -247,15 +261,13 @@ function App() {
       await new Promise((resolve) => (timeout = setTimeout(resolve, 1)));
       timeSlice = Date.now() + 200;
 
-      const oneGcp = currencyMap["Gemcutter's Prism"] || 1;
-
       await forEach(result, async (gem, i) => {
         if (i % 1000 === 0) {
           if (cancel) return;
           const p = (100 * i) / result.length;
           setProgress(p);
           if (Date.now() > timeSlice) {
-            console.debug("yielding to ui thread", Date.now() - timeSlice);
+            console.debug("yielding to ui", Date.now() - timeSlice);
             await new Promise((resolve) => (timeout = setTimeout(resolve, 1)));
             console.debug("resumed processing", Date.now() - timeSlice);
             timeSlice = Date.now() + 200;
@@ -263,29 +275,26 @@ function App() {
         }
 
         //XP
-        if (gem.XP && gem.XP > 0) {
+        if (gem.XP) {
           const qualityMultiplier =
-            gem.Type === "Superior" && exceptional.find((e) => gem.Name.includes(e))
-              ? 1 + (gem.Quality + incQual) * 0.05
+            !altQualities.includes(gem.Type as any) && exceptional.find((e) => gem.Name.includes(e))
+              ? 1 + (gem.Quality + incQual.debounced) * 0.05
               : 1;
-          gem.xpData = result
+          gem.xpData = gemMap[gem.baseName][gem.Type]
             .filter(
               (other) =>
-                other.Name === gem.Name &&
+                (lowConfidence || !other.lowConfidence) &&
                 other.Corrupted === gem.Corrupted &&
-                gem.XP &&
                 other.XP !== undefined &&
-                other.XP !== -1 &&
-                other.XP < gem.XP
+                other.XP < (gem.XP || 0)
             )
             .map((other) => {
               const gcpCount = gem.Quality > other.Quality ? gem.Quality - other.Quality : 0;
               if (gcpCount && gem.Corrupted) return undefined as any;
               const gcpCost = gcpCount * oneGcp;
-              if (other.Price + gcpCost > gem.Price) return undefined as any;
               const xpValue = Math.round(
                 ((gem.Price - (other.Price + gcpCost)) * qualityMultiplier) /
-                  (((gem.XP || 0) - (other.XP || 0)) / billion)
+                  (((gem.XP || 0) - (other.XP || 0)) / million)
               );
               return { ...other, gcpCount, gcpCost, xpValue };
             })
@@ -301,12 +310,13 @@ function App() {
                     gcpCost: currencyMap["Gemcutter's Prism"] || 1,
                     xpValue: Math.round(
                       (gem.Price - (other.Price + oneGcp)) /
-                        ((gem.XP + xp.value[gem.baseName][20] - other.XP) / billion)
+                        (((gem.XP || 0) + xp.value[gem.baseName][20] - (other.XP || 0)) / million)
                     ),
                   }))
                 : []
             )
             .sort((a, b) => b.xpValue - a.xpValue);
+          gem.xpValue = gem.xpData[0]?.xpValue || 0;
         }
       });
 
@@ -322,7 +332,7 @@ function App() {
           const p = (100 * i) / result.length;
           setProgress(p);
           if (Date.now() > timeSlice) {
-            console.debug("yielding to ui thread", Date.now() - timeSlice);
+            console.debug("yielding to ui", Date.now() - timeSlice);
             await new Promise((resolve) => (timeout = setTimeout(resolve, 1)));
             console.debug("resumed processing", Date.now() - timeSlice);
             timeSlice = Date.now() + 200;
@@ -336,7 +346,7 @@ function App() {
             gem: bestMatch(
               copy(v.gem, { Price: 0, Listings: 0 }),
               gemMap[v.gem.baseName][v.gem.Type],
-              minListings
+              lowConfidence
             ),
           }));
           gem.vaalValue =
@@ -382,14 +392,14 @@ function App() {
       await new Promise((resolve) => (timeout = setTimeout(resolve, 1)));
       timeSlice = Date.now() + 200;
 
-      if (templePrice || averageTemple) {
+      if (templePrice.debounced || averageTemple) {
         await forEach(result, async (gem, i) => {
           if (i % 100 === 0) {
             if (cancel) return;
             const p = (100 * i) / result.length;
             setProgress(p);
             if (Date.now() > timeSlice) {
-              console.debug("yielding to ui thread", Date.now() - timeSlice);
+              console.debug("yielding to ui", Date.now() - timeSlice);
               await new Promise((resolve) => (timeout = setTimeout(resolve, 1)));
               console.debug("resumed processing", Date.now() - timeSlice);
               timeSlice = Date.now() + 200;
@@ -408,7 +418,7 @@ function App() {
                 gem: bestMatch(
                   copy(v.gem, { Price: 0, Listings: 0 }),
                   gemMap[v.gem.baseName][v.gem.Type],
-                  minListings
+                  lowConfidence
                 ),
               }))
               .sort((a, b) => compareGem(a.gem, b.gem));
@@ -454,7 +464,7 @@ function App() {
                 0
               ) || 0) -
               gem.Price -
-              (templePrice || averageTemple || 100);
+              (templePrice.debounced || averageTemple || 100);
           } else {
             gem.templeValue = 0;
           }
@@ -479,33 +489,40 @@ function App() {
     currency.done,
     builds.done,
     currencyMap,
-    incQual,
-    minListings,
+    incQual.debounced,
+    lowConfidence,
     averageTemple,
-    templePrice,
+    templePrice.debounced,
   ]);
 
   const columns: ColumnDef<GemDetails, GemDetails[keyof GemDetails]>[] = useMemo(
     () => [
-      { accessorKey: "Name" },
+      { accessorKey: "Name", filterFn: "includesString" },
       {
-        accessorKey: "Corrupted",
+        accessorKey: "lowConfidence",
+        header: "Low confidence",
+        filterFn: "equals",
         cell: (info) => (info.getValue() ? "✓" : "✗"),
       },
-      { accessorKey: "Level" },
-      { accessorKey: "Quality" },
+      {
+        accessorKey: "Corrupted",
+        filterFn: "equals",
+        cell: (info) => (info.getValue() ? "✓" : "✗"),
+      },
+      { accessorKey: "Level", filterFn: "inNumberRange" },
+      { accessorKey: "Quality", filterFn: "inNumberRange" },
       {
         accessorKey: "XP",
+        filterFn: "inNumberRange",
         cell: (info) =>
           info.getValue() === undefined
-            ? "Loading..."
-            : info.getValue() === -1
             ? "n/a"
             : numeral((info.getValue() as number).toPrecision(3)).format("0[.][00]a"),
       },
       {
-        accessorKey: "xpData",
+        accessorKey: "xpValue",
         header: "XP value",
+        filterFn: "inNumberRange",
         sortingFn: (a, b) =>
           (a.original.xpData?.[0]?.xpValue || 0) - (b.original.xpData?.[0]?.xpValue || 0),
         cell: ({
@@ -520,18 +537,21 @@ function App() {
               title={xpData
                 ?.map(
                   ({ xpValue, Level, Quality, Price, gcpCount }, i) =>
-                    `${xpValue}c/billion from ${Level}/${Quality} (${Price}c${
+                    `${Math.round(
+                      xpValue * fiveWay.debounced
+                    )}c/5-way from ${Level}/${Quality} (${Price}c${
                       gcpCount > 0 ? `+${gcpCount}gcp` : ""
                     })`
                 )
                 .join("\n")}>
-              {xpData[0].xpValue}c/billion
+              {Math.round(xpData[0].xpValue * fiveWay.debounced)}c/5-way
             </p>
           ),
       },
       {
-        accessorKey: "gcpData",
+        accessorKey: "gcpValue",
         header: "GCP value",
+        filterFn: "inNumberRange",
         sortingFn: (a, b) =>
           (a.original.gcpData?.[0]?.gcpValue || 0) - (b.original.gcpData?.[0]?.gcpValue || 0),
         cell: ({
@@ -558,6 +578,7 @@ function App() {
       {
         accessorKey: "vaalValue",
         header: "Vaal value",
+        filterFn: "inNumberRange",
         cell: ({
           row: {
             original: { vaalValue, vaalData },
@@ -587,6 +608,7 @@ function App() {
       {
         accessorKey: "templeValue",
         header: "Temple corrupt value",
+        filterFn: "inNumberRange",
         cell: ({
           row: {
             original: { templeValue, templeData },
@@ -608,10 +630,11 @@ function App() {
             "n/a"
           ),
       },
-      { accessorKey: "Type" },
-      { accessorKey: "Price", cell: (info) => info.getValue() + "c" },
+      { accessorKey: "Type", filterFn: "includes" as any },
+      { accessorKey: "Price", filterFn: "inNumberRange", cell: (info) => info.getValue() + "c" },
       {
         accessorKey: "Meta",
+        filterFn: "inNumberRange",
         cell: ({
           row: {
             original: { Meta, Name: Gem },
@@ -630,6 +653,7 @@ function App() {
       },
       {
         accessorKey: "Listings",
+
         cell: ({
           row: {
             original: { Listings, Name: Gem },
@@ -644,20 +668,24 @@ function App() {
         ),
       },
     ],
-    [leagueUrl]
+    [leagueUrl, fiveWay.debounced]
   );
 
   const table = useReactTable({
     data,
     columns,
+    filterFns: { includes },
     state: {
       sorting,
+      columnFilters,
     },
+    onColumnFiltersChange: setColumnFilters,
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getFacetedMinMaxValues: getFacetedMinMaxValues(),
   });
   if (table.getState().pagination.pageSize !== 100) {
     table.setPageSize(100);
@@ -684,7 +712,7 @@ function App() {
               <InputLabel>League</InputLabel>
               <Select
                 value={league}
-                label="League"
+                label="league"
                 onChange={({ target }) => setLeague(target.value)}>
                 {leagues.pending && !league && (
                   <MenuItem value="" disabled>
@@ -712,11 +740,11 @@ function App() {
                   type="number"
                   fullWidth
                   margin="normal"
-                  label="Override temple price"
+                  label="override temple price"
                   variant="outlined"
-                  value={templePriceDisplay || ""}
+                  value={templePrice.value || ""}
                   onChange={({ target }) =>
-                    setTemplePrice(target.value ? parseInt(target.value) : 0)
+                    templePrice.set(target.value ? parseInt(target.value) : 0)
                   }
                 />
                 <p>
@@ -730,44 +758,42 @@ function App() {
                     rel="noreferrer">
                     {temples.done && templePage.done
                       ? templePage.value?.length
-                        ? `Estimated Doryani's Institute price: ${averageTemple} chaos`
-                        : "No Doryani's Institute online"
+                        ? `estimated Doryani's Institute price: ${averageTemple} chaos`
+                        : "eo Doryani's Institute online"
                       : temples.error && templePage.error
-                      ? "Error getting temple prices"
-                      : "Checking temple prices..."}
+                      ? "error getting temple prices"
+                      : "checking temple prices..."}
                   </a>
                 </p>
 
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={lowConfidence}
+                      onChange={(_, checked) => setLowConfidence(checked)}
+                    />
+                  }
+                  label="include low confidence values"
+                />
                 <TextField
                   type="number"
                   fullWidth
                   margin="normal"
-                  label="Gem quality bonus"
+                  label="gem quality bonus"
                   variant="outlined"
-                  value={incQualDisplay}
-                  onChange={({ target }) => setIncQual(target.value ? parseInt(target.value) : 0)}
-                  helperText="Dialla's/Replica Voideye: 30, Cane of Kulemak 8-15, veiled: 9-10, crafted: 7-8"
+                  value={incQual.value}
+                  onChange={({ target }) => incQual.set(target.value ? parseInt(target.value) : 0)}
+                  helperText="Disfavour/Dialla/Replica Voideye: 30, Cane of Kulemak 8-15, veiled: 9-10, crafted: 7-8"
                 />
 
                 <TextField
                   type="number"
                   fullWidth
                   margin="normal"
-                  label="Meta %"
+                  label="million XP per 5-way"
                   variant="outlined"
-                  value={minMetaDisplay}
-                  onChange={({ target }) => setMinMeta(target.value ? parseInt(target.value) : 0)}
-                />
-                <TextField
-                  type="number"
-                  fullWidth
-                  margin="normal"
-                  label="Listing count"
-                  variant="outlined"
-                  value={minListingsDisplay}
-                  onChange={({ target }) =>
-                    setMinListings(target.value ? parseInt(target.value) : 0)
-                  }
+                  value={fiveWay.value}
+                  onChange={({ target }) => fiveWay.set(target.value ? parseInt(target.value) : 0)}
                 />
               </>
             )}
@@ -793,19 +819,31 @@ function App() {
                 <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map((header) => {
                     return (
-                      <TableCell key={header.id} colSpan={header.colSpan}>
+                      <TableCell key={header.id} colSpan={header.colSpan} sx={{ height: 0 }}>
                         {header.isPlaceholder ? null : (
-                          <div
-                            {...{
-                              style: header.column.getCanSort()
-                                ? { cursor: "pointer", userSelect: "none" }
-                                : {},
-                              onClick: header.column.getToggleSortingHandler(),
+                          <Box
+                            sx={{
+                              flex: "1",
+                              height: "100%",
+                              display: "flex",
+                              flexDirection: "column",
+                              justifyContent: "space-between",
                             }}>
-                            {flexRender(header.column.columnDef.header, header.getContext())}
-                            {{ asc: " ▲", desc: " ▼" }[header.column.getIsSorted() as string] ??
-                              null}
-                          </div>
+                            <Box
+                              {...{
+                                style: header.column.getCanSort()
+                                  ? { cursor: "pointer", userSelect: "none", verticalAlign: "top" }
+                                  : { verticalAlign: "top" },
+                                onClick: header.column.getToggleSortingHandler(),
+                              }}>
+                              {flexRender(header.column.columnDef.header, header.getContext())}
+                              {{ asc: " ▲", desc: " ▼" }[header.column.getIsSorted() as string] ??
+                                null}
+                            </Box>
+                            {header.column.getCanFilter() ? (
+                              <Filter column={header.column as any} />
+                            ) : null}
+                          </Box>
                         )}
                       </TableCell>
                     );

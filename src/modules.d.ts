@@ -1,1 +1,1 @@
-declare module "friendly-numbers";
+declare module "localforage-memoryStorageDriver";

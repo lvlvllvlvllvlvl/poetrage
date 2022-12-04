@@ -9,7 +9,6 @@ http
   .createServer(function (req, res) {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Headers", "*");
-    res.setHeader("cache-control", "max-age=3600");
 
     if (req.method !== "OPTIONS") {
       req
@@ -21,11 +20,6 @@ http
               .replace(poe, "https://www.pathofexile.com")
           )
         )
-        .on("response", (res) => {
-          res.headers["cache-control"] = "max-age=3600";
-          delete res.headers.age;
-          delete res.headers.date;
-        })
         .pipe(res);
     } else {
       res.end();
