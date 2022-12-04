@@ -141,6 +141,9 @@ type Gem = {
   Meta: number;
   XP: number;
   Listings: number;
+};
+
+type GemDetails = Gem & {
   xpData?: (Gem & {
     xpValue: number;
     gcpCount: number;
@@ -155,10 +158,40 @@ type Gem = {
   vaalData?: VaalData[];
   templeValue?: number;
   templeData?: VaalData[];
-  templeSummary?: VaalData[];
 };
 
 const exists = (v: any) => v !== undefined;
+const copy = (
+  {
+    baseName,
+    Name,
+    Level,
+    Quality,
+    Type,
+    Corrupted,
+    Vaal,
+    canVaal,
+    Price,
+    Meta,
+    XP,
+    Listings,
+  }: Gem,
+  overrides: Partial<Gem> = {}
+): Gem => ({
+  baseName,
+  Name,
+  Level,
+  Quality,
+  Type,
+  Corrupted,
+  Vaal,
+  canVaal,
+  Price,
+  Meta,
+  XP,
+  Listings,
+  ...overrides,
+});
 async function forEach<T>(array: T[], callbackfn: (value: T, index: number, array: T[]) => void) {
   for (let i = 0; i < array.length; i++) {
     await callbackfn(array[i], i, array);
@@ -222,40 +255,38 @@ const compareGem = (a: Gem, b: Gem) => {
 const vaal = (gem: Gem, chance: number = 1, outcomes: string[] = []) =>
   [
     {
-      gem: { ...gem, Corrupted: true },
+      gem: copy(gem, { Corrupted: true }),
       chance: chance * 0.25,
       outcomes: [...outcomes, "No effect"],
     },
     {
-      gem: gem.canVaal ? { ...gem, Corrupted: true, Vaal: true, Name: "Vaal " + gem.Name } : gem,
+      gem: gem.canVaal ? copy(gem, { Corrupted: true, Vaal: true, Name: "Vaal " + gem.Name }) : gem,
       chance: chance * 0.25,
       outcomes: [...outcomes, gem.canVaal ? "Vaal" : "Vaal (no outcome)"],
     },
     {
-      gem: { ...gem, Corrupted: true, Level: gem.Level + 1 },
+      gem: copy(gem, { Corrupted: true, Level: gem.Level + 1 }),
       chance: chance * 0.125,
       outcomes: [...outcomes, "Add level"],
     },
     {
-      gem: { ...gem, Corrupted: true, Level: gem.Level - 1 },
+      gem: copy(gem, { Corrupted: true, Level: gem.Level - 1 }),
       chance: chance * 0.125,
       outcomes: [...outcomes, "Remove level"],
     },
     ...Array.from(Array(20).keys()).map((i) => ({
-      gem: {
-        ...gem,
+      gem: copy(gem, {
         Corrupted: true,
         Quality: Math.min(gem.Quality + 20 - i, 23),
-      },
+      }),
       chance: (chance * 0.125) / 20,
       outcomes: [...outcomes, "Add quality"],
     })),
     ...Array.from(Array(20).keys()).map((i) => ({
-      gem: {
-        ...gem,
+      gem: copy(gem, {
         Corrupted: true,
         Quality: Math.max(gem.Quality - i - 1, 0),
-      },
+      }),
       chance: (chance * 0.125) / 20,
       outcomes: [...outcomes, "Remove quality"],
     })),
@@ -265,6 +296,7 @@ const vaal = (gem: Gem, chance: number = 1, outcomes: string[] = []) =>
 
 const billion = 1000000000;
 function App() {
+  const [showOptions, setShowOptions] = useState(false);
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [league, setLeague] = useState("");
   const [templePriceDisplay, templePrice, setTemplePrice] = useDebouncedState(0);
@@ -294,7 +326,7 @@ function App() {
     () => leagues.done && leagues.value.economyLeagues.find(({ name }) => name === league)?.url,
     [league, leagues]
   );
-  const [data, setData] = useState([] as Gem[]);
+  const [data, setData] = useState([] as GemDetails[]);
 
   const gemMeta: { [key: string]: number } = useMemo(() => {
     if (!builds.done) {
@@ -356,7 +388,7 @@ function App() {
             Price: Math.round(chaosValue || 0),
             Meta: gemMeta[name] || 0,
             Listings: listingCount,
-          } as Gem;
+          } as GemDetails;
         }
       );
 
@@ -509,7 +541,7 @@ function App() {
           const vaalData = vaal(gem).map((v) => ({
             ...v,
             gem: bestMatch(
-              { ...v.gem, Price: 0, Listings: 0 },
+              copy(v.gem, { Price: 0, Listings: 0 }),
               gemMap[v.gem.baseName][v.gem.Type],
               minListings
             ),
@@ -533,10 +565,9 @@ function App() {
               merged.outcomes[0] === next.outcomes[0]
             ) {
               merged.chance += next.chance;
-              merged.gem = {
-                ...merged.gem,
+              merged.gem = copy(merged.gem, {
                 Quality: Math.min(merged.gem.Quality, next.gem.Quality),
-              };
+              });
             } else {
               gem.vaalData?.push(merged);
               merged = { ...next };
@@ -575,23 +606,23 @@ function App() {
           // Temple corruption
           if (!gem.Corrupted) {
             let templeData: VaalData[] = [];
-            vaal({ ...gem, Price: 0, Listings: 0 }).forEach(({ gem, chance, outcomes }) => {
+            vaal(copy(gem, { Price: 0, Listings: 0 })).forEach(({ gem, chance, outcomes }) => {
               templeData = templeData.concat(vaal(gem, chance, outcomes));
             });
-            gem.templeData = templeData
+            templeData = templeData
               .map((v) => ({
                 ...v,
                 gem: bestMatch(
-                  { ...v.gem, Price: 0, Listings: 0 },
+                  copy(v.gem, { Price: 0, Listings: 0 }),
                   gemMap[v.gem.baseName][v.gem.Type],
                   minListings
                 ),
               }))
               .sort((a, b) => compareGem(a.gem, b.gem));
-            gem.templeSummary = [];
+            gem.templeData = [];
             let merged: VaalData | null = null;
             let sumChance = 0;
-            gem.templeData.forEach((next) => {
+            templeData.forEach((next) => {
               sumChance += next.chance;
               if (merged === null) {
                 merged = { ...next };
@@ -612,16 +643,15 @@ function App() {
                 )
               ) {
                 merged.chance += next.chance;
-                merged.gem = {
-                  ...merged.gem,
+                merged.gem = copy(merged.gem, {
                   Quality: Math.min(merged.gem.Quality, next.gem.Quality),
-                };
+                });
               } else {
-                gem.templeSummary?.push(merged);
+                gem.templeData?.push(merged);
                 merged = { ...next };
               }
             });
-            merged && gem.templeSummary?.push(merged);
+            merged && gem.templeData?.push(merged);
             if (sumChance < 0.99 || sumChance > 1.01) {
               console.debug("Incorrect temple outcome chance", sumChance, gem.templeData);
             }
@@ -662,7 +692,7 @@ function App() {
     templePrice,
   ]);
 
-  const columns: ColumnDef<Gem, Gem[keyof Gem]>[] = useMemo(
+  const columns: ColumnDef<GemDetails, GemDetails[keyof GemDetails]>[] = useMemo(
     () => [
       { accessorKey: "Name" },
       {
@@ -766,12 +796,12 @@ function App() {
         header: "Temple corrupt value",
         cell: ({
           row: {
-            original: { templeValue, templeSummary },
+            original: { templeValue, templeData },
           },
         }) =>
           templeValue ? (
             <p
-              title={templeSummary
+              title={templeData
                 ?.map(
                   ({ gem, chance }) =>
                     `${numeral(chance * 100).format("0[.][00]")} %: ${gem.Level} / ${gem.Quality} ${
@@ -852,75 +882,80 @@ function App() {
           poetrage
         </Typography>
 
-        <FormControl fullWidth margin="normal">
-          <InputLabel>League</InputLabel>
-          <Select value={league} label="League" onChange={({ target }) => setLeague(target.value)}>
-            {leagues.pending && !league && (
-              <MenuItem value="" disabled>
-                Loading leagues...
-              </MenuItem>
-            )}
-            {!leagues.pending && !league && (
-              <MenuItem value="" disabled>
-                Select a league
-              </MenuItem>
-            )}
-            {leagues.done &&
-              leagues.value.economyLeagues.map(({ name }) => (
-                <MenuItem key={name} value={name}>
-                  {name}
-                </MenuItem>
-              ))}
-          </Select>
-        </FormControl>
-        {leagues.fail && String(leagues.error)}
+        <Accordion expanded={!league || showOptions} onChange={(_, show) => setShowOptions(show)}>
+          <AccordionSummary style={{ display: league ? undefined : "none" }}>
+            <Typography>...</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <FormControl fullWidth margin="normal">
+              <InputLabel>League</InputLabel>
+              <Select
+                value={league}
+                label="League"
+                onChange={({ target }) => setLeague(target.value)}>
+                {leagues.pending && !league && (
+                  <MenuItem value="" disabled>
+                    Loading leagues...
+                  </MenuItem>
+                )}
+                {!leagues.pending && !league && (
+                  <MenuItem value="" disabled>
+                    Select a league
+                  </MenuItem>
+                )}
+                {leagues.done &&
+                  leagues.value.economyLeagues.map(({ name }) => (
+                    <MenuItem key={name} value={name}>
+                      {name}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </FormControl>
+            {leagues.fail && String(leagues.error)}
 
-        {!league ? undefined : (
-          <>
-            <TextField
-              type="number"
-              fullWidth
-              margin="normal"
-              label="Override temple price"
-              variant="outlined"
-              value={templePriceDisplay || ""}
-              onChange={({ target }) => setTemplePrice(target.value ? parseInt(target.value) : 0)}
-            />
-            <p>
-              <a
-                href={
-                  temples.done
-                    ? `https://www.pathofexile.com/trade/search/${league}/${temples.value.id}`
-                    : undefined
-                }
-                target="_blank"
-                rel="noreferrer">
-                {temples.done && templePage.done
-                  ? templePage.value?.length
-                    ? `Estimated Doryani's Institute price: ${averageTemple} chaos`
-                    : "No Doryani's Institute online"
-                  : temples.error && templePage.error
-                  ? "Error getting temple prices"
-                  : "Checking temple prices..."}
-              </a>
-            </p>
+            {!league ? undefined : (
+              <>
+                <TextField
+                  type="number"
+                  fullWidth
+                  margin="normal"
+                  label="Override temple price"
+                  variant="outlined"
+                  value={templePriceDisplay || ""}
+                  onChange={({ target }) =>
+                    setTemplePrice(target.value ? parseInt(target.value) : 0)
+                  }
+                />
+                <p>
+                  <a
+                    href={
+                      temples.done
+                        ? `https://www.pathofexile.com/trade/search/${league}/${temples.value.id}`
+                        : undefined
+                    }
+                    target="_blank"
+                    rel="noreferrer">
+                    {temples.done && templePage.done
+                      ? templePage.value?.length
+                        ? `Estimated Doryani's Institute price: ${averageTemple} chaos`
+                        : "No Doryani's Institute online"
+                      : temples.error && templePage.error
+                      ? "Error getting temple prices"
+                      : "Checking temple prices..."}
+                  </a>
+                </p>
 
-            <TextField
-              type="number"
-              fullWidth
-              margin="normal"
-              label="Gem quality bonus"
-              variant="outlined"
-              value={incQualDisplay}
-              onChange={({ target }) => setIncQual(target.value ? parseInt(target.value) : 0)}
-              helperText="Dialla's/Replica Voideye: 30, Cane of Kulemak 8-15, veiled: 9-10, crafted: 7-8"
-            />
+                <TextField
+                  type="number"
+                  fullWidth
+                  margin="normal"
+                  label="Gem quality bonus"
+                  variant="outlined"
+                  value={incQualDisplay}
+                  onChange={({ target }) => setIncQual(target.value ? parseInt(target.value) : 0)}
+                  helperText="Dialla's/Replica Voideye: 30, Cane of Kulemak 8-15, veiled: 9-10, crafted: 7-8"
+                />
 
-            <Accordion>
-              <AccordionSummary>
-                <Typography>Filters</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
                 <TextField
                   type="number"
                   fullWidth
@@ -941,9 +976,13 @@ function App() {
                     setMinListings(target.value ? parseInt(target.value) : 0)
                   }
                 />
-              </AccordionDetails>
-            </Accordion>
+              </>
+            )}
+          </AccordionDetails>
+        </Accordion>
 
+        {!league ? undefined : (
+          <>
             {gems.pending || currency.pending || builds.pending || xp.pending ? (
               <p>Fetching data...</p>
             ) : (
