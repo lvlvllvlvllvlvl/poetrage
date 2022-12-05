@@ -19,30 +19,34 @@ const minDefault: any = { Meta: 1, Listings: 20 };
 
 const Filter = <T extends {}>({ column }: { column: Column<T, T[keyof T]> }) => {
   const key = column.id as Key;
-  const isRange = column.getCanFilter() && minCols.includes(key);
-  const isMax = isRange && maxCols.includes(key);
-  const isBool = column.getCanFilter() && booleanCols.includes(key);
-  const isText = column.getCanFilter() && key === "Name";
-  const isType = column.getCanFilter() && key === "Type";
+  const isRange = minCols.includes(key);
+  const isMax = maxCols.includes(key);
+  const isBool = booleanCols.includes(key);
+  const isText = key === "Name";
+  const isType = key === "Type";
+  const canFilter = column.getCanFilter();
 
   const min = useDebouncedState<number | undefined>(minDefault[key] || undefined);
   const max = useDebouncedState<number | undefined>(undefined);
   const text = useDebouncedState("");
-  const [bool, setBool] = useState<boolean | undefined>(undefined);
+  const [bool, setBool] = useState<boolean | undefined>(
+    key === "lowConfidence" ? false : undefined
+  );
   const [types, setTypes] = useState<string[]>([...gemTypes]);
 
   useEffect(() => {
-    isRange && column.setFilterValue(() => [min.debounced, max.debounced]);
-  }, [min.debounced, max.debounced, column, isRange]);
+    isRange &&
+      column.setFilterValue(() => (!canFilter ? undefined : [min.debounced, max.debounced]));
+  }, [canFilter, min.debounced, max.debounced, column, isRange]);
   useEffect(() => {
-    isBool && column.setFilterValue(() => bool);
-  }, [bool, column, isBool]);
+    isBool && column.setFilterValue(() => (!canFilter ? undefined : bool));
+  }, [canFilter, bool, column, isBool]);
   useEffect(() => {
-    isText && column.setFilterValue(() => text.debounced || undefined);
-  }, [text.debounced, column, isText]);
+    isText && column.setFilterValue(() => (!canFilter ? undefined : text.debounced || undefined));
+  }, [canFilter, text.debounced, column, isText]);
   useEffect(() => {
-    isType && column.setFilterValue(() => types);
-  }, [types, column, isType]);
+    isType && column.setFilterValue(() => (!canFilter ? undefined : types));
+  }, [canFilter, types, column, isType]);
 
   if (isRange) {
     return (

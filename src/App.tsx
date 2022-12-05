@@ -2,6 +2,7 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Alert,
   Box,
   Checkbox,
   Container,
@@ -79,9 +80,12 @@ function App() {
   const [lowConfidence, setLowConfidence] = useState(false);
   const [progress, setProgress] = useState(0);
   const [progressMsg, setProgressMsg] = useState("");
+
   const leagues = useAsync(getLeagues);
+  const { url: leagueUrl, indexed: leagueIndexed } =
+    (leagues.done && leagues.value.economyLeagues.find(({ name }) => name === league)) || {};
   const xp = useAsync(getExp);
-  const meta = useAsync(league ? getMeta : undefined, league);
+  const meta = useAsync(leagueIndexed ? getMeta : undefined, league);
   const gems = useAsync(league ? getGemOverview : undefined, league);
   const currencyMap = useAsync(league ? getCurrencyMap : undefined, league);
   const templeAverage = useAsync(
@@ -89,12 +93,10 @@ function App() {
     league,
     currencyMap.done ? currencyMap.value : basicCurrency
   );
-  const leagueUrl =
-    leagues.done && leagues.value.economyLeagues.find(({ name }) => name === league)?.url;
   const [data, setData] = useState([] as GemDetails[]);
 
   useEffect(() => {
-    if (!gems.done || !currencyMap.done || !meta.done || !xp.done) {
+    if (!gems.done || !currencyMap.done || (leagueIndexed && !meta.done) || !xp.done) {
       return;
     }
     let cancel = false;
@@ -130,7 +132,7 @@ function App() {
             Vaal,
             Type,
             Price: Math.round(chaosValue || 0),
-            Meta: meta.value[name] || 0,
+            Meta: (meta.done && meta.value[name]) || 0,
             Listings: listingCount,
             lowConfidence:
               !sparkline?.data?.length || sparkline.data[sparkline.data.length - 1] === null,
@@ -574,6 +576,7 @@ function App() {
       {
         accessorKey: "Meta",
         filterFn: "inNumberRange",
+        enableColumnFilter: !!leagueIndexed,
         cell: ({
           row: {
             original: { Meta, Name: Gem },
@@ -592,7 +595,7 @@ function App() {
       },
       {
         accessorKey: "Listings",
-
+        filterFn: "inNumberRange",
         cell: ({
           row: {
             original: { Listings, Name: Gem },
@@ -617,6 +620,7 @@ function App() {
     state: {
       sorting,
       columnFilters,
+      columnVisibility: { Meta: !!leagueIndexed },
     },
     onColumnFiltersChange: setColumnFilters,
     onSortingChange: setSorting,
@@ -626,9 +630,6 @@ function App() {
     getPaginationRowModel: getPaginationRowModel(),
     getFacetedMinMaxValues: getFacetedMinMaxValues(),
   });
-  if (table.getState().pagination.pageSize !== 100) {
-    table.setPageSize(100);
-  }
 
   return (
     <Box
@@ -638,13 +639,11 @@ function App() {
         minHeight: "100vh",
       }}>
       <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="sm">
-        <Typography component="h1" variant="h5" gutterBottom>
-          poetrage
-        </Typography>
-
         <Accordion expanded={!league || showOptions} onChange={(_, show) => setShowOptions(show)}>
-          <AccordionSummary style={{ display: league ? undefined : "none" }}>
-            <Typography>...</Typography>
+          <AccordionSummary>
+            <Typography component="h1" variant="h5" gutterBottom>
+              poetrage
+            </Typography>
           </AccordionSummary>
           <AccordionDetails>
             <FormControl fullWidth margin="normal">
@@ -750,7 +749,13 @@ function App() {
           </>
         )}
       </Container>
-      {gems.done && currencyMap.done && meta.done && (
+      {gems.error && <Alert severity="error">Error getting gem prices: {gems.error}</Alert>}
+      {currencyMap.error && (
+        <Alert severity="error">Error getting currency values: {currencyMap.error}</Alert>
+      )}
+      {meta.error && <Alert severity="error">Error getting metagame: {meta.error}</Alert>}
+      {xp.error && <Alert severity="error">Error getting gem xp data: {xp.error}</Alert>}
+      {gems.done && currencyMap.done && (
         <>
           <Table>
             <TableHead>
