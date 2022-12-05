@@ -2,23 +2,34 @@ import { Box, Checkbox, FormControl, MenuItem, Select, TextField } from "@mui/ma
 import { Column } from "@tanstack/react-table";
 import { useEffect, useState } from "react";
 import useDebouncedState from "../functions/useDebouncedState";
-import { gemTypes } from "../models/Gems";
+import { GemDetails, gemTypes } from "../models/Gems";
 
-const maxCols = ["Level", "Quality", "XP", "Price"];
+type Key = keyof GemDetails;
+const booleanCols: Key[] = ["lowConfidence", "Corrupted"];
+const maxCols: Key[] = ["Level", "Quality", "XP", "Price"];
+const minCols: Key[] = maxCols.concat([
+  "xpValue",
+  "gcpValue",
+  "vaalValue",
+  "templeValue",
+  "Meta",
+  "Listings",
+]);
 const minDefault: any = { Meta: 1, Listings: 20 };
 
 const Filter = <T extends {}>({ column }: { column: Column<T, T[keyof T]> }) => {
-  const min = useDebouncedState<number | undefined>(minDefault[column.id] || undefined);
+  const key = column.id as Key;
+  const isRange = column.getCanFilter() && minCols.includes(key);
+  const isMax = isRange && maxCols.includes(key);
+  const isBool = column.getCanFilter() && booleanCols.includes(key);
+  const isText = column.getCanFilter() && key === "Name";
+  const isType = column.getCanFilter() && key === "Type";
+
+  const min = useDebouncedState<number | undefined>(minDefault[key] || undefined);
   const max = useDebouncedState<number | undefined>(undefined);
   const text = useDebouncedState("");
   const [bool, setBool] = useState<boolean | undefined>(undefined);
   const [types, setTypes] = useState<string[]>([...gemTypes]);
-
-  const isRange = column.getCanFilter() && column.getFilterFn()?.name === "inNumberRange";
-  const isMax = isRange && maxCols.includes(column.id);
-  const isBool = column.getCanFilter() && column.getFilterFn()?.name === "equals";
-  const isText = column.getCanFilter() && column.id === "Name";
-  const isType = column.getCanFilter() && column.id === "Type";
 
   useEffect(() => {
     isRange && column.setFilterValue(() => [min.debounced, max.debounced]);

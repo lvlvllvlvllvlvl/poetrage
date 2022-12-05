@@ -1,4 +1,4 @@
-import { filterOutliers } from "../filterOutliers";
+import { filterOutliers } from "../functions/filterOutliers";
 import { SearchQueryContainer } from "../models/poe/Search";
 import { searchItems } from "./searchItems";
 
