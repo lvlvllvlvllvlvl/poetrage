@@ -1,5 +1,5 @@
-import { Box, Checkbox, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
-import { Column, Table } from "@tanstack/react-table";
+import { Box, Checkbox, FormControl, MenuItem, Select, TextField } from "@mui/material";
+import { Column } from "@tanstack/react-table";
 import { useEffect, useState } from "react";
 import useDebouncedState from "../functions/useDebouncedState";
 import { gemTypes } from "../models/Gems";

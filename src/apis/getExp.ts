@@ -1,4 +1,4 @@
-import axios from "axios";
+import { api } from "./axios";
 
 const levelRange = Array.from(Array(41).keys());
 const toInt = (n: string) => parseInt(n);
@@ -8,8 +8,8 @@ export const getExp = async () => {
   let json: any;
   do {
     json = (
-      await axios.get(
-        "http://localhost:8080/wiki/w/api.php?action=cargoquery&tables=items,skill_levels&group_by=items._pageID&join_on=items._pageID=skill_levels._pageID&fields=items.name,GROUP_CONCAT(skill_levels.level),GROUP_CONCAT(skill_levels.experience)&order_by=level&where=skill_levels.experience%20IS%20NOT%20NULL&format=json&limit=500&offset=" +
+      await api.get(
+        "https://www.poewiki.net/w/api.php?action=cargoquery&tables=items,skill_levels&group_by=items._pageID&join_on=items._pageID=skill_levels._pageID&fields=items.name,GROUP_CONCAT(skill_levels.level),GROUP_CONCAT(skill_levels.experience)&order_by=level&where=skill_levels.experience%20IS%20NOT%20NULL&format=json&limit=500&offset=" +
           offset
       )
     ).data;

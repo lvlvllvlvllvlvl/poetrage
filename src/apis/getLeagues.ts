@@ -1,5 +1,5 @@
-import axios from "axios";
-import { Leagues } from "../models/Leagues";
+import { api } from "./axios";
+import { Leagues } from "../models/ninja/Leagues";
 
 export const getLeagues = async () =>
-  (await axios.get<Leagues>("http://localhost:8080/ninja/api/data/getindexstate")).data;
+  (await api.get<Leagues>("https://poe.ninja/api/data/getindexstate")).data;

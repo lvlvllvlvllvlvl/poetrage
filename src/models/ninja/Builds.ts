@@ -1,3 +1,5 @@
+import { Language } from "./Currency";
+
 export interface Builds {
   classNames: string[];
   classes: number[];
@@ -55,11 +57,6 @@ export interface Keystone {
 }
 
 export type KeystoneType = "Ascendency" | "Cluster" | "Keystone";
-
-export interface Language {
-  name: string;
-  translations: Translations;
-}
 
 export interface Translations {}
 

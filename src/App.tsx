@@ -34,14 +34,15 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import numeral from "numeral";
-import { PathOfExile, PoENinja } from "poe-api-ts";
 import React, { useEffect, useMemo, useState } from "react";
-import { getBuilds } from "./apis/getBuilds";
+import { getCurrencyOverview as getCurrencyMap } from "./apis/getCurrencyOverview";
 import { getExp } from "./apis/getExp";
+import { getGemOverview } from "./apis/getGemOverview";
 import { getLeagues } from "./apis/getLeagues";
+import { getMeta } from "./apis/getMeta";
+import { getTempleAverage } from "./apis/getTempleAverage";
 import "./App.css";
 import Filter from "./components/Filter";
-import { filterOutliers } from "./filterOutliers";
 import { forEach } from "./functions/forEach";
 import { useAsync } from "./functions/useAsync";
 import useDebouncedState from "./functions/useDebouncedState";
@@ -61,28 +62,8 @@ import {
   VaalData,
 } from "./models/Gems";
 
-const query: any = {
-  query: {
-    status: {
-      option: "onlineleague",
-    },
-    stats: [
-      {
-        type: "and",
-        filters: [
-          {
-            id: "pseudo.pseudo_temple_gem_room_3",
-            value: { option: 1 },
-            disabled: false,
-          },
-        ],
-      },
-    ],
-  },
-  sort: { price: "asc" },
-};
-
 const million = 1000000;
+const basicCurrency = { "Chaos Orb": 1 };
 
 const includes: FilterFn<GemDetails> = (row, columnId, filterValue: any[]) =>
   (filterValue?.length || 0) > 0 && filterValue.includes(row.getValue(columnId));
@@ -99,62 +80,21 @@ function App() {
   const [progress, setProgress] = useState(0);
   const [progressMsg, setProgressMsg] = useState("");
   const leagues = useAsync(getLeagues);
-  const gems = useAsync(league ? PoENinja.Items.SkillGems.getOverview : undefined, league);
   const xp = useAsync(getExp);
-  const currency = useAsync(
-    league ? PoENinja.Currencies.getOverview : undefined,
+  const meta = useAsync(league ? getMeta : undefined, league);
+  const gems = useAsync(league ? getGemOverview : undefined, league);
+  const currencyMap = useAsync(league ? getCurrencyMap : undefined, league);
+  const templeAverage = useAsync(
+    currencyMap.done ? getTempleAverage : undefined,
     league,
-    "Currency" as any
+    currencyMap.done ? currencyMap.value : basicCurrency
   );
-  const temples = useAsync(league ? PathOfExile.PublicAPI.Trade.search : undefined, league, query);
-  const builds = useAsync(league ? getBuilds : undefined, league);
-  const fetchPage = useMemo(
-    () => (temples.done ? temples.value.getNextItems.bind(temples.value) : undefined),
-    // temples.value is changed by this call; can't include it in the dependencies
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [temples.done]
-  );
-  const templePage = useAsync(fetchPage, 10);
-  const leagueUrl = useMemo(
-    () => leagues.done && leagues.value.economyLeagues.find(({ name }) => name === league)?.url,
-    [league, leagues]
-  );
+  const leagueUrl =
+    leagues.done && leagues.value.economyLeagues.find(({ name }) => name === league)?.url;
   const [data, setData] = useState([] as GemDetails[]);
 
-  const gemMeta: { [key: string]: number } = useMemo(() => {
-    if (!builds.done) {
-      return {};
-    }
-    const result: { [key: string]: number } = {};
-    const total = builds.value.accounts.length / 1000;
-    builds.value.allSkills.forEach(({ name }, i) => {
-      result[name] = Math.round(builds.value.allSkillUse[i.toString()].length / total) / 10;
-    });
-    return result;
-  }, [builds]);
-
-  const currencyMap: { [key: string]: number } = useMemo(() => {
-    if (!currency.done) return { chaos: 1 };
-    const result: { [key: string]: number } = { chaos: 1 };
-    currency.value.entries.forEach((c) => (result[c.name] = c.chaosEquivalent));
-    return result;
-  }, [currency]);
-
-  const averageTemple = useMemo(() => {
-    if (!templePage.done || !currency.done) {
-      return;
-    }
-    const prices = templePage.value?.map(({ listing: { price } }) => price) || [];
-    const chaosValues = prices
-      .filter(({ currency, amount }) => currency && amount && currencyMap[currency])
-      .map(({ currency, amount }: any) => currencyMap[currency] * amount);
-    let filteredValues = filterOutliers(chaosValues);
-    const sum = filteredValues.reduce((a, b) => a + b, 0);
-    return Math.round(sum / filteredValues.length);
-  }, [currency.done, currencyMap, templePage]);
-
   useEffect(() => {
-    if (!gems.done || !currency.done || !builds.done || !xp.done) {
+    if (!gems.done || !currencyMap.done || !meta.done || !xp.done) {
       return;
     }
     let cancel = false;
@@ -164,7 +104,7 @@ function App() {
 
     (async () => {
       const vaalGems: { [key: string]: boolean } = {};
-      let result = gems.value.entries.map(
+      let result = gems.value.lines.map(
         ({
           name,
           variant,
@@ -190,7 +130,7 @@ function App() {
             Vaal,
             Type,
             Price: Math.round(chaosValue || 0),
-            Meta: gemMeta[name] || 0,
+            Meta: meta.value[name] || 0,
             Listings: listingCount,
             lowConfidence:
               !sparkline?.data?.length || sparkline.data[sparkline.data.length - 1] === null,
@@ -218,7 +158,7 @@ function App() {
       await new Promise((resolve) => (timeout = setTimeout(resolve, 1)));
       let timeSlice = Date.now() + 200;
 
-      const oneGcp = currencyMap["Gemcutter's Prism"] || 1;
+      const oneGcp = currencyMap.value["Gemcutter's Prism"];
 
       await forEach(result, async (gem, i) => {
         if (i % 1000 === 0) {
@@ -307,7 +247,7 @@ function App() {
                 ? gem.gcpData.map((other) => ({
                     ...other,
                     gcpCount: 1,
-                    gcpCost: currencyMap["Gemcutter's Prism"] || 1,
+                    gcpCost: currencyMap.value["Gemcutter's Prism"],
                     xpValue: Math.round(
                       (gem.Price - (other.Price + oneGcp)) /
                         (((gem.XP || 0) + xp.value[gem.baseName][20] - (other.XP || 0)) / million)
@@ -352,7 +292,7 @@ function App() {
           gem.vaalValue =
             (vaalData?.reduce((sum, { gem, chance }) => sum + (gem?.Price || 0) * chance, 0) || 0) -
             gem.Price -
-            (currencyMap["Vaal Orb"] || 1);
+            currencyMap.value["Vaal Orb"];
           let merged: VaalData | null = null;
           let sumChance = 0;
           gem.vaalData = [];
@@ -392,7 +332,8 @@ function App() {
       await new Promise((resolve) => (timeout = setTimeout(resolve, 1)));
       timeSlice = Date.now() + 200;
 
-      if (templePrice.debounced || averageTemple) {
+      const price = templePrice.debounced || (templeAverage.done && templeAverage.value.price);
+      if (price) {
         await forEach(result, async (gem, i) => {
           if (i % 100 === 0) {
             if (cancel) return;
@@ -464,7 +405,7 @@ function App() {
                 0
               ) || 0) -
               gem.Price -
-              (templePrice.debounced || averageTemple || 100);
+              price;
           } else {
             gem.templeValue = 0;
           }
@@ -484,14 +425,12 @@ function App() {
     };
   }, [
     gems,
-    gemMeta,
+    meta,
     xp,
-    currency.done,
-    builds.done,
     currencyMap,
     incQual.debounced,
     lowConfidence,
-    averageTemple,
+    templeAverage,
     templePrice.debounced,
   ]);
 
@@ -750,17 +689,17 @@ function App() {
                 <p>
                   <a
                     href={
-                      temples.done
-                        ? `https://www.pathofexile.com/trade/search/${league}/${temples.value.id}`
+                      templeAverage.done
+                        ? `https://www.pathofexile.com/trade/search/${league}/${templeAverage.value.searchId}`
                         : undefined
                     }
                     target="_blank"
                     rel="noreferrer">
-                    {temples.done && templePage.done
-                      ? templePage.value?.length
-                        ? `estimated Doryani's Institute price: ${averageTemple} chaos`
-                        : "eo Doryani's Institute online"
-                      : temples.error && templePage.error
+                    {templeAverage.done
+                      ? templeAverage.value.total
+                        ? `estimated Doryani's Institute price: ${templeAverage.value.price} chaos (${templeAverage.value.total} listings, used ${templeAverage.value.filtered} of first ${templeAverage.value.pageSize} results)`
+                        : "no Doryani's Institute online"
+                      : templeAverage.error
                       ? "error getting temple prices"
                       : "checking temple prices..."}
                   </a>
@@ -802,7 +741,7 @@ function App() {
 
         {!league ? undefined : (
           <>
-            {gems.pending || currency.pending || builds.pending || xp.pending ? (
+            {gems.pending || currencyMap.pending || meta.pending || xp.pending ? (
               <p>Fetching data...</p>
             ) : (
               <p>{progressMsg || "\u00A0"}</p>
@@ -811,7 +750,7 @@ function App() {
           </>
         )}
       </Container>
-      {gems.done && currency.done && builds.done && (
+      {gems.done && currencyMap.done && meta.done && (
         <>
           <Table>
             <TableHead>

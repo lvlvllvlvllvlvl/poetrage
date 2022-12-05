@@ -1,5 +1,3 @@
-import { Variant } from "poe-api-ts/dist/ninja/apis/items/clusterjewels";
-
 export type VaalData = { gem: Gem; chance: number; outcomes: string[] };
 export const gemTypes = ["Anomalous", "Divergent", "Phantasmal", "Awakened", "Superior"] as const;
 export type GemType = typeof gemTypes[number];
