@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/poetrage/static/css/main.2a081eb3.css",
-    "main.js": "/poetrage/static/js/main.4ae404ad.js",
-    "static/js/496.512d028e.chunk.js": "/poetrage/static/js/496.512d028e.chunk.js",
+    "main.js": "/poetrage/static/js/main.adf2bdbf.js",
+    "static/js/496.1b5b77b7.chunk.js": "/poetrage/static/js/496.1b5b77b7.chunk.js",
     "index.html": "/poetrage/index.html",
     "main.2a081eb3.css.map": "/poetrage/static/css/main.2a081eb3.css.map",
-    "main.4ae404ad.js.map": "/poetrage/static/js/main.4ae404ad.js.map",
-    "496.512d028e.chunk.js.map": "/poetrage/static/js/496.512d028e.chunk.js.map"
+    "main.adf2bdbf.js.map": "/poetrage/static/js/main.adf2bdbf.js.map",
+    "496.1b5b77b7.chunk.js.map": "/poetrage/static/js/496.1b5b77b7.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.2a081eb3.css",
-    "static/js/main.4ae404ad.js"
+    "static/js/main.adf2bdbf.js"
   ]
 }
