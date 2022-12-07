@@ -1,4 +1,9 @@
-import { Box, Checkbox, FormControl, MenuItem, Select, TextField } from "@mui/material";
+import Box from "@mui/material/Box";
+import Checkbox from "@mui/material/Checkbox";
+import FormControl from "@mui/material/FormControl";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import TextField from "@mui/material/TextField";
 import { Column } from "@tanstack/react-table";
 import { useEffect, useState } from "react";
 import useDebouncedState from "../functions/useDebouncedState";

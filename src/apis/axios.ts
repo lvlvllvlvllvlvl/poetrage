@@ -1,15 +1,16 @@
 import axios from "axios";
 import { setupCache } from "axios-cache-adapter";
 import localforage from "localforage";
-import driver from "localforage-sessionstoragewrapper";
+import memoryDriver from "localforage-memoryStorageDriver";
 
 const hour = 60 * 60 * 1000;
 
 export const cache = (async () => {
-  await localforage.defineDriver(driver);
+  await localforage.defineDriver(memoryDriver);
 
   const forageStore = localforage.createInstance({
-    driver: driver._driver,
+    driver: [localforage.INDEXEDDB, localforage.LOCALSTORAGE, memoryDriver._driver],
+    name: "poetrage",
   });
 
   return setupCache({

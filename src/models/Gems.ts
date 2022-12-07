@@ -25,6 +25,7 @@ export type GemDetails = Gem & {
     xpValue: number;
     gcpCount: number;
     gcpCost: number;
+    reset?: boolean;
   })[];
   gcpValue: number;
   gcpData?: (Gem & {

@@ -1,27 +1,26 @@
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Alert,
-  Box,
-  Button,
-  Checkbox,
-  Container,
-  FormControl,
-  FormControlLabel,
-  InputLabel,
-  LinearProgress,
-  MenuItem,
-  Pagination,
-  Select,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  TextField,
-  Typography,
-} from "@mui/material";
+import RefreshIcon from "@mui/icons-material/Refresh";
+import Accordion from "@mui/material/Accordion";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import Alert from "@mui/material/Alert";
+import Box from "@mui/material/Box";
+import Checkbox from "@mui/material/Checkbox";
+import Container from "@mui/material/Container";
+import FormControl from "@mui/material/FormControl";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import IconButton from "@mui/material/IconButton";
+import InputLabel from "@mui/material/InputLabel";
+import LinearProgress from "@mui/material/LinearProgress";
+import MenuItem from "@mui/material/MenuItem";
+import Pagination from "@mui/material/Pagination";
+import Select from "@mui/material/Select";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -84,16 +83,16 @@ function App() {
   const [lowConfidence, setLowConfidence] = useState(false);
   const [progress, setProgress] = useState(0);
   const [progressMsg, setProgressMsg] = useState("");
-  const [fetch, refetch] = useReducer((current) => current + 1, 0);
+  const [load, reload] = useReducer((current) => current + 1, 0);
 
-  const leagues = useAsync(getLeagues, [fetch]);
   const xp = useAsync(getExp);
-  const meta = useAsync(league?.indexed ? getMeta : undefined, [fetch], league?.name || "");
-  const gems = useAsync(league ? getGemOverview : undefined, [fetch], league?.name || "");
-  const currencyMap = useAsync(league ? getCurrencyMap : undefined, [fetch], league?.name || "");
+  const leagues = useAsync(getLeagues, [load]);
+  const meta = useAsync(league?.indexed ? getMeta : undefined, [load], league?.name || "");
+  const gems = useAsync(league ? getGemOverview : undefined, [load], league?.name || "");
+  const currencyMap = useAsync(league ? getCurrencyMap : undefined, [load], league?.name || "");
   const templeAverage = useAsync(
     currencyMap.done ? getTempleAverage : undefined,
-    [fetch],
+    [load],
     league?.name || "",
     currencyMap.done ? currencyMap.value : basicCurrency
   );
@@ -188,12 +187,12 @@ function App() {
                 other.Name === gem.Name &&
                 !other.Corrupted &&
                 other.Level === gem.Level &&
-                other.Quality < gem.Quality
+                other.Quality > gem.Quality
             )
             .map((other) => {
-              const gcpCount = gem.Quality > other.Quality ? gem.Quality - other.Quality : 0;
+              const gcpCount = other.Quality - gem.Quality;
               const gcpCost = gcpCount * oneGcp;
-              const gcpValue = gem.Price - (other.Price + gcpCost);
+              const gcpValue = other.Price - (gem.Price + gcpCost);
               return { ...other, gcpCount, gcpCost, gcpValue };
             })
             .sort((a, b) => b.gcpValue - a.gcpValue);
@@ -226,41 +225,51 @@ function App() {
             !altQualities.includes(gem.Type as any) && exceptional.find((e) => gem.Name.includes(e))
               ? 1 + (gem.Quality + incQual.debounced) * 0.05
               : 1;
-          gem.xpData = gemMap[gem.baseName][gem.Type]
+          const possibles = gemMap[gem.baseName][gem.Type].filter(
+            (other) =>
+              (lowConfidence || !other.lowConfidence) &&
+              other.Corrupted === gem.Corrupted &&
+              other.XP !== undefined
+          );
+          gem.xpData = possibles
             .filter(
               (other) =>
-                (lowConfidence || !other.lowConfidence) &&
-                other.Corrupted === gem.Corrupted &&
-                other.XP !== undefined &&
-                other.XP < (gem.XP || 0)
+                xp.value[gem.baseName][other.Level + 1] === undefined &&
+                (other.XP || 0) > (gem.XP || 0)
             )
             .map((other) => {
-              const gcpCount = gem.Quality > other.Quality ? gem.Quality - other.Quality : 0;
+              const gcpCount = gem.Quality < other.Quality ? other.Quality - gem.Quality : 0;
               if (gcpCount && gem.Corrupted) return undefined as any;
               const gcpCost = gcpCount * oneGcp;
               const xpValue = Math.round(
-                ((gem.Price - (other.Price + gcpCost)) * qualityMultiplier) /
-                  (((gem.XP || 0) - (other.XP || 0)) / million)
+                ((other.Price - (gem.Price + gcpCost)) * qualityMultiplier) /
+                  (((other.XP || 0) - (gem.XP || 0)) / million)
               );
               return { ...other, gcpCount, gcpCost, xpValue };
             })
-            .filter(exists)
             .concat(
               gem.Type === "Superior" &&
-                gem.Quality === 20 &&
-                xp.value[gem.baseName][20] &&
-                gem.gcpData
-                ? gem.gcpData.map((other) => ({
-                    ...other,
-                    gcpCount: 1,
-                    gcpCost: currencyMap.value["Gemcutter's Prism"],
-                    xpValue: Math.round(
-                      (gem.Price - (other.Price + oneGcp)) /
-                        (((gem.XP || 0) + xp.value[gem.baseName][20] - (other.XP || 0)) / million)
-                    ),
-                  }))
+                !gem.Corrupted &&
+                gem.Quality < 20 &&
+                xp.value[gem.baseName][20]
+                ? possibles
+                    .filter(
+                      (other) =>
+                        other.Quality === 20 &&
+                        (other.XP || 0) + xp.value[gem.baseName][20] > (gem.XP || 0)
+                    )
+                    .map((other) => ({
+                      ...other,
+                      gcpCount: 1,
+                      gcpCost: oneGcp,
+                      reset: true,
+                      xpValue:
+                        ((other.Price - (gem.Price + oneGcp)) * qualityMultiplier) /
+                        (((other.XP || 0) + xp.value[gem.baseName][20] - (gem.XP || 0)) / million),
+                    }))
                 : []
             )
+            .filter(exists)
             .sort((a, b) => b.xpValue - a.xpValue);
           gem.xpValue = gem.xpData[0]?.xpValue || 0;
         }
@@ -476,9 +485,15 @@ function App() {
       {
         accessorKey: "xpValue",
         header: "Levelling profit",
+        sortingFn: (({ original: { xpValue: a } }, { original: { xpValue: b } }) =>
+          a === b
+            ? 0
+            : a === undefined
+            ? -1
+            : b === undefined
+            ? 1
+            : a - b) as SortingFn<GemDetails>,
         filterFn: "inNumberRange",
-        sortingFn: (a, b) =>
-          (a.original.xpData?.[0]?.xpValue || 0) - (b.original.xpData?.[0]?.xpValue || 0),
         cell: ({
           row: {
             original: { xpData },
@@ -490,12 +505,12 @@ function App() {
             <p
               title={xpData
                 ?.map(
-                  ({ xpValue, Level, Quality, Price, gcpCount }, i) =>
-                    `${Math.round(
-                      xpValue * fiveWay.debounced
-                    )}c/5-way from ${Level}/${Quality} (${Price}c${
-                      gcpCount > 0 ? `+${gcpCount}gcp` : ""
-                    })`
+                  ({ xpValue, Level, Quality, Price, gcpCount, reset }, i) =>
+                    `${Math.round(xpValue * fiveWay.debounced)}c/5-way${
+                      reset ? "" : gcpCount === 0 ? "" : ` applying ${gcpCount} gcp and`
+                    } levelling this gem to ${Level}/${Quality} (${Price}c)${
+                      reset ? " with vendor reset" : ""
+                    }`
                 )
                 .join("\n")}>
               {Math.round(xpData[0].xpValue * fiveWay.debounced)}c/5-way
@@ -519,10 +534,10 @@ function App() {
             <p
               title={gcpData
                 ?.map(
-                  ({ gcpValue, Level, Quality, Listings }, i) =>
-                    `${numeral(gcpValue).format(
+                  ({ gcpValue, Level, Quality, Listings, Price }, i) =>
+                    `Earn ${numeral(gcpValue).format(
                       "0[.][00]"
-                    )}c from ${Level}/${Quality} (${Listings} listed)`
+                    )}c upgrading this gem to ${Level}/${Quality} (${Listings} listed at ${Price}c)`
                 )
                 .join("\n")}>
               {Math.round(gcpData[0].gcpValue)}
@@ -652,124 +667,132 @@ function App() {
         minHeight: "100vh",
       }}>
       <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="sm">
-        <Accordion expanded={!league || showOptions} onChange={(_, show) => setShowOptions(show)}>
-          <AccordionSummary>
-            <Typography component="h1" variant="h5" gutterBottom>
-              poetrage
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <FormControl fullWidth margin="normal">
-              <InputLabel>League</InputLabel>
-              <Select
-                value={leagues.done && league ? league?.name : ""}
-                label="league"
-                onChange={({ target }) =>
-                  setLeague(
-                    leagues.value?.economyLeagues?.find(({ name }) => name === target.value)
-                  )
-                }>
-                {leagues.pending && !league && (
-                  <MenuItem value="" disabled>
-                    Loading leagues...
-                  </MenuItem>
-                )}
-                {!leagues.pending && !league && (
-                  <MenuItem value="" disabled>
-                    Select a league
-                  </MenuItem>
-                )}
-                {leagues.done &&
-                  leagues.value.economyLeagues.map((league) => (
-                    <MenuItem key={league.name} value={league.name}>
-                      {league.displayName}
-                    </MenuItem>
-                  ))}
-              </Select>
-            </FormControl>
-            {leagues.fail && String(leagues.error)}
-
-            {!league ? undefined : (
-              <>
-                <TextField
-                  type="number"
-                  fullWidth
-                  margin="normal"
-                  label="override temple price"
-                  variant="outlined"
-                  value={templePrice.value || ""}
+        <Box sx={{ display: "flex", flexDirection: "row" }}>
+          <Accordion
+            style={{ flex: 1 }}
+            expanded={!league || showOptions}
+            onChange={(_, show) => setShowOptions(show)}>
+            <AccordionSummary>
+              <Typography component="h1" variant="h5" gutterBottom>
+                poetrage
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <FormControl fullWidth margin="normal">
+                <InputLabel>League</InputLabel>
+                <Select
+                  value={leagues.done && league ? league?.name : ""}
+                  label="league"
                   onChange={({ target }) =>
-                    templePrice.set(target.value ? parseInt(target.value) : 0)
-                  }
-                />
-                <p>
-                  <a
-                    href={
-                      templeAverage.done
-                        ? `https://www.pathofexile.com/trade/search/${league.name}/${templeAverage.value.searchId}`
-                        : undefined
+                    setLeague(
+                      leagues.value?.economyLeagues?.find(({ name }) => name === target.value)
+                    )
+                  }>
+                  {leagues.pending && !league && (
+                    <MenuItem value="" disabled>
+                      Loading leagues...
+                    </MenuItem>
+                  )}
+                  {!leagues.pending && !league && (
+                    <MenuItem value="" disabled>
+                      Select a league
+                    </MenuItem>
+                  )}
+                  {leagues.done &&
+                    leagues.value.economyLeagues.map((league) => (
+                      <MenuItem key={league.name} value={league.name}>
+                        {league.displayName}
+                      </MenuItem>
+                    ))}
+                </Select>
+              </FormControl>
+              {leagues.fail && String(leagues.error)}
+
+              {!league ? undefined : (
+                <>
+                  <TextField
+                    type="number"
+                    fullWidth
+                    margin="normal"
+                    label="override temple price"
+                    variant="outlined"
+                    value={templePrice.value || ""}
+                    onChange={({ target }) =>
+                      templePrice.set(target.value ? parseInt(target.value) : 0)
                     }
-                    target="_blank"
-                    rel="noreferrer">
-                    {templeAverage.done
-                      ? templeAverage.value.total
-                        ? `estimated Doryani's Institute price: ${templeAverage.value.price} chaos (${templeAverage.value.total} listings, used ${templeAverage.value.filtered} of first ${templeAverage.value.pageSize} results)`
-                        : "no Doryani's Institute online"
-                      : templeAverage.error
-                      ? "error getting temple prices"
-                      : "checking temple prices..."}
-                  </a>
-                </p>
+                  />
+                  <p>
+                    <a
+                      href={
+                        templeAverage.done
+                          ? `https://www.pathofexile.com/trade/search/${league.name}/${templeAverage.value.searchId}`
+                          : undefined
+                      }
+                      target="_blank"
+                      rel="noreferrer">
+                      {templeAverage.done
+                        ? templeAverage.value.total
+                          ? `estimated Doryani's Institute price: ${templeAverage.value.price} chaos (${templeAverage.value.total} listings, used ${templeAverage.value.filtered} of first ${templeAverage.value.pageSize} results)`
+                          : "no Doryani's Institute online"
+                        : templeAverage.error
+                        ? "error getting temple prices"
+                        : "checking temple prices..."}
+                    </a>
+                  </p>
 
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={lowConfidence}
-                      onChange={(_, checked) => setLowConfidence(checked)}
-                    />
-                  }
-                  label="include low confidence values"
-                />
-                <TextField
-                  type="number"
-                  fullWidth
-                  margin="normal"
-                  label="gem quality bonus"
-                  variant="outlined"
-                  value={incQual.value}
-                  onChange={({ target }) => incQual.set(target.value ? parseInt(target.value) : 0)}
-                  helperText="Disfavour/Dialla/Replica Voideye: 30, Cane of Kulemak 8-15, veiled: 9-10, crafted: 7-8"
-                />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={lowConfidence}
+                        onChange={(_, checked) => setLowConfidence(checked)}
+                      />
+                    }
+                    label="include low confidence values"
+                  />
+                  <TextField
+                    type="number"
+                    fullWidth
+                    margin="normal"
+                    label="gem quality bonus"
+                    variant="outlined"
+                    value={incQual.value}
+                    onChange={({ target }) =>
+                      incQual.set(target.value ? parseInt(target.value) : 0)
+                    }
+                    helperText="Disfavour/Dialla/Replica Voideye: 30, Cane of Kulemak 8-15, veiled: 9-10, crafted: 7-8"
+                  />
 
-                <TextField
-                  type="number"
-                  fullWidth
-                  margin="normal"
-                  label="million XP per 5-way"
-                  variant="outlined"
-                  value={fiveWay.value}
-                  onChange={({ target }) => fiveWay.set(target.value ? parseInt(target.value) : 0)}
-                />
-
-                <Button
-                  onClick={async () => {
-                    ((await cache).store as LocalForage).clear();
-                    refetch();
-                  }}>
-                  Refresh data
-                </Button>
-              </>
-            )}
-          </AccordionDetails>
-        </Accordion>
+                  <TextField
+                    type="number"
+                    fullWidth
+                    margin="normal"
+                    label="million XP per 5-way"
+                    variant="outlined"
+                    value={fiveWay.value}
+                    onChange={({ target }) =>
+                      fiveWay.set(target.value ? parseInt(target.value) : 0)
+                    }
+                  />
+                </>
+              )}
+            </AccordionDetails>
+          </Accordion>
+          <IconButton
+            onClick={async () => {
+              ((await cache).store as LocalForage).clear();
+              reload();
+            }}>
+            <RefreshIcon />
+          </IconButton>
+        </Box>
 
         {!league ? undefined : (
           <>
-            {gems.pending || currencyMap.pending || meta.pending || xp.pending ? (
-              <p>Fetching data...</p>
-            ) : (
-              <p>{progressMsg || "\u00A0"}</p>
-            )}
+            <Typography component="p" align="center">
+              {gems.pending || currencyMap.pending || meta.pending || xp.pending
+                ? "Fetching data..."
+                : progressMsg || "all currency costs accounted for in profit values"}
+            </Typography>
             <LinearProgress variant="determinate" value={progress} />
           </>
         )}
