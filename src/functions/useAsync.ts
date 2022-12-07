@@ -1,7 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 
 //https://usehooks.com/useAsync/
-export const useAsync = <R, T extends any[]>(fn?: (...args: T) => Promise<R>, ...args: T) => {
+export const useAsync = <R, T extends any[]>(
+  fn?: (...args: T) => Promise<R>,
+  deps?: any[],
+  ...args: T
+) => {
   const [status, setStatus] = useState<"idle" | "pending" | "done" | "fail">("idle");
   const [value, setValue] = useState<R | null>(null);
   const [error, setError] = useState<string | undefined>(undefined);
@@ -22,7 +26,7 @@ export const useAsync = <R, T extends any[]>(fn?: (...args: T) => Promise<R>, ..
           setStatus("fail");
         });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fn, ...args]);
+  }, [fn, ...(deps || []), ...args]);
 
   return useMemo(
     () =>
@@ -41,8 +45,8 @@ export const useAsync = <R, T extends any[]>(fn?: (...args: T) => Promise<R>, ..
             error: undefined;
             value: R;
           }
-        | { done: false; pending: true; fail: false; error: undefined }
-        | { done: false; pending: false; fail: true; error: string }),
+        | { done: false; pending: true; fail: false; error: undefined; value: undefined }
+        | { done: false; pending: false; fail: true; error: string; value: undefined }),
     [status, value, error]
   );
 };

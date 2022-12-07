@@ -6,7 +6,7 @@ import { GemDetails, gemTypes } from "../models/Gems";
 
 type Key = keyof GemDetails;
 const booleanCols: Key[] = ["lowConfidence", "Corrupted"];
-const maxCols: Key[] = ["Level", "Quality", "XP", "Price"];
+const maxCols: Key[] = ["Level", "Quality", "Price"];
 const minCols: Key[] = maxCols.concat([
   "xpValue",
   "gcpValue",
@@ -56,7 +56,9 @@ const Filter = <T extends {}>({ column }: { column: Column<T, T[keyof T]> }) => 
           label="min"
           variant="outlined"
           value={min.value}
-          style={{ width: isMax ? "50%" : "100%" }}
+          style={{
+            maxWidth: "6em",
+          }}
           inputProps={{
             min: column.getFacetedMinMaxValues()?.[0],
             max: column.getFacetedMinMaxValues()?.[1],
@@ -70,7 +72,9 @@ const Filter = <T extends {}>({ column }: { column: Column<T, T[keyof T]> }) => 
             label="max"
             variant="outlined"
             value={max.value}
-            style={{ width: "50%" }}
+            style={{
+              maxWidth: "6em",
+            }}
             inputProps={{
               min: column.getFacetedMinMaxValues()?.[0],
               max: column.getFacetedMinMaxValues()?.[1],

@@ -4,6 +4,7 @@ import {
   AccordionSummary,
   Alert,
   Box,
+  Button,
   Checkbox,
   Container,
   FormControl,
@@ -31,11 +32,14 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
+  SortingFn,
   SortingState,
   useReactTable,
 } from "@tanstack/react-table";
+import { cache } from "apis/axios";
+import { League } from "models/ninja/Leagues";
 import numeral from "numeral";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useReducer, useState } from "react";
 import { getCurrencyOverview as getCurrencyMap } from "./apis/getCurrencyOverview";
 import { getExp } from "./apis/getExp";
 import { getGemOverview } from "./apis/getGemOverview";
@@ -73,30 +77,30 @@ function App() {
   const [showOptions, setShowOptions] = useState(false);
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
-  const [league, setLeague] = useState("");
+  const [league, setLeague] = useState<League>();
   const templePrice = useDebouncedState(0);
   const incQual = useDebouncedState(30);
   const fiveWay = useDebouncedState(60);
   const [lowConfidence, setLowConfidence] = useState(false);
   const [progress, setProgress] = useState(0);
   const [progressMsg, setProgressMsg] = useState("");
+  const [fetch, refetch] = useReducer((current) => current + 1, 0);
 
-  const leagues = useAsync(getLeagues);
-  const { url: leagueUrl, indexed: leagueIndexed } =
-    (leagues.done && leagues.value.economyLeagues.find(({ name }) => name === league)) || {};
+  const leagues = useAsync(getLeagues, [fetch]);
   const xp = useAsync(getExp);
-  const meta = useAsync(leagueIndexed ? getMeta : undefined, league);
-  const gems = useAsync(league ? getGemOverview : undefined, league);
-  const currencyMap = useAsync(league ? getCurrencyMap : undefined, league);
+  const meta = useAsync(league?.indexed ? getMeta : undefined, [fetch], league?.name || "");
+  const gems = useAsync(league ? getGemOverview : undefined, [fetch], league?.name || "");
+  const currencyMap = useAsync(league ? getCurrencyMap : undefined, [fetch], league?.name || "");
   const templeAverage = useAsync(
     currencyMap.done ? getTempleAverage : undefined,
-    league,
+    [fetch],
+    league?.name || "",
     currencyMap.done ? currencyMap.value : basicCurrency
   );
   const [data, setData] = useState([] as GemDetails[]);
 
   useEffect(() => {
-    if (!gems.done || !currencyMap.done || (leagueIndexed && !meta.done) || !xp.done) {
+    if (!gems.done || !currencyMap.done || (league?.indexed && !meta.done) || !xp.done) {
       return;
     }
     let cancel = false;
@@ -434,6 +438,7 @@ function App() {
     lowConfidence,
     templeAverage,
     templePrice.debounced,
+    league?.indexed,
   ]);
 
   const columns: ColumnDef<GemDetails, GemDetails[keyof GemDetails]>[] = useMemo(
@@ -454,6 +459,14 @@ function App() {
       { accessorKey: "Quality", filterFn: "inNumberRange" },
       {
         accessorKey: "XP",
+        sortingFn: (({ original: { XP: a } }, { original: { XP: b } }) =>
+          a === b
+            ? 0
+            : a === undefined
+            ? -1
+            : b === undefined
+            ? 1
+            : a - b) as SortingFn<GemDetails>,
         filterFn: "inNumberRange",
         cell: (info) =>
           info.getValue() === undefined
@@ -462,7 +475,7 @@ function App() {
       },
       {
         accessorKey: "xpValue",
-        header: "XP value",
+        header: "Levelling profit",
         filterFn: "inNumberRange",
         sortingFn: (a, b) =>
           (a.original.xpData?.[0]?.xpValue || 0) - (b.original.xpData?.[0]?.xpValue || 0),
@@ -491,7 +504,7 @@ function App() {
       },
       {
         accessorKey: "gcpValue",
-        header: "GCP value",
+        header: "Profit from applying GCPs",
         filterFn: "inNumberRange",
         sortingFn: (a, b) =>
           (a.original.gcpData?.[0]?.gcpValue || 0) - (b.original.gcpData?.[0]?.gcpValue || 0),
@@ -518,7 +531,7 @@ function App() {
       },
       {
         accessorKey: "vaalValue",
-        header: "Vaal value",
+        header: "Average profit vaaling",
         filterFn: "inNumberRange",
         cell: ({
           row: {
@@ -548,7 +561,7 @@ function App() {
       },
       {
         accessorKey: "templeValue",
-        header: "Temple corrupt value",
+        header: "Average profit from temple",
         filterFn: "inNumberRange",
         cell: ({
           row: {
@@ -576,7 +589,7 @@ function App() {
       {
         accessorKey: "Meta",
         filterFn: "inNumberRange",
-        enableColumnFilter: !!leagueIndexed,
+        enableColumnFilter: !!league?.indexed,
         cell: ({
           row: {
             original: { Meta, Name: Gem },
@@ -584,7 +597,7 @@ function App() {
         }) =>
           Meta ? (
             <a
-              href={`https://poe.ninja/${leagueUrl}/builds?allskill=${Gem.replaceAll(" ", "-")}`}
+              href={`https://poe.ninja/${league?.url}/builds?allskill=${Gem.replaceAll(" ", "-")}`}
               target="_blank"
               rel="noreferrer">
               {Meta} %
@@ -602,7 +615,7 @@ function App() {
           },
         }) => (
           <a
-            href={`https://poe.ninja/${leagueUrl}/skill-gems?name=${Gem}`}
+            href={`https://poe.ninja/${league?.url}/skill-gems?name=${Gem}`}
             target="_blank"
             rel="noreferrer">
             {Listings}
@@ -610,7 +623,7 @@ function App() {
         ),
       },
     ],
-    [leagueUrl, fiveWay.debounced]
+    [league, fiveWay.debounced]
   );
 
   const table = useReactTable({
@@ -620,7 +633,7 @@ function App() {
     state: {
       sorting,
       columnFilters,
-      columnVisibility: { Meta: !!leagueIndexed },
+      columnVisibility: { Meta: !!league?.indexed },
     },
     onColumnFiltersChange: setColumnFilters,
     onSortingChange: setSorting,
@@ -649,9 +662,13 @@ function App() {
             <FormControl fullWidth margin="normal">
               <InputLabel>League</InputLabel>
               <Select
-                value={league}
+                value={leagues.done && league ? league?.name : ""}
                 label="league"
-                onChange={({ target }) => setLeague(target.value)}>
+                onChange={({ target }) =>
+                  setLeague(
+                    leagues.value?.economyLeagues?.find(({ name }) => name === target.value)
+                  )
+                }>
                 {leagues.pending && !league && (
                   <MenuItem value="" disabled>
                     Loading leagues...
@@ -663,9 +680,9 @@ function App() {
                   </MenuItem>
                 )}
                 {leagues.done &&
-                  leagues.value.economyLeagues.map(({ name }) => (
-                    <MenuItem key={name} value={name}>
-                      {name}
+                  leagues.value.economyLeagues.map((league) => (
+                    <MenuItem key={league.name} value={league.name}>
+                      {league.displayName}
                     </MenuItem>
                   ))}
               </Select>
@@ -689,7 +706,7 @@ function App() {
                   <a
                     href={
                       templeAverage.done
-                        ? `https://www.pathofexile.com/trade/search/${league}/${templeAverage.value.searchId}`
+                        ? `https://www.pathofexile.com/trade/search/${league.name}/${templeAverage.value.searchId}`
                         : undefined
                     }
                     target="_blank"
@@ -733,6 +750,14 @@ function App() {
                   value={fiveWay.value}
                   onChange={({ target }) => fiveWay.set(target.value ? parseInt(target.value) : 0)}
                 />
+
+                <Button
+                  onClick={async () => {
+                    ((await cache).store as LocalForage).clear();
+                    refetch();
+                  }}>
+                  Refresh data
+                </Button>
               </>
             )}
           </AccordionDetails>
@@ -756,7 +781,7 @@ function App() {
       {meta.error && <Alert severity="error">Error getting metagame: {meta.error}</Alert>}
       {xp.error && <Alert severity="error">Error getting gem xp data: {xp.error}</Alert>}
       {gems.done && currencyMap.done && (
-        <>
+        <Box sx={{ minWidth: "150em" }}>
           <Table>
             <TableHead>
               {table.getHeaderGroups().map((headerGroup) => (
@@ -816,7 +841,7 @@ function App() {
             page={table.getState().pagination.pageIndex + 1}
             onChange={(_, page) => table.setPageIndex(page - 1)}
           />
-        </>
+        </Box>
       )}
       {gems.fail && String(gems.error)}
     </Box>
