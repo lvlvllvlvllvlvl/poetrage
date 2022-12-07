@@ -1,5 +1,5 @@
-export type VaalData = { gem: Gem; chance: number; outcomes: string[] };
-export const gemTypes = ["Anomalous", "Divergent", "Phantasmal", "Awakened", "Superior"] as const;
+export type ConversionData = { gem: Gem; chance: number; outcomes: string[] };
+export const gemTypes = ["Superior", "Anomalous", "Divergent", "Phantasmal", "Awakened"] as const;
 export type GemType = typeof gemTypes[number];
 
 export type Gem = {
@@ -23,6 +23,7 @@ export type GemDetails = Gem & {
   xpValue: number;
   xpData?: (Gem & {
     xpValue: number;
+    xpDiff: number;
     gcpCount: number;
     gcpCost: number;
     reset?: boolean;
@@ -33,10 +34,12 @@ export type GemDetails = Gem & {
     gcpCount: number;
     gcpCost: number;
   })[];
+  regrValue?: number;
+  regrData?: ConversionData[];
   vaalValue?: number;
-  vaalData?: VaalData[];
+  vaalData?: ConversionData[];
   templeValue?: number;
-  templeData?: VaalData[];
+  templeData?: ConversionData[];
 };
 
 export const exists = (v: any) => v !== undefined;
@@ -44,7 +47,6 @@ export const copy = (
   {
     baseName,
     variant,
-    Name,
     Level,
     Quality,
     Type,
@@ -61,7 +63,7 @@ export const copy = (
 ): Gem => ({
   baseName,
   variant,
-  Name,
+  Name: (Type === "Superior" ? "" : Type + " ") + "Vaal " + baseName,
   Level,
   Quality,
   Type,
@@ -129,7 +131,10 @@ export const vaal = (gem: Gem, chance: number = 1, outcomes: string[] = []) =>
     },
     {
       gem: gem.canVaal
-        ? copy(gem, { Corrupted: true, Vaal: true, Name: "Vaal " + gem.Name })
+        ? copy(gem, {
+            Corrupted: true,
+            Vaal: true,
+          })
         : copy(gem, { Corrupted: true }),
       chance: chance * 0.25,
       outcomes: [...outcomes, gem.canVaal ? "Vaal" : "Vaal (no outcome)"],
@@ -162,4 +167,4 @@ export const vaal = (gem: Gem, chance: number = 1, outcomes: string[] = []) =>
     })),
   ]
     .filter(exists)
-    .filter((v) => v?.chance && v.chance > 0) as VaalData[];
+    .filter((v) => v?.chance && v.chance > 0) as ConversionData[];

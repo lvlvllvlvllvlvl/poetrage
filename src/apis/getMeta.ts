@@ -1,5 +1,5 @@
-import { api } from "./axios";
 import { Builds } from "../models/ninja/Builds";
+import { api } from "./axios";
 
 export const getMeta = async (league: string) => {
   const response = await api.get<Builds>(

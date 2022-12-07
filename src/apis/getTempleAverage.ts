@@ -31,6 +31,7 @@ export const getTempleAverage = async (league: string, currencyMap: { [key: stri
     .filter(({ currency, amount }) => currency && amount && currencyMap[currency])
     .map(({ currency, amount }: any) => currencyMap[currency] * amount);
   let filteredValues = filterOutliers(chaosValues);
+  if (filteredValues.length === 0) filteredValues = chaosValues;
   const sum = filteredValues.reduce((a, b) => a + b, 0);
   return {
     price: Math.round(sum / filteredValues.length),

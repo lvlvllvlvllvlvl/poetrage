@@ -13,12 +13,14 @@ type Key = keyof GemDetails;
 const booleanCols: Key[] = ["lowConfidence", "Corrupted"];
 const maxCols: Key[] = ["Level", "Quality", "Price"];
 const minCols: Key[] = maxCols.concat([
+  "XP",
   "xpValue",
   "gcpValue",
   "vaalValue",
   "templeValue",
   "Meta",
   "Listings",
+  "regrValue",
 ]);
 const minDefault: any = { Meta: 1, Listings: 20 };
 

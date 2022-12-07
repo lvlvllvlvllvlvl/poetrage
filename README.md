@@ -1,6 +1,8 @@
 ## TODO
 
-- Regrading lens values
+- Check for inconsistent pricing (corrupted gem worth more than identical uncorrupted)
+- Ability to override gem pricing
+- Profit ratio (max across columns)
 - Vendors
 - Don't recalculate everything when changing temple price
 - Remove axios cache, store computed values in sessionstorage
@@ -23,7 +25,7 @@ You will also see any lint errors in the console.
 
 ### `npm run prettier`
 
-Formats the code
+Formats the code. You can add this to your git pre-commit hook with `echo 'npm run prettier' >> .git/hooks/pre-commit`
 
 ### `npm run deploy`
 

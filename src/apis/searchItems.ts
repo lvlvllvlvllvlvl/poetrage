@@ -1,5 +1,5 @@
-import { api } from "./axios";
 import { FetchResult, SearchQueryContainer, SearchResult } from "../models/poe/Search";
+import { api } from "./axios";
 
 export const searchItems = async (league: string, query: SearchQueryContainer) => {
   const search = await api.post<SearchResult>(

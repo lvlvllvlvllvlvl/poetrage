@@ -36,10 +36,11 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { cache } from "apis/axios";
+import { getGemQuality } from "apis/getGemQuality";
 import { League } from "models/ninja/Leagues";
 import numeral from "numeral";
 import React, { useEffect, useMemo, useReducer, useState } from "react";
-import { getCurrencyOverview as getCurrencyMap } from "./apis/getCurrencyOverview";
+import { getCurrencyOverview } from "./apis/getCurrencyOverview";
 import { getExp } from "./apis/getExp";
 import { getGemOverview } from "./apis/getGemOverview";
 import { getLeagues } from "./apis/getLeagues";
@@ -55,6 +56,7 @@ import {
   bestMatch,
   betterOrEqual,
   compareGem,
+  ConversionData,
   copy,
   exceptional,
   exists,
@@ -63,7 +65,6 @@ import {
   getType,
   modifiers,
   vaal,
-  VaalData,
 } from "./models/Gems";
 
 const million = 1000000;
@@ -78,6 +79,8 @@ function App() {
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
   const [league, setLeague] = useState<League>();
   const templePrice = useDebouncedState(0);
+  const primeRegrading = useDebouncedState(0);
+  const secRegrading = useDebouncedState(0);
   const incQual = useDebouncedState(30);
   const fiveWay = useDebouncedState(60);
   const [lowConfidence, setLowConfidence] = useState(false);
@@ -86,10 +89,15 @@ function App() {
   const [load, reload] = useReducer((current) => current + 1, 0);
 
   const xp = useAsync(getExp);
+  const gemQuality = useAsync(getGemQuality);
   const leagues = useAsync(getLeagues, [load]);
   const meta = useAsync(league?.indexed ? getMeta : undefined, [load], league?.name || "");
   const gems = useAsync(league ? getGemOverview : undefined, [load], league?.name || "");
-  const currencyMap = useAsync(league ? getCurrencyMap : undefined, [load], league?.name || "");
+  const currencyMap = useAsync(
+    league ? getCurrencyOverview : undefined,
+    [load],
+    league?.name || ""
+  );
   const templeAverage = useAsync(
     currencyMap.done ? getTempleAverage : undefined,
     [load],
@@ -109,7 +117,7 @@ function App() {
 
     (async () => {
       const vaalGems: { [key: string]: boolean } = {};
-      let result = gems.value.lines.map(
+      let result: GemDetails[] = gems.value.map(
         ({
           name,
           variant,
@@ -167,7 +175,7 @@ function App() {
 
       await forEach(result, async (gem, i) => {
         if (i % 1000 === 0) {
-          if (cancel) return;
+          if (cancel) throw new Error("cancel");
           const p = (100 * i) / result.length;
           setProgress(p);
           if (Date.now() > timeSlice) {
@@ -208,7 +216,7 @@ function App() {
 
       await forEach(result, async (gem, i) => {
         if (i % 1000 === 0) {
-          if (cancel) return;
+          if (cancel) throw new Error("cancel");
           const p = (100 * i) / result.length;
           setProgress(p);
           if (Date.now() > timeSlice) {
@@ -241,11 +249,9 @@ function App() {
               const gcpCount = gem.Quality < other.Quality ? other.Quality - gem.Quality : 0;
               if (gcpCount && gem.Corrupted) return undefined as any;
               const gcpCost = gcpCount * oneGcp;
-              const xpValue = Math.round(
-                ((other.Price - (gem.Price + gcpCost)) * qualityMultiplier) /
-                  (((other.XP || 0) - (gem.XP || 0)) / million)
-              );
-              return { ...other, gcpCount, gcpCost, xpValue };
+              const xpDiff = ((other.XP || 0) - (gem.XP || 0)) / million / qualityMultiplier;
+              const xpValue = Math.round((other.Price - (gem.Price + gcpCost)) / xpDiff);
+              return { ...other, gcpCount, gcpCost, xpValue, xpDiff };
             })
             .concat(
               gem.Type === "Superior" &&
@@ -258,15 +264,21 @@ function App() {
                         other.Quality === 20 &&
                         (other.XP || 0) + xp.value[gem.baseName][20] > (gem.XP || 0)
                     )
-                    .map((other) => ({
-                      ...other,
-                      gcpCount: 1,
-                      gcpCost: oneGcp,
-                      reset: true,
-                      xpValue:
-                        ((other.Price - (gem.Price + oneGcp)) * qualityMultiplier) /
-                        (((other.XP || 0) + xp.value[gem.baseName][20] - (gem.XP || 0)) / million),
-                    }))
+                    .map((other) => {
+                      const xpDiff =
+                        ((other.XP || 0) + xp.value[gem.baseName][20] - (gem.XP || 0)) /
+                        million /
+                        qualityMultiplier;
+
+                      return {
+                        ...other,
+                        gcpCount: 1,
+                        gcpCost: oneGcp,
+                        reset: true,
+                        xpDiff,
+                        xpValue: (other.Price - (gem.Price + oneGcp)) / xpDiff,
+                      };
+                    })
                 : []
             )
             .filter(exists)
@@ -276,6 +288,56 @@ function App() {
       });
 
       setData(structuredClone(result));
+      setProgressMsg("Calculating regrading lens values");
+      setProgress(0);
+      await new Promise((resolve) => (timeout = setTimeout(resolve, 1)));
+      timeSlice = Date.now() + 200;
+
+      if (gemQuality.done) {
+        await forEach(result, async (gem, i) => {
+          if (i % 1000 === 0) {
+            if (cancel) throw new Error("cancel");
+            const p = (100 * i) / result.length;
+            setProgress(p);
+            if (Date.now() > timeSlice) {
+              console.debug("yielding to ui", Date.now() - timeSlice);
+              await new Promise((resolve) => (timeout = setTimeout(resolve, 1)));
+              console.debug("resumed processing", Date.now() - timeSlice);
+              timeSlice = Date.now() + 200;
+            }
+          }
+
+          if (!gem.Corrupted && gem.Type !== "Awakened" && gemQuality.value.weights[gem.baseName]) {
+            const weights = gemQuality.value.weights[gem.baseName].filter(
+              ({ Type }) => Type !== gem.Type
+            );
+            const totalWeight = weights.reduce(
+              (sum, { Type, weight }) => (Type === gem.Type ? sum : sum + weight),
+              0
+            );
+            if (!totalWeight) return;
+            gem.regrData = weights.map(({ Type, weight }) => ({
+              chance: weight / totalWeight,
+              outcomes: [Type],
+              gem: bestMatch(
+                copy(gem, { Type, Price: 0, Listings: 0 }),
+                gemMap[gem.baseName][Type],
+                lowConfidence
+              ),
+            }));
+            gem.regrValue =
+              (gem.regrData?.reduce(
+                (sum, { gem: { Price }, chance }) => sum + (Price || 0) * chance,
+                0
+              ) || 0) - gem.Price;
+          } else {
+            if (!gem.Corrupted && gem.Type !== "Awakened") console.log(gem);
+            gem.regrValue = 0;
+          }
+        });
+      }
+
+      setData(structuredClone(result));
       setProgressMsg("Calculating vaal outcomes");
       setProgress(0);
       await new Promise((resolve) => (timeout = setTimeout(resolve, 1)));
@@ -283,7 +345,7 @@ function App() {
 
       await forEach(result, async (gem, i) => {
         if (i % 1000 === 0) {
-          if (cancel) return;
+          if (cancel) throw new Error("cancel");
           const p = (100 * i) / result.length;
           setProgress(p);
           if (Date.now() > timeSlice) {
@@ -308,7 +370,7 @@ function App() {
             (vaalData?.reduce((sum, { gem, chance }) => sum + (gem?.Price || 0) * chance, 0) || 0) -
             gem.Price -
             currencyMap.value["Vaal Orb"];
-          let merged: VaalData | null = null;
+          let merged: ConversionData | null = null;
           let sumChance = 0;
           gem.vaalData = [];
           vaalData.forEach((next) => {
@@ -350,8 +412,8 @@ function App() {
       const price = templePrice.debounced || (templeAverage.done && templeAverage.value.price);
       if (price) {
         await forEach(result, async (gem, i) => {
+          if (cancel) throw new Error("cancel");
           if (i % 100 === 0) {
-            if (cancel) return;
             const p = (100 * i) / result.length;
             setProgress(p);
             if (Date.now() > timeSlice) {
@@ -364,7 +426,7 @@ function App() {
 
           // Temple corruption
           if (!gem.Corrupted) {
-            let templeData: VaalData[] = [];
+            let templeData: ConversionData[] = [];
             vaal(copy(gem, { Price: 0, Listings: 0 })).forEach(({ gem, chance, outcomes }) => {
               templeData = templeData.concat(vaal(gem, chance, outcomes));
             });
@@ -379,7 +441,7 @@ function App() {
               }))
               .sort((a, b) => compareGem(a.gem, b.gem));
             gem.templeData = [];
-            let merged: VaalData | null = null;
+            let merged: ConversionData | null = null;
             let sumChance = 0;
             templeData.forEach((next) => {
               sumChance += next.chance;
@@ -431,7 +493,9 @@ function App() {
       setProgress(100);
       setProgressMsg("");
       setData(result);
-    })();
+    })().catch((e: Error) => {
+      if (e.message !== "cancel") console.error(e);
+    });
 
     return () => {
       cancel = true;
@@ -443,6 +507,7 @@ function App() {
     meta,
     xp,
     currencyMap,
+    gemQuality,
     incQual.debounced,
     lowConfidence,
     templeAverage,
@@ -513,7 +578,8 @@ function App() {
                     }`
                 )
                 .join("\n")}>
-              {Math.round(xpData[0].xpValue * fiveWay.debounced)}c/5-way
+              {Math.round(xpData[0].xpValue * fiveWay.debounced)}c/5-way (
+              {numeral(xpData[0].xpDiff / fiveWay.debounced).format("0[.][00]")} 5-ways)
             </p>
           ),
       },
@@ -541,6 +607,47 @@ function App() {
                 )
                 .join("\n")}>
               {Math.round(gcpData[0].gcpValue)}
+            </p>
+          ),
+      },
+      {
+        id: "regrValue",
+        accessorFn: ({ regrValue, Name }) =>
+          (regrValue || 0) -
+          (currencyMap.value?.[
+            Name.includes("Support") ? "Secondary Regrading Lens" : "Prime Regrading Lens"
+          ] || 0),
+        header: "Average regrading lens profit",
+        filterFn: "inNumberRange",
+        cell: ({
+          row: {
+            original: { Name, Price, regrValue, regrData },
+          },
+        }) =>
+          !regrData?.length ? (
+            "n/a"
+          ) : (
+            <p
+              title={regrData
+                ?.map(
+                  ({ gem, chance }) =>
+                    `${numeral(chance * 100).format("0[.][00]")}% ${Math.round(
+                      gem.Price -
+                        Price -
+                        (currencyMap.value?.[
+                          Name.includes("Support")
+                            ? "Secondary Regrading Lens"
+                            : "Prime Regrading Lens"
+                        ] || 0)
+                    )}c: ${gem.Level}/${gem.Quality} ${gem.Name} (${gem.Listings} at ${gem.Price}c)`
+                )
+                .join("\n")}>
+              {Math.round(
+                (regrValue || 0) -
+                  (currencyMap.value?.[
+                    Name.includes("Support") ? "Secondary Regrading Lens" : "Prime Regrading Lens"
+                  ] || 0)
+              )}
             </p>
           ),
       },
@@ -638,7 +745,7 @@ function App() {
         ),
       },
     ],
-    [league, fiveWay.debounced]
+    [league, currencyMap, fiveWay.debounced]
   );
 
   const table = useReactTable({
@@ -714,7 +821,7 @@ function App() {
                     type="number"
                     fullWidth
                     margin="normal"
-                    label="override temple price"
+                    label="Override temple price"
                     variant="outlined"
                     value={templePrice.value || ""}
                     onChange={({ target }) =>
@@ -732,13 +839,43 @@ function App() {
                       rel="noreferrer">
                       {templeAverage.done
                         ? templeAverage.value.total
-                          ? `estimated Doryani's Institute price: ${templeAverage.value.price} chaos (${templeAverage.value.total} listings, used ${templeAverage.value.filtered} of first ${templeAverage.value.pageSize} results)`
-                          : "no Doryani's Institute online"
+                          ? `Estimated Doryani's Institute price: ${templeAverage.value.price} chaos (${templeAverage.value.total} listings, used ${templeAverage.value.filtered} of first ${templeAverage.value.pageSize} results)`
+                          : "No Doryani's Institute online"
                         : templeAverage.error
-                        ? "error getting temple prices"
-                        : "checking temple prices..."}
+                        ? "Error getting temple prices"
+                        : "Checking temple prices..."}
                     </a>
                   </p>
+
+                  <TextField
+                    type="number"
+                    fullWidth
+                    margin="normal"
+                    label="Prime regrading lens price"
+                    placeholder={Math.round(
+                      currencyMap.value?.["Prime Regrading Lens"] || 0
+                    ).toString()}
+                    variant="outlined"
+                    value={primeRegrading.value || ""}
+                    onChange={({ target }) =>
+                      primeRegrading.set(target.value ? parseInt(target.value) : 0)
+                    }
+                  />
+
+                  <TextField
+                    type="number"
+                    fullWidth
+                    margin="normal"
+                    label="Secondary regrading lens price"
+                    placeholder={Math.round(
+                      currencyMap.value?.["Secondary Regrading Lens"] || 0
+                    ).toString()}
+                    variant="outlined"
+                    value={secRegrading.value || ""}
+                    onChange={({ target }) =>
+                      secRegrading.set(target.value ? parseInt(target.value) : 0)
+                    }
+                  />
 
                   <FormControlLabel
                     control={
@@ -788,10 +925,10 @@ function App() {
 
         {!league ? undefined : (
           <>
-            <Typography component="p" align="center">
+            <Typography component="p" p={1}>
               {gems.pending || currencyMap.pending || meta.pending || xp.pending
                 ? "Fetching data..."
-                : progressMsg || "all currency costs accounted for in profit values"}
+                : progressMsg || "All currency costs accounted for in profit values"}
             </Typography>
             <LinearProgress variant="determinate" value={progress} />
           </>
@@ -804,7 +941,7 @@ function App() {
       {meta.error && <Alert severity="error">Error getting metagame: {meta.error}</Alert>}
       {xp.error && <Alert severity="error">Error getting gem xp data: {xp.error}</Alert>}
       {gems.done && currencyMap.done && (
-        <Box sx={{ minWidth: "150em" }}>
+        <Box sx={{ minWidth: "160em" }}>
           <Table>
             <TableHead>
               {table.getHeaderGroups().map((headerGroup) => (
