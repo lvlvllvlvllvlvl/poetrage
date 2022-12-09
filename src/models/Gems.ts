@@ -42,6 +42,49 @@ export type GemDetails = Gem & {
   templeData?: ConversionData[];
 };
 
+const getRatio = (name: string, profit: number, cost: number) => ({
+  name,
+  cost,
+  profit,
+  ratio: profit / cost,
+});
+
+export const getRatios = (
+  gem: GemDetails,
+  currencyMap: {
+    [key: string]: number;
+  },
+  templeValue: number
+) =>
+  (
+    [
+      gem.gcpData?.length
+        ? getRatio("GCP", gem.gcpData[0].gcpValue, gem.Price + gem.gcpData[0].gcpCost)
+        : undefined,
+      gem.regrValue !== undefined
+        ? getRatio(
+            "Regrading lens",
+            (gem.regrValue || 0) -
+              (currencyMap[
+                gem.Name.includes("Support") ? "Secondary Regrading Lens" : "Prime Regrading Lens"
+              ] || 0),
+            gem.Price +
+              (currencyMap[
+                gem.Name.includes("Support") ? "Secondary Regrading Lens" : "Prime Regrading Lens"
+              ] || 0)
+          )
+        : undefined,
+      gem.vaalValue !== undefined
+        ? getRatio("Vaal orb", gem.vaalValue, gem.Price + currencyMap["Vaal Orb"])
+        : undefined,
+      gem.templeValue !== undefined
+        ? getRatio("Temple", gem.templeValue, gem.Price + templeValue)
+        : undefined,
+    ] as { name: string; profit: number; cost: number; ratio: number }[]
+  )
+    .filter(exists)
+    .sort(({ ratio: a }, { ratio: b }) => b - a);
+
 export const exists = (v: any) => v !== undefined;
 export const copy = (
   {
@@ -63,7 +106,7 @@ export const copy = (
 ): Gem => ({
   baseName,
   variant,
-  Name: (Type === "Superior" ? "" : Type + " ") + "Vaal " + baseName,
+  Name: (altQualities.includes(Type as any) ? "" : Type + " ") + (Vaal ? "Vaal " : "") + baseName,
   Level,
   Quality,
   Type,

@@ -64,7 +64,7 @@ const Filter = <T extends {}>({ column }: { column: Column<T, T[keyof T]> }) => 
           variant="outlined"
           value={min.value}
           style={{
-            maxWidth: "6em",
+            maxWidth: "5em",
           }}
           inputProps={{
             min: column.getFacetedMinMaxValues()?.[0],
@@ -80,7 +80,7 @@ const Filter = <T extends {}>({ column }: { column: Column<T, T[keyof T]> }) => 
             variant="outlined"
             value={max.value}
             style={{
-              maxWidth: "6em",
+              maxWidth: "5em",
             }}
             inputProps={{
               min: column.getFacetedMinMaxValues()?.[0],

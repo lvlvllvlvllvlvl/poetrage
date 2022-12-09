@@ -2,7 +2,6 @@
 
 - Check for inconsistent pricing (corrupted gem worth more than identical uncorrupted)
 - Ability to override gem pricing
-- Profit ratio (max across columns)
 - Vendors
 - Don't recalculate everything when changing temple price
 - Remove axios cache, store computed values in sessionstorage

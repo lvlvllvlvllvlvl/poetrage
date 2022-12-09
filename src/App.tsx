@@ -62,6 +62,7 @@ import {
   exists,
   Gem,
   GemDetails,
+  getRatios,
   getType,
   modifiers,
   vaal,
@@ -169,21 +170,20 @@ function App() {
       setProgressMsg("Calculating gcp values");
       setProgress(0);
       await new Promise((resolve) => (timeout = setTimeout(resolve, 1)));
-      let timeSlice = Date.now() + 200;
+      const processingTime = 400;
+      let timeSlice = Date.now() + processingTime;
 
       const oneGcp = currencyMap.value["Gemcutter's Prism"];
 
       await forEach(result, async (gem, i) => {
-        if (i % 1000 === 0) {
-          if (cancel) throw new Error("cancel");
+        if (cancel) throw new Error("cancel");
+        if (Date.now() > timeSlice) {
           const p = (100 * i) / result.length;
           setProgress(p);
-          if (Date.now() > timeSlice) {
-            console.debug("yielding to ui", Date.now() - timeSlice);
-            await new Promise((resolve) => (timeout = setTimeout(resolve, 1)));
-            console.debug("resumed processing", Date.now() - timeSlice);
-            timeSlice = Date.now() + 200;
-          }
+          console.debug("yielding to ui", Date.now() - timeSlice);
+          await new Promise((resolve) => (timeout = setTimeout(resolve, 1)));
+          console.debug("resumed processing", Date.now() - timeSlice);
+          timeSlice = Date.now() + processingTime;
         }
 
         //GCP
@@ -212,19 +212,17 @@ function App() {
       setProgressMsg("Calculating xp values");
       setProgress(0);
       await new Promise((resolve) => (timeout = setTimeout(resolve, 1)));
-      timeSlice = Date.now() + 200;
+      timeSlice = Date.now() + processingTime;
 
       await forEach(result, async (gem, i) => {
-        if (i % 1000 === 0) {
-          if (cancel) throw new Error("cancel");
+        if (cancel) throw new Error("cancel");
+        if (Date.now() > timeSlice) {
           const p = (100 * i) / result.length;
           setProgress(p);
-          if (Date.now() > timeSlice) {
-            console.debug("yielding to ui", Date.now() - timeSlice);
-            await new Promise((resolve) => (timeout = setTimeout(resolve, 1)));
-            console.debug("resumed processing", Date.now() - timeSlice);
-            timeSlice = Date.now() + 200;
-          }
+          console.debug("yielding to ui", Date.now() - timeSlice);
+          await new Promise((resolve) => (timeout = setTimeout(resolve, 1)));
+          console.debug("resumed processing", Date.now() - timeSlice);
+          timeSlice = Date.now() + processingTime;
         }
 
         //XP
@@ -291,20 +289,18 @@ function App() {
       setProgressMsg("Calculating regrading lens values");
       setProgress(0);
       await new Promise((resolve) => (timeout = setTimeout(resolve, 1)));
-      timeSlice = Date.now() + 200;
+      timeSlice = Date.now() + processingTime;
 
       if (gemQuality.done) {
         await forEach(result, async (gem, i) => {
-          if (i % 1000 === 0) {
-            if (cancel) throw new Error("cancel");
+          if (cancel) throw new Error("cancel");
+          if (Date.now() > timeSlice) {
             const p = (100 * i) / result.length;
             setProgress(p);
-            if (Date.now() > timeSlice) {
-              console.debug("yielding to ui", Date.now() - timeSlice);
-              await new Promise((resolve) => (timeout = setTimeout(resolve, 1)));
-              console.debug("resumed processing", Date.now() - timeSlice);
-              timeSlice = Date.now() + 200;
-            }
+            console.debug("yielding to ui", Date.now() - timeSlice);
+            await new Promise((resolve) => (timeout = setTimeout(resolve, 1)));
+            console.debug("resumed processing", Date.now() - timeSlice);
+            timeSlice = Date.now() + processingTime;
           }
 
           if (!gem.Corrupted && gem.Type !== "Awakened" && gemQuality.value.weights[gem.baseName]) {
@@ -341,19 +337,17 @@ function App() {
       setProgressMsg("Calculating vaal outcomes");
       setProgress(0);
       await new Promise((resolve) => (timeout = setTimeout(resolve, 1)));
-      timeSlice = Date.now() + 200;
+      timeSlice = Date.now() + processingTime;
 
       await forEach(result, async (gem, i) => {
-        if (i % 1000 === 0) {
-          if (cancel) throw new Error("cancel");
+        if (cancel) throw new Error("cancel");
+        if (Date.now() > timeSlice) {
           const p = (100 * i) / result.length;
           setProgress(p);
-          if (Date.now() > timeSlice) {
-            console.debug("yielding to ui", Date.now() - timeSlice);
-            await new Promise((resolve) => (timeout = setTimeout(resolve, 1)));
-            console.debug("resumed processing", Date.now() - timeSlice);
-            timeSlice = Date.now() + 200;
-          }
+          console.debug("yielding to ui", Date.now() - timeSlice);
+          await new Promise((resolve) => (timeout = setTimeout(resolve, 1)));
+          console.debug("resumed processing", Date.now() - timeSlice);
+          timeSlice = Date.now() + processingTime;
         }
 
         //Corruption
@@ -407,21 +401,19 @@ function App() {
       setProgressMsg("Calculating temple corruption outcomes");
       setProgress(0);
       await new Promise((resolve) => (timeout = setTimeout(resolve, 1)));
-      timeSlice = Date.now() + 200;
+      timeSlice = Date.now() + processingTime;
 
       const price = templePrice.debounced || (templeAverage.done && templeAverage.value.price);
       if (price) {
         await forEach(result, async (gem, i) => {
           if (cancel) throw new Error("cancel");
-          if (i % 100 === 0) {
+          if (Date.now() > timeSlice) {
             const p = (100 * i) / result.length;
             setProgress(p);
-            if (Date.now() > timeSlice) {
-              console.debug("yielding to ui", Date.now() - timeSlice);
-              await new Promise((resolve) => (timeout = setTimeout(resolve, 1)));
-              console.debug("resumed processing", Date.now() - timeSlice);
-              timeSlice = Date.now() + 200;
-            }
+            console.debug("yielding to ui", Date.now() - timeSlice);
+            await new Promise((resolve) => (timeout = setTimeout(resolve, 1)));
+            console.debug("resumed processing", Date.now() - timeSlice);
+            timeSlice = Date.now() + processingTime;
           }
 
           // Temple corruption
@@ -567,7 +559,7 @@ function App() {
           !xpData?.length ? (
             "n/a"
           ) : (
-            <p
+            <span
               title={xpData
                 ?.map(
                   ({ xpValue, Level, Quality, Price, gcpCount, reset }, i) =>
@@ -580,8 +572,40 @@ function App() {
                 .join("\n")}>
               {Math.round(xpData[0].xpValue * fiveWay.debounced)}c/5-way (
               {numeral(xpData[0].xpDiff / fiveWay.debounced).format("0[.][00]")} 5-ways)
-            </p>
+            </span>
           ),
+      },
+      {
+        id: "ratio",
+        header: "Profit ratio",
+        accessorFn: (original) =>
+          getRatios(
+            original,
+            currencyMap.value || {},
+            templePrice.debounced || templeAverage.value?.price || 100
+          )[0]?.ratio,
+        cell: ({ row: { original } }) => {
+          const ratios = getRatios(
+            original,
+            currencyMap.value || {},
+            templePrice.debounced || templeAverage.value?.price || 100
+          );
+          return ratios?.length ? (
+            <span
+              title={ratios
+                .map(
+                  ({ name, ratio, profit, cost }) =>
+                    `${name}: ${numeral(ratio).format("0[.][00]")} (cost: ${numeral(cost).format(
+                      "0[.][00]"
+                    )}c, profit: ${numeral(profit).format("0[.][00]")}c)`
+                )
+                .join("\n")}>
+              {numeral(ratios[0].ratio).format("0[.][00]")}
+            </span>
+          ) : (
+            "n/a"
+          );
+        },
       },
       {
         accessorKey: "gcpValue",
@@ -597,7 +621,7 @@ function App() {
           !gcpData?.length ? (
             "n/a"
           ) : (
-            <p
+            <span
               title={gcpData
                 ?.map(
                   ({ gcpValue, Level, Quality, Listings, Price }, i) =>
@@ -607,7 +631,7 @@ function App() {
                 )
                 .join("\n")}>
               {Math.round(gcpData[0].gcpValue)}
-            </p>
+            </span>
           ),
       },
       {
@@ -627,7 +651,7 @@ function App() {
           !regrData?.length ? (
             "n/a"
           ) : (
-            <p
+            <span
               title={regrData
                 ?.map(
                   ({ gem, chance }) =>
@@ -648,7 +672,7 @@ function App() {
                     Name.includes("Support") ? "Secondary Regrading Lens" : "Prime Regrading Lens"
                   ] || 0)
               )}
-            </p>
+            </span>
           ),
       },
       {
@@ -661,7 +685,7 @@ function App() {
           },
         }) =>
           vaalValue ? (
-            <p
+            <span
               title={vaalData
                 ?.map(
                   ({ gem, chance, outcomes: [outcome] }) =>
@@ -676,7 +700,7 @@ function App() {
                 )
                 .join("\n")}>
               {Math.round(vaalValue)}c
-            </p>
+            </span>
           ) : (
             "n/a"
           ),
@@ -691,7 +715,7 @@ function App() {
           },
         }) =>
           templeValue ? (
-            <p
+            <span
               title={templeData
                 ?.map(
                   ({ gem, chance }) =>
@@ -701,7 +725,7 @@ function App() {
                 )
                 .join("\n")}>
               {Math.round(templeValue)}c
-            </p>
+            </span>
           ) : (
             "n/a"
           ),
@@ -745,7 +769,7 @@ function App() {
         ),
       },
     ],
-    [league, currencyMap, fiveWay.debounced]
+    [league, currencyMap, fiveWay.debounced, templeAverage, templePrice.debounced]
   );
 
   const table = useReactTable({
@@ -771,7 +795,7 @@ function App() {
       sx={{
         display: "flex",
         flexDirection: "column",
-        minHeight: "100vh",
+        height: "100vh",
       }}>
       <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="sm">
         <Box sx={{ display: "flex", flexDirection: "row" }}>
@@ -941,67 +965,73 @@ function App() {
       {meta.error && <Alert severity="error">Error getting metagame: {meta.error}</Alert>}
       {xp.error && <Alert severity="error">Error getting gem xp data: {xp.error}</Alert>}
       {gems.done && currencyMap.done && (
-        <Box sx={{ minWidth: "160em" }}>
-          <Table>
-            <TableHead>
-              {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => {
-                    return (
-                      <TableCell key={header.id} colSpan={header.colSpan} sx={{ height: 0 }}>
-                        {header.isPlaceholder ? null : (
-                          <Box
-                            sx={{
-                              flex: "1",
-                              height: "100%",
-                              display: "flex",
-                              flexDirection: "column",
-                              justifyContent: "space-between",
-                            }}>
-                            <Box
-                              {...{
-                                style: header.column.getCanSort()
-                                  ? { cursor: "pointer", userSelect: "none", verticalAlign: "top" }
-                                  : { verticalAlign: "top" },
-                                onClick: header.column.getToggleSortingHandler(),
-                              }}>
-                              {flexRender(header.column.columnDef.header, header.getContext())}
-                              {{ asc: " ▲", desc: " ▼" }[header.column.getIsSorted() as string] ??
-                                null}
-                            </Box>
-                            {header.column.getCanFilter() ? (
-                              <Filter column={header.column as any} />
-                            ) : null}
-                          </Box>
-                        )}
-                      </TableCell>
-                    );
-                  })}
-                </TableRow>
-              ))}
-            </TableHead>
-            <TableBody>
-              {table.getRowModel().rows.map((row) => {
-                return (
-                  <TableRow key={row.id}>
-                    {row.getVisibleCells().map((cell) => {
+        <>
+          <Box sx={{ maxWidth: "100vw", overflow: "auto" }}>
+            <Table sx={{ minWidth: `${(columns.length - (league?.indexed ? 1 : 0)) * 11}em` }}>
+              <TableHead>
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <TableRow key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => {
                       return (
-                        <TableCell key={cell.id}>
-                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        <TableCell key={header.id} colSpan={header.colSpan} sx={{ height: 0 }}>
+                          {header.isPlaceholder ? null : (
+                            <Box
+                              sx={{
+                                flex: "1",
+                                height: "100%",
+                                display: "flex",
+                                flexDirection: "column",
+                                justifyContent: "space-between",
+                              }}>
+                              <Box
+                                {...{
+                                  style: header.column.getCanSort()
+                                    ? {
+                                        cursor: "pointer",
+                                        userSelect: "none",
+                                        verticalAlign: "top",
+                                      }
+                                    : { verticalAlign: "top" },
+                                  onClick: header.column.getToggleSortingHandler(),
+                                }}>
+                                {flexRender(header.column.columnDef.header, header.getContext())}
+                                {{ asc: " ▲", desc: " ▼" }[header.column.getIsSorted() as string] ??
+                                  null}
+                              </Box>
+                              {header.column.getCanFilter() ? (
+                                <Filter column={header.column as any} />
+                              ) : null}
+                            </Box>
+                          )}
                         </TableCell>
                       );
                     })}
                   </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
+                ))}
+              </TableHead>
+              <TableBody>
+                {table.getRowModel().rows.map((row) => {
+                  return (
+                    <TableRow key={row.id}>
+                      {row.getVisibleCells().map((cell) => {
+                        return (
+                          <TableCell key={cell.id}>
+                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </Box>
           <Pagination
             count={table.getPageCount()}
             page={table.getState().pagination.pageIndex + 1}
             onChange={(_, page) => table.setPageIndex(page - 1)}
           />
-        </Box>
+        </>
       )}
       {gems.fail && String(gems.error)}
     </Box>
