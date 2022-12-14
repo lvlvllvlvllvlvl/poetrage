@@ -1,4 +1,5 @@
 import RefreshIcon from "@mui/icons-material/Refresh";
+import FormHelperText from "@mui/material/FormHelperText";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -65,6 +66,7 @@ import {
   getRatios,
   getType,
   modifiers,
+  strictlyBetter,
   vaal,
 } from "./models/Gems";
 
@@ -79,6 +81,7 @@ function App() {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
   const [league, setLeague] = useState<League>();
+  const [sanitize, setSanitize] = useState<"no" | "yes" | "corrupted">("no");
   const templePrice = useDebouncedState(0);
   const primeRegrading = useDebouncedState(0);
   const secRegrading = useDebouncedState(0);
@@ -165,6 +168,23 @@ function App() {
           v[k] = v[k].sort(compareGem);
         })
       );
+
+      //Mark gems that are priced higher than strictly better versions of the same gem as low confidence
+      result.forEach((gem) => {
+        gemMap[gem.baseName][gem.Type].forEach((other) => {
+          if (
+            (sanitize === "yes" || (sanitize === "corrupted" && gem.Corrupted)) &&
+            !gem.lowConfidence &&
+            other.Price < gem.Price &&
+            strictlyBetter(other, gem)
+          ) {
+            console.debug(
+              `${gem.Name} ${gem.variant} (${gem.Price} chaos) worth more than ${other.variant} (${other.Price} chaos), marking low confidence`
+            );
+            gem.lowConfidence = true;
+          }
+        });
+      });
 
       setData(structuredClone(result));
       setProgressMsg("Calculating gcp values");
@@ -505,6 +525,7 @@ function App() {
     templeAverage,
     templePrice.debounced,
     league?.indexed,
+    sanitize,
   ]);
 
   const columns: ColumnDef<GemDetails, GemDetails[keyof GemDetails]>[] = useMemo(
@@ -910,6 +931,22 @@ function App() {
                     }
                     label="include low confidence values"
                   />
+
+                  <FormControl fullWidth margin="normal">
+                    <InputLabel>Mark inconsistently priced gems as low confidence</InputLabel>
+                    <Select
+                      value={sanitize}
+                      label="sanitize data"
+                      onChange={({ target }) => setSanitize(target.value as any)}>
+                      <MenuItem value="no">No</MenuItem>
+                      <MenuItem value="yes">Yes</MenuItem>
+                      <MenuItem value="corrupted">Corruption outcomes only</MenuItem>
+                    </Select>
+                    <FormHelperText>
+                      e.g. 20/20 corrupted worth more than 20/20 uncorrupted
+                    </FormHelperText>
+                  </FormControl>
+
                   <TextField
                     type="number"
                     fullWidth

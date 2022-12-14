@@ -134,7 +134,6 @@ export const getType = (name: string) => {
     return "Superior";
   }
 };
-
 export const betterOrEqual = (gem: Gem, other: Gem) => {
   if (other.baseName !== gem.baseName || other.Type !== gem.Type) {
     console.debug("mismatched gem comparison", gem, other);
@@ -143,11 +142,16 @@ export const betterOrEqual = (gem: Gem, other: Gem) => {
     (gem.Vaal || !other.Vaal) &&
     (other.Corrupted || !gem.Corrupted) &&
     other.Level <= gem.Level &&
-    (other.Quality <= gem.Quality || exceptional.find((e) => gem.Name.includes(e)))
+    (other.Quality <= gem.Quality || !!exceptional.find((e) => gem.Name.includes(e)))
   );
 };
-export const bestMatch = (gem: Gem, data: Gem[], lowConfidence: boolean = false) =>
-  data.find((other) => (lowConfidence || !other.lowConfidence) && betterOrEqual(gem, other)) || gem;
+
+export const strictlyBetter = (gem: Gem, other: Gem) => {
+  return betterOrEqual(gem, other) && !betterOrEqual(other, gem);
+};
+export const bestMatch = (gem: Gem, data?: Gem[], lowConfidence: boolean = false) =>
+  data?.find((other) => (lowConfidence || !other.lowConfidence) && betterOrEqual(gem, other)) ||
+  gem;
 export const compareGem = (a: Gem, b: Gem) => {
   if (a.baseName !== b.baseName || a.Type !== b.Type) {
     console.debug("mismatched gem comparison", a, b);
