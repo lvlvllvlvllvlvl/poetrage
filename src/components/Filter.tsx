@@ -22,7 +22,7 @@ const minCols: Key[] = maxCols.concat([
   "Listings",
   "regrValue",
 ]);
-const minDefault: any = { Meta: 1, Listings: 5 };
+const minDefault: any = { Meta: 0.4, Listings: 5 };
 
 const Filter = <T extends {}>({ column }: { column: Column<T, T[keyof T]> }) => {
   const key = column.id as Key;

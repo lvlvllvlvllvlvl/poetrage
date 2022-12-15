@@ -85,6 +85,7 @@ function App() {
   const templePrice = useDebouncedState(0);
   const primeRegrading = useDebouncedState(0);
   const secRegrading = useDebouncedState(0);
+  const filterMeta = useDebouncedState(0.2);
   const incQual = useDebouncedState(30);
   const fiveWay = useDebouncedState(60);
   const [lowConfidence, setLowConfidence] = useState(false);
@@ -135,6 +136,7 @@ function App() {
           const baseName = modifiers.reduce((name, mod) => name.replace(mod, ""), name);
           const Vaal = name.includes("Vaal");
           const Type = getType(name);
+          const Meta = (meta.done && meta.value[name]) || 0;
           vaalGems[baseName] = vaalGems[baseName] || Vaal;
           return {
             Name: name,
@@ -147,10 +149,12 @@ function App() {
             Vaal,
             Type,
             Price: Math.round(chaosValue || 0),
-            Meta: (meta.done && meta.value[name]) || 0,
+            Meta,
             Listings: listingCount,
             lowConfidence:
-              !sparkline?.data?.length || sparkline.data[sparkline.data.length - 1] === null,
+              Meta < filterMeta.debounced ||
+              !sparkline?.data?.length ||
+              sparkline.data[sparkline.data.length - 1] === null,
           } as GemDetails;
         }
       );
@@ -526,6 +530,7 @@ function App() {
     templePrice.debounced,
     league?.indexed,
     sanitize,
+    filterMeta.debounced,
   ]);
 
   const columns: ColumnDef<GemDetails, GemDetails[keyof GemDetails]>[] = useMemo(
@@ -684,7 +689,9 @@ function App() {
                             ? "Secondary Regrading Lens"
                             : "Prime Regrading Lens"
                         ] || 0)
-                    )}c: ${gem.Level}/${gem.Quality} ${gem.Name} (${gem.Listings} at ${gem.Price}c)`
+                    )}c: ${gem.Level}/${gem.Quality} ${gem.Name} (${
+                      gem.Price ? `${gem.Listings} at ${gem.Price}c` : "low confidence"
+                    })`
                 )
                 .join("\n")}>
               {Math.round(
@@ -717,7 +724,9 @@ function App() {
                       (outcome === "Add quality" || outcome === "Remove quality")
                         ? "+"
                         : ""
-                    } ${gem.Name} (${gem.Listings} at ${gem.Price}c)`
+                    } ${gem.Name} (${
+                      gem.Price ? `${gem.Listings} at ${gem.Price}c` : "low confidence"
+                    })`
                 )
                 .join("\n")}>
               {Math.round(vaalValue)}c
@@ -742,7 +751,7 @@ function App() {
                   ({ gem, chance }) =>
                     `${numeral(chance * 100).format("0[.][00]")} %: ${gem.Level} / ${gem.Quality} ${
                       gem.Name
-                    } (${gem.Listings} at ${gem.Price}c)`
+                    } (${gem.Price ? `${gem.Listings} at ${gem.Price}c` : "low confidence"})`
                 )
                 .join("\n")}>
               {Math.round(templeValue)}c
@@ -930,6 +939,18 @@ function App() {
                       />
                     }
                     label="include low confidence values"
+                  />
+
+                  <TextField
+                    type="number"
+                    fullWidth
+                    margin="normal"
+                    label="Exclude gems with less meta % than"
+                    variant="outlined"
+                    value={filterMeta.value || 0}
+                    onChange={({ target }) =>
+                      filterMeta.set(target.value ? parseFloat(target.value) : 0)
+                    }
                   />
 
                   <FormControl fullWidth margin="normal">
