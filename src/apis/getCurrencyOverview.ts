@@ -6,8 +6,16 @@ export const getCurrencyOverview = async (league: string) => {
     `https://poe.ninja/api/data/currencyoverview?league=${league}&type=Currency`
   );
 
-  const result: { [key: string]: number } = { chaos: 1 };
+  const result: { [key: string]: number } = {};
   response.data.lines.forEach((c) => (result[c.currencyTypeName] = c.chaosEquivalent));
   result["exalted"] = result["Exalted Orb"];
-  return result;
+  result["divine"] = result["Divine Orb"];
+  function getter(currency: string) {
+    return (
+      result[currency] ||
+      result[Object.keys(result).find((k) => k.toLowerCase().includes(currency)) || ""] ||
+      1
+    );
+  }
+  return getter;
 };

@@ -23,13 +23,13 @@ const query: SearchQueryContainer = {
   sort: { price: "asc" },
 };
 
-export const getTempleAverage = async (league: string, currencyMap: { [key: string]: number }) => {
+export const getTempleAverage = async (league: string, currencyMap: (key: string) => number) => {
   const { search, fetch } = await searchItems(league, query);
 
   const prices = fetch.result.map(({ listing: { price } }) => price) || [];
   const chaosValues = prices
-    .filter(({ currency, amount }) => currency && amount && currencyMap[currency])
-    .map(({ currency, amount }: any) => currencyMap[currency] * amount);
+    .filter(({ currency, amount }) => currency && amount && currencyMap(currency))
+    .map(({ currency, amount }: any) => currencyMap(currency) * amount);
   let filteredValues = filterOutliers(chaosValues);
   if (filteredValues.length === 0) filteredValues = chaosValues;
   const sum = filteredValues.reduce((a, b) => a + b, 0);

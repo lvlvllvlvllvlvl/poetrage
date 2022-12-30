@@ -3,7 +3,7 @@ import { useState } from "react";
 function useDebouncedState<T>(
   initialValue: T,
   ms: number = 500
-): { value: T; debounced: T; set: (value: T) => void } {
+): Readonly<{ value: T; debounced: T; set: (value: T) => void }> {
   const [value, setValue] = useState<T>(initialValue);
   const [debounced, setDebounced] = useState<T>(initialValue);
 

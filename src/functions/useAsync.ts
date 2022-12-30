@@ -15,16 +15,17 @@ export const useAsync = <R, T extends any[]>(
     setError(undefined);
     setStatus(fn ? "pending" : "idle");
     fn &&
-      fn(...(args || ([] as any)))
-        .then((response) => {
-          setValue(response);
+      (async () => {
+        try {
+          const result = await fn(...(args || ([] as any)));
+          setValue(() => result);
           setStatus("done");
-        })
-        .catch((error) => {
+        } catch (error) {
           console.error(error);
           setError(error ? String(error) : "Unknown error");
           setStatus("fail");
-        });
+        }
+      })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fn, ...(deps || []), ...args]);
 
@@ -37,7 +38,7 @@ export const useAsync = <R, T extends any[]>(
         [status]: true,
         value,
         error,
-      } as any as
+      } as any as Readonly<
         | {
             done: true;
             pending: false;
@@ -46,7 +47,8 @@ export const useAsync = <R, T extends any[]>(
             value: R;
           }
         | { done: false; pending: true; fail: false; error: undefined; value: undefined }
-        | { done: false; pending: false; fail: true; error: string; value: undefined }),
+        | { done: false; pending: false; fail: true; error: string; value: undefined }
+      >),
     [status, value, error]
   );
 };

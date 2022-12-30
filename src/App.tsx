@@ -1,5 +1,4 @@
 import RefreshIcon from "@mui/icons-material/Refresh";
-import FormHelperText from "@mui/material/FormHelperText";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -9,6 +8,7 @@ import Checkbox from "@mui/material/Checkbox";
 import Container from "@mui/material/Container";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import FormHelperText from "@mui/material/FormHelperText";
 import IconButton from "@mui/material/IconButton";
 import InputLabel from "@mui/material/InputLabel";
 import LinearProgress from "@mui/material/LinearProgress";
@@ -34,7 +34,7 @@ import {
   getSortedRowModel,
   SortingFn,
   SortingState,
-  useReactTable,
+  useReactTable
 } from "@tanstack/react-table";
 import { cache } from "apis/axios";
 import { getGemQuality } from "apis/getGemQuality";
@@ -67,11 +67,10 @@ import {
   getType,
   modifiers,
   strictlyBetter,
-  vaal,
+  vaal
 } from "./models/Gems";
 
 const million = 1000000;
-const basicCurrency = { "Chaos Orb": 1 };
 
 const includes: FilterFn<GemDetails> = (row, columnId, filterValue: any[]) =>
   (filterValue?.length || 0) > 0 && filterValue.includes(row.getValue(columnId));
@@ -107,7 +106,7 @@ function App() {
     currencyMap.done ? getTempleAverage : undefined,
     [load],
     league?.name || "",
-    currencyMap.done ? currencyMap.value : basicCurrency
+    currencyMap.done ? currencyMap.value : () => 1
   );
   const [data, setData] = useState([] as GemDetails[]);
 
@@ -197,7 +196,7 @@ function App() {
       const processingTime = 400;
       let timeSlice = Date.now() + processingTime;
 
-      const oneGcp = currencyMap.value["Gemcutter's Prism"];
+      const oneGcp = currencyMap.value?.("Gemcutter's Prism") || 1;
 
       await forEach(result, async (gem, i) => {
         if (cancel) throw new Error("cancel");
@@ -386,8 +385,8 @@ function App() {
           }));
           gem.vaalValue =
             (vaalData?.reduce((sum, { gem, chance }) => sum + (gem?.Price || 0) * chance, 0) || 0) -
-            gem.Price -
-            currencyMap.value["Vaal Orb"];
+              gem.Price -
+              currencyMap.value?.("Vaal Orb") || 1;
           let merged: ConversionData | null = null;
           let sumChance = 0;
           gem.vaalData = [];
@@ -607,13 +606,13 @@ function App() {
         accessorFn: (original) =>
           getRatios(
             original,
-            currencyMap.value || {},
+            currencyMap.value || (() => 1),
             templePrice.debounced || templeAverage.value?.price || 100
           )[0]?.ratio,
         cell: ({ row: { original } }) => {
           const ratios = getRatios(
             original,
-            currencyMap.value || {},
+            currencyMap.value || (() => 1),
             templePrice.debounced || templeAverage.value?.price || 100
           );
           return ratios?.length ? (
@@ -664,9 +663,9 @@ function App() {
         id: "regrValue",
         accessorFn: ({ regrValue, Name }) =>
           (regrValue || 0) -
-          (currencyMap.value?.[
+          (currencyMap.value?.(
             Name.includes("Support") ? "Secondary Regrading Lens" : "Prime Regrading Lens"
-          ] || 0),
+          ) || 0),
         header: "Average regrading lens profit",
         filterFn: "inNumberRange",
         cell: ({
@@ -684,11 +683,11 @@ function App() {
                     `${numeral(chance * 100).format("0[.][00]")}% ${Math.round(
                       gem.Price -
                         Price -
-                        (currencyMap.value?.[
+                        (currencyMap.value?.(
                           Name.includes("Support")
                             ? "Secondary Regrading Lens"
                             : "Prime Regrading Lens"
-                        ] || 0)
+                        ) || 0)
                     )}c: ${gem.Level}/${gem.Quality} ${gem.Name} (${
                       gem.Price ? `${gem.Listings} at ${gem.Price}c` : "low confidence"
                     })`
@@ -696,9 +695,9 @@ function App() {
                 .join("\n")}>
               {Math.round(
                 (regrValue || 0) -
-                  (currencyMap.value?.[
+                  (currencyMap.value?.(
                     Name.includes("Support") ? "Secondary Regrading Lens" : "Prime Regrading Lens"
-                  ] || 0)
+                  ) || 0)
               )}
             </span>
           ),
@@ -907,7 +906,7 @@ function App() {
                     margin="normal"
                     label="Prime regrading lens price"
                     placeholder={Math.round(
-                      currencyMap.value?.["Prime Regrading Lens"] || 0
+                      currencyMap.value?.("Prime Regrading Lens") || 0
                     ).toString()}
                     variant="outlined"
                     value={primeRegrading.value || ""}
@@ -922,7 +921,7 @@ function App() {
                     margin="normal"
                     label="Secondary regrading lens price"
                     placeholder={Math.round(
-                      currencyMap.value?.["Secondary Regrading Lens"] || 0
+                      currencyMap.value?.("Secondary Regrading Lens") || 0
                     ).toString()}
                     variant="outlined"
                     value={secRegrading.value || ""}

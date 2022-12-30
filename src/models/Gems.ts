@@ -51,9 +51,7 @@ const getRatio = (name: string, profit: number, cost: number) => ({
 
 export const getRatios = (
   gem: GemDetails,
-  currencyMap: {
-    [key: string]: number;
-  },
+  currencyMap: (key: string) => number,
   templeValue: number
 ) =>
   (
@@ -65,17 +63,17 @@ export const getRatios = (
         ? getRatio(
             "Regrading lens",
             (gem.regrValue || 0) -
-              (currencyMap[
+              (currencyMap(
                 gem.Name.includes("Support") ? "Secondary Regrading Lens" : "Prime Regrading Lens"
-              ] || 0),
+              ) || 0),
             gem.Price +
-              (currencyMap[
+              (currencyMap(
                 gem.Name.includes("Support") ? "Secondary Regrading Lens" : "Prime Regrading Lens"
-              ] || 0)
+              ) || 0)
           )
         : undefined,
       gem.vaalValue !== undefined
-        ? getRatio("Vaal orb", gem.vaalValue, gem.Price + currencyMap["Vaal Orb"])
+        ? getRatio("Vaal orb", gem.vaalValue, gem.Price + currencyMap("Vaal Orb"))
         : undefined,
       gem.templeValue !== undefined
         ? getRatio("Temple", gem.templeValue, gem.Price + templeValue)
@@ -86,38 +84,14 @@ export const getRatios = (
     .sort(({ ratio: a }, { ratio: b }) => b - a);
 
 export const exists = (v: any) => v !== undefined;
-export const copy = (
-  {
-    baseName,
-    variant,
-    Level,
-    Quality,
-    Type,
-    Corrupted,
-    Vaal,
-    canVaal,
-    Price,
-    Meta,
-    XP,
-    Listings,
-    lowConfidence,
-  }: Gem,
-  overrides: Partial<Gem> = {}
-): Gem => ({
-  baseName,
-  variant,
-  Name: (altQualities.includes(Type as any) ? "" : Type + " ") + (Vaal ? "Vaal " : "") + baseName,
-  Level,
-  Quality,
-  Type,
-  Corrupted,
-  Vaal,
-  canVaal,
-  Price,
-  Meta,
-  XP,
-  Listings,
-  lowConfidence,
+export const copy = (base: Gem, overrides: Partial<Gem> = {}): Gem => ({
+  ...base,
+  Name:
+    (altQualities.includes(overrides.Type || (base.Type as any))
+      ? ""
+      : (overrides.Type || base.Type) + " ") +
+    (overrides.Vaal || base.Vaal ? "Vaal " : "") +
+    base.baseName,
   ...overrides,
 });
 export const altQualities = ["Anomalous", "Divergent", "Phantasmal"] as const;
