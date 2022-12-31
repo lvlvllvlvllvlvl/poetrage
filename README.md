@@ -1,7 +1,12 @@
 ## TODO
 
-- Check for inconsistent pricing (corrupted gem worth more than identical uncorrupted)
 - Ability to override gem pricing
+- Refresh prices from trade site
+- Better display of result breakdowns
+- Add multiselect to profit ratio column
+- Default gem type column multiselect to no selections
+- Ability to show json for row (for debugging)
+- Beasts
 - Vendors
 - Don't recalculate everything when changing temple price
 - Remove axios cache, store computed values in sessionstorage

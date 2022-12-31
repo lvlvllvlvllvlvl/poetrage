@@ -80,7 +80,7 @@ function App() {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
   const [league, setLeague] = useState<League>();
-  const [sanitize, setSanitize] = useState<"no" | "yes" | "corrupted">("no");
+  const [sanitize, setSanitize] = useState<"no" | "yes" | "corrupted">("yes");
   const templePrice = useDebouncedState(0);
   const primeRegrading = useDebouncedState(0);
   const secRegrading = useDebouncedState(0);
@@ -956,7 +956,7 @@ function App() {
                     <InputLabel>Mark inconsistently priced gems as low confidence</InputLabel>
                     <Select
                       value={sanitize}
-                      label="sanitize data"
+                      label="Mark inconsistently priced gems as low confidence"
                       onChange={({ target }) => setSanitize(target.value as any)}>
                       <MenuItem value="no">No</MenuItem>
                       <MenuItem value="yes">Yes</MenuItem>
@@ -971,7 +971,7 @@ function App() {
                     type="number"
                     fullWidth
                     margin="normal"
-                    label="gem quality bonus"
+                    label="Gem quality bonus"
                     variant="outlined"
                     value={incQual.value}
                     onChange={({ target }) =>
@@ -984,7 +984,7 @@ function App() {
                     type="number"
                     fullWidth
                     margin="normal"
-                    label="million XP per 5-way"
+                    label="Million XP per 5-way"
                     variant="outlined"
                     value={fiveWay.value}
                     onChange={({ target }) =>
