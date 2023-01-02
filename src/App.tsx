@@ -249,7 +249,7 @@ function App() {
         }
 
         //XP
-        if (gem.XP) {
+        if (gem.XP !== undefined) {
           const qualityMultiplier =
             !altQualities.includes(gem.Type as any) && exceptional.find((e) => gem.Name.includes(e))
               ? 1 + (gem.Quality + incQual.debounced) * 0.05
