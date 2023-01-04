@@ -28,7 +28,7 @@ export const getExp = async () => {
         result[name] = levels;
       }
     );
-    offset += 500;
-  } while (json?.cargoquery && json?.cargoquery.length && Object.keys(result).length === offset);
+    offset += json?.cargoquery.length || 0;
+  } while (json?.cargoquery && json?.cargoquery.length);
   return result;
 };

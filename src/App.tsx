@@ -34,7 +34,7 @@ import {
   getSortedRowModel,
   SortingFn,
   SortingState,
-  useReactTable
+  useReactTable,
 } from "@tanstack/react-table";
 import { cache } from "apis/axios";
 import { getGemQuality } from "apis/getGemQuality";
@@ -68,7 +68,7 @@ import {
   getType,
   modifiers,
   strictlyBetter,
-  vaal
+  vaal,
 } from "./models/Gems";
 
 const million = 1000000;
@@ -120,7 +120,7 @@ function App() {
 
     setProgressMsg("Formatting data");
 
-    const missingXP: { [gem: string]: any } = {};
+    const missingXP: { [gem: string]: true } = {};
     (async () => {
       const vaalGems: { [key: string]: boolean } = {};
       let result: GemDetails[] = gems.value.map(
@@ -325,6 +325,7 @@ function App() {
       setProgress(0);
       await new Promise((resolve) => (timeout = setTimeout(resolve, 1)));
       timeSlice = Date.now() + processingTime;
+      const missingQual = {} as { [baseName: string]: true };
 
       if (gemQuality.done) {
         await forEach(result, async (gem, i) => {
@@ -363,11 +364,20 @@ function App() {
               ) || 0) - gem.Price;
           } else {
             if (!gem.Corrupted && gem.Type !== "Awakened") {
-              console.debug("No alt-quality weights found for " + gem.Name);
+              missingQual[gem.baseName] = true;
             }
             gem.regrValue = 0;
           }
         });
+      }
+
+      for (const missing of Object.keys(missingQual).sort()) {
+        console.debug(
+          `Missing alt quality data, visit https://www.poewiki.net/wiki/${missing.replaceAll(
+            " ",
+            "_"
+          )}/edit, save without changing anything and then purge cache.`
+        );
       }
 
       setData(structuredClone(result));
@@ -550,18 +560,13 @@ function App() {
     () => [
       { accessorKey: "Name", filterFn: "includesString" },
       {
-        accessorKey: "lowConfidence",
-        header: "Low confidence",
-        filterFn: "equals",
-        cell: (info) => (info.getValue() ? "✓" : "✗"),
-      },
-      {
         accessorKey: "Corrupted",
         filterFn: "equals",
         cell: (info) => (info.getValue() ? "✓" : "✗"),
       },
       { accessorKey: "Level", filterFn: "inNumberRange" },
       { accessorKey: "Quality", filterFn: "inNumberRange" },
+      { accessorKey: "Price", filterFn: "inNumberRange", cell: (info) => info.getValue() + "c" },
       {
         accessorKey: "XP",
         sortingFn: (({ original: { XP: a } }, { original: { XP: b } }) =>
@@ -774,7 +779,6 @@ function App() {
           ),
       },
       { accessorKey: "Type", filterFn: "includes" as any },
-      { accessorKey: "Price", filterFn: "inNumberRange", cell: (info) => info.getValue() + "c" },
       {
         accessorKey: "Meta",
         filterFn: "inNumberRange",
@@ -811,6 +815,12 @@ function App() {
           </a>
         ),
       },
+      {
+        accessorKey: "lowConfidence",
+        header: "Low confidence",
+        filterFn: "equals",
+        cell: (info) => (info.getValue() ? "✓" : "✗"),
+      },
     ],
     [league, currencyMap, fiveWay.debounced, templeAverage, templePrice.debounced]
   );
@@ -819,10 +829,12 @@ function App() {
     data,
     columns,
     filterFns: { includes },
+    enablePinning: true,
     state: {
       sorting,
       columnFilters,
       columnVisibility: { Meta: !!league?.indexed },
+      columnPinning: { left: ["Name"] },
     },
     onColumnFiltersChange: setColumnFilters,
     onSortingChange: setSorting,
@@ -1045,7 +1057,16 @@ function App() {
                   <TableRow key={headerGroup.id}>
                     {headerGroup.headers.map((header) => {
                       return (
-                        <TableCell key={header.id} colSpan={header.colSpan} sx={{ height: 0 }}>
+                        <TableCell
+                          key={header.id}
+                          colSpan={header.colSpan}
+                          sx={{
+                            height: 0,
+                            background: "white",
+                            position: header.column.getIsPinned() ? "sticky" : undefined,
+                            left: header.column.getIsPinned() ? 0 : undefined,
+                            zIndex: header.column.getIsPinned() ? 1 : undefined,
+                          }}>
                           {header.isPlaceholder ? null : (
                             <Box
                               sx={{
@@ -1087,7 +1108,14 @@ function App() {
                     <TableRow key={row.id}>
                       {row.getVisibleCells().map((cell) => {
                         return (
-                          <TableCell key={cell.id}>
+                          <TableCell
+                            key={cell.id}
+                            sx={{
+                              background: "white",
+                              position: cell.column.getIsPinned() ? "sticky" : undefined,
+                              left: cell.column.getIsPinned() ? 0 : undefined,
+                              zIndex: cell.column.getIsPinned() ? 1 : undefined,
+                            }}>
                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                           </TableCell>
                         );
