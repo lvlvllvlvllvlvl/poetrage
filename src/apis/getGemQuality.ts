@@ -17,7 +17,7 @@ export const getGemQuality = async () => {
     ).data;
     json?.cargoquery?.forEach(({ title: { name, "set id": set, weight } }) => {
       weights[name] = weights[name] || [];
-      const Type = gemTypes[parseInt(set)];
+      const Type = gemTypes[parseInt(set) - 1];
       if (!weights[name].find((w) => w.Type === Type)) {
         weights[name].push({ Type, weight: parseInt(weight) });
       }
