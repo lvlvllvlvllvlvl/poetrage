@@ -41,6 +41,7 @@ import { getGemQuality } from "apis/getGemQuality";
 import { League } from "models/ninja/Leagues";
 import numeral from "numeral";
 import React, { useEffect, useMemo, useReducer, useState } from "react";
+import GithubCorner from "react-github-corner";
 import { getCurrencyOverview } from "./apis/getCurrencyOverview";
 import { getExp } from "./apis/getExp";
 import { getGemOverview } from "./apis/getGemOverview";
@@ -119,6 +120,7 @@ function App() {
 
     setProgressMsg("Formatting data");
 
+    const missingXP: { [gem: string]: any } = {};
     (async () => {
       const vaalGems: { [key: string]: boolean } = {};
       let result: GemDetails[] = gems.value.map(
@@ -136,13 +138,17 @@ function App() {
           const Vaal = name.includes("Vaal");
           const Type = getType(name);
           const Meta = (meta.done && meta.value[name]) || 0;
+          const levels = xp.value[Type === "Awakened" ? name : baseName];
+          if (!levels) {
+            missingXP[Type === "Awakened" ? name : baseName] = true;
+          }
           vaalGems[baseName] = vaalGems[baseName] || Vaal;
           return {
             Name: name,
             baseName,
             variant,
             Level: gemLevel,
-            XP: xp.value[Type === "Awakened" ? name : baseName]?.[gemLevel],
+            XP: levels?.[gemLevel],
             Quality: gemQuality || 0,
             Corrupted: corrupted || false,
             Vaal,
@@ -157,6 +163,15 @@ function App() {
           } as GemDetails;
         }
       );
+
+      for (const missing of Object.keys(missingXP).sort()) {
+        console.debug(
+          `Missing xp data, visit https://www.poewiki.net/wiki/${missing.replaceAll(
+            " ",
+            "_"
+          )}/edit, save without changing anything and then purge cache.`
+        );
+      }
 
       const gemMap: { [key: string]: { [key: string]: Gem[] } } = {};
       result.forEach((gem) => {
@@ -258,14 +273,11 @@ function App() {
             (other) =>
               (lowConfidence || !other.lowConfidence) &&
               other.Corrupted === gem.Corrupted &&
-              other.XP !== undefined
+              other.XP !== undefined &&
+              xp.value[gem.baseName][other.Level + 1] === undefined &&
+              (other.XP || 0) > (gem.XP || 0)
           );
           gem.xpData = possibles
-            .filter(
-              (other) =>
-                xp.value[gem.baseName][other.Level + 1] === undefined &&
-                (other.XP || 0) > (gem.XP || 0)
-            )
             .map((other) => {
               const gcpCount = gem.Quality < other.Quality ? other.Quality - gem.Quality : 0;
               if (gcpCount && gem.Corrupted) return undefined as any;
@@ -350,7 +362,9 @@ function App() {
                 0
               ) || 0) - gem.Price;
           } else {
-            if (!gem.Corrupted && gem.Type !== "Awakened") console.log(gem);
+            if (!gem.Corrupted && gem.Type !== "Awakened") {
+              console.debug("No alt-quality weights found for " + gem.Name);
+            }
             gem.regrValue = 0;
           }
         });
@@ -826,6 +840,7 @@ function App() {
         flexDirection: "column",
         height: "100vh",
       }}>
+      <GithubCorner href="https://github.com/lvlvllvlvllvlvl/poetrage" />
       <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="sm">
         <Box sx={{ display: "flex", flexDirection: "row" }}>
           <Accordion
