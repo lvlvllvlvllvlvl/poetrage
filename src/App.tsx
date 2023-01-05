@@ -852,7 +852,7 @@ function App() {
         flexDirection: "column",
         height: "100vh",
       }}>
-      <GithubCorner href="https://github.com/lvlvllvlvllvlvl/poetrage" />
+      <GithubCorner href="https://github.com/lvlvllvlvllvlvl/poetrage" target="_blank" />
       <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="sm">
         <Box sx={{ display: "flex", flexDirection: "row" }}>
           <Accordion
