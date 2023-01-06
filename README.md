@@ -5,7 +5,6 @@
 - Better display of result breakdowns
 - Add multiselect to profit ratio column
 - Ability to show json for row (for debugging)
-- Beasts
 - Vendors
 - Remove axios cache, store computed values in sessionstorage
 

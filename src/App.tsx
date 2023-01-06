@@ -46,7 +46,11 @@ import { getCurrencyOverview } from "./apis/getCurrencyOverview";
 import { getGemOverview } from "./apis/getGemOverview";
 import { getLeagues } from "./apis/getLeagues";
 import { getMeta } from "./apis/getMeta";
-import { getTempleAverage } from "./apis/getTempleAverage";
+import {
+  getAwakenedLevelAverage,
+  getAwakenedRerollAverage,
+  getTempleAverage,
+} from "./apis/getAveragePrice";
 import "./App.css";
 import Filter from "./components/Filter";
 import { forEach } from "./functions/forEach";
@@ -65,6 +69,8 @@ import {
   GemDetails,
   getRatios,
   getType,
+  mavenCrucible,
+  mavenExclusive,
   modifiers,
   strictlyBetter,
   vaal,
@@ -82,6 +88,10 @@ function App() {
   const [league, setLeague] = useState<League>();
   const [sanitize, setSanitize] = useState<"no" | "yes" | "corrupted">("yes");
   const templePrice = useDebouncedState(0);
+  const awakenedLevelPrice = useDebouncedState(0);
+  const awakenedRerollPrice = useDebouncedState(0);
+  const mavenExclusiveWeight = useDebouncedState(90);
+  const mavenCrucibleWeight = useDebouncedState(500);
   const primeRegrading = useDebouncedState(0);
   const secRegrading = useDebouncedState(0);
   const filterMeta = useDebouncedState(0.2);
@@ -107,8 +117,28 @@ function App() {
     league?.name || "",
     currencyMap.done ? currencyMap.value : () => 1
   );
+  const awakenedLevelAverage = useAsync(
+    currencyMap.done ? getAwakenedLevelAverage : undefined,
+    [load],
+    league?.name || "",
+    currencyMap.done ? currencyMap.value : () => 1
+  );
+  const awakenedRerollAverage = useAsync(
+    currencyMap.done ? getAwakenedRerollAverage : undefined,
+    [load],
+    league?.name || "",
+    currencyMap.done ? currencyMap.value : () => 1
+  );
   const costOfTemple =
     templePrice.debounced || (templeAverage.done && templeAverage.value.price) || 100;
+  const costOfAwakenedLevel =
+    awakenedLevelPrice.debounced ||
+    (awakenedLevelAverage.done && awakenedLevelAverage.value.price) ||
+    30;
+  const costOfAwakenedReroll =
+    awakenedRerollPrice.debounced ||
+    (awakenedRerollAverage.done && awakenedRerollAverage.value.price) ||
+    250;
   const [data, setData] = useState([] as GemDetails[]);
 
   useEffect(() => {
@@ -283,7 +313,7 @@ function App() {
               if (gcpCount && gem.Corrupted) return undefined as any;
               const gcpCost = gcpCount * oneGcp;
               const xpDiff = ((other.XP || 0) - (gem.XP || 0)) / million / qualityMultiplier;
-              const xpValue = Math.round((other.Price - (gem.Price + gcpCost)) / xpDiff);
+              const xpValue = (other.Price - (gem.Price + gcpCost)) / xpDiff;
               return { ...other, gcpCount, gcpCost, xpValue, xpDiff };
             })
             .concat(
@@ -317,6 +347,105 @@ function App() {
             .filter(exists)
             .sort((a, b) => b.xpValue - a.xpValue);
           gem.xpValue = gem.xpData[0]?.xpValue || 0;
+        }
+      });
+
+      setData(structuredClone(result));
+      setProgressMsg("Calculating Wild Brambleback values");
+      setProgress(0);
+      await new Promise((resolve) => (timeout = setTimeout(resolve, 1)));
+      timeSlice = Date.now() + processingTime;
+
+      await forEach(result, async (gem, i) => {
+        if (cancel) throw new Error("cancel");
+        if (Date.now() > timeSlice) {
+          const p = (100 * i) / result.length;
+          setProgress(p);
+          console.debug("yielding to ui", Date.now() - timeSlice);
+          await new Promise((resolve) => (timeout = setTimeout(resolve, 1)));
+          console.debug("resumed processing", Date.now() - timeSlice);
+          timeSlice = Date.now() + processingTime;
+        }
+
+        //Awakened Gem levels
+        if (gem.Type === "Awakened" && !gem.Corrupted) {
+          const possibles = gemMap[gem.baseName][gem.Type].filter(
+            (other) =>
+              (lowConfidence || !other.lowConfidence) &&
+              !other.Corrupted &&
+              other.XP !== undefined &&
+              other.Level > gem.Level
+          );
+          gem.levelData = possibles
+            .map((other) => {
+              const gcpCount = gem.Quality < other.Quality ? other.Quality - gem.Quality : 0;
+              if (gcpCount && gem.Corrupted) return undefined as any;
+              const gcpCost = gcpCount * oneGcp;
+              const levelDiff = other.Level - gem.Level;
+              const levelValue = Math.round((other.Price - (gem.Price + gcpCost)) / levelDiff);
+              return { ...other, gcpCount, gcpCost, levelValue, levelDiff };
+            })
+            .filter(exists)
+            .sort((a, b) => b.xpValue - a.xpValue);
+          gem.levelValue = gem.levelData[0]?.levelValue || 0;
+        }
+      });
+
+      setData(structuredClone(result));
+      setProgressMsg("Calculating Vivid Watcher values");
+      setProgress(0);
+      await new Promise((resolve) => (timeout = setTimeout(resolve, 1)));
+      timeSlice = Date.now() + processingTime;
+
+      await forEach(result, async (gem, i) => {
+        if (cancel) throw new Error("cancel");
+        if (Date.now() > timeSlice) {
+          const p = (100 * i) / result.length;
+          setProgress(p);
+          console.debug("yielding to ui", Date.now() - timeSlice);
+          await new Promise((resolve) => (timeout = setTimeout(resolve, 1)));
+          console.debug("resumed processing", Date.now() - timeSlice);
+          timeSlice = Date.now() + processingTime;
+        }
+
+        //Awakened Gem conversion
+        if (
+          gem.Type === "Awakened" &&
+          !gem.Corrupted &&
+          !exceptional.find((e) => gem.Name.includes(e))
+        ) {
+          const exclusive = mavenExclusive.filter((v) => v !== gem.Name);
+          const crucible = mavenCrucible.filter((v) => v !== gem.Name);
+          const totalWeight =
+            exclusive.length * mavenExclusiveWeight.debounced +
+            crucible.length * mavenCrucibleWeight.debounced;
+          if (exclusive.length + crucible.length === mavenExclusive.length + mavenCrucible.length) {
+            console.warn(gem.Name + " not recognized");
+          }
+          const convData = exclusive
+            .map((Name) => ({
+              chance: mavenExclusiveWeight.debounced / totalWeight,
+              gem: bestMatch(
+                copy(gem, { Name, baseName: Name, Price: 0, Listings: 0 }),
+                gemMap[Name][gem.Type],
+                lowConfidence
+              ),
+            }))
+            .concat(
+              crucible.map((Name) => ({
+                chance: mavenCrucibleWeight.debounced / totalWeight,
+                gem: bestMatch(
+                  copy(gem, { Name, baseName: Name, Price: 0, Listings: 0 }),
+                  gemMap[Name][gem.Type],
+                  lowConfidence
+                ),
+              }))
+            );
+          gem.convertValue =
+            (convData?.reduce(
+              (sum, { gem: { Price }, chance }) => sum + (Price || 0) * chance,
+              0
+            ) || 0) - gem.Price;
         }
       });
 
@@ -545,6 +674,8 @@ function App() {
     league?.indexed,
     sanitize,
     filterMeta.debounced,
+    mavenCrucibleWeight.debounced,
+    mavenExclusiveWeight.debounced,
   ]);
 
   const columns: ColumnDef<GemDetails, GemDetails[keyof GemDetails]>[] = useMemo(
@@ -577,7 +708,7 @@ function App() {
       },
       {
         accessorKey: "xpValue",
-        header: "Levelling profit",
+        header: "Levelling",
         sortingFn: (({ original: { xpValue: a } }, { original: { xpValue: b } }) =>
           a === b
             ? 0
@@ -613,11 +744,23 @@ function App() {
       },
       {
         id: "ratio",
-        header: "Profit ratio",
+        header: "Best ratio",
         accessorFn: (original) =>
-          getRatios(original, currencyMap.value || (() => 1), costOfTemple)[0]?.ratio,
+          getRatios(
+            original,
+            currencyMap.value || (() => 1),
+            costOfTemple,
+            costOfAwakenedLevel,
+            costOfAwakenedReroll
+          )[0]?.ratio,
         cell: ({ row: { original } }) => {
-          const ratios = getRatios(original, currencyMap.value || (() => 1), costOfTemple);
+          const ratios = getRatios(
+            original,
+            currencyMap.value || (() => 1),
+            costOfTemple,
+            costOfAwakenedLevel,
+            costOfAwakenedReroll
+          );
           return ratios?.length ? (
             <span
               title={ratios
@@ -637,7 +780,7 @@ function App() {
       },
       {
         accessorKey: "gcpValue",
-        header: "Profit from applying GCPs",
+        header: "GCP",
         filterFn: "inNumberRange",
         sortingFn: (a, b) =>
           (a.original.gcpData?.[0]?.gcpValue || 0) - (b.original.gcpData?.[0]?.gcpValue || 0),
@@ -669,7 +812,7 @@ function App() {
           (currencyMap.value?.(
             Name.includes("Support") ? "Secondary Regrading Lens" : "Prime Regrading Lens"
           ) || 0),
-        header: "Average regrading lens profit",
+        header: "Regrading",
         filterFn: "inNumberRange",
         cell: ({
           row: {
@@ -707,7 +850,7 @@ function App() {
       },
       {
         accessorKey: "vaalValue",
-        header: "Average profit vaaling",
+        header: "Vaal",
         filterFn: "inNumberRange",
         cell: ({
           row: {
@@ -740,7 +883,7 @@ function App() {
       {
         id: "templeValue",
         accessorFn: ({ templeValue }) => templeValue && templeValue - costOfTemple,
-        header: "Average profit from temple",
+        header: "Temple",
         filterFn: "inNumberRange",
         cell: ({
           row: {
@@ -762,6 +905,59 @@ function App() {
           ) : (
             "n/a"
           ),
+      },
+      {
+        id: "levelValue",
+        accessorFn: ({ levelValue }) => levelValue - costOfAwakenedLevel,
+        header: "Wild Brambleback",
+        sortingFn: (({ original: { levelValue: a } }, { original: { levelValue: b } }) =>
+          a === b
+            ? 0
+            : a === undefined
+            ? -1
+            : b === undefined
+            ? 1
+            : a - b) as SortingFn<GemDetails>,
+        filterFn: "inNumberRange",
+        cell: ({
+          row: {
+            original: { levelData },
+          },
+        }) =>
+          !levelData?.length ? (
+            "n/a"
+          ) : (
+            <span
+              title={levelData
+                ?.map(
+                  ({ levelValue, levelDiff, Level, Quality, Price, gcpCount }, i) =>
+                    `${Math.round(levelValue - costOfAwakenedLevel)}c profit/level applying${
+                      gcpCount === 0 ? "" : ` ${gcpCount} gcp and`
+                    } ${levelDiff} Wild Brambleback to ${Level}/${Quality} (${Price}c)`
+                )
+                .join("\n")}>
+              {Math.round(levelData[0].levelValue)}c/level
+            </span>
+          ),
+      },
+      {
+        id: "convertValue",
+        accessorFn: ({ convertValue }) => convertValue && convertValue - costOfAwakenedReroll,
+        header: "Vivid Watcher",
+        sortingFn: (({ original: { convertValue: a } }, { original: { convertValue: b } }) =>
+          a === b
+            ? 0
+            : a === undefined
+            ? -1
+            : b === undefined
+            ? 1
+            : a - b) as SortingFn<GemDetails>,
+        filterFn: "inNumberRange",
+        cell: ({
+          row: {
+            original: { convertValue },
+          },
+        }) => (convertValue ? Math.round(convertValue - costOfAwakenedReroll) : "n/a"),
       },
       {
         accessorKey: "Meta",
@@ -806,7 +1002,14 @@ function App() {
         cell: (info) => (info.getValue() ? "✓" : "✗"),
       },
     ],
-    [league, currencyMap, fiveWay.debounced, costOfTemple]
+    [
+      league,
+      currencyMap,
+      fiveWay.debounced,
+      costOfTemple,
+      costOfAwakenedLevel,
+      costOfAwakenedReroll,
+    ]
   );
 
   const table = useReactTable({

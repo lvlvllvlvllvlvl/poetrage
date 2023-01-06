@@ -2,6 +2,47 @@ export type ConversionData = { gem: Gem; chance: number; outcomes: string[] };
 export const gemTypes = ["Superior", "Anomalous", "Divergent", "Phantasmal", "Awakened"] as const;
 export type GemType = typeof gemTypes[number];
 
+export const mavenExclusive = [
+  "Awakened Ancestral Call Support",
+  "Awakened Cast On Critical Strike Support",
+  "Awakened Spell Echo Support",
+  "Awakened Unleash Support",
+  "Awakened Hextouch Support",
+  "Awakened Spell Cascade Support",
+  "Awakened Blasphemy Support",
+  "Awakened Chain Support",
+  "Awakened Increased Area of Effect Support",
+  "Awakened Arrow Nova Support",
+  "Awakened Fork Support",
+  "Awakened Generosity Support",
+  "Awakened Greater Multiple Projectiles Support",
+  "Awakened Multistrike Support",
+  "Awakened Cast While Channelling Support",
+];
+
+export const mavenCrucible = [
+  "Awakened Elemental Damage with Attacks Support",
+  "Awakened Cold Penetration Support",
+  "Awakened Deadly Ailments Support",
+  "Awakened Melee Physical Damage Support",
+  "Awakened Minion Damage Support",
+  "Awakened Vicious Projectiles Support",
+  "Awakened Void Manipulation Support",
+  "Awakened Added Chaos Damage Support",
+  "Awakened Controlled Destruction Support",
+  "Awakened Added Cold Damage Support",
+  "Awakened Lightning Penetration Support",
+  "Awakened Swift Affliction Support",
+  "Awakened Brutality Support",
+  "Awakened Burning Damage Support",
+  "Awakened Melee Splash Support",
+  "Awakened Fire Penetration Support",
+  "Awakened Added Lightning Damage Support",
+  "Awakened Elemental Focus Support",
+  "Awakened Unbound Ailments Support",
+  "Awakened Added Fire Damage Support",
+];
+
 export type Gem = {
   baseName: string;
   variant: string;
@@ -28,6 +69,13 @@ export type GemDetails = Gem & {
     gcpCost: number;
     reset?: boolean;
   })[];
+  levelValue: number;
+  levelData?: (Gem & {
+    levelValue: number;
+    levelDiff: number;
+    gcpCount: number;
+    gcpCost: number;
+  })[];
   gcpValue: number;
   gcpData?: (Gem & {
     gcpValue: number;
@@ -40,6 +88,7 @@ export type GemDetails = Gem & {
   vaalData?: ConversionData[];
   templeValue?: number;
   templeData?: ConversionData[];
+  convertValue?: number;
 };
 
 const getRatio = (name: string, profit: number, cost: number) => ({
@@ -52,7 +101,9 @@ const getRatio = (name: string, profit: number, cost: number) => ({
 export const getRatios = (
   gem: GemDetails,
   currencyMap: (key: string) => number,
-  templeValue: number
+  templeValue: number,
+  levelValue: number,
+  convertValue: number
 ) =>
   (
     [
@@ -76,7 +127,17 @@ export const getRatios = (
         ? getRatio("Vaal orb", gem.vaalValue, gem.Price + currencyMap("Vaal Orb"))
         : undefined,
       gem.templeValue !== undefined
-        ? getRatio("Temple", gem.templeValue, gem.Price + templeValue)
+        ? getRatio("Temple", gem.templeValue - templeValue, gem.Price + templeValue)
+        : undefined,
+      gem.levelData?.length
+        ? getRatio(
+            "Wild Brambleback",
+            (gem.levelData[0].levelValue - levelValue) * gem.levelData[0].levelDiff,
+            gem.Price + gem.levelData[0].gcpCost + gem.levelData[0].levelDiff * levelValue
+          )
+        : undefined,
+      gem.convertValue !== undefined
+        ? getRatio("Vivid Watcher", gem.convertValue - convertValue, gem.Price + convertValue)
         : undefined,
     ] as { name: string; profit: number; cost: number; ratio: number }[]
   )
