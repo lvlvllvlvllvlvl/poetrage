@@ -43,7 +43,7 @@ const Filter = <T extends {}>({ column }: { column: Column<T, T[keyof T]> }) => 
   const [bool, setBool] = useState<boolean | undefined>(
     key === "lowConfidence" ? false : undefined
   );
-  const [types, setTypes] = useState<string[]>([...gemTypes]);
+  const [types, setTypes] = useState<string[]>([]);
 
   useEffect(() => {
     isRange &&
@@ -146,6 +146,10 @@ const Filter = <T extends {}>({ column }: { column: Column<T, T[keyof T]> }) => 
         <FormControl sx={{ width: 100 }}>
           <Select
             multiple
+            displayEmpty
+            renderValue={(value) =>
+              value?.length ? (Array.isArray(value) ? value.join(", ") : value) : "All"
+            }
             value={types}
             onChange={({ target }) =>
               setTypes(

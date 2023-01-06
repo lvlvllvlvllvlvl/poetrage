@@ -73,7 +73,7 @@ import {
 const million = 1000000;
 
 const includes: FilterFn<GemDetails> = (row, columnId, filterValue: any[]) =>
-  (filterValue?.length || 0) > 0 && filterValue.includes(row.getValue(columnId));
+  (filterValue?.length || 0) === 0 || filterValue.includes(row.getValue(columnId));
 
 function App() {
   const [showOptions, setShowOptions] = useState(false);
@@ -107,6 +107,8 @@ function App() {
     league?.name || "",
     currencyMap.done ? currencyMap.value : () => 1
   );
+  const costOfTemple =
+    templePrice.debounced || (templeAverage.done && templeAverage.value.price) || 100;
   const [data, setData] = useState([] as GemDetails[]);
 
   useEffect(() => {
@@ -448,83 +450,77 @@ function App() {
       await new Promise((resolve) => (timeout = setTimeout(resolve, 1)));
       timeSlice = Date.now() + processingTime;
 
-      const price = templePrice.debounced || (templeAverage.done && templeAverage.value.price);
-      if (price) {
-        await forEach(result, async (gem, i) => {
-          if (cancel) throw new Error("cancel");
-          if (Date.now() > timeSlice) {
-            const p = (100 * i) / result.length;
-            setProgress(p);
-            console.debug("yielding to ui", Date.now() - timeSlice);
-            await new Promise((resolve) => (timeout = setTimeout(resolve, 1)));
-            console.debug("resumed processing", Date.now() - timeSlice);
-            timeSlice = Date.now() + processingTime;
-          }
+      await forEach(result, async (gem, i) => {
+        if (cancel) throw new Error("cancel");
+        if (Date.now() > timeSlice) {
+          const p = (100 * i) / result.length;
+          setProgress(p);
+          console.debug("yielding to ui", Date.now() - timeSlice);
+          await new Promise((resolve) => (timeout = setTimeout(resolve, 1)));
+          console.debug("resumed processing", Date.now() - timeSlice);
+          timeSlice = Date.now() + processingTime;
+        }
 
-          // Temple corruption
-          if (!gem.Corrupted) {
-            let templeData: ConversionData[] = [];
-            vaal(copy(gem, { Price: 0, Listings: 0 })).forEach(({ gem, chance, outcomes }) => {
-              templeData = templeData.concat(vaal(gem, chance, outcomes));
-            });
-            templeData = templeData
-              .map((v) => ({
-                ...v,
-                gem: bestMatch(
-                  copy(v.gem, { Price: 0, Listings: 0 }),
-                  gemMap[v.gem.baseName][v.gem.Type],
-                  lowConfidence
-                ),
-              }))
-              .sort((a, b) => compareGem(a.gem, b.gem));
-            gem.templeData = [];
-            let merged: ConversionData | null = null;
-            let sumChance = 0;
-            templeData.forEach((next) => {
-              sumChance += next.chance;
-              if (merged === null) {
-                merged = { ...next };
-              } else if (
-                merged.gem === next.gem ||
-                (betterOrEqual(merged.gem, next.gem) && betterOrEqual(next.gem, merged.gem))
-              ) {
-                merged.chance += next.chance;
-              } else if (
-                merged.gem.Listings === 0 &&
-                next.gem.Listings === 0 &&
-                !merged.outcomes.find(
-                  (v, i) => v !== "Remove quality" && v !== "Add quality" && v !== next.outcomes[i]
-                ) &&
-                !next.outcomes.find(
-                  (v, i) =>
-                    v !== "Remove quality" && v !== "Add quality" && v !== merged?.outcomes[i]
-                )
-              ) {
-                merged.chance += next.chance;
-                merged.gem = copy(merged.gem, {
-                  Quality: Math.min(merged.gem.Quality, next.gem.Quality),
-                });
-              } else {
-                gem.templeData?.push(merged);
-                merged = { ...next };
-              }
-            });
-            merged && gem.templeData?.push(merged);
-            if (sumChance < 0.99 || sumChance > 1.01) {
-              console.debug("Incorrect temple outcome chance", sumChance, gem.templeData);
+        // Temple corruption
+        if (!gem.Corrupted) {
+          let templeData: ConversionData[] = [];
+          vaal(copy(gem, { Price: 0, Listings: 0 })).forEach(({ gem, chance, outcomes }) => {
+            templeData = templeData.concat(vaal(gem, chance, outcomes));
+          });
+          templeData = templeData
+            .map((v) => ({
+              ...v,
+              gem: bestMatch(
+                copy(v.gem, { Price: 0, Listings: 0 }),
+                gemMap[v.gem.baseName][v.gem.Type],
+                lowConfidence
+              ),
+            }))
+            .sort((a, b) => compareGem(a.gem, b.gem));
+          gem.templeData = [];
+          let merged: ConversionData | null = null;
+          let sumChance = 0;
+          templeData.forEach((next) => {
+            sumChance += next.chance;
+            if (merged === null) {
+              merged = { ...next };
+            } else if (
+              merged.gem === next.gem ||
+              (betterOrEqual(merged.gem, next.gem) && betterOrEqual(next.gem, merged.gem))
+            ) {
+              merged.chance += next.chance;
+            } else if (
+              merged.gem.Listings === 0 &&
+              next.gem.Listings === 0 &&
+              !merged.outcomes.find(
+                (v, i) => v !== "Remove quality" && v !== "Add quality" && v !== next.outcomes[i]
+              ) &&
+              !next.outcomes.find(
+                (v, i) => v !== "Remove quality" && v !== "Add quality" && v !== merged?.outcomes[i]
+              )
+            ) {
+              merged.chance += next.chance;
+              merged.gem = copy(merged.gem, {
+                Quality: Math.min(merged.gem.Quality, next.gem.Quality),
+              });
+            } else {
+              gem.templeData?.push(merged);
+              merged = { ...next };
             }
-            gem.templeValue =
-              (gem.templeData?.reduce(
-                (sum, { gem, chance }) => sum + (gem?.Price || 0) * chance,
-                0
-              ) || 0) -
-              gem.Price -
-              price;
-          } else {
-            gem.templeValue = 0;
+          });
+          merged && gem.templeData?.push(merged);
+          if (sumChance < 0.99 || sumChance > 1.01) {
+            console.debug("Incorrect temple outcome chance", sumChance, gem.templeData);
           }
-        });
-      }
+          gem.templeValue =
+            (gem.templeData?.reduce(
+              (sum, { gem, chance }) => sum + (gem?.Price || 0) * chance,
+              0
+            ) || 0) - gem.Price;
+        } else {
+          gem.templeValue = 0;
+        }
+      });
 
       if (cancel) return;
       setProgress(100);
@@ -546,8 +542,6 @@ function App() {
     gemInfo,
     incQual.debounced,
     lowConfidence,
-    templeAverage,
-    templePrice.debounced,
     league?.indexed,
     sanitize,
     filterMeta.debounced,
@@ -563,6 +557,7 @@ function App() {
       },
       { accessorKey: "Level", filterFn: "inNumberRange" },
       { accessorKey: "Quality", filterFn: "inNumberRange" },
+      { accessorKey: "Type", filterFn: "includes" as any },
       { accessorKey: "Price", filterFn: "inNumberRange", cell: (info) => info.getValue() + "c" },
       {
         accessorKey: "XP",
@@ -620,17 +615,9 @@ function App() {
         id: "ratio",
         header: "Profit ratio",
         accessorFn: (original) =>
-          getRatios(
-            original,
-            currencyMap.value || (() => 1),
-            templePrice.debounced || templeAverage.value?.price || 100
-          )[0]?.ratio,
+          getRatios(original, currencyMap.value || (() => 1), costOfTemple)[0]?.ratio,
         cell: ({ row: { original } }) => {
-          const ratios = getRatios(
-            original,
-            currencyMap.value || (() => 1),
-            templePrice.debounced || templeAverage.value?.price || 100
-          );
+          const ratios = getRatios(original, currencyMap.value || (() => 1), costOfTemple);
           return ratios?.length ? (
             <span
               title={ratios
@@ -751,7 +738,8 @@ function App() {
           ),
       },
       {
-        accessorKey: "templeValue",
+        id: "templeValue",
+        accessorFn: ({ templeValue }) => templeValue && templeValue - costOfTemple,
         header: "Average profit from temple",
         filterFn: "inNumberRange",
         cell: ({
@@ -769,13 +757,12 @@ function App() {
                     } (${gem.Price ? `${gem.Listings} at ${gem.Price}c` : "low confidence"})`
                 )
                 .join("\n")}>
-              {Math.round(templeValue)}c
+              {Math.round(templeValue - costOfTemple)}c
             </span>
           ) : (
             "n/a"
           ),
       },
-      { accessorKey: "Type", filterFn: "includes" as any },
       {
         accessorKey: "Meta",
         filterFn: "inNumberRange",
@@ -819,7 +806,7 @@ function App() {
         cell: (info) => (info.getValue() ? "✓" : "✗"),
       },
     ],
-    [league, currencyMap, fiveWay.debounced, templeAverage, templePrice.debounced]
+    [league, currencyMap, fiveWay.debounced, costOfTemple]
   );
 
   const table = useReactTable({
@@ -1062,7 +1049,7 @@ function App() {
                             background: "white",
                             position: header.column.getIsPinned() ? "sticky" : undefined,
                             left: header.column.getIsPinned() ? 0 : undefined,
-                            zIndex: header.column.getIsPinned() ? 1 : undefined,
+                            zIndex: header.column.getIsPinned() ? 1000 : undefined,
                           }}>
                           {header.isPlaceholder ? null : (
                             <Box
@@ -1111,7 +1098,7 @@ function App() {
                               background: "white",
                               position: cell.column.getIsPinned() ? "sticky" : undefined,
                               left: cell.column.getIsPinned() ? 0 : undefined,
-                              zIndex: cell.column.getIsPinned() ? 1 : undefined,
+                              zIndex: cell.column.getIsPinned() ? 1000 : undefined,
                             }}>
                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                           </TableCell>
