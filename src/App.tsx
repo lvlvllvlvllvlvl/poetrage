@@ -37,13 +37,12 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { cache } from "apis/axios";
-import { getGemQuality } from "apis/getGemQuality";
+import { getGemQuality as getGemInfo } from "apis/getGemQuality";
 import { League } from "models/ninja/Leagues";
 import numeral from "numeral";
 import React, { useEffect, useMemo, useReducer, useState } from "react";
 import GithubCorner from "react-github-corner";
 import { getCurrencyOverview } from "./apis/getCurrencyOverview";
-import { getExp } from "./apis/getExp";
 import { getGemOverview } from "./apis/getGemOverview";
 import { getLeagues } from "./apis/getLeagues";
 import { getMeta } from "./apis/getMeta";
@@ -93,8 +92,7 @@ function App() {
   const [progressMsg, setProgressMsg] = useState("");
   const [load, reload] = useReducer((current) => current + 1, 0);
 
-  const xp = useAsync(getExp);
-  const gemQuality = useAsync(getGemQuality);
+  const gemInfo = useAsync(getGemInfo);
   const leagues = useAsync(getLeagues, [load]);
   const meta = useAsync(league?.indexed ? getMeta : undefined, [load], league?.name || "");
   const gems = useAsync(league ? getGemOverview : undefined, [load], league?.name || "");
@@ -112,7 +110,7 @@ function App() {
   const [data, setData] = useState([] as GemDetails[]);
 
   useEffect(() => {
-    if (!gems.done || !currencyMap.done || (league?.indexed && !meta.done) || !xp.done) {
+    if (!gems.done || !currencyMap.done || (league?.indexed && !meta.done) || !gemInfo.done) {
       return;
     }
     let cancel = false;
@@ -138,7 +136,7 @@ function App() {
           const Vaal = name.includes("Vaal");
           const Type = getType(name);
           const Meta = (meta.done && meta.value[name]) || 0;
-          const levels = xp.value[Type === "Awakened" ? name : baseName];
+          const levels = gemInfo.value?.xp[Type === "Awakened" ? name : baseName];
           if (!levels) {
             missingXP[Type === "Awakened" ? name : baseName] = true;
           }
@@ -274,7 +272,7 @@ function App() {
               (lowConfidence || !other.lowConfidence) &&
               other.Corrupted === gem.Corrupted &&
               other.XP !== undefined &&
-              xp.value[gem.baseName][other.Level + 1] === undefined &&
+              gemInfo.value?.xp[gem.baseName][other.Level + 1] === undefined &&
               (other.XP || 0) > (gem.XP || 0)
           );
           gem.xpData = possibles
@@ -290,16 +288,16 @@ function App() {
               gem.Type === "Superior" &&
                 !gem.Corrupted &&
                 gem.Quality < 20 &&
-                xp.value[gem.baseName][20]
+                gemInfo.value?.xp[gem.baseName][20]
                 ? possibles
                     .filter(
                       (other) =>
                         other.Quality === 20 &&
-                        (other.XP || 0) + xp.value[gem.baseName][20] > (gem.XP || 0)
+                        (other.XP || 0) + gemInfo.value?.xp[gem.baseName][20] > (gem.XP || 0)
                     )
                     .map((other) => {
                       const xpDiff =
-                        ((other.XP || 0) + xp.value[gem.baseName][20] - (gem.XP || 0)) /
+                        ((other.XP || 0) + gemInfo.value?.xp[gem.baseName][20] - (gem.XP || 0)) /
                         million /
                         qualityMultiplier;
 
@@ -327,7 +325,7 @@ function App() {
       timeSlice = Date.now() + processingTime;
       const missingQual = {} as { [baseName: string]: true };
 
-      if (gemQuality.done) {
+      if (gemInfo.done) {
         await forEach(result, async (gem, i) => {
           if (cancel) throw new Error("cancel");
           if (Date.now() > timeSlice) {
@@ -339,8 +337,8 @@ function App() {
             timeSlice = Date.now() + processingTime;
           }
 
-          if (!gem.Corrupted && gem.Type !== "Awakened" && gemQuality.value.weights[gem.baseName]) {
-            const weights = gemQuality.value.weights[gem.baseName].filter(
+          if (!gem.Corrupted && gem.Type !== "Awakened" && gemInfo.value.weights[gem.baseName]) {
+            const weights = gemInfo.value.weights[gem.baseName].filter(
               ({ Type }) => Type !== gem.Type
             );
             const totalWeight = weights.reduce(
@@ -544,9 +542,8 @@ function App() {
   }, [
     gems,
     meta,
-    xp,
     currencyMap,
-    gemQuality,
+    gemInfo,
     incQual.debounced,
     lowConfidence,
     templeAverage,
@@ -579,9 +576,9 @@ function App() {
             : a - b) as SortingFn<GemDetails>,
         filterFn: "inNumberRange",
         cell: (info) =>
-          info.getValue() === undefined
-            ? "n/a"
-            : numeral((info.getValue() as number).toPrecision(3)).format("0[.][00]a"),
+          Number.isInteger(info.getValue())
+            ? numeral((info.getValue() as number).toPrecision(3)).format("0[.][00]a")
+            : "n/a",
       },
       {
         accessorKey: "xpValue",
@@ -1034,7 +1031,7 @@ function App() {
         {!league ? undefined : (
           <>
             <Typography component="p" p={1}>
-              {gems.pending || currencyMap.pending || meta.pending || xp.pending
+              {gems.pending || currencyMap.pending || meta.pending || gemInfo.pending
                 ? "Fetching data..."
                 : progressMsg || "All currency costs accounted for in profit values"}
             </Typography>
@@ -1042,12 +1039,12 @@ function App() {
           </>
         )}
       </Container>
+      {gemInfo.error && <Alert severity="error">Error getting gem details: {gemInfo.error}</Alert>}
       {gems.error && <Alert severity="error">Error getting gem prices: {gems.error}</Alert>}
       {currencyMap.error && (
         <Alert severity="error">Error getting currency values: {currencyMap.error}</Alert>
       )}
       {meta.error && <Alert severity="error">Error getting metagame: {meta.error}</Alert>}
-      {xp.error && <Alert severity="error">Error getting gem xp data: {xp.error}</Alert>}
       {gems.done && currencyMap.done && (
         <>
           <Box sx={{ maxWidth: "100vw", overflow: "auto" }}>
