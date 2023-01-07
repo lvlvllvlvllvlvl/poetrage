@@ -156,8 +156,8 @@ export const copy = <T extends Gem | GemDetails>(base: T, overrides: Partial<T> 
   ...base,
   Name:
     (altQualities.includes(overrides.Type || (base.Type as any))
-      ? ""
-      : (overrides.Type || base.Type) + " ") +
+      ? (overrides.Type || base.Type) + " "
+      : "") +
     (overrides.Vaal || base.Vaal ? "Vaal " : "") +
     base.baseName,
   ...overrides,

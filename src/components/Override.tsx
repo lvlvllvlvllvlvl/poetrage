@@ -50,7 +50,10 @@ export const EditOverride = ({
           size="small"
           inputRef={input}
           onBlur={(e) => {
-            if (strField) {
+            if (
+              strField &&
+              (e.currentTarget.value || undefined) !== override?.override?.[strField]
+            ) {
               setOverride({
                 original,
                 override: clean({
@@ -58,7 +61,11 @@ export const EditOverride = ({
                   [strField]: e.currentTarget.value || undefined,
                 }),
               });
-            } else if (numField) {
+            } else if (
+              numField &&
+              (e.currentTarget.value ? parseInt(e.currentTarget.value) : undefined) !==
+                override?.override?.[numField]
+            ) {
               setOverride({
                 original,
                 override: clean({
