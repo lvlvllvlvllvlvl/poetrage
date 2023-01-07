@@ -38,19 +38,20 @@ import {
 } from "@tanstack/react-table";
 import { cache } from "apis/axios";
 import { getGemQuality as getGemInfo } from "apis/getGemQuality";
+import { EditOverride } from "components/Override";
 import { League } from "models/ninja/Leagues";
 import numeral from "numeral";
 import React, { useEffect, useMemo, useReducer, useState } from "react";
 import GithubCorner from "react-github-corner";
-import { getCurrencyOverview } from "./apis/getCurrencyOverview";
-import { getGemOverview } from "./apis/getGemOverview";
-import { getLeagues } from "./apis/getLeagues";
-import { getMeta } from "./apis/getMeta";
 import {
   getAwakenedLevelAverage,
   getAwakenedRerollAverage,
   getTempleAverage,
 } from "./apis/getAveragePrice";
+import { getCurrencyOverview } from "./apis/getCurrencyOverview";
+import { getGemOverview } from "./apis/getGemOverview";
+import { getLeagues } from "./apis/getLeagues";
+import { getMeta } from "./apis/getMeta";
 import "./App.css";
 import Filter from "./components/Filter";
 import { forEach } from "./functions/forEach";
@@ -67,11 +68,14 @@ import {
   exists,
   Gem,
   GemDetails,
+  getQuery,
   getRatios,
   getType,
+  isEqual,
   mavenCrucible,
   mavenExclusive,
   modifiers,
+  Override,
   strictlyBetter,
   vaal,
 } from "./models/Gems";
@@ -141,6 +145,25 @@ function App() {
     250;
   const [data, setData] = useState([] as GemDetails[]);
 
+  const [overrides, setOverride] = useReducer<(state: Override[], action: Override) => Override[]>(
+    (state, update) => {
+      let found = false;
+      const mapped = state.map((o) => {
+        if (isEqual(o.original, update.original)) {
+          found = true;
+          return update;
+        } else {
+          return o;
+        }
+      });
+      if (!found) {
+        mapped.push(update);
+      }
+      return mapped;
+    },
+    []
+  );
+
   useEffect(() => {
     if (!gems.done || !currencyMap.done || (league?.indexed && !meta.done) || !gemInfo.done) {
       return;
@@ -194,14 +217,14 @@ function App() {
         }
       );
 
-      for (const missing of Object.keys(missingXP).sort()) {
-        console.debug(
-          `Missing xp data, visit https://www.poewiki.net/wiki/${missing.replaceAll(
-            " ",
-            "_"
-          )}/edit, save without changing anything and then purge cache.`
-        );
-      }
+      result = result.map((gem) => {
+        const update = overrides.find((o) => isEqual(gem, o.original));
+        if (update) {
+          return copy(gem, update.override);
+        } else {
+          return gem;
+        }
+      });
 
       const gemMap: { [key: string]: { [key: string]: Gem[] } } = {};
       result.forEach((gem) => {
@@ -666,6 +689,7 @@ function App() {
     };
   }, [
     gems,
+    overrides,
     meta,
     currencyMap,
     gemInfo,
@@ -680,7 +704,20 @@ function App() {
 
   const columns: ColumnDef<GemDetails, GemDetails[keyof GemDetails]>[] = useMemo(
     () => [
-      { accessorKey: "Name", filterFn: "includesString" },
+      {
+        accessorKey: "Name",
+        filterFn: "includesString",
+        cell: (info) => (
+          <a
+            target="_blank"
+            rel="noreferrer"
+            href={`https://www.pathofexile.com/trade/search/${league?.name}?q=${JSON.stringify(
+              getQuery(info.row.original)
+            )}`}>
+            {info.getValue() as string}
+          </a>
+        ),
+      },
       {
         accessorKey: "Corrupted",
         filterFn: "equals",
@@ -689,7 +726,19 @@ function App() {
       { accessorKey: "Level", filterFn: "inNumberRange" },
       { accessorKey: "Quality", filterFn: "inNumberRange" },
       { accessorKey: "Type", filterFn: "includes" as any },
-      { accessorKey: "Price", filterFn: "inNumberRange", cell: (info) => info.getValue() + "c" },
+      {
+        accessorKey: "Price",
+        filterFn: "inNumberRange",
+        cell: ({ row: { original } }) => (
+          <EditOverride
+            original={original}
+            override={overrides.find((o) => isEqual(original, o.original))}
+            setOverride={setOverride}
+            numField="Price"
+            Render={({ Price }) => <>{Price}c</>}
+          />
+        ),
+      },
       {
         accessorKey: "XP",
         sortingFn: (({ original: { XP: a } }, { original: { XP: b } }) =>
@@ -1003,6 +1052,7 @@ function App() {
       },
     ],
     [
+      overrides,
       league,
       currencyMap,
       fiveWay.debounced,

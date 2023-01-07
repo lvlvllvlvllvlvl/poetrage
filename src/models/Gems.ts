@@ -1,5 +1,10 @@
+import { SearchQueryContainer } from "./poe/Search";
+
 export type ConversionData = { gem: Gem; chance: number; outcomes: string[] };
 export const gemTypes = ["Superior", "Anomalous", "Divergent", "Phantasmal", "Awakened"] as const;
+export const altQualities = ["Anomalous", "Divergent", "Phantasmal"] as const;
+export const modifiers = ["Anomalous ", "Divergent ", "Phantasmal ", "Vaal "];
+export const exceptional = ["Enlighten", "Empower", "Enhance"];
 export type GemType = typeof gemTypes[number];
 
 export const mavenExclusive = [
@@ -91,6 +96,8 @@ export type GemDetails = Gem & {
   convertValue?: number;
 };
 
+export type Override = { original: Gem; override: Partial<GemDetails> };
+
 const getRatio = (name: string, profit: number, cost: number) => ({
   name,
   cost,
@@ -145,7 +152,7 @@ export const getRatios = (
     .sort(({ ratio: a }, { ratio: b }) => b - a);
 
 export const exists = (v: any) => v !== undefined;
-export const copy = (base: Gem, overrides: Partial<Gem> = {}): Gem => ({
+export const copy = <T extends Gem | GemDetails>(base: T, overrides: Partial<T> = {}): T => ({
   ...base,
   Name:
     (altQualities.includes(overrides.Type || (base.Type as any))
@@ -155,9 +162,6 @@ export const copy = (base: Gem, overrides: Partial<Gem> = {}): Gem => ({
     base.baseName,
   ...overrides,
 });
-export const altQualities = ["Anomalous", "Divergent", "Phantasmal"] as const;
-export const modifiers = ["Anomalous ", "Divergent ", "Phantasmal ", "Vaal "];
-export const exceptional = ["Enlighten", "Empower", "Enhance"];
 
 export const getType = (name: string) => {
   for (const q of altQualities) {
@@ -202,6 +206,16 @@ export const compareGem = (a: Gem, b: Gem) => {
   } else {
     return b.Price - a.Price;
   }
+};
+export const isEqual = (a: Gem, b: Gem) => {
+  return (
+    a.baseName === b.baseName &&
+    a.Type === b.Type &&
+    a.Level === b.Level &&
+    a.Quality === b.Quality &&
+    a.Corrupted === b.Corrupted &&
+    a.Vaal === b.Vaal
+  );
 };
 
 export const vaal = (gem: Gem, chance: number = 1, outcomes: string[] = []) =>
@@ -250,3 +264,25 @@ export const vaal = (gem: Gem, chance: number = 1, outcomes: string[] = []) =>
   ]
     .filter(exists)
     .filter((v) => v?.chance && v.chance > 0) as ConversionData[];
+
+export const getQuery = (gem: Gem): SearchQueryContainer => ({
+  query: {
+    status: {
+      option: "onlineleague",
+    },
+    filters: {
+      misc_filters: {
+        filters: {
+          gem_level: { min: gem.Level },
+          corrupted: { option: gem.Corrupted },
+          quality: { min: gem.Quality },
+          gem_alternate_quality: altQualities.includes(gem.Type as any)
+            ? { option: `${altQualities.indexOf(gem.Type as any) + 1}` }
+            : undefined,
+        },
+      },
+    },
+    type: gem.Vaal ? "Vaal " + gem.baseName : gem.baseName,
+  },
+  sort: { price: "asc" },
+});

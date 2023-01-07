@@ -1,6 +1,5 @@
 ## TODO
 
-- Ability to override gem pricing
 - Refresh prices from trade site
 - Better display of result breakdowns
 - Add multiselect to profit ratio column

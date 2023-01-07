@@ -96,7 +96,7 @@ export interface MapFilters {
   map_series?: Option;
 }
 export interface MiscFiltersContainer {
-  disabled: boolean;
+  disabled?: boolean;
   filters: MiscFilters;
 }
 export interface MiscFilters {
