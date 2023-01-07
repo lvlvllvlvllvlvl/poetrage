@@ -735,7 +735,7 @@ function App() {
             override={overrides.find((o) => isEqual(original, o.original))}
             setOverride={setOverride}
             numField="Price"
-            Render={({ Price }) => <>{Price}c</>}
+            endAdornment="c"
           />
         ),
       },

@@ -15,7 +15,7 @@ export const EditOverride = ({
   setOverride,
   strField,
   numField,
-  Render,
+  endAdornment,
   width = 50,
   height = 16,
 }: {
@@ -28,27 +28,28 @@ export const EditOverride = ({
   numField?: {
     [K in keyof GemDetails]: GemDetails[K] extends number ? K : never;
   }[keyof GemDetails];
-  Render: React.FC<GemDetails>;
+  endAdornment?: string;
   width?: number;
   height?: number;
 }) => {
   const [edit, setEdit] = useState(false);
   const input = useRef();
-  const hasOverride = strField
-    ? !!override?.override?.[strField]
+  const overrideValue = strField
+    ? override?.override?.[strField]
     : numField
-    ? !!override?.override?.[numField]
-    : false;
+    ? override?.override?.[numField]
+    : "";
   return (
     <div
       style={{ width, height }}
       onMouseEnter={() => setEdit(true)}
       onMouseLeave={() => input.current !== document.activeElement && setEdit(false)}>
-      {edit || hasOverride ? (
+      {edit || overrideValue ? (
         <TextField
           variant="standard"
           size="small"
           inputRef={input}
+          InputProps={{ endAdornment }}
           onBlur={(e) => {
             if (
               strField &&
@@ -76,16 +77,13 @@ export const EditOverride = ({
             }
             setEdit(false);
           }}
-          defaultValue={
-            strField
-              ? (override?.override || original)[strField]
-              : numField
-              ? (override?.override || original)[numField]
-              : ""
-          }
+          defaultValue={overrideValue}
         />
       ) : (
-        <Render {...original} />
+        <>
+          {strField ? original[strField] : numField ? original[numField] : ""}
+          {endAdornment}
+        </>
       )}
     </div>
   );
