@@ -100,7 +100,7 @@ function App() {
   const secRegrading = useDebouncedState(0);
   const filterMeta = useDebouncedState(0.2);
   const incQual = useDebouncedState(30);
-  const fiveWay = useDebouncedState(60);
+  const fiveWay = useDebouncedState(100);
   const [lowConfidence, setLowConfidence] = useState(false);
   const [progress, setProgress] = useState(0);
   const [progressMsg, setProgressMsg] = useState("");
@@ -409,7 +409,7 @@ function App() {
               return { ...other, gcpCount, gcpCost, levelValue, levelDiff };
             })
             .filter(exists)
-            .sort((a, b) => b.xpValue - a.xpValue);
+            .sort((a, b) => b.levelValue - a.levelValue);
           gem.levelValue = gem.levelData[0]?.levelValue || 0;
         }
       });
@@ -756,7 +756,8 @@ function App() {
             : "n/a",
       },
       {
-        accessorKey: "xpValue",
+        id: "xpValue",
+        accessorFn: ({ xpValue }) => xpValue * fiveWay.debounced,
         header: "Levelling",
         sortingFn: (({ original: { xpValue: a } }, { original: { xpValue: b } }) =>
           a === b
@@ -790,6 +791,21 @@ function App() {
               {numeral(xpData[0].xpDiff / fiveWay.debounced).format("0[.][00]")} 5-ways)
             </span>
           ),
+      },
+      {
+        id: "xpRatio",
+        accessorFn: ({ xpValue, Price }) => (xpValue ? (xpValue * fiveWay.debounced) / Price : 0),
+        header: "Levelling ratio",
+        sortingFn: ((left, right) => {
+          const a: number = left.getValue("xpRatio");
+          const b: number = right.getValue("xpRatio");
+          return a === b ? 0 : a === undefined ? -1 : b === undefined ? 1 : a - b;
+        }) as SortingFn<GemDetails>,
+        filterFn: "inNumberRange",
+        cell: (info) =>
+          isNaN(info.getValue() as any)
+            ? "n/a"
+            : numeral((info.getValue() as number).toPrecision(3)).format("0[.][00]a"),
       },
       {
         id: "ratio",
