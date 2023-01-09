@@ -17,7 +17,7 @@ export const getCurrencyOverview = async (league: string) => {
       result[
         Object.keys(result)
           .filter((k) => k.toLowerCase().includes(currency))
-          .reduce((a, b) => (a.length <= b.length ? a : b)) || ""
+          .reduce((a, b) => (!a ? b : !b ? a : a.length <= b.length ? a : b), "") || ""
       ] ||
       1
     );
