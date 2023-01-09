@@ -450,7 +450,7 @@ function App() {
               chance: mavenExclusiveWeight.debounced / totalWeight,
               gem: bestMatch(
                 copy(gem, { Name, baseName: Name, Price: 0, Listings: 0 }),
-                gemMap[Name][gem.Type],
+                gemMap[Name]?.[gem.Type],
                 lowConfidence
               ),
             }))
@@ -459,7 +459,7 @@ function App() {
                 chance: mavenCrucibleWeight.debounced / totalWeight,
                 gem: bestMatch(
                   copy(gem, { Name, baseName: Name, Price: 0, Listings: 0 }),
-                  gemMap[Name][gem.Type],
+                  gemMap[Name]?.[gem.Type],
                   lowConfidence
                 ),
               }))
