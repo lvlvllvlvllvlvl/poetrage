@@ -866,7 +866,7 @@ function App() {
                     )}c upgrading this gem to ${Level}/${Quality} (${Listings} listed at ${Price}c)`
                 )
                 .join("\n")}>
-              {Math.round(gcpData[0].gcpValue)}
+              {Math.round(gcpData[0].gcpValue)}c
             </span>
           ),
       },
@@ -910,6 +910,7 @@ function App() {
                     Name.includes("Support") ? "Secondary Regrading Lens" : "Prime Regrading Lens"
                   ) || 0)
               )}
+              c
             </span>
           ),
       },
@@ -1022,7 +1023,7 @@ function App() {
           row: {
             original: { convertValue },
           },
-        }) => (convertValue ? Math.round(convertValue - costOfAwakenedReroll) : "n/a"),
+        }) => (convertValue ? Math.round(convertValue - costOfAwakenedReroll) + "c" : "n/a"),
       },
       {
         accessorKey: "Meta",
