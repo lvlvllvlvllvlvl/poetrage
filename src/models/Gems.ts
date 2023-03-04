@@ -222,7 +222,7 @@ export const vaal = (gem: Gem, chance: number = 1, outcomes: string[] = []) =>
   [
     {
       gem: copy(gem, { Corrupted: true }),
-      chance: chance * 0.25,
+      chance: outcomes.length === 1 ? (outcomes[0] === "No effect" ? 0 : chance / 3) : chance / 4,
       outcomes: [...outcomes, "No effect"],
     },
     {
@@ -232,17 +232,17 @@ export const vaal = (gem: Gem, chance: number = 1, outcomes: string[] = []) =>
             Vaal: true,
           })
         : copy(gem, { Corrupted: true }),
-      chance: chance * 0.25,
+      chance: outcomes.length === 1 ? (outcomes[0].includes("Vaal") ? 0 : chance / 3) : chance / 4,
       outcomes: [...outcomes, gem.canVaal ? "Vaal" : "Vaal (no outcome)"],
     },
     {
       gem: copy(gem, { Corrupted: true, Level: gem.Level + 1 }),
-      chance: chance * 0.125,
+      chance: outcomes.length === 1 ? (outcomes[0].includes("level") ? 0 : chance / 6) : chance / 8,
       outcomes: [...outcomes, "Add level"],
     },
     {
       gem: copy(gem, { Corrupted: true, Level: gem.Level - 1 }),
-      chance: chance * 0.125,
+      chance: outcomes.length === 1 ? (outcomes[0].includes("level") ? 0 : chance / 6) : chance / 8,
       outcomes: [...outcomes, "Remove level"],
     },
     ...Array.from(Array(20).keys()).map((i) => ({
@@ -250,7 +250,9 @@ export const vaal = (gem: Gem, chance: number = 1, outcomes: string[] = []) =>
         Corrupted: true,
         Quality: Math.min(gem.Quality + 20 - i, 23),
       }),
-      chance: (chance * 0.125) / 20,
+      chance:
+        (outcomes.length === 1 ? (outcomes[0].includes("quality") ? 0 : chance / 6) : chance / 8) /
+        20,
       outcomes: [...outcomes, "Add quality"],
     })),
     ...Array.from(Array(20).keys()).map((i) => ({
@@ -258,7 +260,9 @@ export const vaal = (gem: Gem, chance: number = 1, outcomes: string[] = []) =>
         Corrupted: true,
         Quality: Math.max(gem.Quality - i - 1, 0),
       }),
-      chance: (chance * 0.125) / 20,
+      chance:
+        (outcomes.length === 1 ? (outcomes[0].includes("quality") ? 0 : chance / 6) : chance / 8) /
+        20,
       outcomes: [...outcomes, "Remove quality"],
     })),
   ]
