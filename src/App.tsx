@@ -145,6 +145,16 @@ function App() {
     250;
   const [data, setData] = useState([] as GemDetails[]);
 
+  const getRegrValue = useMemo(
+    () =>
+      ({ regrValue, Name }: GemDetails) =>
+        (regrValue || 0) -
+        (Name.includes("Support")
+          ? secRegrading.debounced || currencyMap.value?.("Secondary Regrading Lens") || 0
+          : primeRegrading.debounced || currencyMap.value?.("Prime Regrading Lens") || 0),
+    [currencyMap, primeRegrading.debounced, secRegrading.debounced]
+  );
+
   const [overrides, setOverride] = useReducer<(state: Override[], action: Override) => Override[]>(
     (state, update) => {
       let found = false;
@@ -872,15 +882,17 @@ function App() {
       },
       {
         id: "regrValue",
-        accessorFn: ({ regrValue, Name }) =>
-          (regrValue || 0) -
-          (currencyMap.value?.(
-            Name.includes("Support") ? "Secondary Regrading Lens" : "Prime Regrading Lens"
-          ) || 0),
+        accessorFn: getRegrValue,
+        sortingFn: (({ original: left }, { original: right }) => {
+          const a = getRegrValue(left);
+          const b = getRegrValue(right);
+          return a === b ? 0 : a === undefined ? -1 : b === undefined ? 1 : a - b;
+        }) as SortingFn<GemDetails>,
         header: "Regrading",
         filterFn: "inNumberRange",
         cell: ({
           row: {
+            original,
             original: { Name, Price, regrValue, regrData },
           },
         }) =>
@@ -894,23 +906,19 @@ function App() {
                     `${numeral(chance * 100).format("0[.][00]")}% ${Math.round(
                       gem.Price -
                         Price -
-                        (currencyMap.value?.(
-                          Name.includes("Support")
-                            ? "Secondary Regrading Lens"
-                            : "Prime Regrading Lens"
-                        ) || 0)
+                        (Name.includes("Support")
+                          ? secRegrading.debounced ||
+                            currencyMap.value?.("Secondary Regrading Lens") ||
+                            0
+                          : primeRegrading.debounced ||
+                            currencyMap.value?.("Prime Regrading Lens") ||
+                            0)
                     )}c: ${gem.Level}/${gem.Quality} ${gem.Name} (${
                       gem.Price ? `${gem.Listings} at ${gem.Price}c` : "low confidence"
                     })`
                 )
                 .join("\n")}>
-              {Math.round(
-                (regrValue || 0) -
-                  (currencyMap.value?.(
-                    Name.includes("Support") ? "Secondary Regrading Lens" : "Prime Regrading Lens"
-                  ) || 0)
-              )}
-              c
+              {Math.round(getRegrValue(original))}c
             </span>
           ),
       },
@@ -1076,6 +1084,9 @@ function App() {
       costOfTemple,
       costOfAwakenedLevel,
       costOfAwakenedReroll,
+      primeRegrading.debounced,
+      secRegrading.debounced,
+      getRegrValue,
     ]
   );
 
