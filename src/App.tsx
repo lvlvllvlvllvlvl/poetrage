@@ -34,7 +34,7 @@ import {
   getSortedRowModel,
   SortingFn,
   SortingState,
-  useReactTable,
+  useReactTable
 } from "@tanstack/react-table";
 import { cache } from "apis/axios";
 import { getGemQuality as getGemInfo } from "apis/getGemQuality";
@@ -43,10 +43,11 @@ import { League } from "models/ninja/Leagues";
 import numeral from "numeral";
 import React, { useEffect, useMemo, useReducer, useState } from "react";
 import GithubCorner from "react-github-corner";
+import SearchOperators from "search-operators";
 import {
   getAwakenedLevelAverage,
   getAwakenedRerollAverage,
-  getTempleAverage,
+  getTempleAverage
 } from "./apis/getAveragePrice";
 import { getCurrencyOverview } from "./apis/getCurrencyOverview";
 import { getGemOverview } from "./apis/getGemOverview";
@@ -77,13 +78,40 @@ import {
   modifiers,
   Override,
   strictlyBetter,
-  vaal,
+  vaal
 } from "./models/Gems";
 
 const million = 1000000;
 
+const regexEscape = (string: string) => {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+};
+
 const includes: FilterFn<GemDetails> = (row, columnId, filterValue: any[]) =>
   (filterValue?.length || 0) === 0 || filterValue.includes(row.getValue(columnId));
+
+const search: FilterFn<GemDetails> = (
+  row,
+  columnId,
+  { filters, terms }: SearchOperators.ParseResult
+) => {
+  const value = row.getValue(columnId) as string;
+  for (const term of terms) {
+    const lower = (term as string).toLowerCase();
+    if (!value.toLowerCase().includes(lower)) {
+      return false;
+    }
+  }
+  for (const filter of filters) {
+    const lower = filter.value.toLowerCase();
+    if (filter.type === "exact" && !new RegExp(`\\b${regexEscape(lower)}\\b`, "ig").test(value)) {
+      return false;
+    } else if (filter.type === "exclude" && value.toLowerCase().includes(lower)) {
+      return false;
+    }
+  }
+  return true;
+};
 
 function App() {
   const [showOptions, setShowOptions] = useState(false);
@@ -716,7 +744,7 @@ function App() {
     () => [
       {
         accessorKey: "Name",
-        filterFn: "includesString",
+        filterFn: "search" as any,
         cell: (info) => (
           <a
             target="_blank"
@@ -1093,7 +1121,7 @@ function App() {
   const table = useReactTable({
     data,
     columns,
-    filterFns: { includes },
+    filterFns: { search, includes },
     enablePinning: true,
     state: {
       sorting,

@@ -1,15 +1,16 @@
-import IconButton from "@mui/material/IconButton";
+import FilterListIcon from "@mui/icons-material/FilterList";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import FormControl from "@mui/material/FormControl";
+import IconButton from "@mui/material/IconButton";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import { Column } from "@tanstack/react-table";
 import { useEffect, useState } from "react";
+import SearchOperators from "search-operators";
 import useDebouncedState from "../functions/useDebouncedState";
 import { GemDetails, gemTypes } from "../models/Gems";
-import FilterListIcon from "@mui/icons-material/FilterList";
 
 type Key = keyof GemDetails | "ratio";
 const booleanCols: Key[] = ["lowConfidence", "Corrupted"];
@@ -53,7 +54,12 @@ const Filter = <T extends {}>({ column }: { column: Column<T, T[keyof T]> }) => 
     isBool && column.setFilterValue(() => (!canFilter ? undefined : bool));
   }, [canFilter, bool, column, isBool]);
   useEffect(() => {
-    isText && column.setFilterValue(() => (!canFilter ? undefined : text.debounced || undefined));
+    isText &&
+      column.setFilterValue(() =>
+        !canFilter || !text.debounced
+          ? undefined
+          : SearchOperators.parse(text.debounced, { keys: [] })
+      );
   }, [canFilter, text.debounced, column, isText]);
   useEffect(() => {
     isType && column.setFilterValue(() => (!canFilter ? undefined : types));
@@ -131,6 +137,7 @@ const Filter = <T extends {}>({ column }: { column: Column<T, T[keyof T]> }) => 
           type="text"
           label="search"
           variant="outlined"
+          placeholder='"exact match" -exclude'
           value={text.value}
           onChange={({ target }) => text.set(target.value)}
         />
