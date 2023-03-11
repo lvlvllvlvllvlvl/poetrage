@@ -34,7 +34,7 @@ import {
   getSortedRowModel,
   SortingFn,
   SortingState,
-  useReactTable
+  useReactTable,
 } from "@tanstack/react-table";
 import { cache } from "apis/axios";
 import { getGemQuality as getGemInfo } from "apis/getGemQuality";
@@ -47,7 +47,7 @@ import SearchOperators from "search-operators";
 import {
   getAwakenedLevelAverage,
   getAwakenedRerollAverage,
-  getTempleAverage
+  getTempleAverage,
 } from "./apis/getAveragePrice";
 import { getCurrencyOverview } from "./apis/getCurrencyOverview";
 import { getGemOverview } from "./apis/getGemOverview";
@@ -78,14 +78,10 @@ import {
   modifiers,
   Override,
   strictlyBetter,
-  vaal
+  vaal,
 } from "./models/Gems";
 
 const million = 1000000;
-
-const regexEscape = (string: string) => {
-  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-};
 
 const includes: FilterFn<GemDetails> = (row, columnId, filterValue: any[]) =>
   (filterValue?.length || 0) === 0 || filterValue.includes(row.getValue(columnId));
@@ -104,10 +100,10 @@ const search: FilterFn<GemDetails> = (
   }
   for (const filter of filters) {
     const lower = filter.value.toLowerCase();
-    if (filter.type === "exact" && !new RegExp(`\\b${regexEscape(lower)}\\b`, "ig").test(value)) {
-      return false;
-    } else if (filter.type === "exclude" && value.toLowerCase().includes(lower)) {
-      return false;
+    if (filter.type === "exact") {
+      return value.toLowerCase() === lower;
+    } else if (filter.type === "exclude") {
+      return !value.toLowerCase().includes(lower);
     }
   }
   return true;
