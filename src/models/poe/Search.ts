@@ -1,4 +1,4 @@
-import { Item } from "./Item";
+import { Item } from "models/poe/Item";
 
 export interface SearchQueryContainer {
   query: SearchQuery;

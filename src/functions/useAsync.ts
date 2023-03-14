@@ -1,5 +1,17 @@
 import { useEffect, useMemo, useState } from "react";
 
+export type AsyncResult<R> = Readonly<
+| {
+    done: true;
+    pending: false;
+    fail: false;
+    error: undefined;
+    value: R;
+  }
+| { done: false; pending: true; fail: false; error: undefined; value: undefined }
+| { done: false; pending: false; fail: true; error: string; value: undefined }
+>
+
 //https://usehooks.com/useAsync/
 export const useAsync = <R, T extends any[]>(
   fn?: (...args: T) => Promise<R>,
@@ -38,17 +50,7 @@ export const useAsync = <R, T extends any[]>(
         [status]: true,
         value,
         error,
-      } as any as Readonly<
-        | {
-            done: true;
-            pending: false;
-            fail: false;
-            error: undefined;
-            value: R;
-          }
-        | { done: false; pending: true; fail: false; error: undefined; value: undefined }
-        | { done: false; pending: false; fail: true; error: string; value: undefined }
-      >),
+      } as any as AsyncResult<R>),
     [status, value, error]
   );
 };

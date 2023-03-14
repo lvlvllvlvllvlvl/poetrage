@@ -1,13 +1,21 @@
 import { GemType, gemTypes } from "models/Gems";
 import { Gem } from "models/repoe/Gem";
-import { api } from "./axios";
+import { api } from "apis/axios";
+
+export type Weights = { [gem: string]: { Type: GemType; weight: number }[] };
+export type XP = { [gem: string]: { [level: number]: number } };
+
+export type GemInfo = {
+  weights: Weights;
+  xp: XP;
+};
 
 export const getGemQuality = async () => {
   const response = await api.get<{ [key: string]: Gem }>(
     "https://lvlvllvlvllvlvl.github.io/RePoE/gems.min.json"
   );
-  const weights: { [gem: string]: { Type: GemType; weight: number }[] } = {};
-  const xp: { [gem: string]: { [level: number]: number } } = {};
+  const weights: Weights = {};
+  const xp: XP = {};
   Object.values(response.data).forEach((gem) => {
     const name = gem.base_item?.display_name;
     if (!name) {

@@ -1,4 +1,4 @@
-import { SearchQueryContainer } from "./poe/Search";
+import { SearchQueryContainer } from "models/poe/Search";
 
 export type ConversionData = { gem: Gem; chance: number; outcomes: string[] };
 export const gemTypes = ["Superior", "Anomalous", "Divergent", "Phantasmal", "Awakened"] as const;

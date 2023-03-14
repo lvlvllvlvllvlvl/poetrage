@@ -9,8 +9,8 @@ import TextField from "@mui/material/TextField";
 import { Column } from "@tanstack/react-table";
 import { useEffect, useState } from "react";
 import SearchOperators from "search-operators";
-import useDebouncedState from "../functions/useDebouncedState";
-import { GemDetails, gemTypes } from "../models/Gems";
+import useDebouncedState from "functions/useDebouncedState";
+import { GemDetails, gemTypes } from "models/Gems";
 
 type Key = keyof GemDetails | "ratio";
 const booleanCols: Key[] = ["lowConfidence", "Corrupted"];

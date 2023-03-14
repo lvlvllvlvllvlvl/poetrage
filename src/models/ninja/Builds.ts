@@ -1,4 +1,4 @@
-import { Language } from "./Currency";
+import { Language } from "models/ninja/Currency";
 
 export interface Builds {
   classNames: string[];

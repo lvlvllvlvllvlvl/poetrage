@@ -1,6 +1,6 @@
-import { filterOutliers } from "../functions/filterOutliers";
-import { SearchQueryContainer } from "../models/poe/Search";
-import { searchItems } from "./searchItems";
+import { filterOutliers } from "functions/filterOutliers";
+import { SearchQueryContainer } from "models/poe/Search";
+import { searchItems } from "apis/searchItems";
 
 const getAveragePrice = async (
   league: string,

@@ -1,5 +1,5 @@
-import { CurrencyOverview } from "../models/ninja/Currency";
-import { api } from "./axios";
+import { CurrencyOverview } from "models/ninja/Currency";
+import { api } from "apis/axios";
 
 export const getCurrencyOverview = async (league: string) => {
   const response = await api.get<CurrencyOverview>(
