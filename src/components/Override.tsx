@@ -1,6 +1,11 @@
-import { GemDetails, Override } from "models/Gems";
-import React, { useRef, useState } from "react";
+import RefreshIcon from "@mui/icons-material/Refresh";
+import { CircularProgress, IconButton } from "@mui/material";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
+import { getPrice } from "apis/getPrices";
+import { GemDetails, getQuery, Override } from "models/Gems";
+import { useRef, useState } from "react";
 
 const clean = (obj: Partial<GemDetails>) => {
   Object.keys(obj).forEach(
@@ -13,78 +18,89 @@ export const EditOverride = ({
   original,
   override,
   setOverride,
-  strField,
-  numField,
-  endAdornment,
+  currencyMap,
+  league,
   width = 50,
   height = 16,
 }: {
   original: GemDetails;
   override?: Override;
   setOverride: (o: Override) => void;
-  strField?: {
-    [K in keyof GemDetails]: GemDetails[K] extends string ? K : never;
-  }[keyof GemDetails];
-  numField?: {
-    [K in keyof GemDetails]: GemDetails[K] extends number ? K : never;
-  }[keyof GemDetails];
-  endAdornment?: string;
+  currencyMap?: (key: string) => number;
+  league?: string;
   width?: number;
   height?: number;
 }) => {
   const [edit, setEdit] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<HTMLElement>();
   const input = useRef();
-  const overrideValue = strField
-    ? override?.override?.[strField]
-    : numField
-    ? override?.override?.[numField]
-    : "";
+  const overrideValue = override?.override?.Price;
+  const fetchPrice = async (type: "cheapest" | "online" | "daily") => {
+    if (!league || !currencyMap) return;
+    setLoading(true);
+    try {
+      const query = getQuery(original, type !== "daily", type === "daily" ? "1day" : undefined);
+      const { price } = await getPrice(
+        league,
+        currencyMap,
+        query,
+        type === "cheapest" ? "cheapest" : "average"
+      );
+      setOverride({
+        original,
+        override: clean({
+          ...(override?.override || {}),
+          Price: price,
+        }),
+      });
+    } catch (e) {
+      console.error(e);
+    }
+    setLoading(false);
+  };
+
   return (
     <div
-      style={{ width, height }}
-      onMouseEnter={() => setEdit(true)}
-      onMouseLeave={() => input.current !== document.activeElement && setEdit(false)}>
-      {edit || overrideValue ? (
-        <TextField
-          variant="standard"
-          size="small"
-          inputRef={input}
-          InputProps={{ endAdornment }}
-          onBlur={(e) => {
-            if (
-              strField &&
-              (e.currentTarget.value || undefined) !== override?.override?.[strField]
-            ) {
+      style={{
+        display: "flex",
+        alignItems: "center",
+      }}>
+      <div
+        style={{ width, height }}
+        onMouseEnter={() => setEdit(true)}
+        onMouseLeave={() => input.current !== document.activeElement && setEdit(false)}>
+        {edit || overrideValue ? (
+          <TextField
+            variant="standard"
+            size="small"
+            inputRef={input}
+            InputProps={{ endAdornment: "c" }}
+            onBlur={(e) => {
               setOverride({
                 original,
                 override: clean({
                   ...(override?.override || {}),
-                  [strField]: e.currentTarget.value || undefined,
+                  Price: e.currentTarget.value ? parseInt(e.currentTarget.value) : undefined,
                 }),
               });
-            } else if (
-              numField &&
-              (e.currentTarget.value ? parseInt(e.currentTarget.value) : undefined) !==
-                override?.override?.[numField]
-            ) {
-              setOverride({
-                original,
-                override: clean({
-                  ...(override?.override || {}),
-                  [numField]: e.currentTarget.value ? parseInt(e.currentTarget.value) : undefined,
-                }),
-              });
-            }
-            setEdit(false);
-          }}
-          defaultValue={overrideValue}
-        />
-      ) : (
-        <>
-          {strField ? original[strField] : numField ? original[numField] : ""}
-          {endAdornment}
-        </>
-      )}
+
+              setEdit(false);
+            }}
+            defaultValue={overrideValue}
+          />
+        ) : (
+          <>{original.Price}c</>
+        )}
+      </div>
+      <IconButton onClick={(e) => setAnchorEl(e.currentTarget)}>
+        {loading ? <CircularProgress size={24} /> : <RefreshIcon />}
+      </IconButton>
+      <Menu anchorEl={anchorEl} open={!!anchorEl} onClose={() => setAnchorEl(undefined)}>
+        <MenuItem onClick={() => fetchPrice("cheapest")}>Cheapest online</MenuItem>
+        <MenuItem onClick={() => fetchPrice("online")}>Average online</MenuItem>
+        <MenuItem onClick={() => fetchPrice("daily")}>Average last day</MenuItem>
+      </Menu>
     </div>
   );
 };

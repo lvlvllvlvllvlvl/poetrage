@@ -1,11 +1,12 @@
+import { searchItems } from "apis/searchItems";
 import { filterOutliers } from "functions/filterOutliers";
 import { SearchQueryContainer } from "models/poe/Search";
-import { searchItems } from "apis/searchItems";
 
-const getAveragePrice = async (
+export const getPrice = async (
   league: string,
   currencyMap: (key: string) => number,
-  query: SearchQueryContainer
+  query: SearchQueryContainer,
+  type: "average" | "cheapest" = "average"
 ) => {
   const { search, fetch } = await searchItems(league, query);
 
@@ -13,20 +14,29 @@ const getAveragePrice = async (
   const chaosValues = prices
     .filter(({ currency, amount }) => currency && amount && currencyMap(currency))
     .map(({ currency, amount }: any) => currencyMap(currency) * amount);
-  let filteredValues = filterOutliers(chaosValues);
-  if (filteredValues.length === 0) filteredValues = chaosValues;
-  const sum = filteredValues.reduce((a, b) => a + b, 0);
-  return {
-    price: Math.round(sum / filteredValues.length),
-    total: search.total,
-    pageSize: chaosValues.length,
-    filtered: filteredValues.length,
-    searchId: search.id,
-  };
+  if (type === "average") {
+    let filteredValues = filterOutliers(chaosValues);
+    if (filteredValues.length === 0) filteredValues = chaosValues;
+    const sum = filteredValues.reduce((a, b) => a + b, 0);
+    return {
+      price: Math.round((sum * 10) / filteredValues.length) / 10,
+      total: search.total,
+      pageSize: chaosValues.length,
+      filtered: filteredValues.length,
+      searchId: search.id,
+    };
+  } else {
+    return {
+      price: Math.round((chaosValues[0] || 0) * 10) / 10,
+      total: search.total,
+      pageSize: chaosValues.length,
+      searchId: search.id,
+    };
+  }
 };
 
 export const getTempleAverage = async (league: string, currencyMap: (key: string) => number) => {
-  return await getAveragePrice(league, currencyMap, {
+  return await getPrice(league, currencyMap, {
     query: {
       status: {
         option: "onlineleague",
@@ -52,7 +62,7 @@ export const getAwakenedLevelAverage = async (
   league: string,
   currencyMap: (key: string) => number
 ) => {
-  return await getAveragePrice(league, currencyMap, {
+  return await getPrice(league, currencyMap, {
     query: {
       status: {
         option: "onlineleague",
@@ -67,7 +77,7 @@ export const getAwakenedRerollAverage = async (
   league: string,
   currencyMap: (key: string) => number
 ) => {
-  return await getAveragePrice(league, currencyMap, {
+  return await getPrice(league, currencyMap, {
     query: {
       status: {
         option: "onlineleague",

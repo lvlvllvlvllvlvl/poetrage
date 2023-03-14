@@ -41,7 +41,7 @@ import {
   getAwakenedLevelAverage,
   getAwakenedRerollAverage,
   getTempleAverage,
-} from "apis/getAveragePrice";
+} from "apis/getPrices";
 import { getCurrencyOverview } from "apis/getCurrencyOverview";
 import { getGemOverview } from "apis/getGemOverview";
 import { getGemQuality as getGemInfo } from "apis/getGemQuality";

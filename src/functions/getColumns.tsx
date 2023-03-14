@@ -51,8 +51,8 @@ export function getColumns(
           original={original}
           override={overrides.find((o) => isEqual(original, o.original))}
           setOverride={setOverride}
-          numField="Price"
-          endAdornment="c"
+          league={league?.name}
+          currencyMap={currencyMap.value}
         />
       ),
     },

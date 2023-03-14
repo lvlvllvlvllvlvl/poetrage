@@ -151,7 +151,7 @@ export interface Sockets {
   max?: number;
 }
 export interface TradeFiltersContainer {
-  disabled: boolean;
+  disabled?: boolean;
   filters: TradeFilters;
 }
 export interface TradeFilters {

@@ -269,12 +269,17 @@ export const vaal = (gem: Gem, chance: number = 1, outcomes: string[] = []) =>
     .filter(exists)
     .filter((v) => v?.chance && v.chance > 0) as ConversionData[];
 
-export const getQuery = (gem: Gem): SearchQueryContainer => ({
+export const getQuery = (
+  gem: Gem,
+  online: boolean = true,
+  indexed?: string
+): SearchQueryContainer => ({
   query: {
     status: {
-      option: "onlineleague",
+      option: online ? "onlineleague" : "any",
     },
     filters: {
+      trade_filters: indexed ? { filters: { indexed: { option: "1day" } } } : undefined,
       misc_filters: {
         filters: {
           gem_level: { min: gem.Level },
