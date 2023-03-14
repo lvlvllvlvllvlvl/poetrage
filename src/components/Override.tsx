@@ -1,11 +1,13 @@
 import RefreshIcon from "@mui/icons-material/Refresh";
-import { CircularProgress, IconButton } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
+import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import { getPrice } from "apis/getPrices";
 import { GemDetails, getQuery, Override } from "models/Gems";
 import { useRef, useState } from "react";
+import ErrorIcon from "@mui/icons-material/Error";
 
 const clean = (obj: Partial<GemDetails>) => {
   Object.keys(obj).forEach(
@@ -33,11 +35,13 @@ export const EditOverride = ({
 }) => {
   const [edit, setEdit] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const [anchorEl, setAnchorEl] = useState<HTMLElement>();
   const input = useRef();
   const overrideValue = override?.override?.Price;
   const fetchPrice = async (type: "cheapest" | "online" | "daily") => {
     if (!league || !currencyMap) return;
+    setError(false);
     setLoading(true);
     try {
       const query = getQuery(original, type !== "daily", type === "daily" ? "1day" : undefined);
@@ -55,6 +59,7 @@ export const EditOverride = ({
         }),
       });
     } catch (e) {
+      setError(true);
       console.error(e);
     }
     setLoading(false);
@@ -94,7 +99,7 @@ export const EditOverride = ({
         )}
       </div>
       <IconButton onClick={(e) => setAnchorEl(e.currentTarget)}>
-        {loading ? <CircularProgress size={24} /> : <RefreshIcon />}
+        {error ? <ErrorIcon /> : loading ? <CircularProgress size={24} /> : <RefreshIcon />}
       </IconButton>
       <Menu anchorEl={anchorEl} open={!!anchorEl} onClose={() => setAnchorEl(undefined)}>
         <MenuItem onClick={() => fetchPrice("cheapest")}>Cheapest online</MenuItem>

@@ -1,8 +1,8 @@
 import { FetchResult, SearchQueryContainer, SearchResult } from "models/poe/Search";
-import { api } from "apis/axios";
+import { api, uncachedApi } from "apis/axios";
 
 export const searchItems = async (league: string, query: SearchQueryContainer) => {
-  const search = await api.post<SearchResult>(
+  const search = await uncachedApi.post<SearchResult>(
     `https://www.pathofexile.com/api/trade/search/${league}`,
     query
   );

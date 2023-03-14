@@ -30,7 +30,18 @@ export const api = axios.create({
   },
 });
 
+export const uncachedApi = axios.create({
+  maxRedirects: 0,
+});
+
 api.interceptors.request.use((req) => {
+  if (req.url) {
+    req.url = "https://corsproxy.io/?" + encodeURIComponent(req.url);
+  }
+  return req;
+});
+
+uncachedApi.interceptors.request.use((req) => {
   if (req.url) {
     req.url = "https://corsproxy.io/?" + encodeURIComponent(req.url);
   }
