@@ -279,7 +279,7 @@ function App() {
         flexDirection: "column",
         height: "100vh",
       }}>
-      <GithubCorner href="https://github.com/lvlvllvlvllvlvl/poetrage" target="_blank" />
+      <GithubCorner href="https://github.com/lvlvllvlvllvlvl/poetrage" target="_blank" title={process.env.REACT_APP_GIT_COMMIT} />
       <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="sm">
         <Box sx={{ display: "flex", flexDirection: "row" }}>
           <Accordion
