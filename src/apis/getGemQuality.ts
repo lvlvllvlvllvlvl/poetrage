@@ -1,6 +1,6 @@
+import { api } from "apis/axios";
 import { GemType, gemTypes } from "models/Gems";
 import { Gem } from "models/repoe/Gem";
-import { api } from "apis/axios";
 
 export type Weights = { [gem: string]: { Type: GemType; weight: number }[] };
 export type XP = { [gem: string]: { [level: number]: number } };
@@ -16,11 +16,13 @@ export const getGemQuality = async () => {
   );
   const weights: Weights = {};
   const xp: XP = {};
+  const names = new Set<string>();
   Object.values(response.data).forEach((gem) => {
     const name = gem.base_item?.display_name;
     if (!name) {
       return;
     }
+    names.add(name);
     weights[name] = weights[name] || [];
     gem.static.quality_stats.forEach(({ set, weight }) => {
       const Type = gemTypes[set];
@@ -35,5 +37,5 @@ export const getGemQuality = async () => {
       }
     });
   });
-  return { weights, xp };
+  return { weights, xp, names: Array.from(names).sort() };
 };

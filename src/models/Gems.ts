@@ -5,7 +5,7 @@ export const gemTypes = ["Superior", "Anomalous", "Divergent", "Phantasmal", "Aw
 export const altQualities = ["Anomalous", "Divergent", "Phantasmal"] as const;
 export const modifiers = ["Anomalous ", "Divergent ", "Phantasmal ", "Vaal "];
 export const exceptional = ["Enlighten", "Empower", "Enhance"];
-export type GemType = typeof gemTypes[number];
+export type GemType = (typeof gemTypes)[number];
 
 export const mavenExclusive = [
   "Awakened Ancestral Call Support",
@@ -63,6 +63,7 @@ export type Gem = {
   XP?: number;
   Listings: number;
   lowConfidence: boolean;
+  isOverride?: boolean;
 };
 
 export type GemDetails = Gem & {
@@ -96,7 +97,7 @@ export type GemDetails = Gem & {
   convertValue?: number;
 };
 
-export type Override = { original: Gem; override: Partial<GemDetails> };
+export type Override = { original?: Gem; override: Partial<GemDetails> };
 
 const getRatio = (name: string, profit: number, cost: number) => ({
   name,
@@ -152,14 +153,16 @@ export const getRatios = (
     .sort(({ ratio: a }, { ratio: b }) => b - a);
 
 export const exists = (v: any) => v !== undefined;
+export const normalize = <T extends Gem | GemDetails>(gem: T): T => ({
+  ...gem,
+  Vaal: gem.Vaal && gem.Corrupted,
+  Name:
+    (altQualities.includes(gem.Type as any) ? gem.Type + " " : "") +
+    (gem.Vaal && gem.Corrupted ? "Vaal " : "") +
+    gem.baseName,
+});
 export const copy = <T extends Gem | GemDetails>(base: T, overrides: Partial<T> = {}): T => ({
   ...base,
-  Name:
-    (altQualities.includes(overrides.Type || (base.Type as any))
-      ? (overrides.Type || base.Type) + " "
-      : "") +
-    (overrides.Vaal || base.Vaal ? "Vaal " : "") +
-    base.baseName,
   ...overrides,
 });
 

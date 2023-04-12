@@ -11,6 +11,7 @@ export function getColumns(
   league: League | undefined,
   overrides: Override[],
   setOverride: React.Dispatch<Override>,
+  gemNames: string[],
   fiveWay: number,
   currencyMap: AsyncResult<(currency: string) => number>,
   costOfTemple: number,
@@ -49,7 +50,8 @@ export function getColumns(
       cell: ({ row: { original } }) => (
         <EditOverride
           original={original}
-          override={overrides.find((o) => isEqual(original, o.original))}
+          override={overrides.find((o) => o.original && isEqual(original, o.original))}
+          gemNames={gemNames}
           setOverride={setOverride}
           league={league?.name}
           currencyMap={currencyMap.value}

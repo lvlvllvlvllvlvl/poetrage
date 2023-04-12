@@ -3,24 +3,24 @@ import "App.css";
 import { forEach } from "functions/forEach";
 import { AsyncResult } from "functions/useAsync";
 import {
-    altQualities,
-    bestMatch,
-    betterOrEqual,
-    compareGem,
-    ConversionData,
-    copy,
-    exceptional,
-    exists,
-    Gem,
-    GemDetails,
-    getType,
-    isEqual,
-    mavenCrucible,
-    mavenExclusive,
-    modifiers,
-    Override,
-    strictlyBetter,
-    vaal
+  altQualities,
+  bestMatch,
+  betterOrEqual,
+  compareGem,
+  ConversionData,
+  copy,
+  exceptional,
+  exists,
+  Gem,
+  GemDetails,
+  getType,
+  isEqual,
+  mavenCrucible,
+  mavenExclusive,
+  modifiers,
+  Override,
+  strictlyBetter,
+  vaal,
 } from "models/Gems";
 import { SkillGem } from "models/ninja/Item";
 
@@ -86,14 +86,17 @@ export function calculateProfits(
       }
     );
 
-    result = result.map((gem) => {
-      const update = overrides.find((o) => isEqual(gem, o.original));
-      if (update) {
-        return copy(gem, update.override);
-      } else {
-        return gem;
-      }
-    });
+    result = result
+      .map((gem) => {
+        const update = overrides.find((o) => o.original && isEqual(gem, o.original));
+        if (update) {
+          return copy(gem, update.override);
+        } else {
+          return gem;
+        }
+      })
+      .concat(overrides.filter((o) => !o.original).map((o) => o.override as GemDetails));
+    console.log(overrides.filter((o) => !o.original).map((o) => o.override as GemDetails));
 
     const gemMap: { [key: string]: { [key: string]: Gem[] } } = {};
     result.forEach((gem) => {
@@ -115,6 +118,7 @@ export function calculateProfits(
         if (
           (sanitize === "yes" || (sanitize === "corrupted" && gem.Corrupted)) &&
           !gem.lowConfidence &&
+          !gem.isOverride &&
           other.Price < gem.Price &&
           strictlyBetter(other, gem)
         ) {
