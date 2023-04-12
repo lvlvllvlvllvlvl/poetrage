@@ -97,7 +97,9 @@ export type GemDetails = Gem & {
   convertValue?: number;
 };
 
-export type Override = { original?: Gem; override: Partial<GemDetails> };
+export type Override =
+  | { original: Gem; override: Partial<GemDetails> }
+  | { original: undefined; override: GemDetails };
 
 const getRatio = (name: string, profit: number, cost: number) => ({
   name,
@@ -160,11 +162,13 @@ export const normalize = <T extends Gem | GemDetails>(gem: T): T => ({
     (altQualities.includes(gem.Type as any) ? gem.Type + " " : "") +
     (gem.Vaal && gem.Corrupted ? "Vaal " : "") +
     gem.baseName,
+  variant: `${gem.Level}/${gem.Quality}${gem.Corrupted ? "c" : ""}`,
 });
-export const copy = <T extends Gem | GemDetails>(base: T, overrides: Partial<T> = {}): T => ({
-  ...base,
-  ...overrides,
-});
+export const copy = <T extends Gem | GemDetails>(base: T, overrides: Partial<T> = {}): T =>
+  normalize({
+    ...base,
+    ...overrides,
+  });
 
 export const getType = (name: string) => {
   for (const q of altQualities) {

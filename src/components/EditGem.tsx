@@ -3,20 +3,25 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
-import { GemDetails, GemType, gemTypes, normalize } from "models/Gems";
+import Typography from "@mui/material/Typography";
+import { GemInfo } from "apis/getGemQuality";
+import { GemDetails, GemType, normalize } from "models/Gems";
 
 export const EditGem = ({
   gem,
   onChange,
-  gemNames,
+  gemInfo,
 }: {
   gem: GemDetails;
   onChange: (gem: GemDetails) => void;
-  gemNames: string[];
+  gemInfo: GemInfo;
 }) => {
+  const awakened = gem.Name.includes("Awakened");
   return (
     <>
-      {gem.Name}
+      <Typography variant="subtitle1" gutterBottom>
+        {gem.Name}
+      </Typography>
       <Box component="form" noValidate autoComplete="off">
         <TextField
           type="number"
@@ -42,14 +47,19 @@ export const EditGem = ({
           select
           label="Type"
           variant="outlined"
-          value={gem.Type}
+          value={awakened ? "Awakened" : gem.Type}
+          disabled={awakened}
           sx={{ m: 1, width: "25ch" }}
-          onChange={({ target }) => onChange({ ...gem, Type: target.value as GemType })}>
-          {gemTypes.map((name) => (
-            <MenuItem key={name} value={name}>
-              {name}
-            </MenuItem>
-          ))}
+          onChange={({ target }) => onChange(normalize({ ...gem, Type: target.value as GemType }))}>
+          {awakened ? (
+            <MenuItem value="Awakened">Awakened</MenuItem>
+          ) : (
+            gemInfo.weights[gem.baseName].map(({ Type }) => (
+              <MenuItem key={Type} value={Type}>
+                {Type}
+              </MenuItem>
+            ))
+          )}
         </TextField>
         <TextField
           type="number"
@@ -58,7 +68,7 @@ export const EditGem = ({
           value={gem.Price}
           sx={{ m: 1, width: "25ch" }}
           onChange={({ target }) =>
-            target.value && onChange({ ...gem, Price: parseFloat(target.value) })
+            target.value && onChange({ ...gem, Price: parseInt(target.value) })
           }
         />
         <FormControlLabel

@@ -8,6 +8,7 @@ export type XP = { [gem: string]: { [level: number]: number } };
 export type GemInfo = {
   weights: Weights;
   xp: XP;
+  names: string[];
 };
 
 export const getGemQuality = async () => {

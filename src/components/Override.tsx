@@ -18,6 +18,7 @@ import { getPrice } from "apis/getPrices";
 import { GemDetails, getQuery, isEqual, Override } from "models/Gems";
 import { useRef, useState } from "react";
 import { EditGem } from "./EditGem";
+import { GemInfo } from "apis/getGemQuality";
 
 const clean = (obj: Partial<GemDetails>) => {
   Object.keys(obj).forEach(
@@ -29,7 +30,7 @@ const clean = (obj: Partial<GemDetails>) => {
 export const EditOverride = ({
   original,
   override,
-  gemNames,
+  gemInfo,
   setOverride,
   currencyMap,
   league,
@@ -38,7 +39,7 @@ export const EditOverride = ({
 }: {
   original: GemDetails;
   override?: Override;
-  gemNames: string[];
+  gemInfo: GemInfo;
   setOverride: (o: Override) => void;
   currencyMap?: (key: string) => number;
   league?: string;
@@ -55,26 +56,37 @@ export const EditOverride = ({
   const input = useRef();
   const overrideValue = override?.override?.Price;
 
-  const fetchPrice = async (type: "cheapest" | "online" | "daily", gem: GemDetails = original) => {
+  const fetchPrice = async (type: "cheapest" | "online" | "daily", custom?: GemDetails) => {
     if (!league || !currencyMap) return;
     setError(false);
     setLoading(true);
     try {
-      const query = getQuery(gem, type !== "daily", type === "daily" ? "1day" : undefined);
+      const query = getQuery(
+        custom || original,
+        type !== "daily",
+        type === "daily" ? "1day" : undefined
+      );
       const { price } = await getPrice(
         league,
         currencyMap,
         query,
         type === "cheapest" ? "cheapest" : "average"
       );
-      setOverride({
-        original: gem,
-        override: clean({
-          ...(override?.override || {}),
-          Price: price,
-          lowConfidence: false,
-        }),
-      });
+      setOverride(
+        custom
+          ? {
+              original: isEqual(custom, original) ? original : undefined,
+              override: { ...custom, Price: price },
+            }
+          : {
+              original,
+              override: clean({
+                ...(override?.override || {}),
+                Price: price,
+                lowConfidence: false,
+              }),
+            }
+      );
     } catch (e) {
       setError(true);
       console.error(e);
@@ -88,7 +100,10 @@ export const EditOverride = ({
     if (fetch && searchType) {
       fetchPrice(searchType, custom);
     } else if (fetch) {
-      setOverride({ override: clean(custom) });
+      setOverride({
+        original: isEqual(custom, original) ? original : undefined,
+        override: custom,
+      });
     }
   };
 
@@ -140,7 +155,7 @@ export const EditOverride = ({
           {isEqual(custom, original) ? "Edit gem details" : "Add custom gem"}
         </DialogTitle>
         <DialogContent>
-          <EditGem gem={custom} onChange={setCustom} gemNames={gemNames} />
+          <EditGem gem={custom} onChange={setCustom} gemInfo={gemInfo} />
           <FormLabel id="search-type">Price search</FormLabel>
           <RadioGroup
             row

@@ -1,5 +1,6 @@
 import { ColumnDef, SortingFn } from "@tanstack/react-table";
 import "App.css";
+import { GemInfo } from "apis/getGemQuality";
 import { EditOverride } from "components/Override";
 import { AsyncResult } from "functions/useAsync";
 import { GemDetails, getQuery, getRatios, isEqual, Override } from "models/Gems";
@@ -11,7 +12,7 @@ export function getColumns(
   league: League | undefined,
   overrides: Override[],
   setOverride: React.Dispatch<Override>,
-  gemNames: string[],
+  gemInfo: GemInfo,
   fiveWay: number,
   currencyMap: AsyncResult<(currency: string) => number>,
   costOfTemple: number,
@@ -51,7 +52,7 @@ export function getColumns(
         <EditOverride
           original={original}
           override={overrides.find((o) => o.original && isEqual(original, o.original))}
-          gemNames={gemNames}
+          gemInfo={gemInfo}
           setOverride={setOverride}
           league={league?.name}
           currencyMap={currencyMap.value}

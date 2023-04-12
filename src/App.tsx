@@ -164,7 +164,10 @@ function App() {
     update.override.isOverride = true;
     let found = false;
     const mapped = state.map((o) => {
-      if (o.original && update.original && isEqual(o.original, update.original)) {
+      if (
+        (o.original && update.original && isEqual(o.original, update.original)) ||
+        (!o.original && !update.original && isEqual(o.override, update.override))
+      ) {
         found = true;
         return update;
       } else {
@@ -223,7 +226,7 @@ function App() {
         league,
         overridesTmp,
         setOverride,
-        gemInfo.value?.names || [],
+        gemInfo.value as any,
         fiveWay.debounced,
         currencyMap,
         costOfTemple,
@@ -237,7 +240,7 @@ function App() {
       league,
       overridesTmp,
       setOverride,
-      gemInfo.value?.names,
+      gemInfo.value,
       fiveWay.debounced,
       currencyMap,
       costOfTemple,

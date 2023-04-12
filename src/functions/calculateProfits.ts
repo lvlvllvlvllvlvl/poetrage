@@ -96,7 +96,6 @@ export function calculateProfits(
         }
       })
       .concat(overrides.filter((o) => !o.original).map((o) => o.override as GemDetails));
-    console.log(overrides.filter((o) => !o.original).map((o) => o.override as GemDetails));
 
     const gemMap: { [key: string]: { [key: string]: Gem[] } } = {};
     result.forEach((gem) => {
