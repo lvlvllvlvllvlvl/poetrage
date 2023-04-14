@@ -14,7 +14,7 @@ export const EditGem = ({
 }: {
   gem: GemDetails;
   onChange: (gem: GemDetails) => void;
-  gemInfo: GemInfo;
+  gemInfo?: GemInfo;
 }) => {
   const awakened = gem.Name.includes("Awakened");
   return (
@@ -54,7 +54,7 @@ export const EditGem = ({
           {awakened ? (
             <MenuItem value="Awakened">Awakened</MenuItem>
           ) : (
-            gemInfo.weights[gem.baseName].map(({ Type }) => (
+            gemInfo?.weights[gem.baseName].map(({ Type }) => (
               <MenuItem key={Type} value={Type}>
                 {Type}
               </MenuItem>

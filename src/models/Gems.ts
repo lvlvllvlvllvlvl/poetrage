@@ -1,3 +1,4 @@
+import { getCurrency } from "apis/getCurrencyOverview";
 import { SearchQueryContainer } from "models/poe/Search";
 
 export type ConversionData = { gem: Gem; chance: number; outcomes: string[] };
@@ -110,7 +111,7 @@ const getRatio = (name: string, profit: number, cost: number) => ({
 
 export const getRatios = (
   gem: GemDetails,
-  currencyMap: (key: string) => number,
+  currencyMap: { [key: string]: number } | undefined,
   templeValue: number,
   levelValue: number,
   convertValue: number
@@ -124,17 +125,21 @@ export const getRatios = (
         ? getRatio(
             "Regrading lens",
             (gem.regrValue || 0) -
-              (currencyMap(
-                gem.Name.includes("Support") ? "Secondary Regrading Lens" : "Prime Regrading Lens"
-              ) || 0),
+              getCurrency(
+                gem.Name.includes("Support") ? "Secondary Regrading Lens" : "Prime Regrading Lens",
+                currencyMap,
+                0
+              ),
             gem.Price +
-              (currencyMap(
-                gem.Name.includes("Support") ? "Secondary Regrading Lens" : "Prime Regrading Lens"
-              ) || 0)
+              getCurrency(
+                gem.Name.includes("Support") ? "Secondary Regrading Lens" : "Prime Regrading Lens",
+                currencyMap,
+                0
+              )
           )
         : undefined,
       gem.vaalValue !== undefined
-        ? getRatio("Vaal orb", gem.vaalValue, gem.Price + currencyMap("Vaal Orb"))
+        ? getRatio("Vaal orb", gem.vaalValue, gem.Price + getCurrency("Vaal Orb", currencyMap))
         : undefined,
       gem.templeValue !== undefined
         ? getRatio("Temple", gem.templeValue - templeValue, gem.Price + templeValue)

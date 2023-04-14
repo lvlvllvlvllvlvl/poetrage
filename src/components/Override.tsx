@@ -19,6 +19,8 @@ import { GemDetails, getQuery, isEqual, Override } from "models/Gems";
 import { useRef, useState } from "react";
 import { EditGem } from "./EditGem";
 import { GemInfo } from "apis/getGemQuality";
+import { useDispatch } from "react-redux";
+import { actions } from "redux/app";
 
 const clean = (obj: Partial<GemDetails>) => {
   Object.keys(obj).forEach(
@@ -31,7 +33,6 @@ export const EditOverride = ({
   original,
   override,
   gemInfo,
-  setOverride,
   currencyMap,
   league,
   width = 50,
@@ -39,13 +40,13 @@ export const EditOverride = ({
 }: {
   original: GemDetails;
   override?: Override;
-  gemInfo: GemInfo;
-  setOverride: (o: Override) => void;
-  currencyMap?: (key: string) => number;
+  gemInfo?: GemInfo;
+  currencyMap?: { [key: string]: number };
   league?: string;
   width?: number;
   height?: number;
 }) => {
+  const dispatch = useDispatch();
   const [edit, setEdit] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -55,6 +56,7 @@ export const EditOverride = ({
   const [searchType, setSearchType] = useState<"" | "cheapest" | "online" | "daily">("");
   const input = useRef();
   const overrideValue = override?.override?.Price;
+  const setOverride = (o: Override) => dispatch(actions.setOverride(o));
 
   const fetchPrice = async (type: "cheapest" | "online" | "daily", custom?: GemDetails) => {
     if (!league || !currencyMap) return;

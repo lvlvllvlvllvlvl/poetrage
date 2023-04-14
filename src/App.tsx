@@ -25,7 +25,6 @@ import TableRow from "@mui/material/TableRow";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import {
-  ColumnFiltersState,
   FilterFn,
   flexRender,
   getCoreRowModel,
@@ -33,30 +32,21 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  SortingState,
   useReactTable,
 } from "@tanstack/react-table";
-import { cache } from "apis/axios";
-import {
-  getAwakenedLevelAverage,
-  getAwakenedRerollAverage,
-  getTempleAverage,
-} from "apis/getPrices";
-import { getCurrencyOverview } from "apis/getCurrencyOverview";
-import { getGemOverview } from "apis/getGemOverview";
-import { getGemQuality as getGemInfo } from "apis/getGemQuality";
-import { getLeagues } from "apis/getLeagues";
-import { getMeta } from "apis/getMeta";
 import "App.css";
+import { cache } from "apis/axios";
+import { getCurrency } from "apis/getCurrencyOverview";
 import Filter from "components/Filter";
-import { calculateProfits } from "functions/calculateProfits";
-import { getColumns } from "functions/getColumns";
-import { useAsync } from "functions/useAsync";
-import useDebouncedState from "functions/useDebouncedState";
-import { GemDetails, isEqual, Override } from "models/Gems";
-import { League } from "models/ninja/Leagues";
-import React, { useEffect, useMemo, useReducer, useState } from "react";
+import { isFunction } from "lodash";
+import { GemDetails, Override } from "models/Gems";
+import { useEffect } from "react";
 import GithubCorner from "react-github-corner";
+import * as api from "redux/api";
+import { actions, setters } from "redux/app";
+import "redux/listeners/calculateProfits";
+import { getColumns } from "redux/selectors/getColumns";
+import { useAppDispatch, useAppSelector } from "redux/store";
 import SearchOperators from "search-operators";
 
 const includes: FilterFn<GemDetails> = (row, columnId, filterValue: any[]) =>
@@ -86,172 +76,102 @@ const search: FilterFn<GemDetails> = (
 };
 
 function App() {
-  const [showOptions, setShowOptions] = useState(false);
-  const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
-  const [league, setLeague] = useState<League>();
-  const [sanitize, setSanitize] = useState<"no" | "yes" | "corrupted">("yes");
-  const templePrice = useDebouncedState(0);
-  const awakenedLevelPrice = useDebouncedState(0);
-  const awakenedRerollPrice = useDebouncedState(0);
-  const mavenExclusiveWeight = useDebouncedState(90);
-  const mavenCrucibleWeight = useDebouncedState(500);
-  const primeRegrading = useDebouncedState(0);
-  const secRegrading = useDebouncedState(0);
-  const filterMeta = useDebouncedState(0.2);
-  const incQual = useDebouncedState(30);
-  const fiveWay = useDebouncedState(100);
-  const [lowConfidence, setLowConfidence] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [progressMsg, setProgressMsg] = useState("");
-  const [load, reload] = useReducer((current) => current + 1, 0);
+  const dispatch = useAppDispatch();
+  const {
+    setLeague,
+    setSorting,
+    setShowOptions,
+    setColumnFilters,
+    setSanitize,
+    setTemplePrice,
+    setLowConfidence,
+    setPrimeRegrading,
+    setSecRegrading,
+    setFilterMeta,
+    setIncQual,
+    setFiveWay,
+    setOverrides,
+  } = setters(dispatch);
 
-  const gemInfo = useAsync(getGemInfo);
-  const leagues = useAsync(getLeagues, [load]);
-  const meta = useAsync(league?.indexed ? getMeta : undefined, [load], league?.name || "");
-  const gems = useAsync(league ? getGemOverview : undefined, [load], league?.name || "");
-  const currencyMap = useAsync(
-    league ? getCurrencyOverview : undefined,
-    [load],
-    league?.name || ""
-  );
-  const templeAverage = useAsync(
-    currencyMap.done ? getTempleAverage : undefined,
-    [load],
-    league?.name || "",
-    currencyMap.done ? currencyMap.value : () => 1
-  );
-  const awakenedLevelAverage = useAsync(
-    currencyMap.done ? getAwakenedLevelAverage : undefined,
-    [load],
-    league?.name || "",
-    currencyMap.done ? currencyMap.value : () => 1
-  );
-  const awakenedRerollAverage = useAsync(
-    currencyMap.done ? getAwakenedRerollAverage : undefined,
-    [load],
-    league?.name || "",
-    currencyMap.done ? currencyMap.value : () => 1
-  );
-  const costOfTemple =
-    templePrice.debounced || (templeAverage.done && templeAverage.value.price) || 100;
-  const costOfAwakenedLevel =
-    awakenedLevelPrice.debounced ||
-    (awakenedLevelAverage.done && awakenedLevelAverage.value.price) ||
-    30;
-  const costOfAwakenedReroll =
-    awakenedRerollPrice.debounced ||
-    (awakenedRerollAverage.done && awakenedRerollAverage.value.price) ||
-    250;
-  const [data, setData] = useState([] as GemDetails[]);
-
-  const getRegrValue = useMemo(
-    () =>
-      ({ regrValue, Name }: GemDetails) =>
-        (regrValue || 0) -
-        (Name.includes("Support")
-          ? secRegrading.debounced || currencyMap.value?.("Secondary Regrading Lens") || 0
-          : primeRegrading.debounced || currencyMap.value?.("Prime Regrading Lens") || 0),
-    [currencyMap, primeRegrading.debounced, secRegrading.debounced]
-  );
-
-  const [overridesTmp, setOverride] = useReducer<
-    (state: Override[], action: Override | Override[]) => Override[]
-  >((state, update) => {
-    if (Array.isArray(update)) {
-      return update;
-    }
-    update.override.isOverride = true;
-    let found = false;
-    const mapped = state.map((o) => {
-      if (
-        (o.original && update.original && isEqual(o.original, update.original)) ||
-        (!o.original && !update.original && isEqual(o.override, update.override))
-      ) {
-        found = true;
-        return update;
-      } else {
-        return o;
-      }
-    });
-    if (!found) {
-      mapped.push(update);
-    }
-    return mapped;
-  }, []);
-  const [overrides, applyOverrides] = useState(overridesTmp);
-  const overridesPending = overrides !== overridesTmp;
-
-  useEffect(
-    () =>
-      calculateProfits(
-        gems,
-        currencyMap,
-        league?.indexed,
-        meta,
-        gemInfo,
-        filterMeta.debounced,
-        overrides,
-        sanitize,
-        setData,
-        setProgress,
-        setProgressMsg,
-        lowConfidence,
-        incQual.debounced,
-        mavenExclusiveWeight.debounced,
-        mavenCrucibleWeight.debounced
-      ),
-    [
+  const gemInfo = useAppSelector(api.gemInfo);
+  const leagues = useAppSelector(api.leagues);
+  const meta = useAppSelector(api.meta);
+  const gems = useAppSelector(api.gems);
+  const currencyMap = useAppSelector(api.currencyMap);
+  const templeAverage = useAppSelector(api.templeAverage);
+  const {
+    league,
+    sorting,
+    showOptions,
+    columnFilters,
+    sanitize,
+    templePrice,
+    lowConfidence,
+    primeRegrading,
+    secRegrading,
+    filterMeta,
+    incQual,
+    fiveWay,
+    progress,
+    progressMsg,
+    data,
+    overridesTmp,
+    overrides,
+  } = useAppSelector((state) => {
+    const {
+      league,
+      sorting,
+      showOptions,
+      columnFilters,
+      sanitize,
+      templePrice,
+      lowConfidence,
+      primeRegrading,
+      secRegrading,
+      filterMeta,
+      incQual,
+      fiveWay,
+      progress,
+      progressMsg,
+      data,
+      overridesTmp,
+      overrides,
+    } = state.app;
+    return {
+      league,
+      sorting,
+      showOptions,
+      columnFilters,
+      sanitize,
+      templePrice,
+      lowConfidence,
+      primeRegrading,
+      secRegrading,
+      filterMeta,
+      incQual,
+      fiveWay,
+      progress,
+      progressMsg,
+      data,
+      gemInfo,
+      leagues,
+      meta,
       gems,
       currencyMap,
-      league?.indexed,
-      meta,
-      gemInfo,
-      filterMeta.debounced,
-      overrides,
-      sanitize,
-      setData,
-      setProgress,
-      setProgressMsg,
-      lowConfidence,
-      incQual.debounced,
-      mavenExclusiveWeight.debounced,
-      mavenCrucibleWeight.debounced,
-    ]
-  );
-
-  const columns = useMemo(
-    () =>
-      getColumns(
-        league,
-        overridesTmp,
-        setOverride,
-        gemInfo.value as any,
-        fiveWay.debounced,
-        currencyMap,
-        costOfTemple,
-        costOfAwakenedLevel,
-        costOfAwakenedReroll,
-        getRegrValue,
-        secRegrading.debounced,
-        primeRegrading.debounced
-      ),
-    [
-      league,
+      templeAverage,
       overridesTmp,
-      setOverride,
-      gemInfo.value,
-      fiveWay.debounced,
-      currencyMap,
-      costOfTemple,
-      costOfAwakenedLevel,
-      costOfAwakenedReroll,
-      getRegrValue,
-      secRegrading.debounced,
-      primeRegrading.debounced,
-    ]
-  );
+      overrides,
+    };
+  });
 
+  useEffect(() => {
+    dispatch(actions.reload);
+  }, [dispatch]);
+  const reload = () => dispatch(actions.reload());
+
+  const overridesPending = overrides !== overridesTmp;
+
+  const columns = useAppSelector(getColumns);
   const table = useReactTable({
     data,
     columns,
@@ -263,8 +183,9 @@ function App() {
       columnVisibility: { Meta: !!league?.indexed },
       columnPinning: { left: ["Name"] },
     },
-    onColumnFiltersChange: setColumnFilters,
-    onSortingChange: setSorting,
+    onColumnFiltersChange: (updater) =>
+      setColumnFilters(isFunction(updater) ? updater(columnFilters) : updater),
+    onSortingChange: (updater) => setSorting(isFunction(updater) ? updater(sorting) : updater),
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
@@ -279,7 +200,11 @@ function App() {
         flexDirection: "column",
         height: "100vh",
       }}>
-      <GithubCorner href="https://github.com/lvlvllvlvllvlvl/poetrage" target="_blank" title={process.env.REACT_APP_GIT_COMMIT} />
+      <GithubCorner
+        href="https://github.com/lvlvllvlvllvlvl/poetrage"
+        target="_blank"
+        title={process.env.REACT_APP_GIT_COMMIT}
+      />
       <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="sm">
         <Box sx={{ display: "flex", flexDirection: "row" }}>
           <Accordion
@@ -295,24 +220,24 @@ function App() {
               <FormControl fullWidth margin="normal">
                 <InputLabel>League</InputLabel>
                 <Select
-                  value={leagues.done && league ? league?.name : ""}
+                  value={leagues.status === "done" && league ? league?.name : ""}
                   label="league"
                   onChange={({ target }) =>
                     setLeague(
                       leagues.value?.economyLeagues?.find(({ name }) => name === target.value)
                     )
                   }>
-                  {leagues.pending && !league && (
+                  {leagues.status === "pending" && !league && (
                     <MenuItem value="" disabled>
                       Loading leagues...
                     </MenuItem>
                   )}
-                  {!leagues.pending && !league && (
+                  {leagues.status !== "pending" && !league && (
                     <MenuItem value="" disabled>
                       Select a league
                     </MenuItem>
                   )}
-                  {leagues.done &&
+                  {leagues.status === "done" &&
                     leagues.value.economyLeagues.map((league) => (
                       <MenuItem key={league.name} value={league.name}>
                         {league.displayName}
@@ -320,7 +245,7 @@ function App() {
                     ))}
                 </Select>
               </FormControl>
-              {leagues.fail && String(leagues.error)}
+              {leagues.status === "fail" && String(leagues.error)}
 
               {!league ? undefined : (
                 <>
@@ -332,26 +257,24 @@ function App() {
                     variant="outlined"
                     value={templePrice.value || ""}
                     onChange={({ target }) =>
-                      templePrice.set(target.value ? parseInt(target.value) : 0)
+                      setTemplePrice(target.value ? parseInt(target.value) : 0)
                     }
                   />
                   <p>
-                    <a
-                      href={
-                        templeAverage.done
-                          ? `https://www.pathofexile.com/trade/search/${league.name}/${templeAverage.value.searchId}`
-                          : undefined
-                      }
-                      target="_blank"
-                      rel="noreferrer">
-                      {templeAverage.done
-                        ? templeAverage.value.total
+                    {templeAverage.status === "done" ? (
+                      <a
+                        href={`https://www.pathofexile.com/trade/search/${league.name}/${templeAverage.value.searchId}`}
+                        target="_blank"
+                        rel="noreferrer">
+                        {templeAverage.value.total
                           ? `Estimated Doryani's Institute price: ${templeAverage.value.price} chaos (${templeAverage.value.total} listings, used ${templeAverage.value.filtered} of first ${templeAverage.value.pageSize} results)`
-                          : "No Doryani's Institute online"
-                        : templeAverage.error
-                        ? "Error getting temple prices"
-                        : "Checking temple prices..."}
-                    </a>
+                          : "No Doryani's Institute online"}
+                      </a>
+                    ) : templeAverage.status === "fail" ? (
+                      "Error getting temple prices"
+                    ) : (
+                      "Checking temple prices..."
+                    )}
                   </p>
 
                   <TextField
@@ -360,12 +283,12 @@ function App() {
                     margin="normal"
                     label="Prime regrading lens price"
                     placeholder={Math.round(
-                      currencyMap.value?.("Prime Regrading Lens") || 0
+                      getCurrency("Prime Regrading Lens", currencyMap.value, 0)
                     ).toString()}
                     variant="outlined"
                     value={primeRegrading.value || ""}
                     onChange={({ target }) =>
-                      primeRegrading.set(target.value ? parseInt(target.value) : 0)
+                      setPrimeRegrading(target.value ? parseInt(target.value) : 0)
                     }
                   />
 
@@ -375,12 +298,12 @@ function App() {
                     margin="normal"
                     label="Secondary regrading lens price"
                     placeholder={Math.round(
-                      currencyMap.value?.("Secondary Regrading Lens") || 0
+                      getCurrency("Secondary Regrading Lens", currencyMap.value, 0)
                     ).toString()}
                     variant="outlined"
                     value={secRegrading.value || ""}
                     onChange={({ target }) =>
-                      secRegrading.set(target.value ? parseInt(target.value) : 0)
+                      setSecRegrading(target.value ? parseInt(target.value) : 0)
                     }
                   />
 
@@ -402,7 +325,7 @@ function App() {
                     variant="outlined"
                     value={filterMeta.value || 0}
                     onChange={({ target }) =>
-                      filterMeta.set(target.value ? parseFloat(target.value) : 0)
+                      setFilterMeta(target.value ? parseFloat(target.value) : 0)
                     }
                   />
 
@@ -428,9 +351,7 @@ function App() {
                     label="Gem quality bonus"
                     variant="outlined"
                     value={incQual.value}
-                    onChange={({ target }) =>
-                      incQual.set(target.value ? parseInt(target.value) : 0)
-                    }
+                    onChange={({ target }) => setIncQual(target.value ? parseInt(target.value) : 0)}
                     helperText="Disfavour/Dialla/Replica Voideye: 30, Cane of Kulemak 8-15, veiled: 9-10, crafted: 7-8"
                   />
 
@@ -441,9 +362,7 @@ function App() {
                     label="Million XP per 5-way"
                     variant="outlined"
                     value={fiveWay.value}
-                    onChange={({ target }) =>
-                      fiveWay.set(target.value ? parseInt(target.value) : 0)
-                    }
+                    onChange={({ target }) => setFiveWay(target.value ? parseInt(target.value) : 0)}
                   />
                 </>
               )}
@@ -461,7 +380,10 @@ function App() {
         {!league ? undefined : (
           <>
             <Typography component="p" p={1}>
-              {gems.pending || currencyMap.pending || meta.pending || gemInfo.pending
+              {gems.status === "pending" ||
+              currencyMap.status === "pending" ||
+              meta.status === "pending" ||
+              gemInfo.status === "pending"
                 ? "Fetching data..."
                 : progressMsg || "All currency costs accounted for in profit values"}
             </Typography>
@@ -481,12 +403,15 @@ function App() {
         action={
           <>
             {overridesPending && (
-              <Button size="small" onClick={() => applyOverrides(overridesTmp)}>
+              <Button size="small" onClick={() => setOverrides(overridesTmp)}>
                 apply
               </Button>
             )}
             {overridesPending && (
-              <Button color="secondary" size="small" onClick={() => setOverride(overrides)}>
+              <Button
+                color="secondary"
+                size="small"
+                onClick={() => dispatch(actions.setOverride(overrides))}>
                 undo
               </Button>
             )}
@@ -496,8 +421,8 @@ function App() {
                 size="small"
                 onClick={() => {
                   const empty = [] as Override[];
-                  setOverride(empty);
-                  applyOverrides(empty);
+                  dispatch(actions.setOverride(empty));
+                  setOverrides(empty);
                 }}>
                 reset
               </Button>
@@ -505,7 +430,7 @@ function App() {
           </>
         }
       />
-      {gems.done && currencyMap.done && (
+      {gems.status === "done" && currencyMap.status === "done" && (
         <>
           <Box sx={{ maxWidth: "100vw", overflow: "auto" }}>
             <Table sx={{ minWidth: `${(columns.length - (league?.indexed ? 1 : 0)) * 11}em` }}>
@@ -590,7 +515,7 @@ function App() {
           />
         </>
       )}
-      {gems.fail && String(gems.error)}
+      {gems.status === "fail" && String(gems.error)}
     </Box>
   );
 }

@@ -1,20 +1,39 @@
+import { createSelector } from "@reduxjs/toolkit";
 import { ColumnDef, SortingFn } from "@tanstack/react-table";
 import "App.css";
 import { GemInfo } from "apis/getGemQuality";
 import { EditOverride } from "components/Override";
-import { AsyncResult } from "functions/useAsync";
-import { GemDetails, getQuery, getRatios, isEqual, Override } from "models/Gems";
+import { GemDetails, Override, getQuery, getRatios, isEqual } from "models/Gems";
 import { League } from "models/ninja/Leagues";
 import numeral from "numeral";
-import React from "react";
+import { ApiResult, currencyMap, gemInfo } from "redux/api";
+import { RootState as AppState } from "redux/store";
+import { awakenedLevelCost, awakenedRerollCost, regradeValue, templeCost } from "./costs";
+import { getCurrency } from "apis/getCurrencyOverview";
 
-export function getColumns(
+export const getColumns = createSelector(
+  [
+    ({ app }: AppState) => app.league,
+    ({ app }: AppState) => app.overrides,
+    gemInfo,
+    ({ app }: AppState) => app.fiveWay.debounced,
+    currencyMap,
+    templeCost,
+    awakenedLevelCost,
+    awakenedRerollCost,
+    regradeValue,
+    ({ app }: AppState) => app.secRegrading.debounced,
+    ({ app }: AppState) => app.primeRegrading.debounced,
+  ],
+  output
+);
+
+function output(
   league: League | undefined,
   overrides: Override[],
-  setOverride: React.Dispatch<Override>,
-  gemInfo: GemInfo,
+  gemInfo: ApiResult<GemInfo>,
   fiveWay: number,
-  currencyMap: AsyncResult<(currency: string) => number>,
+  currencyMap: ApiResult<{ [key: string]: number }>,
   costOfTemple: number,
   costOfAwakenedLevel: number,
   costOfAwakenedReroll: number,
@@ -52,8 +71,7 @@ export function getColumns(
         <EditOverride
           original={original}
           override={overrides.find((o) => o.original && isEqual(original, o.original))}
-          gemInfo={gemInfo}
-          setOverride={setOverride}
+          gemInfo={gemInfo.value}
           league={league?.name}
           currencyMap={currencyMap.value}
         />
@@ -121,7 +139,7 @@ export function getColumns(
       accessorFn: (original) =>
         getRatios(
           original,
-          currencyMap.value || (() => 1),
+          currencyMap.value,
           costOfTemple,
           costOfAwakenedLevel,
           costOfAwakenedReroll
@@ -129,7 +147,7 @@ export function getColumns(
       cell: ({ row: { original } }) => {
         const ratios = getRatios(
           original,
-          currencyMap.value || (() => 1),
+          currencyMap.value,
           costOfTemple,
           costOfAwakenedLevel,
           costOfAwakenedReroll
@@ -205,8 +223,10 @@ export function getColumns(
                     gem.Price -
                       Price -
                       (Name.includes("Support")
-                        ? secRegrading || currencyMap.value?.("Secondary Regrading Lens") || 0
-                        : primeRegrading || currencyMap.value?.("Prime Regrading Lens") || 0)
+                        ? secRegrading ||
+                          getCurrency("Secondary Regrading Lens", currencyMap.value, 0)
+                        : primeRegrading ||
+                          getCurrency("Prime Regrading Lens", currencyMap.value, 0))
                   )}c: ${gem.Level}/${gem.Quality} ${gem.Name} (${
                     gem.Price ? `${gem.Listings} at ${gem.Price}c` : "low confidence"
                   })`

@@ -11,7 +11,7 @@ export type GemInfo = {
   names: string[];
 };
 
-export const getGemQuality = async () => {
+export const getGemInfo = async () => {
   const response = await api.get<{ [key: string]: Gem }>(
     "https://lvlvllvlvllvlvl.github.io/RePoE/gems.min.json"
   );
