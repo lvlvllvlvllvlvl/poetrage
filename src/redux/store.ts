@@ -3,11 +3,16 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { apiSlice } from "redux/api";
 import { appSlice } from "./app";
 import { listenerMiddleware } from "./listener";
+import { setAutoFreeze } from "immer";
+
+setAutoFreeze(false);
 
 export const store = configureStore({
   reducer: { app: appSlice.reducer, [apiSlice.reducerPath]: apiSlice.reducer },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().prepend(listenerMiddleware.middleware).concat(apiSlice.middleware),
+    getDefaultMiddleware({ immutableCheck: false, serializableCheck: false })
+      .prepend(listenerMiddleware.middleware)
+      .concat(apiSlice.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

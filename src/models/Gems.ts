@@ -1,5 +1,16 @@
-import { getCurrency } from "apis/getCurrencyOverview";
 import { SearchQueryContainer } from "models/poe/Search";
+
+const getCurrency = (currency: string, map?: { [key: string]: number }, fallback = 1) => {
+  return (
+    map?.[currency] ||
+    map?.[
+      Object.keys(map)
+        .filter((k) => k.toLowerCase().includes(currency))
+        .reduce((a, b) => (!a ? b : !b ? a : a.length <= b.length ? a : b), "") || ""
+    ] ||
+    fallback
+  );
+};
 
 export type ConversionData = { gem: Gem; chance: number; outcomes: string[] };
 export const gemTypes = ["Superior", "Anomalous", "Divergent", "Phantasmal", "Awakened"] as const;
