@@ -444,7 +444,11 @@ self.onmessage = (e: MessageEvent<{ inputs: ProfitInputs; cancel: URL }>) => {
           sumChance += next.chance;
           if (merged === null) {
             merged = { ...next };
-          } else if (merged.gem === next.gem && merged.outcomes[0] === next.outcomes[0]) {
+          } else if (
+            (merged.gem === next.gem ||
+              (betterOrEqual(merged.gem, next.gem) && betterOrEqual(next.gem, merged.gem))) &&
+            merged.outcomes[0] === next.outcomes[0]
+          ) {
             merged.chance += next.chance;
           } else if (
             merged.gem.Listings === 0 &&
@@ -456,6 +460,13 @@ self.onmessage = (e: MessageEvent<{ inputs: ProfitInputs; cancel: URL }>) => {
               Quality: Math.min(merged.gem.Quality, next.gem.Quality),
             });
           } else {
+            if (
+              next.gem.Name === "Divergent Tornado Shot" &&
+              merged.gem.Quality === 23 &&
+              merged.gem.Level === 20
+            ) {
+              console.log(next.gem, merged.gem);
+            }
             gem.vaalData?.push(merged);
             merged = { ...next };
           }

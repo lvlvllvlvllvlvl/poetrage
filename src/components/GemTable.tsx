@@ -7,13 +7,13 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Tooltip from "@mui/material/Tooltip";
 import {
-    flexRender,
-    getCoreRowModel,
-    getFacetedMinMaxValues,
-    getFilteredRowModel,
-    getPaginationRowModel,
-    getSortedRowModel,
-    useReactTable,
+  flexRender,
+  getCoreRowModel,
+  getFacetedMinMaxValues,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  useReactTable,
 } from "@tanstack/react-table";
 import Filter from "components/Filter";
 import { getColumns } from "components/columns";
@@ -104,10 +104,10 @@ export const GemTable = () => {
                                     },
                                     onClick: header.column.getToggleSortingHandler(),
                                   }}>
-                                  {flexRender(header.column.columnDef.header, header.getContext())}
                                   {{ asc: " ▲", desc: " ▼" }[
                                     header.column.getIsSorted() as string
                                   ] ?? null}
+                                  {flexRender(header.column.columnDef.header, header.getContext())}
                                 </Box>
                               </Tooltip>
                               <Filter column={header.column as any} />
