@@ -3,44 +3,51 @@ import { ColumnFiltersState, SortingState } from "@tanstack/react-table";
 import { GemDetails, Override, isEqual } from "models/Gems";
 import { League } from "models/ninja/Leagues";
 import { AppDispatch } from "./store";
+import { memoize } from "lodash";
 
-function simple<T>(): { type: "simple"; value: T | undefined };
-function simple<T>(value: T): { type: "simple"; value: T };
-function simple<T>(value?: T) {
+function prop<T>(): { type: "simple"; value: T | undefined };
+function prop<T>(value: T): { type: "simple"; value: T };
+function prop<T>(value?: T) {
   return { type: "simple", value };
 }
-function debounced<T>(): {
+function debouncedProp<T>(): {
   type: "debounced";
   value: { value: T | undefined; debounced: T | undefined };
 };
-function debounced<T>(value: T): { type: "debounced"; value: { value: T; debounced: T } };
-function debounced<T>(value?: T) {
+function debouncedProp<T>(value: T): { type: "debounced"; value: { value: T; debounced: T } };
+function debouncedProp<T>(value?: T) {
   return { type: "debounced", value: { value, debounced: value } };
 }
 
 export const fields = {
-  league: simple<League>(),
-  sorting: simple<SortingState>([]),
-  columnFilters: simple<ColumnFiltersState>([]),
-  sanitize: simple<"yes" | "no" | "corrupted">("yes"),
-  showOptions: simple(false),
-  lowConfidence: simple(false),
-  progress: simple(0),
-  progressMsg: simple(""),
-  data: simple<GemDetails[]>([]),
-  load: simple(0),
-  overridesTmp: simple<Override[]>([]),
-  overrides: simple<Override[]>([]),
-  templePrice: debounced(0),
-  awakenedLevelPrice: debounced(0),
-  awakenedRerollPrice: debounced(0),
-  mavenExclusiveWeight: debounced(90),
-  mavenCrucibleWeight: debounced(500),
-  primeRegrading: debounced(0),
-  secRegrading: debounced(0),
-  filterMeta: debounced(0.2),
-  incQual: debounced(30),
-  fiveWay: debounced(100),
+  league: prop<League>(),
+  ladder: prop<"exp" | "depthsolo">("exp"),
+  sorting: prop<SortingState>([]),
+  columnFilters: prop<ColumnFiltersState>([
+    { id: "Meta", value: [0.4, undefined] },
+    { id: "lowConfidence", value: false },
+  ]),
+  savedColumnFilters: prop<ColumnFiltersState>(),
+  enableColumnFilter: prop(true),
+  sanitize: prop<"yes" | "no" | "corrupted">("yes"),
+  showOptions: prop(false),
+  lowConfidence: prop(false),
+  progress: prop(0),
+  progressMsg: prop(""),
+  data: prop<GemDetails[]>([]),
+  load: prop(0),
+  overridesTmp: prop<Override[]>([]),
+  overrides: prop<Override[]>([]),
+  templePrice: debouncedProp(0),
+  awakenedLevelPrice: debouncedProp(0),
+  awakenedRerollPrice: debouncedProp(0),
+  mavenExclusiveWeight: debouncedProp(90),
+  mavenCrucibleWeight: debouncedProp(500),
+  primeRegrading: debouncedProp(0),
+  secRegrading: debouncedProp(0),
+  filterMeta: debouncedProp(0.2),
+  incQual: debouncedProp(30),
+  fiveWay: debouncedProp(100),
 };
 
 type Fields = typeof fields;
@@ -73,25 +80,28 @@ export type Setters = {
 
 const timeouts = {} as { [key: string]: NodeJS.Timeout };
 
-export const setters = (dispatch: AppDispatch) =>
-  Object.keys(fields).reduce((acc, key: any) => {
-    acc[("set" + key.charAt(0).toUpperCase() + key.substring(1)) as keyof Setters] = (
-      value: any
-    ) => {
-      switch (fields[key as keyof AppState].type) {
-        case "simple":
-          dispatch(actions.setSimple({ key, value }));
-          return;
-        case "debounced":
-          dispatch(actions.setDebounced({ key, value, type: "value" }));
-          clearTimeout(timeouts[key]);
-          timeouts[key] = setTimeout(() =>
-            dispatch(actions.setDebounced({ key, value, type: "debounced" }))
-          );
-      }
-    };
-    return acc;
-  }, {} as Setters);
+export const setters = memoize(
+  (dispatch: AppDispatch) =>
+    Object.keys(fields).reduce((acc, key: any) => {
+      acc[("set" + key.charAt(0).toUpperCase() + key.substring(1)) as keyof Setters] = (
+        value: any
+      ) => {
+        switch (fields[key as keyof AppState].type) {
+          case "simple":
+            dispatch(actions.setSimple({ key, value }));
+            return;
+          case "debounced":
+            dispatch(actions.setDebounced({ key, value, type: "value" }));
+            clearTimeout(timeouts[key]);
+            timeouts[key] = setTimeout(() =>
+              dispatch(actions.setDebounced({ key, value, type: "debounced" }))
+            );
+        }
+      };
+      return acc;
+    }, {} as Setters),
+  (dispatch) => dispatch
+);
 
 export const appSlice = createSlice({
   name: "app",
@@ -115,7 +125,9 @@ export const appSlice = createSlice({
       if (Array.isArray(payload)) {
         return { ...state, overridesTmp: payload };
       }
-      payload.override.isOverride = true;
+      if (payload.override.isOverride !== true) {
+        console.warn("unmarked override");
+      }
       let found = false;
       const overridesTmp = state.overridesTmp.map((o) => {
         if (

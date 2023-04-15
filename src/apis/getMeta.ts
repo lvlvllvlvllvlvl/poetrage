@@ -1,11 +1,11 @@
 import { Builds } from "models/ninja/Builds";
 import { api } from "apis/axios";
 
-export const getMeta = async (league: string) => {
+export const getMeta = async (league: string, type: "exp" | "depthsolo") => {
   const response = await api.get<Builds>(
     `https://poe.ninja/api/data/x/getbuildoverview?overview=${league
       .toLowerCase()
-      .replaceAll(" ", "-")}&type=exp&language=en`
+      .replaceAll(" ", "-")}&type=${type}&language=en`
   );
 
   const result: { [key: string]: number } = {};

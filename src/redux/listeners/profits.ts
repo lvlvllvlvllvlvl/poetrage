@@ -1,32 +1,10 @@
-import { createSelector } from "@reduxjs/toolkit";
-import "App.css";
 import { shallowEqual } from "react-redux";
-import { currencyMap, gemInfo, gems, meta } from "redux/api";
 import { setters } from "redux/app";
 import { startAppListening } from "redux/listener";
-import { AppDispatch, RootState } from "redux/store";
+import { getInputs } from "redux/selectors/profitInputs";
+import { AppDispatch } from "redux/store";
 
-export const getInputs = createSelector(
-  [
-    gems,
-    currencyMap,
-    ({ app }: RootState) => app.league?.indexed,
-    meta,
-    gemInfo,
-    ({ app }: RootState) => app.filterMeta.debounced,
-    ({ app }: RootState) => app.overrides,
-    ({ app }: RootState) => app.sanitize,
-    ({ app }: RootState) => app.lowConfidence,
-    ({ app }: RootState) => app.incQual.debounced,
-    ({ app }: RootState) => app.mavenExclusiveWeight.debounced,
-    ({ app }: RootState) => app.mavenCrucibleWeight.debounced,
-  ],
-  (...args) => args
-);
-
-export type Inputs = ReturnType<typeof getInputs>;
-
-const worker = new Worker(new URL("./Worker.ts", import.meta.url));
+const worker = new Worker(new URL("web-worker/calculateProfits.ts", import.meta.url));
 let cancel: string;
 
 startAppListening({

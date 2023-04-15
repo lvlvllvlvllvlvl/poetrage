@@ -14,17 +14,17 @@ import MenuItem from "@mui/material/MenuItem";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import TextField from "@mui/material/TextField";
+import { GemInfo } from "apis/getGemInfo";
 import { getPrice } from "apis/getPrices";
-import { GemDetails, getQuery, isEqual, Override } from "models/Gems";
+import { GemDetails, Override, getQuery, isEqual } from "models/Gems";
 import { useRef, useState } from "react";
-import { EditGem } from "./EditGem";
-import { GemInfo } from "apis/getGemQuality";
 import { useDispatch } from "react-redux";
 import { actions } from "redux/app";
+import { EditGem } from "./EditGem";
 
-const clean = (obj: Partial<GemDetails>) => {
+const clean = <T extends {}>(obj: T) => {
   Object.keys(obj).forEach(
-    (key) => obj[key as keyof GemDetails] === undefined && delete obj[key as keyof GemDetails]
+    (key) => obj[key as keyof T] === undefined && delete obj[key as keyof T]
   );
   return obj;
 };
@@ -52,7 +52,10 @@ export const EditOverride = ({
   const [error, setError] = useState(false);
   const [anchorEl, setAnchorEl] = useState<HTMLElement>();
   const [dialog, setDialog] = useState(false);
-  const [custom, setCustom] = useState(original);
+  const [custom, setCustom] = useState<GemDetails & { isOverride: true }>({
+    ...original,
+    isOverride: true,
+  });
   const [searchType, setSearchType] = useState<"" | "cheapest" | "online" | "daily">("");
   const input = useRef();
   const overrideValue = override?.override?.Price;
@@ -78,7 +81,7 @@ export const EditOverride = ({
         custom
           ? {
               original: isEqual(custom, original) ? original : undefined,
-              override: { ...custom, Price: price },
+              override: { ...custom, Price: price, isOverride: true },
             }
           : {
               original,
@@ -86,6 +89,7 @@ export const EditOverride = ({
                 ...(override?.override || {}),
                 Price: price,
                 lowConfidence: false,
+                isOverride: true,
               }),
             }
       );
@@ -132,6 +136,7 @@ export const EditOverride = ({
                   ...(override?.override || {}),
                   Price: e.currentTarget.value ? parseInt(e.currentTarget.value) : undefined,
                   lowConfidence: false,
+                  isOverride: true,
                 }),
               });
 
@@ -157,7 +162,11 @@ export const EditOverride = ({
           {isEqual(custom, original) ? "Edit gem details" : "Add custom gem"}
         </DialogTitle>
         <DialogContent>
-          <EditGem gem={custom} onChange={setCustom} gemInfo={gemInfo} />
+          <EditGem
+            gem={custom}
+            onChange={(g) => setCustom({ ...g, isOverride: true })}
+            gemInfo={gemInfo}
+          />
           <FormLabel id="search-type">Price search</FormLabel>
           <RadioGroup
             row

@@ -4,7 +4,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import { GemInfo } from "apis/getGemQuality";
+import { GemInfo } from "apis/getGemInfo";
 import { GemDetails, GemType, normalize } from "models/Gems";
 
 export const EditGem = ({

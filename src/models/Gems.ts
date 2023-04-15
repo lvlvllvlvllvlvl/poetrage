@@ -110,7 +110,7 @@ export type GemDetails = Gem & {
 };
 
 export type Override =
-  | { original: Gem; override: Partial<GemDetails> }
+  | { original: Gem; override: Partial<GemDetails> & { isOverride: true } }
   | { original: undefined; override: GemDetails };
 
 const getRatio = (name: string, profit: number, cost: number) => ({
@@ -211,9 +211,19 @@ export const betterOrEqual = (gem: Gem, other: Gem) => {
 export const strictlyBetter = (gem: Gem, other: Gem) => {
   return betterOrEqual(gem, other) && !betterOrEqual(other, gem);
 };
-export const bestMatch = (gem: Gem, data?: Gem[], lowConfidence: boolean = false) =>
-  data?.find((other) => (lowConfidence || !other.lowConfidence) && betterOrEqual(gem, other)) ||
-  gem;
+export const bestMatch = (gem: Gem, data?: Gem[], allowLowConfidence: boolean = false) => {
+  const found = data?.find((other) => betterOrEqual(gem, other));
+  if (!found) {
+    return copy(gem, { Price: 0, lowConfidence: true, Listings: 0 });
+  } else if (!found.lowConfidence || allowLowConfidence) {
+    return copy(found);
+  } else {
+    return (
+      data?.find((other) => !other.lowConfidence && betterOrEqual(gem, other)) ||
+      copy(found, { Price: 0, Listings: 0 })
+    );
+  }
+};
 export const compareGem = (a: Gem, b: Gem) => {
   if (a.baseName !== b.baseName || a.Type !== b.Type) {
     console.debug("mismatched gem comparison", a, b);

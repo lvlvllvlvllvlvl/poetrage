@@ -1,176 +1,192 @@
 import FilterListIcon from "@mui/icons-material/FilterList";
+import ClearIcon from "@mui/icons-material/Clear";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import FormControl from "@mui/material/FormControl";
-import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
+import ToggleButton from "@mui/material/ToggleButton";
 import { Column } from "@tanstack/react-table";
-import { useEffect, useState } from "react";
-import SearchOperators from "search-operators";
 import useDebouncedState from "functions/useDebouncedState";
+import { isUndefined } from "lodash";
 import { GemDetails, gemTypes } from "models/Gems";
+import { useEffect, useState } from "react";
+import IconButton from "@mui/material/IconButton";
 
 type Key = keyof GemDetails | "ratio";
-const booleanCols: Key[] = ["lowConfidence", "Corrupted"];
-const maxCols: Key[] = ["Level", "Quality", "Price"];
-const minCols: Key[] = maxCols.concat([
-  "XP",
-  "xpValue",
-  "gcpValue",
-  "vaalValue",
-  "templeValue",
-  "Meta",
-  "Listings",
-  "regrValue",
-  "ratio",
-]);
-const minDefault: any = { Meta: 0.4, Listings: 5 };
 
 const Filter = <T extends {}>({ column }: { column: Column<T, T[keyof T]> }) => {
-  const key = column.id as Key;
-  const isRange = minCols.includes(key);
-  const isMax = maxCols.includes(key);
-  const isBool = booleanCols.includes(key);
-  const isText = key === "Name";
-  const isType = key === "Type";
-  const canFilter = column.getCanFilter();
+  const [anchorEl, setAnchorEl] = useState<HTMLElement>();
 
-  const [showFilters, setShowFilters] = useState(false);
-  const min = useDebouncedState<number | undefined>(minDefault[key] || undefined);
-  const max = useDebouncedState<number | undefined>(undefined);
-  const text = useDebouncedState("");
-  const [bool, setBool] = useState<boolean | undefined>(
-    key === "lowConfidence" ? false : undefined
+  const canFilter = column.columnDef.meta?.filter && column.getCanFilter();
+
+  return canFilter ? (
+    <Box
+      sx={{
+        height: 40,
+        minWidth: 88,
+      }}>
+      <ToggleButton
+        value="check"
+        sx={{ maxWidth: 40, maxHeight: 40 }}
+        selected={Boolean(anchorEl) || !isUndefined(column.getFilterValue())}
+        onClick={(e) => setAnchorEl(e.currentTarget)}>
+        <FilterListIcon />
+      </ToggleButton>
+      {!isUndefined(column.getFilterValue()) && (
+        <IconButton
+          sx={{ maxWidth: 40, maxHeight: 40, marginLeft: 1 }}
+          onClick={() => column.setFilterValue(undefined)}>
+          <ClearIcon />
+        </IconButton>
+      )}
+      <Menu
+        anchorEl={anchorEl}
+        open={!!anchorEl}
+        transitionDuration={0}
+        onClose={() => setAnchorEl(undefined)}>
+        <FilterMenu column={column} onClose={() => setAnchorEl(undefined)} />
+      </Menu>
+    </Box>
+  ) : null;
+};
+
+const FilterMenu = <T extends {}>({
+  column,
+  onClose,
+}: {
+  column: Column<T, T[keyof T]>;
+  onClose: () => void;
+}) => {
+  const key = column.id as Key;
+  const { isMin, isMax, isBool, isFloat, isText, isType } = column.columnDef.meta?.filter || {};
+  const canFilter = column.columnDef.meta?.filter && column.getCanFilter();
+
+  const currentValue = column.getFilterValue();
+  const min = useDebouncedState(currentValue as number);
+  const max = useDebouncedState(currentValue as number);
+  const text = useDebouncedState(currentValue as string);
+  const [bool, setBool] = useState(
+    isUndefined(currentValue) ? (key === "lowConfidence" ? false : undefined) : currentValue
   );
-  const [types, setTypes] = useState<string[]>([]);
+  const [types, setTypes] = useState(currentValue as string[] | undefined);
 
   useEffect(() => {
-    isRange &&
-      column.setFilterValue(() => (!canFilter ? undefined : [min.debounced, max.debounced]));
-  }, [canFilter, min.debounced, max.debounced, column, isRange]);
+    isMin && column.setFilterValue(() => (!canFilter ? undefined : [min.debounced, max.debounced]));
+  }, [canFilter, min.debounced, max.debounced, column, isMin]);
   useEffect(() => {
     isBool && column.setFilterValue(() => (!canFilter ? undefined : bool));
-  }, [canFilter, bool, column, isBool]);
+  }, [canFilter, bool, column, isBool, key]);
   useEffect(() => {
     isText &&
-      column.setFilterValue(() =>
-        !canFilter || !text.debounced
-          ? undefined
-          : SearchOperators.parse(text.debounced, { keys: [] })
-      );
+      column.setFilterValue(() => (!canFilter || !text.debounced ? undefined : text.debounced));
   }, [canFilter, text.debounced, column, isText]);
   useEffect(() => {
     isType && column.setFilterValue(() => (!canFilter ? undefined : types));
   }, [canFilter, types, column, isType]);
 
-  if (canFilter && !showFilters) {
-    return (
-      <Box sx={{ height: 42 }}>
-        <IconButton sx={{ maxWidth: 40, maxHeight: 40 }} onClick={() => setShowFilters(true)}>
-          <FilterListIcon />
-        </IconButton>
-      </Box>
-    );
-  }
+  const [ref, setRef] = useState<HTMLInputElement>();
+  useEffect(() => {
+    ref !== document.activeElement && ref?.focus();
+  }, [ref]);
 
-  if (isRange) {
+  if (isMin) {
     return (
-      <Box sx={{ verticalAlign: "bottom", height: 42 }}>
-        <IconButton onClick={() => setShowFilters(false)}>
-          <FilterListIcon />
-        </IconButton>
+      <>
         <TextField
+          inputRef={setRef}
           type="number"
           label="min"
           variant="outlined"
-          value={min.value}
-          style={{
-            maxWidth: "5em",
-          }}
+          value={min.value || ""}
           inputProps={{
             min: column.getFacetedMinMaxValues()?.[0],
             max: column.getFacetedMinMaxValues()?.[1],
           }}
           placeholder={`${column.getFacetedMinMaxValues()?.[0]}`}
-          onChange={({ target }) => min.set(target.value ? parseInt(target.value) : undefined)}
+          onChange={({ target }) =>
+            min.set(
+              target.value
+                ? isFloat
+                  ? parseFloat(target.value)
+                  : parseInt(target.value)
+                : undefined
+            )
+          }
         />
         {isMax && (
           <TextField
             type="number"
             label="max"
             variant="outlined"
-            value={max.value}
-            style={{
-              maxWidth: "5em",
-            }}
+            value={max.value || ""}
             inputProps={{
               min: column.getFacetedMinMaxValues()?.[0],
               max: column.getFacetedMinMaxValues()?.[1],
             }}
             placeholder={`${column.getFacetedMinMaxValues()?.[1]}`}
-            onChange={({ target }) => max.set(target.value ? parseInt(target.value) : undefined)}
+            onChange={({ target }) =>
+              max.set(
+                target.value
+                  ? isFloat
+                    ? parseFloat(target.value)
+                    : parseInt(target.value)
+                  : undefined
+              )
+            }
           />
         )}
-      </Box>
+      </>
     );
   }
   if (isBool) {
     return (
-      <Box sx={{ height: 42 }}>
-        <Checkbox
-          checked={!!bool}
-          indeterminate={bool === undefined}
-          onChange={() => setBool(bool === true ? undefined : bool === false ? true : false)}
-        />
-      </Box>
+      <Checkbox
+        checked={!!bool}
+        indeterminate={bool === undefined}
+        onChange={() => setBool(bool === true ? undefined : bool === false ? true : false)}
+      />
     );
   }
   if (isText) {
     return (
-      <Box sx={{ verticalAlign: "bottom", height: 42 }}>
-        <IconButton onClick={() => setShowFilters(false)}>
-          <FilterListIcon />
-        </IconButton>
-        <TextField
-          type="text"
-          label="search"
-          variant="outlined"
-          placeholder='"exact match" -exclude'
-          value={text.value}
-          onChange={({ target }) => text.set(target.value)}
-        />
-      </Box>
+      <TextField
+        inputRef={setRef}
+        type="text"
+        label="search"
+        variant="outlined"
+        placeholder='"exact match" -exclude'
+        value={text.value || ""}
+        onChange={({ target }) => text.set(target.value)}
+      />
     );
   }
   if (isType) {
     return (
-      <Box sx={{ height: 42 }}>
-        <IconButton onClick={() => setShowFilters(false)}>
-          <FilterListIcon />
-        </IconButton>
-        <FormControl sx={{ width: 100 }}>
-          <Select
-            multiple
-            displayEmpty
-            renderValue={(value) =>
-              value?.length ? (Array.isArray(value) ? value.join(", ") : value) : "All"
-            }
-            value={types}
-            onChange={({ target }) =>
-              setTypes(
-                Array.isArray(target.value) ? target.value : target.value ? [target.value] : []
-              )
-            }>
-            {gemTypes.map((name) => (
-              <MenuItem key={name} value={name}>
-                {name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </Box>
+      <FormControl sx={{ width: 100 }}>
+        <Select
+          multiple
+          defaultOpen
+          displayEmpty
+          renderValue={(value) =>
+            value?.length ? (Array.isArray(value) ? value.join(", ") : value) : "All"
+          }
+          value={types || []}
+          onClose={onClose}
+          onChange={({ target: { value } }) =>
+            setTypes(
+              Array.isArray(value) ? (value.length === 0 ? undefined : value) : value ? [value] : []
+            )
+          }>
+          {gemTypes.map((name) => (
+            <MenuItem key={name} value={name}>
+              {name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
     );
   }
   return null;

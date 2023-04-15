@@ -2,7 +2,7 @@ import { createSelector } from "@reduxjs/toolkit";
 import { createApi, skipToken } from "@reduxjs/toolkit/query/react";
 import { getCurrencyOverview } from "apis/getCurrencyOverview";
 import { getGemOverview } from "apis/getGemOverview";
-import { getGemInfo } from "apis/getGemQuality";
+import { getGemInfo } from "apis/getGemInfo";
 import { getLeagues } from "apis/getLeagues";
 import { getMeta } from "apis/getMeta";
 import {
@@ -89,6 +89,7 @@ const toApiResult = <T>({
 };
 
 const getLeague = ({ app }: State) => app.league;
+const getLadder = ({ app }: State) => app.ladder;
 
 const gemInfoSelector = apiSlice.endpoints.gemInfo.select([]);
 export const gemInfo = createSelector([gemInfoSelector], toApiResult);
@@ -110,18 +111,20 @@ startAppListening({
   },
 });
 
-const metaSelector = createSelector([getLeague], (league) =>
-  apiSlice.endpoints.meta.select(league?.indexed ? [league.name] : skipToken)
+const metaSelector = createSelector([getLeague, getLadder], (league, ladder) =>
+  apiSlice.endpoints.meta.select(league?.indexed ? [league.name, ladder] : skipToken)
 );
 export const meta = createSelector([(state) => metaSelector(state)(state)], toApiResult);
 startAppListening({
   predicate: (action, currentState, previousState) =>
-    getLeague(currentState) !== getLeague(previousState),
+    getLeague(currentState) !== getLeague(previousState) ||
+    getLadder(currentState) !== getLadder(previousState),
 
   effect: async (action, listenerApi) => {
     const league = getLeague(listenerApi.getState());
+    const ladder = getLadder(listenerApi.getState());
     if (league?.indexed) {
-      listenerApi.dispatch(apiSlice.endpoints.meta.initiate([league.name]));
+      listenerApi.dispatch(apiSlice.endpoints.meta.initiate([league.name, ladder]));
     }
   },
 });
