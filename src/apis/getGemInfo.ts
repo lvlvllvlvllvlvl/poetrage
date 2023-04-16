@@ -1,21 +1,24 @@
 import { api } from "apis/axios";
-import { GemType, gemTypes } from "models/Gems";
+import { GemType, QualityType } from "models/Gems";
 import { Gem } from "models/repoe/Gem";
 
 export type Weights = { [gem: string]: { Type: GemType; weight: number }[] };
+export type Stats = {
+  [gem: string]: { [quality in QualityType]?: { id: string; stat?: string; value: number }[] };
+};
 export type XP = { [gem: string]: { [level: number]: number } };
 
-export type GemInfo = {
-  weights: Weights;
-  xp: XP;
-  names: string[];
-};
+export type GemInfo = Awaited<ReturnType<typeof getGemInfo>>;
 
+const regex = /{[^/]\/?([^}]*)}/g;
+const quants: string[] = [];
 export const getGemInfo = async () => {
   const response = await api.get<{ [key: string]: Gem }>(
     "https://lvlvllvlvllvlvl.github.io/RePoE/gems.min.json"
   );
+  console.log("geminfo");
   const weights: Weights = {};
+  const qualityStats: Stats = {};
   const xp: XP = {};
   const names = new Set<string>();
   Object.values(response.data).forEach((gem) => {
@@ -25,10 +28,24 @@ export const getGemInfo = async () => {
     }
     names.add(name);
     weights[name] = weights[name] || [];
-    gem.static.quality_stats.forEach(({ set, weight }) => {
-      const Type = gemTypes[set];
-      if (!weights[name].find((w) => w.Type === Type)) {
-        weights[name].push({ Type, weight });
+    qualityStats[name] = qualityStats[name] || [];
+    gem.static.quality_stats.forEach((quality_stat) => {
+      if (quality_stat.stat) {
+        for (const [, quant] of Array.from(quality_stat.stat.matchAll(regex))) {
+          if (quant && !quants.includes(quant)) {
+            console.log(quant);
+            quants.push(quant);
+          }
+        }
+      }
+      (qualityStats[name][quality_stat.set_name] =
+        qualityStats[name][quality_stat.set_name] || []).push({
+        id: quality_stat.id,
+        stat: quality_stat.stat,
+        value: quality_stat.value,
+      });
+      if (!weights[name].find((w) => w.Type === quality_stat.set_name)) {
+        weights[name].push({ Type: quality_stat.set_name, weight: quality_stat.weight });
       }
     });
     Object.entries(gem.per_level).forEach(([level, data]) => {
@@ -38,5 +55,5 @@ export const getGemInfo = async () => {
       }
     });
   });
-  return { weights, xp, names: Array.from(names).sort() };
+  return { weights, qualityStats, xp, names: Array.from(names).sort() };
 };

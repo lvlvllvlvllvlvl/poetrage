@@ -460,13 +460,6 @@ self.onmessage = (e: MessageEvent<{ inputs: ProfitInputs; cancel: URL }>) => {
               Quality: Math.min(merged.gem.Quality, next.gem.Quality),
             });
           } else {
-            if (
-              next.gem.Name === "Divergent Tornado Shot" &&
-              merged.gem.Quality === 23 &&
-              merged.gem.Level === 20
-            ) {
-              console.log(next.gem, merged.gem);
-            }
             gem.vaalData?.push(merged);
             merged = { ...next };
           }

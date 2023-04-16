@@ -84,7 +84,8 @@ const toApiResult = <T>({
   } else if (isSuccess && data) {
     return { status: "done", value: data };
   } else {
-    return { status: "fail", error };
+    console.log(error)
+    return { status: "fail", error: String(error) };
   }
 };
 
@@ -94,7 +95,7 @@ const getLadder = ({ app }: State) => app.ladder;
 const gemInfoSelector = apiSlice.endpoints.gemInfo.select([]);
 export const gemInfo = createSelector([gemInfoSelector], toApiResult);
 startAppListening({
-  predicate: (action, currentState, previousState) => gemInfo(currentState).status === "idle",
+  predicate: (action, currentState) => gemInfo(currentState).status === "idle",
 
   effect: async (action, listenerApi) => {
     listenerApi.dispatch(apiSlice.endpoints.gemInfo.initiate([]));
@@ -104,7 +105,7 @@ startAppListening({
 const leaguesSelector = apiSlice.endpoints.leagues.select([]);
 export const leagues = createSelector([leaguesSelector], toApiResult);
 startAppListening({
-  predicate: (action, currentState, previousState) => leagues(currentState).status === "idle",
+  predicate: (action, currentState) => leagues(currentState).status === "idle",
 
   effect: async (action, listenerApi) => {
     listenerApi.dispatch(apiSlice.endpoints.leagues.initiate([]));

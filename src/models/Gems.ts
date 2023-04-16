@@ -17,6 +17,7 @@ export const gemTypes = ["Superior", "Anomalous", "Divergent", "Phantasmal", "Aw
 export const altQualities = ["Anomalous", "Divergent", "Phantasmal"] as const;
 export const modifiers = ["Anomalous ", "Divergent ", "Phantasmal ", "Vaal "];
 export const exceptional = ["Enlighten", "Empower", "Enhance"];
+export type QualityType = "Superior" | (typeof altQualities)[number];
 export type GemType = (typeof gemTypes)[number];
 
 export const mavenExclusive = [

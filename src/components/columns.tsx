@@ -14,6 +14,8 @@ import {
   templeCost,
 } from "../redux/selectors/costs";
 import { GemIcons } from "./GemIcons";
+import { qualityStat } from "functions/formatStat";
+import Tooltip from "@mui/material/Tooltip";
 
 export const getColumns = createSelector(
   [
@@ -98,6 +100,14 @@ export const getColumns = createSelector(
         meta: {
           filter: { isType: true },
         },
+        cell: (info) => (
+          <Tooltip
+            title={
+              gemInfo.status === "done" ? qualityStat(gemInfo.value, info.row.original) : undefined
+            }>
+            <span>{info.row.original.Type}</span>
+          </Tooltip>
+        ),
       },
       {
         accessorKey: "Price",

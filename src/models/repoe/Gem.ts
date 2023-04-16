@@ -1,3 +1,5 @@
+import { QualityType } from "models/Gems";
+
 export interface Gem {
   active_skill: Active_skill;
   base_item: Base_item;
@@ -895,6 +897,8 @@ export interface QualityStatsItem {
   set: number;
   value: number;
   weight: number;
+  set_name: QualityType;
+  stat: string;
 }
 export interface Reservations {
   mana_flat?: number;
