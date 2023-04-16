@@ -31,8 +31,10 @@ export type RangeValue = [number, number];
 export type Value = SimpleValue | RangeValue;
 
 export const formatStat = (stat: string, values: Value[]) =>
-  stat.replaceAll(/\{(\d+)\/?(\w*)\}/g, (match, index, quantifier) =>
-    values[parseInt(index)].map(getQuantifier(quantifier)).join("-")
+  stat.replaceAll(
+    /\{(\d+)\/?(\w*)\}/g,
+    (match, index, quantifier) =>
+      (values[parseInt(index)] || values[0])?.map(getQuantifier(quantifier)).join(" to ") || "?"
   );
 
 export const qualityStat = (gemInfo: GemInfo, gem: Gem) =>
