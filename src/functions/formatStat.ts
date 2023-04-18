@@ -20,7 +20,7 @@ const quantifiers: { [key: string]: (n: number) => string } = {
 const getQuantifier = (quantifier: string) => {
   const q = quantifiers[quantifier || "none"];
   if (!q) {
-    console.log("Unknown quantifier", quantifier);
+    console.warn("Unknown quantifier", quantifier);
     return (n: number) => `=${quantifier}(${numeral(n).format("0[.][00]")})`;
   }
   return q;

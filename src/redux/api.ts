@@ -84,7 +84,7 @@ const toApiResult = <T>({
   } else if (isSuccess && data) {
     return { status: "done", value: data };
   } else {
-    console.log(error)
+    console.error(error)
     return { status: "fail", error: String(error) };
   }
 };

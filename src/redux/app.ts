@@ -42,6 +42,8 @@ export const fields = {
   graphData: prop<NodeMap>({}),
   currentGraph: prop<GraphNode>(),
   load: prop(0),
+  preview: prop(false),
+  hideNonTextFilters: prop(false),
   overridesTmp: prop<Override[]>([]),
   overrides: prop<Override[]>([]),
   templePrice: debouncedProp(0),

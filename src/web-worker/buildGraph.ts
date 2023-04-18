@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-globals */
 import { getCurrency } from "functions/getCurrency";
-import { isFunction, memoize } from "lodash";
+import { memoize } from "lodash";
 import {
   ConversionData,
   Gem,
@@ -58,9 +58,6 @@ self.onmessage = (e: MessageEvent<{ inputs: GraphInputs; cancel: URL }>) => {
         : primeRegrading || getCurrency("Prime Regrading Lens", currencyMap.value, 0));
 
     const fn = (gem: GemDetails): GraphNode => {
-      if (gem.gcpData && !isFunction(gem.gcpData.map)) {
-        console.log(gem.gcpData);
-      }
       const gcpBest =
         gem.gcpData && max(gem.gcpData.map(normalizedFn) || [], (v) => v.expectedValue);
 
@@ -248,7 +245,11 @@ self.onmessage = (e: MessageEvent<{ inputs: GraphInputs; cancel: URL }>) => {
 const max = <T>(data: readonly (T | undefined)[], get: (v: T) => number) =>
   data?.reduce((l, r) => (!l ? r : !r ? l : get(l) > get(r) ? l : r), undefined);
 
-const createNode = (gem: GemDetails, expectedValue: number, children?: GraphChild[]): GraphNode => ({
+const createNode = (
+  gem: GemDetails,
+  expectedValue: number,
+  children?: GraphChild[]
+): GraphNode => ({
   gem,
   expectedValue,
   children,

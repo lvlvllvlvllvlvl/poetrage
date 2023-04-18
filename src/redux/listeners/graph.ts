@@ -19,7 +19,7 @@ startAppListening({
         return;
       }
 
-      console.log("Starting graph worker");
+      console.debug("Starting graph worker");
       URL.revokeObjectURL(cancel);
 
       const { setGraphData, setGraphProgress, setGraphProgressMsg } = setters(

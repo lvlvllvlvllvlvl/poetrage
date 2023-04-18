@@ -33,8 +33,8 @@ export const GemTable = () => {
   const league = useAppSelector((state) => state.app.league);
   const sorting = useAppSelector((state) => state.app.sorting);
   const columnFilters = useAppSelector((state) => state.app.columnFilters);
+  const preview = useAppSelector((state) => state.app.preview);
   const data = useAppSelector(zippedData);
-  console.log(data.find((g) => g.graph));
 
   const columns = useAppSelector(getColumns);
   const table = useReactTable({
@@ -46,7 +46,7 @@ export const GemTable = () => {
     state: {
       sorting,
       columnFilters,
-      columnVisibility: { Meta: !!league?.indexed, Profit: false },
+      columnVisibility: { Meta: !!league?.indexed, Profit: preview },
       columnPinning: { left: ["Name"] },
     },
     onColumnFiltersChange: (updater) =>

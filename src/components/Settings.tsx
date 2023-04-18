@@ -41,6 +41,7 @@ export const Settings = () => {
     setIncQual,
     setFiveWay,
     setOverrides,
+    setPreview,
   } = setters(dispatch);
 
   const gemInfo = useAppSelector(api.gemInfo);
@@ -66,6 +67,7 @@ export const Settings = () => {
   const graphProgressMsg = useAppSelector((state) => state.app.graphProgressMsg);
   const overridesTmp = useAppSelector((state) => state.app.overridesTmp);
   const overrides = useAppSelector((state) => state.app.overrides);
+  const preview = useAppSelector((state) => state.app.preview);
   const overridesPending = overrides !== overridesTmp;
 
   useEffect(() => {
@@ -244,6 +246,13 @@ export const Settings = () => {
                     value={fiveWay.value}
                     onChange={({ target }) => setFiveWay(target.value ? parseInt(target.value) : 0)}
                     helperText="This can vary substantially depending on the hidden mods of slain rares. Note that gem xp is earned at a different rate than character xp"
+                  />
+
+                  <FormControlLabel
+                    control={
+                      <Checkbox checked={preview} onChange={(_, checked) => setPreview(checked)} />
+                    }
+                    label="preview upcoming features"
                   />
                 </>
               )}

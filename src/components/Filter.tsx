@@ -1,4 +1,6 @@
 import FilterListIcon from "@mui/icons-material/FilterList";
+import FilterIcon from "@mui/icons-material/FilterAlt";
+import FilterOffIcon from "@mui/icons-material/FilterAltOff";
 import ClearIcon from "@mui/icons-material/Clear";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
@@ -14,12 +16,18 @@ import { isUndefined } from "lodash";
 import { GemDetails, gemTypes } from "models/gems";
 import { useEffect, useState } from "react";
 import IconButton from "@mui/material/IconButton";
+import { useAppDispatch, useAppSelector } from "redux/store";
+import { setters } from "redux/app";
+import Tooltip from "@mui/material/Tooltip";
 
 type Key = keyof GemDetails | "ratio";
 
 const Filter = <T extends {}>({ column }: { column: Column<T, T[keyof T]> }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement>();
+  const hideNonText = useAppSelector((state) => state.app.hideNonTextFilters);
+  const { setHideNonTextFilters } = setters(useAppDispatch());
 
+  const { isText } = column.columnDef.meta?.filter || {};
   const canFilter = column.columnDef.meta?.filter && column.getCanFilter();
 
   return canFilter ? (
@@ -35,6 +43,17 @@ const Filter = <T extends {}>({ column }: { column: Column<T, T[keyof T]> }) => 
         onClick={(e) => setAnchorEl(e.currentTarget)}>
         <FilterListIcon />
       </ToggleButton>
+      {isText && (
+        <Tooltip title="Disable all filters except gem name search">
+          <ToggleButton
+            value="check"
+            sx={{ maxWidth: 40, maxHeight: 40, ml: 1 }}
+            selected={hideNonText}
+            onClick={(e) => setHideNonTextFilters(!hideNonText)}>
+            {hideNonText ? <FilterOffIcon /> : <FilterIcon />}
+          </ToggleButton>
+        </Tooltip>
+      )}
       {!isUndefined(column.getFilterValue()) && (
         <IconButton
           sx={{ maxWidth: 40, maxHeight: 40, marginLeft: 1 }}
