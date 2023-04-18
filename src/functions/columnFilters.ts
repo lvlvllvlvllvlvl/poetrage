@@ -1,6 +1,6 @@
 import { FilterFn } from "@tanstack/react-table";
 import { memoize } from "lodash";
-import { GemDetails } from "models/Gems";
+import { GemDetails } from "models/gems";
 import SearchOperators from "search-operators";
 
 export const includes: FilterFn<GemDetails> = (row, columnId, filterValue: any[]) =>

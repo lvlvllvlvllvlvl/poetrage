@@ -1,5 +1,5 @@
 import { api } from "apis/axios";
-import { GemType, QualityType } from "models/Gems";
+import { GemType, QualityType } from "models/gems";
 import { Gem } from "models/repoe/Gem";
 
 export type Weights = { [gem: string]: { Type: GemType; weight: number }[] };
@@ -16,7 +16,6 @@ export const getGemInfo = async () => {
   const response = await api.get<{ [key: string]: Gem }>(
     "https://lvlvllvlvllvlvl.github.io/RePoE/gems.min.json"
   );
-  console.log("geminfo");
   const weights: Weights = {};
   const qualityStats: Stats = {};
   const xp: XP = {};
@@ -33,7 +32,6 @@ export const getGemInfo = async () => {
       if (quality_stat.stat) {
         for (const [, quant] of Array.from(quality_stat.stat.matchAll(regex))) {
           if (quant && !quants.includes(quant)) {
-            console.log(quant);
             quants.push(quant);
           }
         }

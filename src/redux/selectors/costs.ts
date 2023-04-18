@@ -1,6 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { getCurrency } from "apis/getCurrencyOverview";
-import { GemDetails } from "models/Gems";
+import { getCurrency } from "functions/getCurrency";
+import { GemDetails } from "models/gems";
 import { awakenedLevelAverage, awakenedRerollAverage, currencyMap, templeAverage } from "redux/api";
 import { RootState } from "redux/store";
 

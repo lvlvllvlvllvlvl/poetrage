@@ -1,5 +1,5 @@
 import { GemInfo } from "apis/getGemInfo";
-import { Gem } from "models/Gems";
+import { Gem } from "models/gems";
 import numeral from "numeral";
 
 const quantifiers: { [key: string]: (n: number) => string } = {

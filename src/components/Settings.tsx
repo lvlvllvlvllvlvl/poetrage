@@ -19,8 +19,8 @@ import Snackbar from "@mui/material/Snackbar";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { cache } from "apis/axios";
-import { getCurrency } from "apis/getCurrencyOverview";
-import { Override } from "models/Gems";
+import { getCurrency } from "functions/getCurrency";
+import { Override } from "models/gems";
 import { useEffect } from "react";
 import * as api from "redux/api";
 import { actions, setters } from "redux/app";
@@ -62,6 +62,8 @@ export const Settings = () => {
   const fiveWay = useAppSelector((state) => state.app.fiveWay);
   const progress = useAppSelector((state) => state.app.progress);
   const progressMsg = useAppSelector((state) => state.app.progressMsg);
+  const graphProgress = useAppSelector((state) => state.app.graphProgress);
+  const graphProgressMsg = useAppSelector((state) => state.app.graphProgressMsg);
   const overridesTmp = useAppSelector((state) => state.app.overridesTmp);
   const overrides = useAppSelector((state) => state.app.overrides);
   const overridesPending = overrides !== overridesTmp;
@@ -268,6 +270,7 @@ export const Settings = () => {
                 : progressMsg || "All currency costs accounted for in profit values"}
             </Typography>
             <LinearProgress variant="determinate" value={progress} />
+            <LinearProgress title={graphProgressMsg} variant="determinate" value={graphProgress} />
           </>
         )}
       </Container>

@@ -1,4 +1,4 @@
-import { QualityType } from "models/Gems";
+import { QualityType } from "models/gems";
 
 export interface Gem {
   active_skill: Active_skill;

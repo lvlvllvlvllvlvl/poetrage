@@ -1,7 +1,7 @@
 import { searchItems } from "apis/searchItems";
 import { filterOutliers } from "functions/filterOutliers";
+import { getCurrency } from "functions/getCurrency";
 import { SearchQueryContainer } from "models/poe/Search";
-import { getCurrency } from "./getCurrencyOverview";
 
 export const getPrice = async (
   league: string,

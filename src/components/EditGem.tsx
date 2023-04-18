@@ -5,7 +5,7 @@ import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { GemInfo } from "apis/getGemInfo";
-import { GemDetails, GemType, normalize } from "models/Gems";
+import { GemDetails, GemType, normalize } from "models/gems";
 
 export const EditGem = ({
   gem,

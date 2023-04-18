@@ -3,7 +3,7 @@
 - Better display of result breakdowns
 - Add multiselect to profit ratio column
 - Ability to show json for row (for debugging)
-- Vendors
+- Vendors (start with 8,000,001 xp)
 - Remove axios cache, store computed values in sessionstorage
 
 ---

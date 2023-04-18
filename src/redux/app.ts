@@ -1,9 +1,10 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { ColumnFiltersState, SortingState } from "@tanstack/react-table";
-import { GemDetails, Override, isEqual } from "models/Gems";
+import { GemDetails, Override, isEqual } from "models/gems";
 import { League } from "models/ninja/Leagues";
 import { AppDispatch } from "./store";
 import { memoize } from "lodash";
+import { GraphNode, NodeMap } from "models/graphElements";
 
 function prop<T>(): { type: "simple"; value: T | undefined };
 function prop<T>(value: T): { type: "simple"; value: T };
@@ -34,7 +35,12 @@ export const fields = {
   lowConfidence: prop(false),
   progress: prop(0),
   progressMsg: prop(""),
+  graphProgress: prop(0),
+  graphProgressMsg: prop(""),
+  vaalableGems: prop<{ [key: string]: boolean }>(),
   data: prop<GemDetails[]>([]),
+  graphData: prop<NodeMap>({}),
+  currentGraph: prop<GraphNode>(),
   load: prop(0),
   overridesTmp: prop<Override[]>([]),
   overrides: prop<Override[]>([]),

@@ -1,6 +1,6 @@
 import InfoIcon from "@mui/icons-material/Info";
 import Tooltip from "@mui/material/Tooltip";
-import { GemDetails } from "models/Gems";
+import { GemDetails } from "models/gems";
 import { useAppSelector } from "redux/store";
 
 export const GemIcons = ({ gem }: { gem: GemDetails }) => {

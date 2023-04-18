@@ -21,6 +21,7 @@ import { includes, search } from "functions/columnFilters";
 import { isFunction } from "lodash";
 import * as api from "redux/api";
 import { setters } from "redux/app";
+import { zippedData } from "redux/selectors/zipData";
 import { useAppDispatch, useAppSelector } from "redux/store";
 
 export const GemTable = () => {
@@ -32,7 +33,8 @@ export const GemTable = () => {
   const league = useAppSelector((state) => state.app.league);
   const sorting = useAppSelector((state) => state.app.sorting);
   const columnFilters = useAppSelector((state) => state.app.columnFilters);
-  const data = useAppSelector((state) => state.app.data);
+  const data = useAppSelector(zippedData);
+  console.log(data.find((g) => g.graph));
 
   const columns = useAppSelector(getColumns);
   const table = useReactTable({
@@ -44,7 +46,7 @@ export const GemTable = () => {
     state: {
       sorting,
       columnFilters,
-      columnVisibility: { Meta: !!league?.indexed },
+      columnVisibility: { Meta: !!league?.indexed, Profit: false },
       columnPinning: { left: ["Name"] },
     },
     onColumnFiltersChange: (updater) =>

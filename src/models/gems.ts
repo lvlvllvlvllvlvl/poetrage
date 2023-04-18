@@ -1,23 +1,16 @@
+import { getCurrency } from "functions/getCurrency";
+import { pick } from "lodash";
 import { SearchQueryContainer } from "models/poe/Search";
-
-const getCurrency = (currency: string, map?: { [key: string]: number }, fallback = 1) => {
-  return (
-    map?.[currency] ||
-    map?.[
-      Object.keys(map)
-        .filter((k) => k.toLowerCase().includes(currency))
-        .reduce((a, b) => (!a ? b : !b ? a : a.length <= b.length ? a : b), "") || ""
-    ] ||
-    fallback
-  );
-};
+import { GraphNode } from "./graphElements";
 
 export type ConversionData = { gem: Gem; chance: number; outcomes: string[] };
-export const gemTypes = ["Superior", "Anomalous", "Divergent", "Phantasmal", "Awakened"] as const;
 export const altQualities = ["Anomalous", "Divergent", "Phantasmal"] as const;
+export const qualities = ["Superior", ...altQualities] as const;
+export const qualityIndex = Object.fromEntries(qualities.map((q, i) => [q, i]));
+export const gemTypes = [...qualities, "Awakened"] as const;
 export const modifiers = ["Anomalous ", "Divergent ", "Phantasmal ", "Vaal "];
 export const exceptional = ["Enlighten", "Empower", "Enhance"];
-export type QualityType = "Superior" | (typeof altQualities)[number];
+export type QualityType = (typeof qualities)[number];
 export type GemType = (typeof gemTypes)[number];
 
 export const mavenExclusive = [
@@ -79,6 +72,29 @@ export type Gem = {
   isOverride?: boolean;
 };
 
+const GemFields: Required<Gem> = {
+  baseName: "string",
+  variant: "string",
+  Name: "string",
+  Level: 0,
+  Quality: 0,
+  Type: "Superior",
+  Corrupted: false,
+  Vaal: false,
+  canVaal: false,
+  Price: 0,
+  Meta: 0,
+  XP: 0,
+  Listings: 0,
+  lowConfidence: false,
+  isOverride: false,
+};
+
+export type GemId = `${number}/${number}${" corrupted " | " "}${string}`;
+
+export const getId = (gem: Gem): GemId =>
+  `${gem.Level}/${gem.Quality}${gem.Corrupted ? " corrupted " : " "}${gem.Name} `;
+
 export type GemDetails = Gem & {
   xpValue: number;
   xpData?: (Gem & {
@@ -108,6 +124,7 @@ export type GemDetails = Gem & {
   templeValue?: number;
   templeData?: ConversionData[];
   convertValue?: number;
+  graph?: GraphNode;
 };
 
 export type Override =
@@ -124,9 +141,9 @@ const getRatio = (name: string, profit: number, cost: number) => ({
 export const getRatios = (
   gem: GemDetails,
   currencyMap: { [key: string]: number } | undefined,
-  templeValue: number,
-  levelValue: number,
-  convertValue: number
+  templeCost: number,
+  awakenedLevelCost: number,
+  awakenedRerollCost: number
 ) =>
   (
     [
@@ -154,17 +171,21 @@ export const getRatios = (
         ? getRatio("Vaal orb", gem.vaalValue, gem.Price + getCurrency("Vaal Orb", currencyMap))
         : undefined,
       gem.templeValue !== undefined
-        ? getRatio("Temple", gem.templeValue - templeValue, gem.Price + templeValue)
+        ? getRatio("Temple", gem.templeValue - templeCost, gem.Price + templeCost)
         : undefined,
       gem.levelData?.length
         ? getRatio(
             "Wild Brambleback",
-            (gem.levelData[0].levelValue - levelValue) * gem.levelData[0].levelDiff,
-            gem.Price + gem.levelData[0].gcpCost + gem.levelData[0].levelDiff * levelValue
+            (gem.levelData[0].levelValue - awakenedLevelCost) * gem.levelData[0].levelDiff,
+            gem.Price + gem.levelData[0].gcpCost + gem.levelData[0].levelDiff * awakenedLevelCost
           )
         : undefined,
       gem.convertValue !== undefined
-        ? getRatio("Vivid Watcher", gem.convertValue - convertValue, gem.Price + convertValue)
+        ? getRatio(
+            "Vivid Watcher",
+            gem.convertValue - awakenedRerollCost,
+            gem.Price + awakenedRerollCost
+          )
         : undefined,
     ] as { name: string; profit: number; cost: number; ratio: number }[]
   )
@@ -172,7 +193,7 @@ export const getRatios = (
     .sort(({ ratio: a }, { ratio: b }) => b - a);
 
 export const exists = (v: any) => v !== undefined;
-export const normalize = <T extends Gem | GemDetails>(gem: T): T => ({
+export const normalize = <T extends Gem>(gem: T): T => ({
   ...gem,
   Vaal: gem.Vaal && gem.Corrupted,
   Name:
@@ -181,10 +202,10 @@ export const normalize = <T extends Gem | GemDetails>(gem: T): T => ({
     gem.baseName,
   variant: `${gem.Level}/${gem.Quality}${gem.Corrupted ? "c" : ""}`,
 });
-export const copy = <T extends Gem | GemDetails>(base: T, overrides: Partial<T> = {}): T =>
+export const copy = <O extends {}>(base: Gem, overrides?: O): Gem & O =>
   normalize({
-    ...base,
-    ...overrides,
+    ...(pick(base, Object.keys(GemFields)) as Gem),
+    ...(overrides || ({} as O)),
   });
 
 export const getType = (name: string) => {
@@ -212,19 +233,21 @@ export const betterOrEqual = (gem: Gem, other: Gem) => {
 export const strictlyBetter = (gem: Gem, other: Gem) => {
   return betterOrEqual(gem, other) && !betterOrEqual(other, gem);
 };
-export const bestMatch = (gem: Gem, data?: Gem[], allowLowConfidence: boolean = false) => {
+
+export function bestMatch(gem: Gem, data?: Gem[], allowLowConfidence: boolean = false) {
   const found = data?.find((other) => betterOrEqual(gem, other));
   if (!found) {
     return copy(gem, { Price: 0, lowConfidence: true, Listings: 0 });
   } else if (!found.lowConfidence || allowLowConfidence) {
-    return copy(found);
+    return structuredClone(found);
   } else {
     return (
       data?.find((other) => !other.lowConfidence && betterOrEqual(gem, other)) ||
-      copy(found, { Price: 0, Listings: 0 })
+      copy(found, { Price: 0, Listings: 0 } as any)
     );
   }
-};
+}
+
 export const compareGem = (a: Gem, b: Gem) => {
   if (a.baseName !== b.baseName || a.Type !== b.Type) {
     console.debug("mismatched gem comparison", a, b);
@@ -241,6 +264,7 @@ export const compareGem = (a: Gem, b: Gem) => {
     return b.Price - a.Price;
   }
 };
+
 export const isEqual = (a: Gem, b: Gem) => {
   return (
     a.baseName === b.baseName &&
@@ -302,6 +326,12 @@ export const vaal = (gem: Gem, chance: number = 1, outcomes: string[] = []) =>
   ]
     .filter(exists)
     .filter((v) => v?.chance && v.chance > 0) as ConversionData[];
+
+export const normalizeOutcomes = (outcomes: string[]) =>
+  [...outcomes]
+    .map((o) => (o === "Vaal (no outcome)" ? "No effect" : o))
+    .sort()
+    .join(" / ");
 
 export const getQuery = (
   gem: Gem,

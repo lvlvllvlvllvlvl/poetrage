@@ -11,7 +11,7 @@ import ToggleButton from "@mui/material/ToggleButton";
 import { Column } from "@tanstack/react-table";
 import useDebouncedState from "functions/useDebouncedState";
 import { isUndefined } from "lodash";
-import { GemDetails, gemTypes } from "models/Gems";
+import { GemDetails, gemTypes } from "models/gems";
 import { useEffect, useState } from "react";
 import IconButton from "@mui/material/IconButton";
 
@@ -65,8 +65,8 @@ const FilterMenu = <T extends {}>({
   const canFilter = column.columnDef.meta?.filter && column.getCanFilter();
 
   const currentValue = column.getFilterValue();
-  const min = useDebouncedState(currentValue as number);
-  const max = useDebouncedState(currentValue as number);
+  const min = useDebouncedState((currentValue as number[])?.[0]);
+  const max = useDebouncedState((currentValue as number[])?.[1]);
   const text = useDebouncedState(currentValue as string);
   const [bool, setBool] = useState(
     isUndefined(currentValue) ? (key === "lowConfidence" ? false : undefined) : currentValue

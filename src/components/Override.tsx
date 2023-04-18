@@ -16,7 +16,7 @@ import RadioGroup from "@mui/material/RadioGroup";
 import TextField from "@mui/material/TextField";
 import { GemInfo } from "apis/getGemInfo";
 import { getPrice } from "apis/getPrices";
-import { GemDetails, Override, getQuery, isEqual } from "models/Gems";
+import { GemDetails, Override, getQuery, isEqual } from "models/gems";
 import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { actions } from "redux/app";
@@ -35,16 +35,12 @@ export const EditOverride = ({
   gemInfo,
   currencyMap,
   league,
-  width = 50,
-  height = 16,
 }: {
   original: GemDetails;
   override?: Override;
   gemInfo?: GemInfo;
   currencyMap?: { [key: string]: number };
   league?: string;
-  width?: number;
-  height?: number;
 }) => {
   const dispatch = useDispatch();
   const [edit, setEdit] = useState(false);
@@ -60,6 +56,7 @@ export const EditOverride = ({
   const input = useRef();
   const overrideValue = override?.override?.Price;
   const setOverride = (o: Override) => dispatch(actions.setOverride(o));
+  const [ref, setRef] = useState<HTMLDivElement | null>(null);
 
   const fetchPrice = async (type: "cheapest" | "online" | "daily", custom?: GemDetails) => {
     if (!league || !currencyMap) return;
@@ -115,12 +112,13 @@ export const EditOverride = ({
 
   return (
     <div
+      ref={setRef}
       style={{
         display: "flex",
         alignItems: "center",
       }}>
       <div
-        style={{ width, height }}
+        style={{ width: ref ? ref.clientWidth - 40 : 120, height: 16 }}
         onMouseEnter={() => setEdit(true)}
         onMouseLeave={() => input.current !== document.activeElement && setEdit(false)}>
         {edit || overrideValue ? (

@@ -2,7 +2,7 @@ import { createSelector } from "@reduxjs/toolkit";
 import { currencyMap, gemInfo, gems, meta } from "redux/api";
 import { RootState } from "redux/store";
 
-export const getInputs = createSelector(
+export const profitInputs = createSelector(
   [
     gems,
     currencyMap,
@@ -17,7 +17,33 @@ export const getInputs = createSelector(
     ({ app }: RootState) => app.mavenExclusiveWeight.debounced,
     ({ app }: RootState) => app.mavenCrucibleWeight.debounced,
   ],
-  (...args) => args
+  (
+    gems,
+    currencyMap,
+    leagueIsIndexed,
+    meta,
+    gemInfo,
+    filterMeta,
+    overrides,
+    sanitize,
+    lowConfidence,
+    incQual,
+    mavenExclusiveWeight,
+    mavenCrucibleWeight
+  ) => ({
+    gems,
+    currencyMap,
+    leagueIsIndexed,
+    meta,
+    gemInfo,
+    filterMeta,
+    overrides,
+    sanitize,
+    lowConfidence,
+    incQual,
+    mavenExclusiveWeight,
+    mavenCrucibleWeight,
+  })
 );
 
-export type ProfitInputs = ReturnType<typeof getInputs>;
+export type ProfitInputs = ReturnType<typeof profitInputs>;

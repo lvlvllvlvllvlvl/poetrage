@@ -1,4 +1,5 @@
 /* eslint-disable no-restricted-globals */
+import { getCurrency } from "functions/getCurrency";
 import {
   ConversionData,
   Gem,
@@ -15,31 +16,19 @@ import {
   mavenCrucible,
   mavenExclusive,
   modifiers,
+  normalizeOutcomes,
   strictlyBetter,
   vaal,
-} from "models/Gems";
+} from "models/gems";
 import { ProfitInputs } from "redux/selectors/profitInputs";
-
-export const getCurrency = (currency: string, map?: { [key: string]: number }, fallback = 1) => {
-  return (
-    map?.[currency] ||
-    map?.[
-      Object.keys(map)
-        .filter((k) => k.toLowerCase().includes(currency))
-        .reduce((a, b) => (!a ? b : !b ? a : a.length <= b.length ? a : b), "") || ""
-    ] ||
-    fallback
-  );
-};
 
 const million = 1000000;
 
 self.onmessage = (e: MessageEvent<{ inputs: ProfitInputs; cancel: URL }>) => {
   try {
-    const [
+    const {
       gems,
       currencyMap,
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       leagueIsIndexed,
       meta,
       gemInfo,
@@ -50,7 +39,7 @@ self.onmessage = (e: MessageEvent<{ inputs: ProfitInputs; cancel: URL }>) => {
       incQual,
       mavenExclusiveWeight,
       mavenCrucibleWeight,
-    ] = e.data.inputs;
+    } = e.data.inputs;
 
     if (
       gems.status !== "done" ||
@@ -120,7 +109,7 @@ self.onmessage = (e: MessageEvent<{ inputs: ProfitInputs; cancel: URL }>) => {
       .map((gem) => {
         const update = overrides.find((o) => o.original && isEqual(gem, o.original));
         if (update) {
-          return copy(gem, update.override);
+          return { ...gem, ...update.override };
         } else {
           return gem;
         }
@@ -159,7 +148,7 @@ self.onmessage = (e: MessageEvent<{ inputs: ProfitInputs; cancel: URL }>) => {
       });
     });
 
-    setData(structuredClone(result));
+    setData(result);
     setProgressMsg("Calculating gcp values");
     setProgress(0);
 
@@ -199,7 +188,7 @@ self.onmessage = (e: MessageEvent<{ inputs: ProfitInputs; cancel: URL }>) => {
       }
     }
 
-    setData(structuredClone(result));
+    setData(result);
     setProgressMsg("Calculating xp values");
     setProgress(0);
     timeSlice = Date.now() + processingTime;
@@ -253,8 +242,7 @@ self.onmessage = (e: MessageEvent<{ inputs: ProfitInputs; cancel: URL }>) => {
                       million /
                       qualityMultiplier;
 
-                    return copy({
-                      ...other,
+                    return copy(other, {
                       gcpCount: 1,
                       gcpCost: oneGcp,
                       reset: true,
@@ -270,7 +258,7 @@ self.onmessage = (e: MessageEvent<{ inputs: ProfitInputs; cancel: URL }>) => {
       }
     }
 
-    setData(structuredClone(result));
+    setData(result);
     setProgressMsg("Calculating Wild Brambleback values");
     setProgress(0);
     timeSlice = Date.now() + processingTime;
@@ -308,7 +296,7 @@ self.onmessage = (e: MessageEvent<{ inputs: ProfitInputs; cancel: URL }>) => {
       }
     }
 
-    setData(structuredClone(result));
+    setData(result);
     setProgressMsg("Calculating Vivid Watcher values");
     setProgress(0);
     timeSlice = Date.now() + processingTime;
@@ -360,7 +348,7 @@ self.onmessage = (e: MessageEvent<{ inputs: ProfitInputs; cancel: URL }>) => {
       }
     }
 
-    setData(structuredClone(result));
+    setData(result);
     setProgressMsg("Calculating regrading lens values");
     setProgress(0);
     timeSlice = Date.now() + processingTime;
@@ -413,7 +401,7 @@ self.onmessage = (e: MessageEvent<{ inputs: ProfitInputs; cancel: URL }>) => {
       );
     }
 
-    setData(structuredClone(result));
+    setData(result);
     setProgressMsg("Calculating vaal outcomes");
     setProgress(0);
     timeSlice = Date.now() + processingTime;
@@ -474,7 +462,7 @@ self.onmessage = (e: MessageEvent<{ inputs: ProfitInputs; cancel: URL }>) => {
       }
     }
 
-    setData(structuredClone(result));
+    setData(result);
     setProgressMsg("Calculating temple corruption outcomes");
     setProgress(0);
     timeSlice = Date.now() + processingTime;
@@ -506,7 +494,7 @@ self.onmessage = (e: MessageEvent<{ inputs: ProfitInputs; cancel: URL }>) => {
         templeData.forEach((next) => {
           sumChance += next.chance;
           if (merged === null) {
-            merged = { ...next };
+            merged = { ...next, outcomes: [normalizeOutcomes(next.outcomes)] };
           } else if (
             merged.gem === next.gem ||
             (betterOrEqual(merged.gem, next.gem) && betterOrEqual(next.gem, merged.gem))
@@ -528,7 +516,7 @@ self.onmessage = (e: MessageEvent<{ inputs: ProfitInputs; cancel: URL }>) => {
             });
           } else {
             gem.templeData?.push(merged);
-            merged = { ...next };
+            merged = { ...next, outcomes: [normalizeOutcomes(next.outcomes)] };
           }
         });
         merged && gem.templeData?.push(merged);

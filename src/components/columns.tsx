@@ -1,9 +1,8 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { ColumnDef, SortingFn } from "@tanstack/react-table";
 import "App.css";
-import { getCurrency } from "apis/getCurrencyOverview";
 import { EditOverride } from "components/Override";
-import { GemDetails, getQuery, getRatios, isEqual } from "models/Gems";
+import { GemDetails, getQuery, getRatios, isEqual } from "models/gems";
 import numeral from "numeral";
 import { currencyMap, gemInfo } from "redux/api";
 import { RootState as AppState } from "redux/store";
@@ -16,6 +15,8 @@ import {
 import { GemIcons } from "./GemIcons";
 import { qualityStat } from "functions/formatStat";
 import Tooltip from "@mui/material/Tooltip";
+import { getCurrency } from "functions/getCurrency";
+import { GraphCell } from "./GraphDialog";
 
 export const getColumns = createSelector(
   [
@@ -45,7 +46,7 @@ export const getColumns = createSelector(
     secRegrading,
     primeRegrading,
     enableColumnFilter
-  ): ColumnDef<GemDetails, GemDetails[keyof GemDetails]>[] => {
+  ): ColumnDef<GemDetails>[] => {
     return [
       {
         accessorKey: "Name",
@@ -113,6 +114,7 @@ export const getColumns = createSelector(
         accessorKey: "Price",
         enableColumnFilter,
         filterFn: "inNumberRange",
+        size: 140,
         meta: {
           filter: { isMin: true, isMax: true },
         },
@@ -125,6 +127,20 @@ export const getColumns = createSelector(
             currencyMap={currencyMap.value}
           />
         ),
+      },
+      {
+        id: "Profit",
+        accessorFn: (gem: GemDetails) => (gem.graph ? gem.graph.expectedValue - gem.Price : 0),
+        enableColumnFilter,
+        filterFn: "inNumberRange",
+        meta: {
+          filter: { isMin: true },
+        },
+        cell: ({
+          row: {
+            original: { graph },
+          },
+        }) => <GraphCell graph={graph} />,
       },
       {
         id: "ratio",

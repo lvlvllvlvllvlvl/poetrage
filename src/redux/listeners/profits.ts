@@ -1,7 +1,7 @@
 import { shallowEqual } from "react-redux";
 import { setters } from "redux/app";
 import { startAppListening } from "redux/listener";
-import { getInputs } from "redux/selectors/profitInputs";
+import { profitInputs } from "redux/selectors/profitInputs";
 import { AppDispatch } from "redux/store";
 
 const worker = new Worker(new URL("web-worker/calculateProfits.ts", import.meta.url));
@@ -9,13 +9,13 @@ let cancel: string;
 
 startAppListening({
   predicate: (action, currentState, previousState) => {
-    return !shallowEqual(getInputs(currentState), getInputs(previousState));
+    return !shallowEqual(profitInputs(currentState), profitInputs(previousState));
   },
 
   effect: async (action, listenerApi) => {
     try {
-      const inputs = getInputs(listenerApi.getState());
-      const [gems, currencyMap, leagueIsIndexed, meta, gemInfo] = inputs;
+      const inputs = profitInputs(listenerApi.getState());
+      const { gems, currencyMap, leagueIsIndexed, meta, gemInfo } = inputs;
 
       if (
         gems.status !== "done" ||
@@ -26,7 +26,7 @@ startAppListening({
         return;
       }
 
-      console.log("Starting worker");
+      console.debug("Starting profit worker");
       URL.revokeObjectURL(cancel);
 
       const { setData, setProgress, setProgressMsg } = setters(listenerApi.dispatch as AppDispatch);
