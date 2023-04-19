@@ -95,9 +95,7 @@ const GemFields: Required<Gem> = {
 export type GemId = `${number}/${number}${" corrupted " | " clean "}${string}`;
 
 export const getId = (gem: Gem): GemId =>
-  `${gem.Level}/${gem.Quality}${gem.Corrupted ? " corrupted " : " clean "}${gem.Name} ${
-    gem.maxLevel
-  }`;
+  `${gem.Level}/${gem.Quality}${gem.Corrupted ? " corrupted " : " clean "}${gem.Name}`;
 
 export type GemDetails = Gem & {
   xpValue: number;

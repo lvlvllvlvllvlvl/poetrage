@@ -5,7 +5,7 @@ import ClearIcon from "@mui/icons-material/Clear";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import FormControl from "@mui/material/FormControl";
-import Menu from "@mui/material/Menu";
+import Popover from "@mui/material/Popover";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
@@ -61,13 +61,15 @@ const Filter = <T extends {}>({ column }: { column: Column<T, T[keyof T]> }) => 
           <ClearIcon />
         </IconButton>
       )}
-      <Menu
+      <Popover
         anchorEl={anchorEl}
         open={!!anchorEl}
         transitionDuration={0}
         onClose={() => setAnchorEl(undefined)}>
-        <FilterMenu column={column} onClose={() => setAnchorEl(undefined)} />
-      </Menu>
+        <Box sx={{ m: 1 }}>
+          <FilterMenu column={column} onClose={() => setAnchorEl(undefined)} />
+        </Box>
+      </Popover>
     </Box>
   ) : null;
 };
