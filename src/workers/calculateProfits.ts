@@ -20,7 +20,7 @@ import {
   strictlyBetter,
   vaal,
 } from "models/gems";
-import { ProfitInputs } from "redux/selectors/profitInputs";
+import { ProfitInputs } from "state/selectors/profitInputs";
 
 const million = 1000000;
 
@@ -105,16 +105,18 @@ self.onmessage = (e: MessageEvent<{ inputs: ProfitInputs; cancel: URL }>) => {
       }
     );
 
+    const notFound = new Set(overrides);
     result = result
       .map((gem) => {
-        const update = overrides.find((o) => o.original && isEqual(gem, o.original));
+        const update = overrides.find((o) => isEqual(gem, o.original ?? o.override));
         if (update) {
+          notFound.delete(update);
           return { ...gem, ...update.override };
         } else {
           return gem;
         }
       })
-      .concat(overrides.filter((o) => !o.original).map((o) => o.override as GemDetails));
+      .concat(Array.from(notFound).map((o) => o.override as GemDetails));
 
     const gemMap: { [key: string]: { [key: string]: Gem[] } } = {};
     result.forEach((gem) => {

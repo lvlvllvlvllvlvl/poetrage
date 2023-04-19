@@ -1,6 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { currencyMap, gemInfo, gems, meta } from "redux/api";
-import { RootState } from "redux/store";
+import { currencyMap, gemInfo, gems, meta } from "state/api";
+import { RootState } from "state/store";
 
 export const profitInputs = createSelector(
   [

@@ -5,8 +5,8 @@ import { GemId, getId } from "models/gems";
 import { GraphChild, GraphNode } from "models/graphElements";
 import ReactFlow, { Background, Controls, Edge, Node } from "reactflow";
 import "reactflow/dist/style.css";
-import { setters } from "redux/app";
-import { useAppDispatch, useAppSelector } from "redux/store";
+import { setters } from "state/app";
+import { useAppDispatch, useAppSelector } from "state/store";
 
 export const GraphDialog = () => {
   const graph = useAppSelector((state) => state.app.currentGraph);

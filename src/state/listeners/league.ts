@@ -1,6 +1,6 @@
-import { leagues } from "redux/api";
-import { setters } from "redux/app";
-import { startAppListening } from "redux/listener";
+import { leagues } from "state/api";
+import { setters } from "state/app";
+import { startAppListening } from "state/listener";
 
 startAppListening({
   predicate: (action, currentState, previousState) => {

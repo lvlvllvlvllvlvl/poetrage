@@ -1,6 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { GemDetails, getId } from "models/gems";
-import { RootState } from "redux/store";
+import { RootState } from "state/store";
 
 export const zippedData = createSelector(
   [(state: RootState) => state.app.data, (state: RootState) => state.app.graphData],

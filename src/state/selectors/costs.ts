@@ -1,8 +1,8 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { getCurrency } from "functions/getCurrency";
 import { GemDetails } from "models/gems";
-import { awakenedLevelAverage, awakenedRerollAverage, currencyMap, templeAverage } from "redux/api";
-import { RootState } from "redux/store";
+import { awakenedLevelAverage, awakenedRerollAverage, currencyMap, templeAverage } from "state/api";
+import { RootState } from "state/store";
 
 export const templeCost = createSelector(
   [({ app: { templePrice } }: RootState) => templePrice, templeAverage],

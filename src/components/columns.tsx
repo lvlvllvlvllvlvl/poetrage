@@ -2,16 +2,16 @@ import { createSelector } from "@reduxjs/toolkit";
 import { ColumnDef, SortingFn } from "@tanstack/react-table";
 import "App.css";
 import { EditOverride } from "components/Override";
-import { GemDetails, getQuery, getRatios, isEqual } from "models/gems";
+import { GemDetails, getId, getQuery, getRatios, isEqual } from "models/gems";
 import numeral from "numeral";
-import { currencyMap, gemInfo } from "redux/api";
-import { RootState as AppState } from "redux/store";
+import { currencyMap, gemInfo } from "state/api";
+import { RootState as AppState } from "state/store";
 import {
   awakenedLevelCost,
   awakenedRerollCost,
   regradeValue,
   templeCost,
-} from "../redux/selectors/costs";
+} from "../state/selectors/costs";
 import { GemIcons } from "./GemIcons";
 import { qualityStat } from "functions/formatStat";
 import Tooltip from "@mui/material/Tooltip";
@@ -57,14 +57,16 @@ export const getColumns = createSelector(
         size: 400,
         cell: (info) => (
           <>
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href={`https://www.pathofexile.com/trade/search/${league?.name}?q=${JSON.stringify(
-                getQuery(info.row.original)
-              )}`}>
-              {info.getValue() as string}
-            </a>
+            <Tooltip title={getId(info.row.original)}>
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href={`https://www.pathofexile.com/trade/search/${league?.name}?q=${JSON.stringify(
+                  getQuery(info.row.original)
+                )}`}>
+                {info.getValue() as string}
+              </a>
+            </Tooltip>
             <GemIcons gem={info.row.original} />
           </>
         ),

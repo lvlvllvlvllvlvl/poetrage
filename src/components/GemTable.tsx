@@ -19,10 +19,10 @@ import Filter from "components/Filter";
 import { getColumns } from "components/columns";
 import { includes, search } from "functions/columnFilters";
 import { isFunction } from "lodash";
-import * as api from "redux/api";
-import { setters } from "redux/app";
-import { zippedData } from "redux/selectors/zipData";
-import { useAppDispatch, useAppSelector } from "redux/store";
+import * as api from "state/api";
+import { setters } from "state/app";
+import { zippedData } from "state/selectors/zipData";
+import { useAppDispatch, useAppSelector } from "state/store";
 
 export const GemTable = () => {
   const dispatch = useAppDispatch();

@@ -1,10 +1,10 @@
 import { shallowEqual } from "react-redux";
-import { setters } from "redux/app";
-import { startAppListening } from "redux/listener";
-import { profitInputs } from "redux/selectors/profitInputs";
-import { AppDispatch } from "redux/store";
+import { setters } from "state/app";
+import { startAppListening } from "state/listener";
+import { profitInputs } from "state/selectors/profitInputs";
+import { AppDispatch } from "state/store";
 
-const worker = new Worker(new URL("web-worker/calculateProfits.ts", import.meta.url));
+const worker = new Worker(new URL("workers/calculateProfits.ts", import.meta.url));
 let cancel: string;
 
 startAppListening({

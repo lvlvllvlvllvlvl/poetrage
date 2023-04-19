@@ -22,9 +22,9 @@ import { cache } from "apis/axios";
 import { getCurrency } from "functions/getCurrency";
 import { Override } from "models/gems";
 import { useEffect } from "react";
-import * as api from "redux/api";
-import { actions, setters } from "redux/app";
-import { useAppDispatch, useAppSelector } from "redux/store";
+import * as api from "state/api";
+import { actions, setters } from "state/app";
+import { useAppDispatch, useAppSelector } from "state/store";
 
 export const Settings = () => {
   const dispatch = useAppDispatch();

@@ -16,8 +16,8 @@ import { isUndefined } from "lodash";
 import { GemDetails, gemTypes } from "models/gems";
 import { useEffect, useState } from "react";
 import IconButton from "@mui/material/IconButton";
-import { useAppDispatch, useAppSelector } from "redux/store";
-import { setters } from "redux/app";
+import { useAppDispatch, useAppSelector } from "state/store";
+import { setters } from "state/app";
 import Tooltip from "@mui/material/Tooltip";
 
 type Key = keyof GemDetails | "ratio";

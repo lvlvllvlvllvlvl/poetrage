@@ -139,8 +139,10 @@ export const appSlice = createSlice({
       let found = false;
       const overridesTmp = state.overridesTmp.map((o) => {
         if (
-          (o.original && payload.original && isEqual(o.original, payload.original)) ||
-          (!o.original && !payload.original && isEqual(o.override, payload.override))
+          isEqual(
+            o.original ? { ...o.original, ...o.override } : o.override,
+            payload.original ? { ...payload.original, ...payload.override } : payload.override
+          )
         ) {
           found = true;
           return payload;

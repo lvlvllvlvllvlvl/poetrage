@@ -12,7 +12,7 @@ import {
   qualityIndex,
 } from "models/gems";
 import { GraphChild, GraphNode, NodeMap } from "models/graphElements";
-import { GraphInputs } from "redux/selectors/graphInputs";
+import { GraphInputs } from "state/selectors/graphInputs";
 
 self.onmessage = (e: MessageEvent<{ inputs: GraphInputs; cancel: URL }>) => {
   try {

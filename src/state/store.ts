@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-import { apiSlice } from "redux/api";
+import { apiSlice } from "state/api";
 import { appSlice } from "./app";
 import { listenerMiddleware } from "./listener";
 
-const r = require.context("redux/listeners", false, /\.ts$/);
+const r = require.context("state/listeners", false, /\.ts$/);
 r.keys().forEach(r);
 
 export const store = configureStore({

@@ -1,5 +1,5 @@
-import { setters } from "redux/app";
-import { startAppListening } from "redux/listener";
+import { setters } from "state/app";
+import { startAppListening } from "state/listener";
 
 startAppListening({
   predicate: (action, currentState, previousState) =>

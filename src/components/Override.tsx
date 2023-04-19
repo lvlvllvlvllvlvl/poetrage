@@ -19,7 +19,7 @@ import { getPrice } from "apis/getPrices";
 import { GemDetails, Override, getQuery, isEqual } from "models/gems";
 import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { actions } from "redux/app";
+import { actions } from "state/app";
 import { EditGem } from "./EditGem";
 
 const clean = <T extends {}>(obj: T) => {

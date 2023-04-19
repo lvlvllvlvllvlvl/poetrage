@@ -1,6 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { currencyMap, gemInfo } from "redux/api";
-import { RootState } from "redux/store";
+import { currencyMap, gemInfo } from "state/api";
+import { RootState } from "state/store";
 import { awakenedLevelCost, awakenedRerollCost, templeCost } from "./costs";
 
 export const graphInputs = createSelector(
