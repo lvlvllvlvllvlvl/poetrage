@@ -236,10 +236,16 @@ export const strictlyBetter = (gem: Gem, other: Gem) => {
   return betterOrEqual(gem, other) && !betterOrEqual(other, gem);
 };
 
-export const isGoodCorruption = (gem: Gem) =>
-  gem.Level >= gem.maxLevel &&
-  gem.Quality >= 20 &&
-  (gem.Level > gem.maxLevel || gem.Quality > 20 || gem.Vaal);
+export const isGoodCorruption = (gem: Gem) => {
+  const isGood =
+    gem.Level >= gem.maxLevel &&
+    gem.Quality >= 20 &&
+    (gem.Level > gem.maxLevel || gem.Quality > 20 || gem.Vaal);
+  if (isGood && !gem.Corrupted) {
+    console.warn("Uncorrupted gem should not be over limit", gem);
+  }
+  return isGood;
+};
 
 export function bestMatch(gem: Gem, data: Gem[], allowLowConfidence: "none" | "all" | "corrupted") {
   const found = data?.find((other) => betterOrEqual(gem, other));

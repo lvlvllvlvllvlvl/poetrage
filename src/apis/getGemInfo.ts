@@ -23,7 +23,7 @@ export const getGemInfo = async () => {
   const maxLevel: { [gem: string]: number } = {};
   Object.values(response.data).forEach((gem) => {
     const name = gem.base_item?.display_name;
-    if (!name) {
+    if (!name || gem.base_item.id.includes("Royale")) {
       return;
     }
     names.add(name);
