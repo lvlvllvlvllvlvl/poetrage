@@ -1,4 +1,5 @@
 import ErrorIcon from "@mui/icons-material/Error";
+import PendingIcon from "@mui/icons-material/PendingOutlined";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -14,13 +15,15 @@ import MenuItem from "@mui/material/MenuItem";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import TextField from "@mui/material/TextField";
-import { GemInfo } from "apis/getGemInfo";
 import { getPrice } from "apis/getPrices";
 import { GemDetails, Override, getQuery, isEqual } from "models/gems";
 import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
+import { currencyMap, gemInfo } from "state/api";
 import { actions } from "state/app";
+import { useAppSelector } from "state/store";
 import { EditGem } from "./EditGem";
+import Tooltip from "@mui/material/Tooltip";
 
 const clean = <T extends {}>(obj: T) => {
   Object.keys(obj).forEach(
@@ -29,20 +32,19 @@ const clean = <T extends {}>(obj: T) => {
   return obj;
 };
 
-export const EditOverride = ({
-  original,
-  override,
-  gemInfo,
-  currencyMap,
-  league,
-}: {
-  original: GemDetails;
-  override?: Override;
-  gemInfo?: GemInfo;
-  currencyMap?: { [key: string]: number };
-  league?: string;
-}) => {
+export const EditOverride = ({ original }: { original: GemDetails }) => {
   const dispatch = useDispatch();
+  const setOverride = (o: Override) => dispatch(actions.setOverride(o));
+  const league = useAppSelector(({ app }) => app.league?.name);
+  const info = useAppSelector(gemInfo);
+  const currency = useAppSelector(currencyMap);
+  const overrides = useAppSelector((state) => state.app.overrides);
+  const overridesTmp = useAppSelector((state) => state.app.overridesTmp);
+  const applied = overrides.find((o) => o.original && isEqual(original, o.original));
+  const override = overridesTmp.find((o) => o.original && isEqual(original, o.original));
+  const pending = override && override !== applied;
+  const overrideValue = override?.override?.Price;
+
   const [edit, setEdit] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -52,10 +54,9 @@ export const EditOverride = ({
     ...original,
     isOverride: true,
   });
+
   const [searchType, setSearchType] = useState<"" | "cheapest" | "online" | "daily">("");
   const input = useRef();
-  const overrideValue = override?.override?.Price;
-  const setOverride = (o: Override) => dispatch(actions.setOverride(o));
   const [ref, setRef] = useState<HTMLDivElement | null>(null);
 
   const fetchPrice = async (type: "cheapest" | "online" | "daily", custom?: GemDetails) => {
@@ -70,7 +71,7 @@ export const EditOverride = ({
       );
       const { price } = await getPrice(
         league,
-        currencyMap,
+        currency.value!,
         query,
         type === "cheapest" ? "cheapest" : "average"
       );
@@ -94,6 +95,7 @@ export const EditOverride = ({
       setError(true);
       console.error(e);
     }
+    setAnchorEl(undefined);
     setLoading(false);
   };
 
@@ -125,6 +127,7 @@ export const EditOverride = ({
           <TextField
             variant="standard"
             size="small"
+            type="number"
             inputRef={input}
             InputProps={{ endAdornment: "c" }}
             onBlur={(e) => {
@@ -146,9 +149,19 @@ export const EditOverride = ({
           <>{original.Price}c</>
         )}
       </div>
-      <IconButton onClick={(e) => setAnchorEl(e.currentTarget)}>
-        {error ? <ErrorIcon /> : loading ? <CircularProgress size={24} /> : <RefreshIcon />}
-      </IconButton>
+      <Tooltip title={pending ? "apply custom prices to recalculate profits" : undefined}>
+        <IconButton onClick={(e) => setAnchorEl(e.currentTarget)}>
+          {error ? (
+            <ErrorIcon />
+          ) : loading ? (
+            <CircularProgress size={24} />
+          ) : pending ? (
+            <PendingIcon />
+          ) : (
+            <RefreshIcon />
+          )}
+        </IconButton>
+      </Tooltip>
       <Menu anchorEl={anchorEl} open={!!anchorEl} onClose={() => setAnchorEl(undefined)}>
         <MenuItem onClick={() => fetchPrice("cheapest")}>Cheapest online</MenuItem>
         <MenuItem onClick={() => fetchPrice("online")}>Average online</MenuItem>
@@ -163,7 +176,7 @@ export const EditOverride = ({
           <EditGem
             gem={custom}
             onChange={(g) => setCustom({ ...g, isOverride: true })}
-            gemInfo={gemInfo}
+            gemInfo={info.value}
           />
           <FormLabel id="search-type">Price search</FormLabel>
           <RadioGroup

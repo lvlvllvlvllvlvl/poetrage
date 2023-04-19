@@ -1,7 +1,6 @@
 {
   "name": "poetrage",
   "version": "0.1.0",
-  "homepage": "/poetrage/",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.6",

@@ -1,8 +1,11 @@
+import Tooltip from "@mui/material/Tooltip";
 import { createSelector } from "@reduxjs/toolkit";
 import { ColumnDef, SortingFn } from "@tanstack/react-table";
 import "App.css";
 import { EditOverride } from "components/Override";
-import { GemDetails, getId, getQuery, getRatios, isEqual } from "models/gems";
+import { qualityStat } from "functions/formatStat";
+import { getCurrency } from "functions/getCurrency";
+import { GemDetails, getId, getQuery, getRatios } from "models/gems";
 import numeral from "numeral";
 import { currencyMap, gemInfo } from "state/api";
 import { RootState as AppState } from "state/store";
@@ -13,15 +16,11 @@ import {
   templeCost,
 } from "../state/selectors/costs";
 import { GemIcons } from "./GemIcons";
-import { qualityStat } from "functions/formatStat";
-import Tooltip from "@mui/material/Tooltip";
-import { getCurrency } from "functions/getCurrency";
 import { GraphCell } from "./GraphDialog";
 
 export const getColumns = createSelector(
   [
     ({ app }: AppState) => app.league,
-    ({ app }: AppState) => app.overrides,
     gemInfo,
     ({ app }: AppState) => app.fiveWay.debounced,
     currencyMap,
@@ -35,7 +34,6 @@ export const getColumns = createSelector(
   ],
   (
     league,
-    overrides,
     gemInfo,
     fiveWay,
     currencyMap,
@@ -120,15 +118,7 @@ export const getColumns = createSelector(
         meta: {
           filter: { isMin: true, isMax: true },
         },
-        cell: ({ row: { original } }) => (
-          <EditOverride
-            original={original}
-            override={overrides.find((o) => o.original && isEqual(original, o.original))}
-            gemInfo={gemInfo.value}
-            league={league?.name}
-            currencyMap={currencyMap.value}
-          />
-        ),
+        cell: ({ row: { original } }) => <EditOverride original={original} />,
       },
       {
         id: "Profit",
