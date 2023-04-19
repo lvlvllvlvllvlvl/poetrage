@@ -20,12 +20,14 @@ export const getGemInfo = async () => {
   const qualityStats: Stats = {};
   const xp: XP = {};
   const names = new Set<string>();
+  const maxLevel: { [gem: string]: number } = {};
   Object.values(response.data).forEach((gem) => {
     const name = gem.base_item?.display_name;
     if (!name) {
       return;
     }
     names.add(name);
+    if (gem.base_item.max_level) maxLevel[name] = gem.base_item.max_level;
     weights[name] = weights[name] || [];
     qualityStats[name] = qualityStats[name] || [];
     gem.static.quality_stats.forEach((quality_stat) => {
@@ -53,5 +55,5 @@ export const getGemInfo = async () => {
       }
     });
   });
-  return { weights, qualityStats, xp, names: Array.from(names).sort() };
+  return { weights, qualityStats, xp, maxLevel, names: Array.from(names).sort() };
 };

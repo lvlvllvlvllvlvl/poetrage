@@ -189,15 +189,19 @@ export const Settings = () => {
                     }
                   />
 
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={lowConfidence}
-                        onChange={(_, checked) => setLowConfidence(checked)}
-                      />
-                    }
-                    label="include low confidence values"
-                  />
+                  <FormControl fullWidth margin="normal">
+                    <InputLabel>Include low confidence values</InputLabel>
+                    <Select
+                      value={lowConfidence}
+                      label="Include low confidence values"
+                      onChange={({ target }) =>
+                        setLowConfidence(target.value as "all" | "none" | "corrupted")
+                      }>
+                      <MenuItem value="all">All</MenuItem>
+                      <MenuItem value="none">None</MenuItem>
+                      <MenuItem value="corrupted">Corruption outcomes &gt; 20/20 only</MenuItem>
+                    </Select>
+                  </FormControl>
 
                   <TextField
                     type="number"

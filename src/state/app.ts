@@ -32,7 +32,7 @@ export const fields = {
   enableColumnFilter: prop(true),
   sanitize: prop<"yes" | "no" | "corrupted">("yes"),
   showOptions: prop(false),
-  lowConfidence: prop(false),
+  lowConfidence: prop<"none" | "all" | "corrupted">("corrupted"),
   progress: prop(0),
   progressMsg: prop(""),
   graphProgress: prop(0),

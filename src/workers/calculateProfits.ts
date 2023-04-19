@@ -97,6 +97,7 @@ self.onmessage = (e: MessageEvent<{ inputs: ProfitInputs; cancel: URL }>) => {
           Price: Math.round(chaosValue || 0),
           Meta,
           Listings: listingCount,
+          maxLevel: gemInfo.value.maxLevel[baseName],
           lowConfidence:
             Meta < filterMeta ||
             !sparkline?.data?.length ||

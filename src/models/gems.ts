@@ -68,6 +68,7 @@ export type Gem = {
   Meta: number;
   XP?: number;
   Listings: number;
+  maxLevel: number;
   lowConfidence: boolean;
   isOverride?: boolean;
 };
@@ -88,12 +89,15 @@ const GemFields: Required<Gem> = {
   Listings: 0,
   lowConfidence: false,
   isOverride: false,
+  maxLevel: 0,
 };
 
 export type GemId = `${number}/${number}${" corrupted " | " clean "}${string}`;
 
 export const getId = (gem: Gem): GemId =>
-  `${gem.Level}/${gem.Quality}${gem.Corrupted ? " corrupted " : " clean "}${gem.Name} `;
+  `${gem.Level}/${gem.Quality}${gem.Corrupted ? " corrupted " : " clean "}${gem.Name} ${
+    gem.maxLevel
+  }`;
 
 export type GemDetails = Gem & {
   xpValue: number;
@@ -234,11 +238,20 @@ export const strictlyBetter = (gem: Gem, other: Gem) => {
   return betterOrEqual(gem, other) && !betterOrEqual(other, gem);
 };
 
-export function bestMatch(gem: Gem, data?: Gem[], allowLowConfidence: boolean = false) {
+export const isGoodCorruption = (gem: Gem) =>
+  gem.Level >= gem.maxLevel &&
+  gem.Quality >= 20 &&
+  (gem.Level > gem.maxLevel || gem.Quality > 20 || gem.Vaal);
+
+export function bestMatch(gem: Gem, data: Gem[], allowLowConfidence: "none" | "all" | "corrupted") {
   const found = data?.find((other) => betterOrEqual(gem, other));
   if (!found) {
     return copy(gem, { Price: 0, lowConfidence: true, Listings: 0 });
-  } else if (!found.lowConfidence || allowLowConfidence) {
+  } else if (
+    !found.lowConfidence ||
+    allowLowConfidence === "all" ||
+    (allowLowConfidence === "corrupted" && isGoodCorruption(found))
+  ) {
     return structuredClone(found);
   } else {
     return (
