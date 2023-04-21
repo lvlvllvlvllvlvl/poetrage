@@ -19,8 +19,8 @@ function App() {
         title={process.env.REACT_APP_GIT_COMMIT}
       />
       <Settings />
-      <GemTable />
       <GraphDialog />
+      <GemTable />
     </Box>
   );
 }

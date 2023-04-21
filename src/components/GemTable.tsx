@@ -146,11 +146,14 @@ export const GemTable = () => {
               </TableBody>
             </Table>
           </Box>
-          <Pagination
-            count={table.getPageCount()}
-            page={table.getState().pagination.pageIndex + 1}
-            onChange={(_, page) => table.setPageIndex(page - 1)}
-          />
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Pagination
+              count={table.getPageCount()}
+              page={table.getState().pagination.pageIndex + 1}
+              onChange={(_, page) => table.setPageIndex(page - 1)}
+            />
+            This product isn't affiliated with or endorsed by Grinding Gear Games in any way.
+          </Box>
         </>
       )}
       {gems.status === "fail" && String(gems.error)}

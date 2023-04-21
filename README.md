@@ -1,10 +1,21 @@
 ## TODO
 
-- Better display of result breakdowns
 - Add multiselect to profit ratio column
-- Ability to show json for row (for debugging)
-- Vendors (start with 8,000,001 xp)
-- Remove axios cache, store computed values in sessionstorage
+- Show json for row (for debugging)
+- Vendors (gems start with 8,000,001 xp)
+- Remove axios cache
+- store state in sessionstorage
+- add gcp + vaal/temple, gcp + regrade and gcp + regrade + vaal/temple profit ratios
+- improved profit tooltips
+- pin rows
+- rate limiting
+- refresh overrides
+- make cors proxy configurable
+- faceators lens
+- pull prices from stash
+- refactor gems file
+- fix repoe ge_id
+- https://github.com/rafgraph/spa-github-pages
 
 ---
 
