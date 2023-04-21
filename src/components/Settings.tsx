@@ -21,7 +21,7 @@ import Typography from "@mui/material/Typography";
 import { cache } from "apis/axios";
 import { getCurrency } from "functions/getCurrency";
 import { Override } from "models/gems";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import * as api from "state/api";
 import { actions, setters } from "state/app";
 import { useAppDispatch, useAppSelector } from "state/store";
@@ -70,10 +70,8 @@ export const Settings = () => {
   const preview = useAppSelector((state) => state.app.preview);
   const overridesPending = overrides !== overridesTmp;
 
-  useEffect(() => {
-    dispatch(actions.reload);
-  }, [dispatch]);
-  const reload = () => dispatch(actions.reload());
+  const reload = useMemo(() => () => void dispatch(actions.reload()), [dispatch]);
+  useEffect(reload, [reload]);
   return (
     <>
       <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="sm">
