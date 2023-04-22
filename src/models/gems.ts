@@ -354,22 +354,27 @@ export const getQuery = (
   gem: Gem,
   online: boolean = true,
   indexed?: string
-): SearchQueryContainer => ({
-  query: {
-    status: {
-      option: online ? "onlineleague" : "any",
-    },
-    filters: {
-      trade_filters: indexed ? { filters: { indexed: { option: "1day" } } } : undefined,
-      misc_filters: {
-        filters: {
-          gem_level: { min: gem.Level },
-          corrupted: gem.Corrupted ? undefined : { option: false },
-          quality: { min: gem.Quality },
+): SearchQueryContainer => {
+  const type = gem.Vaal ? "Vaal " + gem.baseName : gem.baseName;
+  return {
+    query: {
+      status: {
+        option: online ? "onlineleague" : "any",
+      },
+      filters: {
+        trade_filters: indexed ? { filters: { indexed: { option: "1day" } } } : undefined,
+        misc_filters: {
+          filters: {
+            gem_level: { min: gem.Level },
+            corrupted: gem.Corrupted ? undefined : { option: false },
+            quality: { min: gem.Quality },
+          },
         },
       },
+      type: altQualities.includes(gem.Type as any)
+        ? { option: type, discriminator: gem.Type.toLowerCase() }
+        : type,
     },
-    type: gem.Name,
-  },
-  sort: { price: "asc" },
-});
+    sort: { price: "asc" },
+  };
+};

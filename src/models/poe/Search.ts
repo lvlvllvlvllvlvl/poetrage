@@ -8,7 +8,7 @@ export interface SearchQueryContainer {
 export interface SearchQuery {
   status?: Option;
   name?: string;
-  type?: string;
+  type?: string | Option;
   stats?: StatFilter[];
   filters?: QueryFilters;
   term?: string;
@@ -29,6 +29,7 @@ export interface StatSort {
 }
 export interface Option {
   option: string;
+  discriminator?: string;
 }
 export interface BooleanOption {
   option: boolean;
