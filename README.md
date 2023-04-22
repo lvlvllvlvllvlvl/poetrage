@@ -1,14 +1,14 @@
 ## TODO
 
-- Add multiselect to profit ratio column
-- Show json for row (for debugging)
-- Vendors (gems start with 8,000,001 xp)
-- Remove axios cache
+- add multiselect to profit ratio column
+- show json for row (for debugging)
+- vendors (gems start with 8,000,001 xp)
+- rate limiting
+- remove axios cache
 - store state in sessionstorage
 - add gcp + vaal/temple, gcp + regrade and gcp + regrade + vaal/temple profit ratios
 - improved profit tooltips
 - pin rows
-- rate limiting
 - refresh overrides
 - make cors proxy configurable
 - faceators lens
@@ -35,8 +35,4 @@ You will also see any lint errors in the console.
 
 ### `npm run prettier`
 
-Formats the code. You can add this to your git pre-commit hook with `echo 'npm run prettier' >> .git/hooks/pre-commit`
-
-### `npm run deploy`
-
-Builds and deploys to gh-pages (you will need to update the `homepage` value in package.json if you change the repo name)
+Organizes imports and formats the code. You can add this to your git pre-commit hook with `echo 'npm run prettier' >> .git/hooks/pre-commit`
