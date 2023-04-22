@@ -364,15 +364,12 @@ export const getQuery = (
       misc_filters: {
         filters: {
           gem_level: { min: gem.Level },
-          corrupted: { option: gem.Corrupted },
+          corrupted: gem.Corrupted ? undefined : { option: false },
           quality: { min: gem.Quality },
-          gem_alternate_quality: altQualities.includes(gem.Type as any)
-            ? { option: `${altQualities.indexOf(gem.Type as any) + 1}` }
-            : undefined,
         },
       },
     },
-    type: gem.Vaal ? "Vaal " + gem.baseName : gem.baseName,
+    type: gem.Name,
   },
   sort: { price: "asc" },
 });

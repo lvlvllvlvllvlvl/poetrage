@@ -60,7 +60,7 @@ export const GemTable = () => {
   });
   return (
     <>
-      {gems.status === "done" && currencyMap.status === "done" && (
+      {gems.status === "done" && currencyMap.status === "done" ? (
         <>
           <Box sx={{ maxWidth: "100vw", overflow: "auto" }}>
             <Table sx={{ width: table.getCenterTotalSize(), tableLayout: "fixed" }}>
@@ -155,8 +155,11 @@ export const GemTable = () => {
             This product isn't affiliated with or endorsed by Grinding Gear Games in any way.
           </Box>
         </>
+      ) : (
+        <>
+          gems: {gems.error || gems.status}, currency: {currencyMap.error || currencyMap.status}
+        </>
       )}
-      {gems.status === "fail" && String(gems.error)}
     </>
   );
 };

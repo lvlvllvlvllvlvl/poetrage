@@ -84,7 +84,7 @@ const toApiResult = <T>({
   } else if (isSuccess && data) {
     return { status: "done", value: data };
   } else {
-    console.error(error)
+    console.error(error);
     return { status: "fail", error: String(error) };
   }
 };
@@ -118,6 +118,7 @@ const metaSelector = createSelector([getLeague, getLadder], (league, ladder) =>
 export const meta = createSelector([(state) => metaSelector(state)(state)], toApiResult);
 startAppListening({
   predicate: (action, currentState, previousState) =>
+    meta(currentState).status === "idle" ||
     getLeague(currentState) !== getLeague(previousState) ||
     getLadder(currentState) !== getLadder(previousState),
 
@@ -136,7 +137,7 @@ const gemsSelector = createSelector([getLeague], (league) =>
 export const gems = createSelector([(state) => gemsSelector(state)(state)], toApiResult);
 startAppListening({
   predicate: (action, currentState, previousState) =>
-    getLeague(currentState) !== getLeague(previousState),
+    gems(currentState).status === "idle" || getLeague(currentState) !== getLeague(previousState),
 
   effect: async (action, listenerApi) => {
     const league = getLeague(listenerApi.getState());
@@ -155,6 +156,7 @@ export const currencyMap = createSelector(
 );
 startAppListening({
   predicate: (action, currentState, previousState) =>
+    currencyMap(currentState).status === "idle" ||
     getLeague(currentState) !== getLeague(previousState),
 
   effect: async (action, listenerApi) => {
@@ -176,6 +178,7 @@ export const templeAverage = createSelector(
 );
 startAppListening({
   predicate: (action, currentState, previousState) =>
+    templeAverage(currentState).status === "idle" ||
     getLeague(currentState) !== getLeague(previousState) ||
     currencyMap(currentState) !== currencyMap(previousState),
 
@@ -203,6 +206,7 @@ export const awakenedLevelAverage = createSelector(
 );
 startAppListening({
   predicate: (action, currentState, previousState) =>
+    awakenedLevelAverage(currentState).status === "idle" ||
     getLeague(currentState) !== getLeague(previousState) ||
     currencyMap(currentState) !== currencyMap(previousState),
 
@@ -230,6 +234,7 @@ export const awakenedRerollAverage = createSelector(
 );
 startAppListening({
   predicate: (action, currentState, previousState) =>
+    awakenedRerollAverage(currentState).status === "idle" ||
     getLeague(currentState) !== getLeague(previousState) ||
     currencyMap(currentState) !== currencyMap(previousState),
 

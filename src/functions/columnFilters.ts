@@ -18,13 +18,14 @@ export const search: FilterFn<GemDetails> = (row, columnId, text) => {
       return false;
     }
   }
-  for (const filter of filters) {
+  return filters.every((filter) => {
     const lower = filter.value.toLowerCase();
     if (filter.type === "exact") {
       return value === lower || id === lower;
     } else if (filter.type === "exclude") {
       return !id.includes(lower);
+    } else {
+      return true;
     }
-  }
-  return true;
+  });
 };
