@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { ColumnFiltersState, SortingState } from "@tanstack/react-table";
-import { GemDetails, Override, isEqual } from "models/gems";
+import { GemDetails, GemId, Override, isEqual } from "models/gems";
 import { League } from "models/ninja/Leagues";
 import { AppDispatch } from "./store";
 import { memoize } from "lodash";
@@ -23,7 +23,8 @@ function debouncedProp<T>(value?: T) {
 export const fields = {
   league: prop<League>(),
   ladder: prop<"exp" | "depthsolo">("exp"),
-  sorting: prop<SortingState>([]),
+  pins: prop<GemId[]>([]),
+  sorting: prop<SortingState>([{ id: "Pinned", desc: true }]),
   columnFilters: prop<ColumnFiltersState>([
     { id: "Meta", value: [0.4, undefined] },
     { id: "lowConfidence", value: false },

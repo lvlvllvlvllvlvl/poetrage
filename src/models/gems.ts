@@ -98,6 +98,7 @@ export const getId = (gem: Gem): GemId =>
   `${gem.Level}/${gem.Quality}${gem.Corrupted ? " corrupted " : " clean "}${gem.Name}`;
 
 export type GemDetails = Gem & {
+  Pinned?: boolean;
   xpValue: number;
   xpData?: (Gem & {
     xpValue: number;

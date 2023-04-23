@@ -1,6 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { ColumnDef, SortingFn } from "@tanstack/react-table";
-import { Price } from "components/columns/Price";
+import { Price } from "components/cells/Price";
 import { GemDetails, getRatios } from "models/gems";
 import numeral from "numeral";
 import { currencyMap } from "state/api";
@@ -11,40 +11,43 @@ import {
   regradeValue,
   templeCost,
 } from "../state/selectors/costs";
-import { AwakenedLevel } from "./columns/AwakenedLevel";
-import { AwakenedReroll } from "./columns/AwakenedReroll";
-import { GCP } from "./columns/GCP";
-import { GraphCell } from "./columns/Graph";
-import { Listings } from "./columns/Listings";
-import { Meta } from "./columns/Meta";
-import { Name } from "./columns/Name";
-import { ROI } from "./columns/ROI";
-import { Regrade } from "./columns/Regrade";
-import { Temple } from "./columns/Temple";
-import { Type } from "./columns/Type";
-import { Vaal } from "./columns/Vaal";
-import { XP } from "./columns/XP";
+import { AwakenedLevel } from "./cells/AwakenedLevel";
+import { AwakenedReroll } from "./cells/AwakenedReroll";
+import { GCP } from "./cells/GCP";
+import { GraphCell } from "./cells/Graph";
+import { Listings } from "./cells/Listings";
+import { Meta } from "./cells/Meta";
+import { Name } from "./cells/Name";
+import { Pinned } from "./cells/Pinned";
+import { ROI } from "./cells/ROI";
+import { Regrade } from "./cells/Regrade";
+import { Temple } from "./cells/Temple";
+import { Type } from "./cells/Type";
+import { Vaal } from "./cells/Vaal";
+import { XP } from "./cells/XP";
 
 export const getColumns = createSelector(
   [
+    ({ app }: AppState) => app.pins,
     ({ app }: AppState) => app.league,
     ({ app }: AppState) => app.fiveWay.debounced,
+    ({ app }: AppState) => app.enableColumnFilter,
     currencyMap,
     templeCost,
     awakenedLevelCost,
     awakenedRerollCost,
     regradeValue,
-    ({ app }: AppState) => app.enableColumnFilter,
   ],
   (
+    pins,
     league,
     fiveWay,
+    enableColumnFilter,
     currencyMap,
     costOfTemple,
     costOfAwakenedLevel,
     costOfAwakenedReroll,
-    getRegrValue,
-    enableColumnFilter
+    getRegrValue
   ): ColumnDef<GemDetails>[] => {
     return [
       {
@@ -55,6 +58,10 @@ export const getColumns = createSelector(
         },
         size: 400,
         cell: (info) => <Name gem={info.row.original} />,
+      },
+      {
+        accessorKey: "Pinned",
+        cell: (info) => <Pinned gem={info.row.original} />,
       },
       {
         accessorKey: "Corrupted",

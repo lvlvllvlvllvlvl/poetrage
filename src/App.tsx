@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import "App.css";
 import { GemTable } from "components/GemTable";
-import { GraphDialog } from "components/columns/Graph";
+import { GraphDialog } from "components/cells/Graph";
 import { Settings } from "components/Settings";
 import GithubCorner from "react-github-corner";
 

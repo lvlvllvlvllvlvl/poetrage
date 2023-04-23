@@ -7,6 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Tooltip from "@mui/material/Tooltip";
 import {
+  Column,
   flexRender,
   getCoreRowModel,
   getFacetedMinMaxValues,
@@ -19,10 +20,13 @@ import Filter from "components/Filter";
 import { getColumns } from "components/columns";
 import { includes, search } from "functions/columnFilters";
 import { isFunction } from "lodash";
+import { GemDetails } from "models/gems";
 import * as api from "state/api";
 import { setters } from "state/app";
 import { zippedData } from "state/selectors/zipData";
 import { useAppDispatch, useAppSelector } from "state/store";
+
+const pin = { id: "Pinned", desc: true };
 
 export const GemTable = () => {
   const dispatch = useAppDispatch();
@@ -36,13 +40,29 @@ export const GemTable = () => {
   const preview = useAppSelector((state) => state.app.preview);
   const data = useAppSelector(zippedData);
 
+  const sortingHandler = (col: Column<GemDetails>) => {
+    const descFirst = col.id !== "Name";
+    const existing = sorting.find(({ id }) => id === col.id);
+    if (existing) {
+      if (Boolean(existing.desc) === descFirst) {
+        setSorting([pin, { id: col.id, desc: !descFirst }]);
+      } else {
+        setSorting([pin]);
+      }
+    } else {
+      setSorting([pin, { id: col.id, desc: descFirst }]);
+    }
+  };
+
   const columns = useAppSelector(getColumns);
   const table = useReactTable({
     data,
     columns,
     filterFns: { search, includes },
     enablePinning: true,
-    defaultColumn: { size: 100 },
+    enableMultiSort: true,
+    maxMultiSortColCount: 3,
+    defaultColumn: { size: 100, enableMultiSort: true },
     state: {
       sorting,
       columnFilters,
@@ -51,7 +71,6 @@ export const GemTable = () => {
     },
     onColumnFiltersChange: (updater) =>
       setColumnFilters(isFunction(updater) ? updater(columnFilters) : updater),
-    onSortingChange: (updater) => setSorting(isFunction(updater) ? updater(sorting) : updater),
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
@@ -80,7 +99,7 @@ export const GemTable = () => {
                             zIndex: header.column.getIsPinned() ? 1000 : undefined,
                             width: header.getSize(),
                           }}>
-                          {header.isPlaceholder ? null : (
+                          {header.isPlaceholder || header.id === "Pinned" ? null : (
                             <Box
                               sx={{
                                 flex: "1",
@@ -104,7 +123,7 @@ export const GemTable = () => {
                                       overflow: "hidden",
                                       textOverflow: "ellipsis",
                                     },
-                                    onClick: header.column.getToggleSortingHandler(),
+                                    onClick: () => sortingHandler(header.column),
                                   }}>
                                   {{ asc: " ▲", desc: " ▼" }[
                                     header.column.getIsSorted() as string
