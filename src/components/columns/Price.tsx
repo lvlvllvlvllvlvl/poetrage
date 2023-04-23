@@ -22,7 +22,7 @@ import { useDispatch } from "react-redux";
 import { currencyMap, gemInfo } from "state/api";
 import { actions } from "state/app";
 import { useAppSelector } from "state/store";
-import { EditGem } from "./EditGem";
+import { EditGem } from "../EditGem";
 import Tooltip from "@mui/material/Tooltip";
 
 const clean = <T extends {}>(obj: T) => {
@@ -32,7 +32,7 @@ const clean = <T extends {}>(obj: T) => {
   return obj;
 };
 
-export const EditOverride = ({ original }: { original: GemDetails }) => {
+export const Price = ({ original }: { original: GemDetails }) => {
   const dispatch = useDispatch();
   const setOverride = (o: Override) => dispatch(actions.setOverride(o));
   const league = useAppSelector(({ app }) => app.league?.name);

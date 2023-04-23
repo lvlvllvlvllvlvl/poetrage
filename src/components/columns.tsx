@@ -1,13 +1,9 @@
-import Tooltip from "@mui/material/Tooltip";
 import { createSelector } from "@reduxjs/toolkit";
 import { ColumnDef, SortingFn } from "@tanstack/react-table";
-import "App.css";
-import { EditOverride } from "components/Override";
-import { qualityStat } from "functions/formatStat";
-import { getCurrency } from "functions/getCurrency";
-import { GemDetails, getId, getQuery, getRatios } from "models/gems";
+import { Price } from "components/columns/Price";
+import { GemDetails, getRatios } from "models/gems";
 import numeral from "numeral";
-import { currencyMap, gemInfo } from "state/api";
+import { currencyMap } from "state/api";
 import { RootState as AppState } from "state/store";
 import {
   awakenedLevelCost,
@@ -15,34 +11,39 @@ import {
   regradeValue,
   templeCost,
 } from "../state/selectors/costs";
-import { GemIcons } from "./GemIcons";
-import { GraphCell } from "./GraphDialog";
+import { AwakenedLevel } from "./columns/AwakenedLevel";
+import { AwakenedReroll } from "./columns/AwakenedReroll";
+import { GCP } from "./columns/GCP";
+import { GraphCell } from "./columns/Graph";
+import { Listings } from "./columns/Listings";
+import { Meta } from "./columns/Meta";
+import { Name } from "./columns/Name";
+import { ROI } from "./columns/ROI";
+import { Regrade } from "./columns/Regrade";
+import { Temple } from "./columns/Temple";
+import { Type } from "./columns/Type";
+import { Vaal } from "./columns/Vaal";
+import { XP } from "./columns/XP";
 
 export const getColumns = createSelector(
   [
     ({ app }: AppState) => app.league,
-    gemInfo,
     ({ app }: AppState) => app.fiveWay.debounced,
     currencyMap,
     templeCost,
     awakenedLevelCost,
     awakenedRerollCost,
     regradeValue,
-    ({ app }: AppState) => app.secRegrading.debounced,
-    ({ app }: AppState) => app.primeRegrading.debounced,
     ({ app }: AppState) => app.enableColumnFilter,
   ],
   (
     league,
-    gemInfo,
     fiveWay,
     currencyMap,
     costOfTemple,
     costOfAwakenedLevel,
     costOfAwakenedReroll,
     getRegrValue,
-    secRegrading,
-    primeRegrading,
     enableColumnFilter
   ): ColumnDef<GemDetails>[] => {
     return [
@@ -53,21 +54,7 @@ export const getColumns = createSelector(
           filter: { isText: true },
         },
         size: 400,
-        cell: (info) => (
-          <>
-            <Tooltip title={getId(info.row.original)}>
-              <a
-                target="_blank"
-                rel="noreferrer"
-                href={`https://www.pathofexile.com/trade/search/${league?.name}?q=${JSON.stringify(
-                  getQuery(info.row.original)
-                )}`}>
-                {info.getValue() as string}
-              </a>
-            </Tooltip>
-            <GemIcons gem={info.row.original} />
-          </>
-        ),
+        cell: (info) => <Name gem={info.row.original} />,
       },
       {
         accessorKey: "Corrupted",
@@ -101,14 +88,7 @@ export const getColumns = createSelector(
         meta: {
           filter: { isType: true },
         },
-        cell: (info) => (
-          <Tooltip
-            title={
-              gemInfo.status === "done" ? qualityStat(gemInfo.value, info.row.original) : undefined
-            }>
-            <span>{info.row.original.Type}</span>
-          </Tooltip>
-        ),
+        cell: (info) => <Type gem={info.row.original} />,
       },
       {
         accessorKey: "Price",
@@ -118,7 +98,7 @@ export const getColumns = createSelector(
         meta: {
           filter: { isMin: true, isMax: true },
         },
-        cell: ({ row: { original } }) => <EditOverride original={original} />,
+        cell: ({ row: { original } }) => <Price original={original} />,
       },
       {
         id: "Profit",
@@ -152,30 +132,7 @@ export const getColumns = createSelector(
             costOfAwakenedLevel,
             costOfAwakenedReroll
           )[0]?.ratio,
-        cell: ({ row: { original } }) => {
-          const ratios = getRatios(
-            original,
-            currencyMap.value,
-            costOfTemple,
-            costOfAwakenedLevel,
-            costOfAwakenedReroll
-          );
-          return ratios?.length ? (
-            <span
-              title={ratios
-                .map(
-                  ({ name, ratio, profit, cost }) =>
-                    `${name}: ${numeral(ratio).format("0[.][00]")} (cost: ${numeral(cost).format(
-                      "0[.][00]"
-                    )}c, profit: ${numeral(profit).format("0[.][00]")}c)`
-                )
-                .join("\n")}>
-              {numeral(ratios[0].ratio).format("0[.][00]")}
-            </span>
-          ) : (
-            "n/a"
-          );
-        },
+        cell: ({ row: { original } }) => <ROI gem={original} />,
       },
       {
         id: "regrValue",
@@ -192,35 +149,7 @@ export const getColumns = createSelector(
           tooltip: "Average profit when applying a regrading lens to this gem",
           filter: { isMin: true },
         },
-        cell: ({
-          row: {
-            original,
-            original: { Name, Price, regrValue, regrData },
-          },
-        }) =>
-          !regrData?.length ? (
-            "n/a"
-          ) : (
-            <span
-              title={regrData
-                ?.map(
-                  ({ gem, chance }) =>
-                    `${numeral(chance * 100).format("0[.][00]")}% ${Math.round(
-                      gem.Price -
-                        Price -
-                        (Name.includes("Support")
-                          ? secRegrading ||
-                            getCurrency("Secondary Regrading Lens", currencyMap.value, 0)
-                          : primeRegrading ||
-                            getCurrency("Prime Regrading Lens", currencyMap.value, 0))
-                    )}c: ${gem.Level}/${gem.Quality} ${gem.Name} (${
-                      gem.Price ? `${gem.Listings} at ${gem.Price}c` : "low confidence"
-                    } - ${gem.Meta}% meta)`
-                )
-                .join("\n")}>
-              {Math.round(getRegrValue(original))}c
-            </span>
-          ),
+        cell: ({ row: { original } }) => <Regrade gem={original} />,
       },
       {
         accessorKey: "vaalValue",
@@ -231,33 +160,7 @@ export const getColumns = createSelector(
           tooltip: "Average profit for vaaling this gem",
           filter: { isMin: true },
         },
-        cell: ({
-          row: {
-            original: { vaalValue, vaalData },
-          },
-        }) =>
-          vaalValue ? (
-            <span
-              title={vaalData
-                ?.map(
-                  ({ gem, chance, outcomes: [outcome] }) =>
-                    `${numeral(chance * 100).format("0[.][00]")}% ${outcome}: ${gem.Level}/${
-                      gem.Quality
-                    }${
-                      gem.Listings === 0 &&
-                      (outcome === "Add quality" || outcome === "Remove quality")
-                        ? "+"
-                        : ""
-                    } ${gem.Name}${gem.Price ? ` (${gem.Listings} at ${gem.Price}c)` : ""}${
-                      gem.lowConfidence ? " (low confidence)" : ""
-                    }`
-                )
-                .join("\n")}>
-              {Math.round(vaalValue)}c
-            </span>
-          ) : (
-            "n/a"
-          ),
+        cell: ({ row: { original } }) => <Vaal gem={original} />,
       },
       {
         id: "templeValue",
@@ -269,28 +172,7 @@ export const getColumns = createSelector(
           tooltip: "Average profit when corrupting this gem with a Doryani's Institute",
           filter: { isMin: true },
         },
-        cell: ({
-          row: {
-            original: { templeValue, templeData },
-          },
-        }) =>
-          templeValue ? (
-            <span
-              title={templeData
-                ?.map(
-                  ({ gem, chance }) =>
-                    `${numeral(chance * 100).format("0[.][00]")} %: ${gem.Level} / ${gem.Quality} ${
-                      gem.Name
-                    }${gem.Price ? ` (${gem.Listings} at ${gem.Price}c)` : ""}${
-                      gem.lowConfidence ? " (low confidence)" : ""
-                    }`
-                )
-                .join("\n")}>
-              {Math.round(templeValue - costOfTemple)}c
-            </span>
-          ) : (
-            "n/a"
-          ),
+        cell: ({ row: { original } }) => <Temple gem={original} />,
       },
       {
         accessorKey: "gcpValue",
@@ -303,26 +185,7 @@ export const getColumns = createSelector(
         },
         sortingFn: (a, b) =>
           (a.original.gcpData?.[0]?.gcpValue || 0) - (b.original.gcpData?.[0]?.gcpValue || 0),
-        cell: ({
-          row: {
-            original: { gcpData },
-          },
-        }) =>
-          !gcpData?.length ? (
-            "n/a"
-          ) : (
-            <span
-              title={gcpData
-                ?.map(
-                  ({ gcpValue, Level, Quality, Listings, Price }, i) =>
-                    `Earn ${numeral(gcpValue).format(
-                      "0[.][00]"
-                    )}c upgrading this gem to ${Level}/${Quality} (${Listings} listed at ${Price}c)`
-                )
-                .join("\n")}>
-              {Math.round(gcpData[0].gcpValue)}c
-            </span>
-          ),
+        cell: ({ row: { original } }) => <GCP gem={original} />,
       },
       {
         id: "levelValue",
@@ -342,26 +205,7 @@ export const getColumns = createSelector(
           tooltip: "Profit from levelling this awakened gem up with a Wild Brambleback",
           filter: { isMin: true },
         },
-        cell: ({
-          row: {
-            original: { levelData },
-          },
-        }) =>
-          !levelData?.length ? (
-            "n/a"
-          ) : (
-            <span
-              title={levelData
-                ?.map(
-                  ({ levelValue, levelDiff, Level, Quality, Price, gcpCount }, i) =>
-                    `${Math.round(levelValue - costOfAwakenedLevel)}c profit/level applying${
-                      gcpCount === 0 ? "" : ` ${gcpCount} gcp and`
-                    } ${levelDiff} Wild Brambleback to ${Level}/${Quality} (${Price}c)`
-                )
-                .join("\n")}>
-              {Math.round(levelData[0].levelValue)}c/level
-            </span>
-          ),
+        cell: ({ row: { original } }) => <AwakenedLevel gem={original} />,
       },
       {
         id: "convertValue",
@@ -382,11 +226,7 @@ export const getColumns = createSelector(
             "Average profit converting this gem to another awakened gem using a Vivid Watcher",
           filter: { isMin: true },
         },
-        cell: ({
-          row: {
-            original: { convertValue },
-          },
-        }) => (convertValue ? Math.round(convertValue - costOfAwakenedReroll) + "c" : "n/a"),
+        cell: ({ row: { original } }) => <AwakenedReroll gem={original} />,
       },
       {
         accessorKey: "XP",
@@ -428,29 +268,7 @@ export const getColumns = createSelector(
             "Profit from levelling this gem up, divided by estimated average gem xp earned in a 5-way",
           filter: { isMin: true },
         },
-        cell: ({
-          row: {
-            original: { xpData },
-          },
-        }) =>
-          !xpData?.length ? (
-            "n/a"
-          ) : (
-            <span
-              title={xpData
-                ?.map(
-                  ({ xpValue, Level, Quality, Price, gcpCount, reset }, i) =>
-                    `${Math.round(xpValue * fiveWay)}c/5-way${
-                      reset ? "" : gcpCount === 0 ? "" : ` applying ${gcpCount} gcp and`
-                    } levelling this gem to ${Level}/${Quality} (${Price}c)${
-                      reset ? " with vendor reset" : ""
-                    }`
-                )
-                .join("\n")}>
-              {Math.round(xpData[0].xpValue * fiveWay)}c/5-way (
-              {numeral(xpData[0].xpDiff / fiveWay).format("0[.][00]")} 5-ways)
-            </span>
-          ),
+        cell: ({ row: { original } }) => <XP gem={original} />,
       },
       {
         id: "xpRatio",
@@ -481,21 +299,7 @@ export const getColumns = createSelector(
           tooltip: "Share of builds in the selected league and ladder that are using this gem",
           filter: { isMin: true, isFloat: true },
         },
-        cell: ({
-          row: {
-            original: { Meta, Name: Gem },
-          },
-        }) =>
-          Meta ? (
-            <a
-              href={`https://poe.ninja/${league?.url}/builds?allskill=${Gem.replaceAll(" ", "-")}`}
-              target="_blank"
-              rel="noreferrer">
-              {Meta} %
-            </a>
-          ) : (
-            "n/a"
-          ),
+        cell: ({ row: { original } }) => <Meta gem={original} />,
       },
       {
         accessorKey: "Listings",
@@ -505,18 +309,7 @@ export const getColumns = createSelector(
           tooltip: "Number of listings found by poe.ninja",
           filter: { isMin: true },
         },
-        cell: ({
-          row: {
-            original: { Listings, Name: Gem },
-          },
-        }) => (
-          <a
-            href={`https://poe.ninja/${league?.url}/skill-gems?name=${Gem}`}
-            target="_blank"
-            rel="noreferrer">
-            {Listings}
-          </a>
-        ),
+        cell: ({ row: { original } }) => <Listings gem={original} />,
       },
       {
         accessorKey: "lowConfidence",

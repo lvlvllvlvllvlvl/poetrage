@@ -1,9 +1,9 @@
 import InfoIcon from "@mui/icons-material/Info";
 import Tooltip from "@mui/material/Tooltip";
-import { GemDetails } from "models/gems";
+import { Gem } from "models/gems";
 import { useAppSelector } from "state/store";
 
-export const GemIcons = ({ gem }: { gem: GemDetails }) => {
+export const GemIcons = ({ gem }: { gem: Gem }) => {
   const filterMeta = useAppSelector((state) => state.app.filterMeta.debounced);
   return (
     <>
