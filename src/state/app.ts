@@ -1,11 +1,10 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { ColumnFiltersState, SortingState } from "@tanstack/react-table";
+import { memoize } from "lodash";
 import { GemDetails, GemId, Override, isEqual } from "models/gems";
+import { GraphNode, NodeMap } from "models/graphElements";
 import { League } from "models/ninja/Leagues";
 import { AppDispatch } from "./store";
-import { memoize } from "lodash";
-import { GraphNode, NodeMap } from "models/graphElements";
-import { profitInputs } from "./selectors/profitInputs";
 
 function prop<T>(): { type: "simple"; value: T | undefined };
 function prop<T>(value: T): { type: "simple"; value: T };
