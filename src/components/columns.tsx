@@ -61,6 +61,7 @@ export const getColumns = createSelector(
       },
       {
         accessorKey: "Pinned",
+        size: 40,
         cell: (info) => <Pinned gem={info.row.original} />,
       },
       {
@@ -76,6 +77,7 @@ export const getColumns = createSelector(
         accessorKey: "Level",
         enableColumnFilter,
         filterFn: "inNumberRange",
+        size: 80,
         meta: {
           filter: { isMin: true, isMax: true },
         },
@@ -84,6 +86,7 @@ export const getColumns = createSelector(
         accessorKey: "Quality",
         enableColumnFilter,
         filterFn: "inNumberRange",
+        size: 80,
         meta: {
           filter: { isMin: true, isMax: true },
         },
@@ -105,7 +108,7 @@ export const getColumns = createSelector(
         meta: {
           filter: { isMin: true, isMax: true },
         },
-        cell: ({ row: { original } }) => <Price original={original} />,
+        cell: ({ row: { original } }) => <Price gem={original} />,
       },
       {
         id: "Profit",
@@ -196,7 +199,7 @@ export const getColumns = createSelector(
       },
       {
         id: "levelValue",
-        accessorFn: ({ levelValue }) => levelValue - costOfAwakenedLevel,
+        accessorFn: ({ levelValue }) => (levelValue || 0) - costOfAwakenedLevel,
         header: "Wild Brambleback",
         sortingFn: (({ original: { levelValue: a } }, { original: { levelValue: b } }) =>
           a === b
@@ -258,7 +261,7 @@ export const getColumns = createSelector(
       },
       {
         id: "xpValue",
-        accessorFn: ({ xpValue }) => xpValue * fiveWay,
+        accessorFn: ({ xpValue }) => (xpValue || 0) * fiveWay,
         header: "Levelling",
         sortingFn: (({ original: { xpValue: a } }, { original: { xpValue: b } }) =>
           a === b

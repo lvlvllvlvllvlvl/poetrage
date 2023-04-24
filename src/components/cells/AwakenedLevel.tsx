@@ -1,22 +1,36 @@
-import { GemDetails } from "models/gems";
+import Typography from "@mui/material/Typography";
+import PopupState, { bindHover, bindPopover } from "material-ui-popup-state";
+import HoverPopover from "material-ui-popup-state/HoverPopover";
+import { GemDetails, getId } from "models/gems";
 import { awakenedLevelCost } from "state/selectors/costs";
 import { useAppSelector } from "state/store";
+import { Pinned } from "./Pinned";
+import { Price } from "./Price";
+import { GemIcons } from "components/GemIcons";
 
-export const AwakenedLevel = ({ gem: { levelData } }: { gem: GemDetails }) => {
+export const AwakenedLevel = ({ gem: original, gem: { levelData } }: { gem: GemDetails }) => {
   const costOfAwakenedLevel = useAppSelector(awakenedLevelCost);
   return !levelData?.length ? (
     <>n/a</>
   ) : (
-    <span
-      title={levelData
-        ?.map(
-          ({ levelValue, levelDiff, Level, Quality, Price, gcpCount }, i) =>
-            `${Math.round(levelValue - costOfAwakenedLevel)}c profit/level applying${
-              gcpCount === 0 ? "" : ` ${gcpCount} gcp and`
-            } ${levelDiff} Wild Brambleback to ${Level}/${Quality} (${Price}c)`
-        )
-        .join("\n")}>
-      {Math.round(levelData[0].levelValue)}c/level
-    </span>
+    <PopupState variant="popover" popupId={getId(original) + "-brambleback"}>
+      {(popupState) => (
+        <div>
+          <Typography {...bindHover(popupState)}>
+            {Math.round(levelData[0].levelValue - costOfAwakenedLevel)}c/level
+          </Typography>
+          <HoverPopover {...bindPopover(popupState)} sx={{ pointerEvents: "none" }}>
+            {levelData?.map((gem, i) => (
+              <Typography key={i} sx={{ m: 1 }}>
+                {Math.round(gem.levelValue - costOfAwakenedLevel)}c profit/level applying
+                {gem.gcpCount === 0 ? "" : ` ${gem.gcpCount} gcp and`} {gem.levelDiff} Wild
+                Brambleback to {gem.Level}/{gem.Quality} <GemIcons gem={gem} />
+                <Pinned gem={gem} /> <Price inline gem={gem} />
+              </Typography>
+            ))}
+          </HoverPopover>
+        </div>
+      )}
+    </PopupState>
   );
 };

@@ -24,6 +24,7 @@ import { actions } from "state/app";
 import { useAppSelector } from "state/store";
 import { EditGem } from "../EditGem";
 import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
 
 const clean = <T extends {}>(obj: T) => {
   Object.keys(obj).forEach(
@@ -32,7 +33,7 @@ const clean = <T extends {}>(obj: T) => {
   return obj;
 };
 
-export const Price = ({ original }: { original: GemDetails }) => {
+export const Price = ({ gem: original, inline }: { gem: GemDetails; inline?: boolean }) => {
   const dispatch = useDispatch();
   const setOverride = (o: Override) => dispatch(actions.setOverride(o));
   const league = useAppSelector(({ app }) => app.league?.name);
@@ -57,7 +58,7 @@ export const Price = ({ original }: { original: GemDetails }) => {
 
   const [searchType, setSearchType] = useState<"" | "cheapest" | "online" | "daily">("");
   const input = useRef();
-  const [ref, setRef] = useState<HTMLDivElement | null>(null);
+  const [ref, setRef] = useState<HTMLElement | null>(null);
 
   const fetchPrice = async (type: "cheapest" | "online" | "daily", custom?: GemDetails) => {
     if (!league || !currencyMap) return;
@@ -113,17 +114,23 @@ export const Price = ({ original }: { original: GemDetails }) => {
   };
 
   return (
-    <div
+    <Typography
       ref={setRef}
-      style={{
-        display: "flex",
-        alignItems: "center",
-      }}>
-      <div
-        style={{ width: ref ? ref.clientWidth - 40 : 120, height: 16 }}
+      component="span"
+      style={
+        inline
+          ? undefined
+          : {
+              display: "flex",
+              alignItems: "center",
+            }
+      }>
+      <Typography
+        component="span"
+        style={inline ? undefined : { width: ref ? ref.clientWidth - 40 : 120, height: 16 }}
         onMouseEnter={() => setEdit(true)}
         onMouseLeave={() => input.current !== document.activeElement && setEdit(false)}>
-        {edit || overrideValue ? (
+        {!inline && (edit || overrideValue) ? (
           <TextField
             variant="standard"
             size="small"
@@ -148,9 +155,11 @@ export const Price = ({ original }: { original: GemDetails }) => {
         ) : (
           <>{original.Price}c</>
         )}
-      </div>
+      </Typography>
       <Tooltip title={pending ? "apply custom prices to recalculate profits" : undefined}>
-        <IconButton onClick={(e) => setAnchorEl(e.currentTarget)}>
+        <IconButton
+          size={inline ? "small" : undefined}
+          onClick={(e) => setAnchorEl(e.currentTarget)}>
           {error ? (
             <ErrorIcon />
           ) : loading ? (
@@ -196,6 +205,6 @@ export const Price = ({ original }: { original: GemDetails }) => {
           <Button onClick={closeDialog(true)}>{searchType ? "Search" : "Save"}</Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </Typography>
   );
 };

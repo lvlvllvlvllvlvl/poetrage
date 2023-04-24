@@ -99,7 +99,7 @@ export const getId = (gem: Gem): GemId =>
 
 export type GemDetails = Gem & {
   Pinned?: boolean;
-  xpValue: number;
+  xpValue?: number;
   xpData?: (Gem & {
     xpValue: number;
     xpDiff: number;
@@ -107,14 +107,14 @@ export type GemDetails = Gem & {
     gcpCost: number;
     reset?: boolean;
   })[];
-  levelValue: number;
+  levelValue?: number;
   levelData?: (Gem & {
     levelValue: number;
     levelDiff: number;
     gcpCount: number;
     gcpCost: number;
   })[];
-  gcpValue: number;
+  gcpValue?: number;
   gcpData?: (Gem & {
     gcpValue: number;
     gcpCount: number;
@@ -347,9 +347,10 @@ export const vaal = (gem: Gem, chance: number = 1, outcomes: string[] = []) =>
 
 export const normalizeOutcomes = (outcomes: string[]) =>
   [...outcomes]
+    .filter((o) => o !== "Vaal (no outcome)" && o !== "No effect")
     .map((o) => (o === "Vaal (no outcome)" ? "No effect" : o))
     .sort()
-    .join(" / ");
+    .join(" / ") || "No effect";
 
 export const getQuery = (
   gem: Gem,

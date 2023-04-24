@@ -7,8 +7,7 @@
 - remove axios cache
 - store state in sessionstorage
 - add gcp + vaal/temple, gcp + regrade and gcp + regrade + vaal/temple profit ratios
-- improved profit tooltips
-- pin rows
+- show pinned rows ignoring filters
 - refresh overrides
 - make cors proxy configurable
 - faceators lens

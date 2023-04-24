@@ -506,12 +506,7 @@ self.onmessage = (e: MessageEvent<{ inputs: ProfitInputs; cancel: URL }>) => {
           } else if (
             merged.gem.Listings === 0 &&
             next.gem.Listings === 0 &&
-            !merged.outcomes.find(
-              (v, i) => v !== "Remove quality" && v !== "Add quality" && v !== next.outcomes[i]
-            ) &&
-            !next.outcomes.find(
-              (v, i) => v !== "Remove quality" && v !== "Add quality" && v !== merged?.outcomes[i]
-            )
+            merged.outcomes[0] === normalizeOutcomes(next.outcomes)
           ) {
             merged.chance += next.chance;
             merged.gem = copy(merged.gem, {
