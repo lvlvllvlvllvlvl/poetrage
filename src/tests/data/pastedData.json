@@ -1,0 +1,1929 @@
+{
+  "original": {
+    "name": "Divergent Spark",
+    "variant": "20/20",
+    "chaosValue": 97,
+    "gemLevel": 20,
+    "gemQuality": 20,
+    "listingCount": 30,
+    "sparkline": { "data": [0, 63.09, 48.34, 24, -0.2, -5.4, -3], "totalChange": -3 }
+  },
+  "Name": "Divergent Spark",
+  "baseName": "Spark",
+  "variant": "20/20",
+  "Level": 20,
+  "XP": 342051651,
+  "Quality": 20,
+  "Corrupted": false,
+  "Vaal": false,
+  "Type": "Divergent",
+  "Price": 97,
+  "Meta": 0.8,
+  "Listings": 30,
+  "maxLevel": 20,
+  "lowConfidence": false,
+  "canVaal": true,
+  "gcpData": [],
+  "gcpValue": 0,
+  "xpData": [],
+  "xpValue": 0,
+  "regrData": [
+    {
+      "chance": 0.2,
+      "outcomes": ["Superior"],
+      "gem": {
+        "original": {
+          "name": "Spark",
+          "variant": "20/20",
+          "chaosValue": 10,
+          "gemLevel": 20,
+          "gemQuality": 20,
+          "listingCount": 84,
+          "sparkline": { "data": [0, 0, 0, 0, 0, 0, 0], "totalChange": 0 }
+        },
+        "baseName": "Spark",
+        "variant": "20/20",
+        "Name": "Spark",
+        "Level": 20,
+        "Quality": 20,
+        "Type": "Superior",
+        "Corrupted": false,
+        "Vaal": false,
+        "canVaal": true,
+        "Price": 10,
+        "Meta": 2.1,
+        "XP": 342051651,
+        "Listings": 84,
+        "lowConfidence": false,
+        "maxLevel": 20
+      }
+    },
+    {
+      "chance": 0.4,
+      "outcomes": ["Anomalous"],
+      "gem": {
+        "original": {
+          "name": "Anomalous Spark",
+          "variant": "20/20",
+          "chaosValue": 32,
+          "gemLevel": 20,
+          "gemQuality": 20,
+          "listingCount": 9,
+          "sparkline": { "data": [0, 0, 17, 0, 13.33, 0, 6.67], "totalChange": 6.67 }
+        },
+        "baseName": "Spark",
+        "variant": "20/20",
+        "Name": "Anomalous Spark",
+        "Level": 20,
+        "Quality": 20,
+        "Type": "Anomalous",
+        "Corrupted": false,
+        "Vaal": false,
+        "canVaal": true,
+        "Price": 0,
+        "Meta": 0,
+        "XP": 342051651,
+        "Listings": 0,
+        "lowConfidence": true,
+        "maxLevel": 20
+      }
+    },
+    {
+      "chance": 0.4,
+      "outcomes": ["Phantasmal"],
+      "gem": {
+        "original": {
+          "name": "Phantasmal Spark",
+          "variant": "20/20",
+          "chaosValue": 60,
+          "gemLevel": 20,
+          "gemQuality": 20,
+          "listingCount": 44,
+          "sparkline": { "data": [0, 1.53, 1.79, 78.57, 76.02, 60.71, 53.06], "totalChange": 53.06 }
+        },
+        "baseName": "Spark",
+        "variant": "20/20",
+        "Name": "Phantasmal Spark",
+        "Level": 20,
+        "Quality": 20,
+        "Type": "Phantasmal",
+        "Corrupted": false,
+        "Vaal": false,
+        "canVaal": true,
+        "Price": 60,
+        "Meta": 0.3,
+        "XP": 342051651,
+        "Listings": 44,
+        "lowConfidence": false,
+        "maxLevel": 20
+      }
+    }
+  ],
+  "regrValue": -71,
+  "vaalValue": 30.995,
+  "vaalData": [
+    {
+      "gem": {
+        "original": {
+          "name": "Divergent Spark",
+          "variant": "20/20c",
+          "chaosValue": 20,
+          "gemLevel": 20,
+          "gemQuality": 20,
+          "corrupted": true,
+          "listingCount": 177,
+          "sparkline": {
+            "data": [0, -15.01, -37.4, -47.07, -49.11, -49.11, -49.11],
+            "totalChange": -49.11
+          }
+        },
+        "baseName": "Spark",
+        "variant": "20/20c",
+        "Name": "Divergent Spark",
+        "Level": 20,
+        "Quality": 20,
+        "Type": "Divergent",
+        "Corrupted": true,
+        "Vaal": false,
+        "canVaal": true,
+        "Price": 20,
+        "Meta": 0.8,
+        "XP": 342051651,
+        "Listings": 177,
+        "lowConfidence": false,
+        "maxLevel": 20
+      },
+      "chance": 0.25,
+      "outcomes": ["No effect"]
+    },
+    {
+      "gem": {
+        "original": {
+          "name": "Divergent Vaal Spark",
+          "variant": "20/20c",
+          "chaosValue": 10,
+          "gemLevel": 20,
+          "gemQuality": 20,
+          "corrupted": true,
+          "listingCount": 214,
+          "sparkline": { "data": [0, -24.5, -25, -50, -50, -50, -50], "totalChange": -50 }
+        },
+        "baseName": "Spark",
+        "variant": "20/20c",
+        "Name": "Divergent Vaal Spark",
+        "Level": 20,
+        "Quality": 20,
+        "Type": "Divergent",
+        "Corrupted": true,
+        "Vaal": true,
+        "canVaal": true,
+        "Price": 10,
+        "Meta": 0.1,
+        "XP": 342051651,
+        "Listings": 214,
+        "lowConfidence": true,
+        "maxLevel": 20
+      },
+      "chance": 0.25,
+      "outcomes": ["Vaal"]
+    },
+    {
+      "gem": {
+        "original": {
+          "name": "Divergent Spark",
+          "variant": "21/20c",
+          "chaosValue": 924.57,
+          "gemLevel": 21,
+          "gemQuality": 20,
+          "corrupted": true,
+          "listingCount": 16,
+          "sparkline": {
+            "data": [0, 56.93, 19.14, 16.36, 18.45, 22.12, 41.83],
+            "totalChange": 41.83
+          }
+        },
+        "baseName": "Spark",
+        "variant": "21/20c",
+        "Name": "Divergent Spark",
+        "Level": 21,
+        "Quality": 20,
+        "Type": "Divergent",
+        "Corrupted": true,
+        "Vaal": false,
+        "canVaal": true,
+        "Price": 925,
+        "Meta": 0.8,
+        "Listings": 16,
+        "lowConfidence": false,
+        "maxLevel": 20
+      },
+      "chance": 0.125,
+      "outcomes": ["Add level"]
+    },
+    {
+      "gem": {
+        "original": {
+          "name": "Divergent Spark",
+          "variant": "20/20",
+          "chaosValue": 97,
+          "gemLevel": 20,
+          "gemQuality": 20,
+          "listingCount": 30,
+          "sparkline": { "data": [0, 63.09, 48.34, 24, -0.2, -5.4, -3], "totalChange": -3 }
+        },
+        "baseName": "Spark",
+        "variant": "19/20c",
+        "Name": "Divergent Spark",
+        "Level": 19,
+        "Quality": 20,
+        "Type": "Divergent",
+        "Corrupted": true,
+        "Vaal": false,
+        "canVaal": true,
+        "Price": 0,
+        "Meta": 0.8,
+        "XP": 342051651,
+        "Listings": 0,
+        "lowConfidence": true,
+        "maxLevel": 20
+      },
+      "chance": 0.125,
+      "outcomes": ["Remove level"]
+    },
+    {
+      "gem": {
+        "original": {
+          "name": "Divergent Spark",
+          "variant": "20/23c",
+          "chaosValue": 30,
+          "gemLevel": 20,
+          "gemQuality": 23,
+          "corrupted": true,
+          "listingCount": 52,
+          "sparkline": {
+            "data": [0, -9.09, -31.82, -31.82, -37.27, -31.82, -31.82],
+            "totalChange": -31.82
+          }
+        },
+        "baseName": "Spark",
+        "variant": "20/23c",
+        "Name": "Divergent Spark",
+        "Level": 20,
+        "Quality": 23,
+        "Type": "Divergent",
+        "Corrupted": true,
+        "Vaal": false,
+        "canVaal": true,
+        "Price": 30,
+        "Meta": 0.8,
+        "XP": 342051651,
+        "Listings": 52,
+        "lowConfidence": false,
+        "maxLevel": 20
+      },
+      "chance": 0.11250000000000003,
+      "outcomes": ["Add quality"]
+    },
+    {
+      "gem": {
+        "original": {
+          "name": "Divergent Spark",
+          "variant": "20/20c",
+          "chaosValue": 20,
+          "gemLevel": 20,
+          "gemQuality": 20,
+          "corrupted": true,
+          "listingCount": 177,
+          "sparkline": {
+            "data": [0, -15.01, -37.4, -47.07, -49.11, -49.11, -49.11],
+            "totalChange": -49.11
+          }
+        },
+        "baseName": "Spark",
+        "variant": "20/20c",
+        "Name": "Divergent Spark",
+        "Level": 20,
+        "Quality": 20,
+        "Type": "Divergent",
+        "Corrupted": true,
+        "Vaal": false,
+        "canVaal": true,
+        "Price": 20,
+        "Meta": 0.8,
+        "XP": 342051651,
+        "Listings": 177,
+        "lowConfidence": false,
+        "maxLevel": 20
+      },
+      "chance": 0.0125,
+      "outcomes": ["Add quality"]
+    },
+    {
+      "gem": {
+        "original": {
+          "name": "Divergent Spark",
+          "variant": "20c",
+          "chaosValue": 13,
+          "gemLevel": 20,
+          "corrupted": true,
+          "listingCount": 107,
+          "sparkline": { "data": [0, -2.6, -2.6, -2.6, -2.6, -3.9, -15.58], "totalChange": -15.58 }
+        },
+        "baseName": "Spark",
+        "variant": "20/0c",
+        "Name": "Divergent Spark",
+        "Level": 20,
+        "Quality": 0,
+        "Type": "Divergent",
+        "Corrupted": true,
+        "Vaal": false,
+        "canVaal": true,
+        "Price": 13,
+        "Meta": 0.8,
+        "XP": 342051651,
+        "Listings": 107,
+        "lowConfidence": false,
+        "maxLevel": 20
+      },
+      "chance": 0.12500000000000003,
+      "outcomes": ["Remove quality"]
+    }
+  ],
+  "templeData": [
+    {
+      "gem": {
+        "original": {
+          "name": "Divergent Vaal Spark",
+          "variant": "21/20c",
+          "chaosValue": 4109.2,
+          "gemLevel": 21,
+          "gemQuality": 20,
+          "corrupted": true,
+          "listingCount": 1,
+          "sparkline": { "data": [], "totalChange": 0 }
+        },
+        "baseName": "Spark",
+        "variant": "21/20c",
+        "Name": "Divergent Vaal Spark",
+        "Level": 21,
+        "Quality": 20,
+        "Type": "Divergent",
+        "Corrupted": true,
+        "Vaal": true,
+        "canVaal": true,
+        "Price": 4109,
+        "Meta": 0.1,
+        "Listings": 1,
+        "lowConfidence": true,
+        "maxLevel": 20
+      },
+      "chance": 0.08333333333333333,
+      "outcomes": ["Add level / Vaal"]
+    },
+    {
+      "gem": {
+        "original": {
+          "name": "Divergent Spark",
+          "variant": "21/23c",
+          "chaosValue": 1684.77,
+          "gemLevel": 21,
+          "gemQuality": 23,
+          "corrupted": true,
+          "listingCount": 3,
+          "sparkline": { "data": [], "totalChange": 0 }
+        },
+        "baseName": "Spark",
+        "variant": "21/23c",
+        "Name": "Divergent Spark",
+        "Level": 21,
+        "Quality": 23,
+        "Type": "Divergent",
+        "Corrupted": true,
+        "Vaal": false,
+        "canVaal": true,
+        "Price": 1685,
+        "Meta": 0.8,
+        "Listings": 3,
+        "lowConfidence": true,
+        "maxLevel": 20
+      },
+      "chance": 0.03750000000000001,
+      "outcomes": ["Add level / Add quality"]
+    },
+    {
+      "gem": {
+        "original": {
+          "name": "Divergent Spark",
+          "variant": "21/20c",
+          "chaosValue": 924.57,
+          "gemLevel": 21,
+          "gemQuality": 20,
+          "corrupted": true,
+          "listingCount": 16,
+          "sparkline": {
+            "data": [0, 56.93, 19.14, 16.36, 18.45, 22.12, 41.83],
+            "totalChange": 41.83
+          }
+        },
+        "baseName": "Spark",
+        "variant": "21/20c",
+        "Name": "Divergent Spark",
+        "Level": 21,
+        "Quality": 20,
+        "Type": "Divergent",
+        "Corrupted": true,
+        "Vaal": false,
+        "canVaal": true,
+        "Price": 925,
+        "Meta": 0.8,
+        "Listings": 16,
+        "lowConfidence": false,
+        "maxLevel": 20
+      },
+      "chance": 0.08749999999999998,
+      "outcomes": ["Add level"]
+    },
+    {
+      "gem": {
+        "original": {
+          "name": "Divergent Vaal Spark",
+          "variant": "20/23c",
+          "chaosValue": 58,
+          "gemLevel": 20,
+          "gemQuality": 23,
+          "corrupted": true,
+          "listingCount": 4,
+          "sparkline": { "data": [null, null, null, null, null, 0, null], "totalChange": 0 }
+        },
+        "baseName": "Spark",
+        "variant": "20/23c",
+        "Name": "Divergent Vaal Spark",
+        "Level": 20,
+        "Quality": 23,
+        "Type": "Divergent",
+        "Corrupted": true,
+        "Vaal": true,
+        "canVaal": true,
+        "Price": 58,
+        "Meta": 0.1,
+        "XP": 342051651,
+        "Listings": 4,
+        "lowConfidence": true,
+        "maxLevel": 20
+      },
+      "chance": 0.07500000000000002,
+      "outcomes": ["Add quality / Vaal"]
+    },
+    {
+      "gem": {
+        "original": {
+          "name": "Divergent Vaal Spark",
+          "variant": "20/20c",
+          "chaosValue": 10,
+          "gemLevel": 20,
+          "gemQuality": 20,
+          "corrupted": true,
+          "listingCount": 214,
+          "sparkline": { "data": [0, -24.5, -25, -50, -50, -50, -50], "totalChange": -50 }
+        },
+        "baseName": "Spark",
+        "variant": "20/20c",
+        "Name": "Divergent Vaal Spark",
+        "Level": 20,
+        "Quality": 20,
+        "Type": "Divergent",
+        "Corrupted": true,
+        "Vaal": true,
+        "canVaal": true,
+        "Price": 10,
+        "Meta": 0.1,
+        "XP": 342051651,
+        "Listings": 214,
+        "lowConfidence": true,
+        "maxLevel": 20
+      },
+      "chance": 0.17499999999999996,
+      "outcomes": ["Vaal"]
+    },
+    {
+      "gem": {
+        "original": {
+          "name": "Divergent Spark",
+          "variant": "20/23c",
+          "chaosValue": 30,
+          "gemLevel": 20,
+          "gemQuality": 23,
+          "corrupted": true,
+          "listingCount": 52,
+          "sparkline": {
+            "data": [0, -9.09, -31.82, -31.82, -37.27, -31.82, -31.82],
+            "totalChange": -31.82
+          }
+        },
+        "baseName": "Spark",
+        "variant": "20/23c",
+        "Name": "Divergent Spark",
+        "Level": 20,
+        "Quality": 23,
+        "Type": "Divergent",
+        "Corrupted": true,
+        "Vaal": false,
+        "canVaal": true,
+        "Price": 30,
+        "Meta": 0.8,
+        "XP": 342051651,
+        "Listings": 52,
+        "lowConfidence": false,
+        "maxLevel": 20
+      },
+      "chance": 0.07500000000000002,
+      "outcomes": ["Add quality"]
+    },
+    {
+      "gem": {
+        "original": {
+          "name": "Divergent Spark",
+          "variant": "20/20c",
+          "chaosValue": 20,
+          "gemLevel": 20,
+          "gemQuality": 20,
+          "corrupted": true,
+          "listingCount": 177,
+          "sparkline": {
+            "data": [0, -15.01, -37.4, -47.07, -49.11, -49.11, -49.11],
+            "totalChange": -49.11
+          }
+        },
+        "baseName": "Spark",
+        "variant": "20/20c",
+        "Name": "Divergent Spark",
+        "Level": 20,
+        "Quality": 20,
+        "Type": "Divergent",
+        "Corrupted": true,
+        "Vaal": false,
+        "canVaal": true,
+        "Price": 20,
+        "Meta": 0.8,
+        "XP": 342051651,
+        "Listings": 177,
+        "lowConfidence": false,
+        "maxLevel": 20
+      },
+      "chance": 0.008333333333333333,
+      "outcomes": ["Add quality"]
+    },
+    {
+      "gem": {
+        "original": {
+          "name": "Divergent Spark",
+          "variant": "20c",
+          "chaosValue": 13,
+          "gemLevel": 20,
+          "corrupted": true,
+          "listingCount": 107,
+          "sparkline": { "data": [0, -2.6, -2.6, -2.6, -2.6, -3.9, -15.58], "totalChange": -15.58 }
+        },
+        "baseName": "Spark",
+        "variant": "20/0c",
+        "Name": "Divergent Spark",
+        "Level": 20,
+        "Quality": 0,
+        "Type": "Divergent",
+        "Corrupted": true,
+        "Vaal": false,
+        "canVaal": true,
+        "Price": 13,
+        "Meta": 0.8,
+        "XP": 342051651,
+        "Listings": 107,
+        "lowConfidence": false,
+        "maxLevel": 20
+      },
+      "chance": 0.20833333333333307,
+      "outcomes": ["Remove quality"]
+    },
+    {
+      "gem": {
+        "original": {
+          "name": "Divergent Spark",
+          "variant": "20/20",
+          "chaosValue": 97,
+          "gemLevel": 20,
+          "gemQuality": 20,
+          "listingCount": 30,
+          "sparkline": { "data": [0, 63.09, 48.34, 24, -0.2, -5.4, -3], "totalChange": -3 }
+        },
+        "baseName": "Spark",
+        "variant": "19/20c",
+        "Name": "Divergent Vaal Spark",
+        "Level": 19,
+        "Quality": 20,
+        "Type": "Divergent",
+        "Corrupted": true,
+        "Vaal": true,
+        "canVaal": true,
+        "Price": 0,
+        "Meta": 0.8,
+        "XP": 342051651,
+        "Listings": 0,
+        "lowConfidence": true,
+        "maxLevel": 20
+      },
+      "chance": 0.08333333333333333,
+      "outcomes": ["Remove level / Vaal"]
+    },
+    {
+      "gem": {
+        "original": {
+          "name": "Divergent Spark",
+          "variant": "20/20",
+          "chaosValue": 97,
+          "gemLevel": 20,
+          "gemQuality": 20,
+          "listingCount": 30,
+          "sparkline": { "data": [0, 63.09, 48.34, 24, -0.2, -5.4, -3], "totalChange": -3 }
+        },
+        "baseName": "Spark",
+        "variant": "19/21c",
+        "Name": "Divergent Spark",
+        "Level": 19,
+        "Quality": 21,
+        "Type": "Divergent",
+        "Corrupted": true,
+        "Vaal": false,
+        "canVaal": true,
+        "Price": 0,
+        "Meta": 0.8,
+        "XP": 342051651,
+        "Listings": 0,
+        "lowConfidence": true,
+        "maxLevel": 20
+      },
+      "chance": 0.04166666666666669,
+      "outcomes": ["Add quality / Remove level"]
+    },
+    {
+      "gem": {
+        "original": {
+          "name": "Divergent Spark",
+          "variant": "20/20",
+          "chaosValue": 97,
+          "gemLevel": 20,
+          "gemQuality": 20,
+          "listingCount": 30,
+          "sparkline": { "data": [0, 63.09, 48.34, 24, -0.2, -5.4, -3], "totalChange": -3 }
+        },
+        "baseName": "Spark",
+        "variant": "19/20c",
+        "Name": "Divergent Spark",
+        "Level": 19,
+        "Quality": 20,
+        "Type": "Divergent",
+        "Corrupted": true,
+        "Vaal": false,
+        "canVaal": true,
+        "Price": 0,
+        "Meta": 0.8,
+        "XP": 342051651,
+        "Listings": 0,
+        "lowConfidence": true,
+        "maxLevel": 20
+      },
+      "chance": 0.08333333333333333,
+      "outcomes": ["Remove level"]
+    },
+    {
+      "gem": {
+        "original": {
+          "name": "Divergent Spark",
+          "variant": "20/20",
+          "chaosValue": 97,
+          "gemLevel": 20,
+          "gemQuality": 20,
+          "listingCount": 30,
+          "sparkline": { "data": [0, 63.09, 48.34, 24, -0.2, -5.4, -3], "totalChange": -3 }
+        },
+        "baseName": "Spark",
+        "variant": "19/0c",
+        "Name": "Divergent Spark",
+        "Level": 19,
+        "Quality": 0,
+        "Type": "Divergent",
+        "Corrupted": true,
+        "Vaal": false,
+        "canVaal": true,
+        "Price": 0,
+        "Meta": 0.8,
+        "XP": 342051651,
+        "Listings": 0,
+        "lowConfidence": true,
+        "maxLevel": 20
+      },
+      "chance": 0.04166666666666669,
+      "outcomes": ["Remove level / Remove quality"]
+    }
+  ],
+  "templeValue": 400.76666666666665,
+  "Pinned": false,
+  "graph": {
+    "gem": {
+      "original": {
+        "name": "Divergent Spark",
+        "variant": "20/20",
+        "chaosValue": 97,
+        "gemLevel": 20,
+        "gemQuality": 20,
+        "listingCount": 30,
+        "sparkline": { "data": [0, 63.09, 48.34, 24, -0.2, -5.4, -3], "totalChange": -3 }
+      },
+      "Name": "Divergent Spark",
+      "baseName": "Spark",
+      "variant": "20/20",
+      "Level": 20,
+      "XP": 342051651,
+      "Quality": 20,
+      "Corrupted": false,
+      "Vaal": false,
+      "Type": "Divergent",
+      "Price": 97,
+      "Meta": 0.8,
+      "Listings": 30,
+      "maxLevel": 20,
+      "lowConfidence": false,
+      "canVaal": true,
+      "gcpData": [],
+      "gcpValue": 0,
+      "xpData": [],
+      "xpValue": 0,
+      "regrData": [
+        {
+          "chance": 0.2,
+          "outcomes": ["Superior"],
+          "gem": {
+            "original": {
+              "name": "Spark",
+              "variant": "20/20",
+              "chaosValue": 10,
+              "gemLevel": 20,
+              "gemQuality": 20,
+              "listingCount": 84,
+              "sparkline": { "data": [0, 0, 0, 0, 0, 0, 0], "totalChange": 0 }
+            },
+            "baseName": "Spark",
+            "variant": "20/20",
+            "Name": "Spark",
+            "Level": 20,
+            "Quality": 20,
+            "Type": "Superior",
+            "Corrupted": false,
+            "Vaal": false,
+            "canVaal": true,
+            "Price": 10,
+            "Meta": 2.1,
+            "XP": 342051651,
+            "Listings": 84,
+            "lowConfidence": false,
+            "maxLevel": 20
+          }
+        },
+        {
+          "chance": 0.4,
+          "outcomes": ["Anomalous"],
+          "gem": {
+            "original": {
+              "name": "Anomalous Spark",
+              "variant": "20/20",
+              "chaosValue": 32,
+              "gemLevel": 20,
+              "gemQuality": 20,
+              "listingCount": 9,
+              "sparkline": { "data": [0, 0, 17, 0, 13.33, 0, 6.67], "totalChange": 6.67 }
+            },
+            "baseName": "Spark",
+            "variant": "20/20",
+            "Name": "Anomalous Spark",
+            "Level": 20,
+            "Quality": 20,
+            "Type": "Anomalous",
+            "Corrupted": false,
+            "Vaal": false,
+            "canVaal": true,
+            "Price": 0,
+            "Meta": 0,
+            "XP": 342051651,
+            "Listings": 0,
+            "lowConfidence": true,
+            "maxLevel": 20
+          }
+        },
+        {
+          "chance": 0.4,
+          "outcomes": ["Phantasmal"],
+          "gem": {
+            "original": {
+              "name": "Phantasmal Spark",
+              "variant": "20/20",
+              "chaosValue": 60,
+              "gemLevel": 20,
+              "gemQuality": 20,
+              "listingCount": 44,
+              "sparkline": {
+                "data": [0, 1.53, 1.79, 78.57, 76.02, 60.71, 53.06],
+                "totalChange": 53.06
+              }
+            },
+            "baseName": "Spark",
+            "variant": "20/20",
+            "Name": "Phantasmal Spark",
+            "Level": 20,
+            "Quality": 20,
+            "Type": "Phantasmal",
+            "Corrupted": false,
+            "Vaal": false,
+            "canVaal": true,
+            "Price": 60,
+            "Meta": 0.3,
+            "XP": 342051651,
+            "Listings": 44,
+            "lowConfidence": false,
+            "maxLevel": 20
+          }
+        }
+      ],
+      "regrValue": -71,
+      "vaalValue": 30.995,
+      "vaalData": [
+        {
+          "gem": {
+            "original": {
+              "name": "Divergent Spark",
+              "variant": "20/20c",
+              "chaosValue": 20,
+              "gemLevel": 20,
+              "gemQuality": 20,
+              "corrupted": true,
+              "listingCount": 177,
+              "sparkline": {
+                "data": [0, -15.01, -37.4, -47.07, -49.11, -49.11, -49.11],
+                "totalChange": -49.11
+              }
+            },
+            "baseName": "Spark",
+            "variant": "20/20c",
+            "Name": "Divergent Spark",
+            "Level": 20,
+            "Quality": 20,
+            "Type": "Divergent",
+            "Corrupted": true,
+            "Vaal": false,
+            "canVaal": true,
+            "Price": 20,
+            "Meta": 0.8,
+            "XP": 342051651,
+            "Listings": 177,
+            "lowConfidence": false,
+            "maxLevel": 20
+          },
+          "chance": 0.25,
+          "outcomes": ["No effect"]
+        },
+        {
+          "gem": {
+            "original": {
+              "name": "Divergent Vaal Spark",
+              "variant": "20/20c",
+              "chaosValue": 10,
+              "gemLevel": 20,
+              "gemQuality": 20,
+              "corrupted": true,
+              "listingCount": 214,
+              "sparkline": { "data": [0, -24.5, -25, -50, -50, -50, -50], "totalChange": -50 }
+            },
+            "baseName": "Spark",
+            "variant": "20/20c",
+            "Name": "Divergent Vaal Spark",
+            "Level": 20,
+            "Quality": 20,
+            "Type": "Divergent",
+            "Corrupted": true,
+            "Vaal": true,
+            "canVaal": true,
+            "Price": 10,
+            "Meta": 0.1,
+            "XP": 342051651,
+            "Listings": 214,
+            "lowConfidence": true,
+            "maxLevel": 20
+          },
+          "chance": 0.25,
+          "outcomes": ["Vaal"]
+        },
+        {
+          "gem": {
+            "original": {
+              "name": "Divergent Spark",
+              "variant": "21/20c",
+              "chaosValue": 924.57,
+              "gemLevel": 21,
+              "gemQuality": 20,
+              "corrupted": true,
+              "listingCount": 16,
+              "sparkline": {
+                "data": [0, 56.93, 19.14, 16.36, 18.45, 22.12, 41.83],
+                "totalChange": 41.83
+              }
+            },
+            "baseName": "Spark",
+            "variant": "21/20c",
+            "Name": "Divergent Spark",
+            "Level": 21,
+            "Quality": 20,
+            "Type": "Divergent",
+            "Corrupted": true,
+            "Vaal": false,
+            "canVaal": true,
+            "Price": 925,
+            "Meta": 0.8,
+            "Listings": 16,
+            "lowConfidence": false,
+            "maxLevel": 20
+          },
+          "chance": 0.125,
+          "outcomes": ["Add level"]
+        },
+        {
+          "gem": {
+            "original": {
+              "name": "Divergent Spark",
+              "variant": "20/20",
+              "chaosValue": 97,
+              "gemLevel": 20,
+              "gemQuality": 20,
+              "listingCount": 30,
+              "sparkline": { "data": [0, 63.09, 48.34, 24, -0.2, -5.4, -3], "totalChange": -3 }
+            },
+            "baseName": "Spark",
+            "variant": "19/20c",
+            "Name": "Divergent Spark",
+            "Level": 19,
+            "Quality": 20,
+            "Type": "Divergent",
+            "Corrupted": true,
+            "Vaal": false,
+            "canVaal": true,
+            "Price": 0,
+            "Meta": 0.8,
+            "XP": 342051651,
+            "Listings": 0,
+            "lowConfidence": true,
+            "maxLevel": 20
+          },
+          "chance": 0.125,
+          "outcomes": ["Remove level"]
+        },
+        {
+          "gem": {
+            "original": {
+              "name": "Divergent Spark",
+              "variant": "20/23c",
+              "chaosValue": 30,
+              "gemLevel": 20,
+              "gemQuality": 23,
+              "corrupted": true,
+              "listingCount": 52,
+              "sparkline": {
+                "data": [0, -9.09, -31.82, -31.82, -37.27, -31.82, -31.82],
+                "totalChange": -31.82
+              }
+            },
+            "baseName": "Spark",
+            "variant": "20/23c",
+            "Name": "Divergent Spark",
+            "Level": 20,
+            "Quality": 23,
+            "Type": "Divergent",
+            "Corrupted": true,
+            "Vaal": false,
+            "canVaal": true,
+            "Price": 30,
+            "Meta": 0.8,
+            "XP": 342051651,
+            "Listings": 52,
+            "lowConfidence": false,
+            "maxLevel": 20
+          },
+          "chance": 0.11250000000000003,
+          "outcomes": ["Add quality"]
+        },
+        {
+          "gem": {
+            "original": {
+              "name": "Divergent Spark",
+              "variant": "20/20c",
+              "chaosValue": 20,
+              "gemLevel": 20,
+              "gemQuality": 20,
+              "corrupted": true,
+              "listingCount": 177,
+              "sparkline": {
+                "data": [0, -15.01, -37.4, -47.07, -49.11, -49.11, -49.11],
+                "totalChange": -49.11
+              }
+            },
+            "baseName": "Spark",
+            "variant": "20/20c",
+            "Name": "Divergent Spark",
+            "Level": 20,
+            "Quality": 20,
+            "Type": "Divergent",
+            "Corrupted": true,
+            "Vaal": false,
+            "canVaal": true,
+            "Price": 20,
+            "Meta": 0.8,
+            "XP": 342051651,
+            "Listings": 177,
+            "lowConfidence": false,
+            "maxLevel": 20
+          },
+          "chance": 0.0125,
+          "outcomes": ["Add quality"]
+        },
+        {
+          "gem": {
+            "original": {
+              "name": "Divergent Spark",
+              "variant": "20c",
+              "chaosValue": 13,
+              "gemLevel": 20,
+              "corrupted": true,
+              "listingCount": 107,
+              "sparkline": {
+                "data": [0, -2.6, -2.6, -2.6, -2.6, -3.9, -15.58],
+                "totalChange": -15.58
+              }
+            },
+            "baseName": "Spark",
+            "variant": "20/0c",
+            "Name": "Divergent Spark",
+            "Level": 20,
+            "Quality": 0,
+            "Type": "Divergent",
+            "Corrupted": true,
+            "Vaal": false,
+            "canVaal": true,
+            "Price": 13,
+            "Meta": 0.8,
+            "XP": 342051651,
+            "Listings": 107,
+            "lowConfidence": false,
+            "maxLevel": 20
+          },
+          "chance": 0.12500000000000003,
+          "outcomes": ["Remove quality"]
+        }
+      ],
+      "templeData": [
+        {
+          "gem": {
+            "original": {
+              "name": "Divergent Vaal Spark",
+              "variant": "21/20c",
+              "chaosValue": 4109.2,
+              "gemLevel": 21,
+              "gemQuality": 20,
+              "corrupted": true,
+              "listingCount": 1,
+              "sparkline": { "data": [], "totalChange": 0 }
+            },
+            "baseName": "Spark",
+            "variant": "21/20c",
+            "Name": "Divergent Vaal Spark",
+            "Level": 21,
+            "Quality": 20,
+            "Type": "Divergent",
+            "Corrupted": true,
+            "Vaal": true,
+            "canVaal": true,
+            "Price": 4109,
+            "Meta": 0.1,
+            "Listings": 1,
+            "lowConfidence": true,
+            "maxLevel": 20
+          },
+          "chance": 0.08333333333333333,
+          "outcomes": ["Add level / Vaal"]
+        },
+        {
+          "gem": {
+            "original": {
+              "name": "Divergent Spark",
+              "variant": "21/23c",
+              "chaosValue": 1684.77,
+              "gemLevel": 21,
+              "gemQuality": 23,
+              "corrupted": true,
+              "listingCount": 3,
+              "sparkline": { "data": [], "totalChange": 0 }
+            },
+            "baseName": "Spark",
+            "variant": "21/23c",
+            "Name": "Divergent Spark",
+            "Level": 21,
+            "Quality": 23,
+            "Type": "Divergent",
+            "Corrupted": true,
+            "Vaal": false,
+            "canVaal": true,
+            "Price": 1685,
+            "Meta": 0.8,
+            "Listings": 3,
+            "lowConfidence": true,
+            "maxLevel": 20
+          },
+          "chance": 0.03750000000000001,
+          "outcomes": ["Add level / Add quality"]
+        },
+        {
+          "gem": {
+            "original": {
+              "name": "Divergent Spark",
+              "variant": "21/20c",
+              "chaosValue": 924.57,
+              "gemLevel": 21,
+              "gemQuality": 20,
+              "corrupted": true,
+              "listingCount": 16,
+              "sparkline": {
+                "data": [0, 56.93, 19.14, 16.36, 18.45, 22.12, 41.83],
+                "totalChange": 41.83
+              }
+            },
+            "baseName": "Spark",
+            "variant": "21/20c",
+            "Name": "Divergent Spark",
+            "Level": 21,
+            "Quality": 20,
+            "Type": "Divergent",
+            "Corrupted": true,
+            "Vaal": false,
+            "canVaal": true,
+            "Price": 925,
+            "Meta": 0.8,
+            "Listings": 16,
+            "lowConfidence": false,
+            "maxLevel": 20
+          },
+          "chance": 0.08749999999999998,
+          "outcomes": ["Add level"]
+        },
+        {
+          "gem": {
+            "original": {
+              "name": "Divergent Vaal Spark",
+              "variant": "20/23c",
+              "chaosValue": 58,
+              "gemLevel": 20,
+              "gemQuality": 23,
+              "corrupted": true,
+              "listingCount": 4,
+              "sparkline": { "data": [null, null, null, null, null, 0, null], "totalChange": 0 }
+            },
+            "baseName": "Spark",
+            "variant": "20/23c",
+            "Name": "Divergent Vaal Spark",
+            "Level": 20,
+            "Quality": 23,
+            "Type": "Divergent",
+            "Corrupted": true,
+            "Vaal": true,
+            "canVaal": true,
+            "Price": 58,
+            "Meta": 0.1,
+            "XP": 342051651,
+            "Listings": 4,
+            "lowConfidence": true,
+            "maxLevel": 20
+          },
+          "chance": 0.07500000000000002,
+          "outcomes": ["Add quality / Vaal"]
+        },
+        {
+          "gem": {
+            "original": {
+              "name": "Divergent Vaal Spark",
+              "variant": "20/20c",
+              "chaosValue": 10,
+              "gemLevel": 20,
+              "gemQuality": 20,
+              "corrupted": true,
+              "listingCount": 214,
+              "sparkline": { "data": [0, -24.5, -25, -50, -50, -50, -50], "totalChange": -50 }
+            },
+            "baseName": "Spark",
+            "variant": "20/20c",
+            "Name": "Divergent Vaal Spark",
+            "Level": 20,
+            "Quality": 20,
+            "Type": "Divergent",
+            "Corrupted": true,
+            "Vaal": true,
+            "canVaal": true,
+            "Price": 10,
+            "Meta": 0.1,
+            "XP": 342051651,
+            "Listings": 214,
+            "lowConfidence": true,
+            "maxLevel": 20
+          },
+          "chance": 0.17499999999999996,
+          "outcomes": ["Vaal"]
+        },
+        {
+          "gem": {
+            "original": {
+              "name": "Divergent Spark",
+              "variant": "20/23c",
+              "chaosValue": 30,
+              "gemLevel": 20,
+              "gemQuality": 23,
+              "corrupted": true,
+              "listingCount": 52,
+              "sparkline": {
+                "data": [0, -9.09, -31.82, -31.82, -37.27, -31.82, -31.82],
+                "totalChange": -31.82
+              }
+            },
+            "baseName": "Spark",
+            "variant": "20/23c",
+            "Name": "Divergent Spark",
+            "Level": 20,
+            "Quality": 23,
+            "Type": "Divergent",
+            "Corrupted": true,
+            "Vaal": false,
+            "canVaal": true,
+            "Price": 30,
+            "Meta": 0.8,
+            "XP": 342051651,
+            "Listings": 52,
+            "lowConfidence": false,
+            "maxLevel": 20
+          },
+          "chance": 0.07500000000000002,
+          "outcomes": ["Add quality"]
+        },
+        {
+          "gem": {
+            "original": {
+              "name": "Divergent Spark",
+              "variant": "20/20c",
+              "chaosValue": 20,
+              "gemLevel": 20,
+              "gemQuality": 20,
+              "corrupted": true,
+              "listingCount": 177,
+              "sparkline": {
+                "data": [0, -15.01, -37.4, -47.07, -49.11, -49.11, -49.11],
+                "totalChange": -49.11
+              }
+            },
+            "baseName": "Spark",
+            "variant": "20/20c",
+            "Name": "Divergent Spark",
+            "Level": 20,
+            "Quality": 20,
+            "Type": "Divergent",
+            "Corrupted": true,
+            "Vaal": false,
+            "canVaal": true,
+            "Price": 20,
+            "Meta": 0.8,
+            "XP": 342051651,
+            "Listings": 177,
+            "lowConfidence": false,
+            "maxLevel": 20
+          },
+          "chance": 0.008333333333333333,
+          "outcomes": ["Add quality"]
+        },
+        {
+          "gem": {
+            "original": {
+              "name": "Divergent Spark",
+              "variant": "20c",
+              "chaosValue": 13,
+              "gemLevel": 20,
+              "corrupted": true,
+              "listingCount": 107,
+              "sparkline": {
+                "data": [0, -2.6, -2.6, -2.6, -2.6, -3.9, -15.58],
+                "totalChange": -15.58
+              }
+            },
+            "baseName": "Spark",
+            "variant": "20/0c",
+            "Name": "Divergent Spark",
+            "Level": 20,
+            "Quality": 0,
+            "Type": "Divergent",
+            "Corrupted": true,
+            "Vaal": false,
+            "canVaal": true,
+            "Price": 13,
+            "Meta": 0.8,
+            "XP": 342051651,
+            "Listings": 107,
+            "lowConfidence": false,
+            "maxLevel": 20
+          },
+          "chance": 0.20833333333333307,
+          "outcomes": ["Remove quality"]
+        },
+        {
+          "gem": {
+            "original": {
+              "name": "Divergent Spark",
+              "variant": "20/20",
+              "chaosValue": 97,
+              "gemLevel": 20,
+              "gemQuality": 20,
+              "listingCount": 30,
+              "sparkline": { "data": [0, 63.09, 48.34, 24, -0.2, -5.4, -3], "totalChange": -3 }
+            },
+            "baseName": "Spark",
+            "variant": "19/20c",
+            "Name": "Divergent Vaal Spark",
+            "Level": 19,
+            "Quality": 20,
+            "Type": "Divergent",
+            "Corrupted": true,
+            "Vaal": true,
+            "canVaal": true,
+            "Price": 0,
+            "Meta": 0.8,
+            "XP": 342051651,
+            "Listings": 0,
+            "lowConfidence": true,
+            "maxLevel": 20
+          },
+          "chance": 0.08333333333333333,
+          "outcomes": ["Remove level / Vaal"]
+        },
+        {
+          "gem": {
+            "original": {
+              "name": "Divergent Spark",
+              "variant": "20/20",
+              "chaosValue": 97,
+              "gemLevel": 20,
+              "gemQuality": 20,
+              "listingCount": 30,
+              "sparkline": { "data": [0, 63.09, 48.34, 24, -0.2, -5.4, -3], "totalChange": -3 }
+            },
+            "baseName": "Spark",
+            "variant": "19/21c",
+            "Name": "Divergent Spark",
+            "Level": 19,
+            "Quality": 21,
+            "Type": "Divergent",
+            "Corrupted": true,
+            "Vaal": false,
+            "canVaal": true,
+            "Price": 0,
+            "Meta": 0.8,
+            "XP": 342051651,
+            "Listings": 0,
+            "lowConfidence": true,
+            "maxLevel": 20
+          },
+          "chance": 0.04166666666666669,
+          "outcomes": ["Add quality / Remove level"]
+        },
+        {
+          "gem": {
+            "original": {
+              "name": "Divergent Spark",
+              "variant": "20/20",
+              "chaosValue": 97,
+              "gemLevel": 20,
+              "gemQuality": 20,
+              "listingCount": 30,
+              "sparkline": { "data": [0, 63.09, 48.34, 24, -0.2, -5.4, -3], "totalChange": -3 }
+            },
+            "baseName": "Spark",
+            "variant": "19/20c",
+            "Name": "Divergent Spark",
+            "Level": 19,
+            "Quality": 20,
+            "Type": "Divergent",
+            "Corrupted": true,
+            "Vaal": false,
+            "canVaal": true,
+            "Price": 0,
+            "Meta": 0.8,
+            "XP": 342051651,
+            "Listings": 0,
+            "lowConfidence": true,
+            "maxLevel": 20
+          },
+          "chance": 0.08333333333333333,
+          "outcomes": ["Remove level"]
+        },
+        {
+          "gem": {
+            "original": {
+              "name": "Divergent Spark",
+              "variant": "20/20",
+              "chaosValue": 97,
+              "gemLevel": 20,
+              "gemQuality": 20,
+              "listingCount": 30,
+              "sparkline": { "data": [0, 63.09, 48.34, 24, -0.2, -5.4, -3], "totalChange": -3 }
+            },
+            "baseName": "Spark",
+            "variant": "19/0c",
+            "Name": "Divergent Spark",
+            "Level": 19,
+            "Quality": 0,
+            "Type": "Divergent",
+            "Corrupted": true,
+            "Vaal": false,
+            "canVaal": true,
+            "Price": 0,
+            "Meta": 0.8,
+            "XP": 342051651,
+            "Listings": 0,
+            "lowConfidence": true,
+            "maxLevel": 20
+          },
+          "chance": 0.04166666666666669,
+          "outcomes": ["Remove level / Remove quality"]
+        }
+      ],
+      "templeValue": 400.76666666666665
+    },
+    "expectedValue": 310.76666666666665,
+    "children": [
+      {
+        "name": "Add level / Vaal",
+        "probability": 0.08333333333333333,
+        "node": {
+          "gem": {
+            "original": {
+              "name": "Divergent Vaal Spark",
+              "variant": "21/20c",
+              "chaosValue": 4109.2,
+              "gemLevel": 21,
+              "gemQuality": 20,
+              "corrupted": true,
+              "listingCount": 1,
+              "sparkline": { "data": [], "totalChange": 0 }
+            },
+            "Name": "Divergent Vaal Spark",
+            "baseName": "Spark",
+            "variant": "21/20c",
+            "Level": 21,
+            "Quality": 20,
+            "Corrupted": true,
+            "Vaal": true,
+            "Type": "Divergent",
+            "Price": 4109,
+            "Meta": 0.1,
+            "Listings": 1,
+            "maxLevel": 20,
+            "lowConfidence": true,
+            "canVaal": true,
+            "regrValue": 0,
+            "vaalValue": 0,
+            "templeValue": 0
+          },
+          "expectedValue": 4109,
+          "children": [{ "name": "Sell", "probability": 1 }]
+        }
+      },
+      {
+        "name": "Add level / Add quality",
+        "probability": 0.03750000000000001,
+        "node": {
+          "gem": {
+            "original": {
+              "name": "Divergent Spark",
+              "variant": "21/23c",
+              "chaosValue": 1684.77,
+              "gemLevel": 21,
+              "gemQuality": 23,
+              "corrupted": true,
+              "listingCount": 3,
+              "sparkline": { "data": [], "totalChange": 0 }
+            },
+            "Name": "Divergent Spark",
+            "baseName": "Spark",
+            "variant": "21/23c",
+            "Level": 21,
+            "Quality": 23,
+            "Corrupted": true,
+            "Vaal": false,
+            "Type": "Divergent",
+            "Price": 1685,
+            "Meta": 0.8,
+            "Listings": 3,
+            "maxLevel": 20,
+            "lowConfidence": true,
+            "canVaal": true,
+            "regrValue": 0,
+            "vaalValue": 0,
+            "templeValue": 0
+          },
+          "expectedValue": 1685,
+          "children": [{ "name": "Sell", "probability": 1 }]
+        }
+      },
+      {
+        "name": "Add level",
+        "probability": 0.08749999999999998,
+        "node": {
+          "gem": {
+            "original": {
+              "name": "Divergent Spark",
+              "variant": "21/20c",
+              "chaosValue": 924.57,
+              "gemLevel": 21,
+              "gemQuality": 20,
+              "corrupted": true,
+              "listingCount": 16,
+              "sparkline": {
+                "data": [0, 56.93, 19.14, 16.36, 18.45, 22.12, 41.83],
+                "totalChange": 41.83
+              }
+            },
+            "Name": "Divergent Spark",
+            "baseName": "Spark",
+            "variant": "21/20c",
+            "Level": 21,
+            "Quality": 20,
+            "Corrupted": true,
+            "Vaal": false,
+            "Type": "Divergent",
+            "Price": 925,
+            "Meta": 0.8,
+            "Listings": 16,
+            "maxLevel": 20,
+            "lowConfidence": false,
+            "canVaal": true,
+            "regrValue": 0,
+            "vaalValue": 0,
+            "templeValue": 0
+          },
+          "expectedValue": 925,
+          "children": [{ "name": "Sell", "probability": 1 }]
+        }
+      },
+      {
+        "name": "Add quality / Vaal",
+        "probability": 0.07500000000000002,
+        "node": {
+          "gem": {
+            "original": {
+              "name": "Divergent Vaal Spark",
+              "variant": "20/23c",
+              "chaosValue": 58,
+              "gemLevel": 20,
+              "gemQuality": 23,
+              "corrupted": true,
+              "listingCount": 4,
+              "sparkline": { "data": [null, null, null, null, null, 0, null], "totalChange": 0 }
+            },
+            "Name": "Divergent Vaal Spark",
+            "baseName": "Spark",
+            "variant": "20/23c",
+            "Level": 20,
+            "XP": 342051651,
+            "Quality": 23,
+            "Corrupted": true,
+            "Vaal": true,
+            "Type": "Divergent",
+            "Price": 58,
+            "Meta": 0.1,
+            "Listings": 4,
+            "maxLevel": 20,
+            "lowConfidence": true,
+            "canVaal": true,
+            "xpData": [],
+            "xpValue": 0,
+            "regrValue": 0,
+            "vaalValue": 0,
+            "templeValue": 0
+          },
+          "expectedValue": 58,
+          "children": [{ "name": "Sell", "probability": 1 }]
+        }
+      },
+      {
+        "name": "Vaal",
+        "probability": 0.17499999999999996,
+        "node": {
+          "gem": {
+            "original": {
+              "name": "Divergent Vaal Spark",
+              "variant": "20/20c",
+              "chaosValue": 10,
+              "gemLevel": 20,
+              "gemQuality": 20,
+              "corrupted": true,
+              "listingCount": 214,
+              "sparkline": { "data": [0, -24.5, -25, -50, -50, -50, -50], "totalChange": -50 }
+            },
+            "Name": "Divergent Vaal Spark",
+            "baseName": "Spark",
+            "variant": "20/20c",
+            "Level": 20,
+            "XP": 342051651,
+            "Quality": 20,
+            "Corrupted": true,
+            "Vaal": true,
+            "Type": "Divergent",
+            "Price": 10,
+            "Meta": 0.1,
+            "Listings": 214,
+            "maxLevel": 20,
+            "lowConfidence": true,
+            "canVaal": true,
+            "xpData": [],
+            "xpValue": 0,
+            "regrValue": 0,
+            "vaalValue": 0,
+            "templeValue": 0
+          },
+          "expectedValue": 10,
+          "children": [{ "name": "Sell", "probability": 1 }]
+        }
+      },
+      {
+        "name": "Add quality",
+        "probability": 0.07500000000000002,
+        "node": {
+          "gem": {
+            "original": {
+              "name": "Divergent Spark",
+              "variant": "20/23c",
+              "chaosValue": 30,
+              "gemLevel": 20,
+              "gemQuality": 23,
+              "corrupted": true,
+              "listingCount": 52,
+              "sparkline": {
+                "data": [0, -9.09, -31.82, -31.82, -37.27, -31.82, -31.82],
+                "totalChange": -31.82
+              }
+            },
+            "Name": "Divergent Spark",
+            "baseName": "Spark",
+            "variant": "20/23c",
+            "Level": 20,
+            "XP": 342051651,
+            "Quality": 23,
+            "Corrupted": true,
+            "Vaal": false,
+            "Type": "Divergent",
+            "Price": 30,
+            "Meta": 0.8,
+            "Listings": 52,
+            "maxLevel": 20,
+            "lowConfidence": false,
+            "canVaal": true,
+            "xpData": [],
+            "xpValue": 0,
+            "regrValue": 0,
+            "vaalValue": 0,
+            "templeValue": 0
+          },
+          "expectedValue": 30,
+          "children": [{ "name": "Sell", "probability": 1 }]
+        }
+      },
+      {
+        "name": "Add quality",
+        "probability": 0.008333333333333333,
+        "node": {
+          "gem": {
+            "original": {
+              "name": "Divergent Spark",
+              "variant": "20/20c",
+              "chaosValue": 20,
+              "gemLevel": 20,
+              "gemQuality": 20,
+              "corrupted": true,
+              "listingCount": 177,
+              "sparkline": {
+                "data": [0, -15.01, -37.4, -47.07, -49.11, -49.11, -49.11],
+                "totalChange": -49.11
+              }
+            },
+            "Name": "Divergent Spark",
+            "baseName": "Spark",
+            "variant": "20/20c",
+            "Level": 20,
+            "XP": 342051651,
+            "Quality": 20,
+            "Corrupted": true,
+            "Vaal": false,
+            "Type": "Divergent",
+            "Price": 20,
+            "Meta": 0.8,
+            "Listings": 177,
+            "maxLevel": 20,
+            "lowConfidence": true,
+            "canVaal": true,
+            "xpData": [],
+            "xpValue": 0,
+            "regrValue": 0,
+            "vaalValue": 0,
+            "templeValue": 0
+          },
+          "expectedValue": 20,
+          "children": [{ "name": "Sell", "probability": 1 }]
+        }
+      },
+      {
+        "name": "Remove quality",
+        "probability": 0.20833333333333307,
+        "node": {
+          "gem": {
+            "original": {
+              "name": "Divergent Spark",
+              "variant": "20c",
+              "chaosValue": 13,
+              "gemLevel": 20,
+              "corrupted": true,
+              "listingCount": 107,
+              "sparkline": {
+                "data": [0, -2.6, -2.6, -2.6, -2.6, -3.9, -15.58],
+                "totalChange": -15.58
+              }
+            },
+            "Name": "Divergent Spark",
+            "baseName": "Spark",
+            "variant": "20c",
+            "Level": 20,
+            "XP": 342051651,
+            "Quality": 0,
+            "Corrupted": true,
+            "Vaal": false,
+            "Type": "Divergent",
+            "Price": 13,
+            "Meta": 0.8,
+            "Listings": 107,
+            "maxLevel": 20,
+            "lowConfidence": true,
+            "canVaal": true,
+            "xpData": [],
+            "xpValue": 0,
+            "regrValue": 0,
+            "vaalValue": 0,
+            "templeValue": 0
+          },
+          "expectedValue": 13,
+          "children": [{ "name": "Sell", "probability": 1 }]
+        }
+      },
+      {
+        "name": "Remove level / Vaal",
+        "probability": 0.08333333333333333,
+        "node": {
+          "gem": {
+            "original": {
+              "name": "Divergent Spark",
+              "variant": "20/20",
+              "chaosValue": 97,
+              "gemLevel": 20,
+              "gemQuality": 20,
+              "listingCount": 30,
+              "sparkline": { "data": [0, 63.09, 48.34, 24, -0.2, -5.4, -3], "totalChange": -3 }
+            },
+            "baseName": "Spark",
+            "variant": "19/20c",
+            "Name": "Divergent Vaal Spark",
+            "Level": 19,
+            "Quality": 20,
+            "Type": "Divergent",
+            "Corrupted": true,
+            "Vaal": true,
+            "canVaal": true,
+            "Price": 0,
+            "Meta": 0.8,
+            "XP": 342051651,
+            "Listings": 0,
+            "lowConfidence": true,
+            "maxLevel": 20
+          },
+          "expectedValue": 0,
+          "children": []
+        }
+      },
+      {
+        "name": "Add quality / Remove level",
+        "probability": 0.04166666666666669,
+        "node": {
+          "gem": {
+            "original": {
+              "name": "Divergent Spark",
+              "variant": "20/20",
+              "chaosValue": 97,
+              "gemLevel": 20,
+              "gemQuality": 20,
+              "listingCount": 30,
+              "sparkline": { "data": [0, 63.09, 48.34, 24, -0.2, -5.4, -3], "totalChange": -3 }
+            },
+            "baseName": "Spark",
+            "variant": "19/21c",
+            "Name": "Divergent Spark",
+            "Level": 19,
+            "Quality": 21,
+            "Type": "Divergent",
+            "Corrupted": true,
+            "Vaal": false,
+            "canVaal": true,
+            "Price": 0,
+            "Meta": 0.8,
+            "XP": 342051651,
+            "Listings": 0,
+            "lowConfidence": true,
+            "maxLevel": 20
+          },
+          "expectedValue": 0,
+          "children": []
+        }
+      },
+      {
+        "name": "Remove level",
+        "probability": 0.08333333333333333,
+        "node": {
+          "gem": {
+            "original": {
+              "name": "Divergent Spark",
+              "variant": "20/20",
+              "chaosValue": 97,
+              "gemLevel": 20,
+              "gemQuality": 20,
+              "listingCount": 30,
+              "sparkline": { "data": [0, 63.09, 48.34, 24, -0.2, -5.4, -3], "totalChange": -3 }
+            },
+            "baseName": "Spark",
+            "variant": "19/20c",
+            "Name": "Divergent Spark",
+            "Level": 19,
+            "Quality": 20,
+            "Type": "Divergent",
+            "Corrupted": true,
+            "Vaal": false,
+            "canVaal": true,
+            "Price": 0,
+            "Meta": 0.8,
+            "XP": 342051651,
+            "Listings": 0,
+            "lowConfidence": true,
+            "maxLevel": 20
+          },
+          "expectedValue": 0,
+          "children": []
+        }
+      },
+      {
+        "name": "Remove level / Remove quality",
+        "probability": 0.04166666666666669,
+        "node": {
+          "gem": {
+            "original": {
+              "name": "Divergent Spark",
+              "variant": "20/20",
+              "chaosValue": 97,
+              "gemLevel": 20,
+              "gemQuality": 20,
+              "listingCount": 30,
+              "sparkline": { "data": [0, 63.09, 48.34, 24, -0.2, -5.4, -3], "totalChange": -3 }
+            },
+            "baseName": "Spark",
+            "variant": "19/0c",
+            "Name": "Divergent Spark",
+            "Level": 19,
+            "Quality": 0,
+            "Type": "Divergent",
+            "Corrupted": true,
+            "Vaal": false,
+            "canVaal": true,
+            "Price": 0,
+            "Meta": 0.8,
+            "XP": 342051651,
+            "Listings": 0,
+            "lowConfidence": true,
+            "maxLevel": 20
+          },
+          "expectedValue": 0,
+          "children": []
+        }
+      }
+    ]
+  }
+}

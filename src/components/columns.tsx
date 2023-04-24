@@ -28,10 +28,10 @@ import { XP } from "./cells/XP";
 
 export const getColumns = createSelector(
   [
-    ({ app }: AppState) => app.pins,
     ({ app }: AppState) => app.league,
     ({ app }: AppState) => app.fiveWay.debounced,
     ({ app }: AppState) => app.enableColumnFilter,
+    ({ app }: AppState) => app.devMode,
     currencyMap,
     templeCost,
     awakenedLevelCost,
@@ -39,10 +39,10 @@ export const getColumns = createSelector(
     regradeValue,
   ],
   (
-    pins,
     league,
     fiveWay,
     enableColumnFilter,
+    devMode,
     currencyMap,
     costOfTemple,
     costOfAwakenedLevel,
@@ -61,7 +61,7 @@ export const getColumns = createSelector(
       },
       {
         accessorKey: "Pinned",
-        size: 40,
+        size: devMode ? 80 : 40,
         cell: (info) => <Pinned gem={info.row.original} />,
       },
       {

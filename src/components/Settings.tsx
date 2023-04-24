@@ -24,8 +24,15 @@ import { Override } from "models/gems";
 import { useEffect, useMemo } from "react";
 import * as api from "state/api";
 import { apiSlice } from "state/api";
-import { actions, setters } from "state/app";
-import { useAppDispatch, useAppSelector } from "state/store";
+import { AppState, actions, setters } from "state/app";
+import { profitInputs } from "state/selectors/profitInputs";
+import { RootState, useAppDispatch, useAppSelector } from "state/store";
+
+const copy =
+  (field: keyof AppState | "profitInputs") => (dispatch: any, getState: () => RootState) => {
+    const data = field === "profitInputs" ? profitInputs(getState()) : getState().app[field];
+    navigator.clipboard.writeText(JSON.stringify(data));
+  };
 
 export const Settings = () => {
   const dispatch = useAppDispatch();
@@ -42,7 +49,7 @@ export const Settings = () => {
     setIncQual,
     setFiveWay,
     setOverrides,
-    setPreview,
+    setDevMode,
   } = setters(dispatch);
 
   const gemInfo = useAppSelector(api.gemInfo);
@@ -68,7 +75,7 @@ export const Settings = () => {
   const graphProgressMsg = useAppSelector((state) => state.app.graphProgressMsg);
   const overridesTmp = useAppSelector((state) => state.app.overridesTmp);
   const overrides = useAppSelector((state) => state.app.overrides);
-  const preview = useAppSelector((state) => state.app.preview);
+  const devMode = useAppSelector((state) => state.app.devMode);
   const overridesPending = overrides !== overridesTmp;
 
   const reload = useMemo(
@@ -259,10 +266,18 @@ export const Settings = () => {
 
                   <FormControlLabel
                     control={
-                      <Checkbox checked={preview} onChange={(_, checked) => setPreview(checked)} />
+                      <Checkbox checked={devMode} onChange={(_, checked) => setDevMode(checked)} />
                     }
-                    label="preview upcoming features"
+                    label="dev mode"
                   />
+                  {devMode && (
+                    <Box>
+                      <Button onClick={() => dispatch(copy("profitInputs"))}>
+                        Copy profit inputs
+                      </Button>
+                      <Button onClick={() => dispatch(copy("data"))}>Copy profit outputs</Button>
+                    </Box>
+                  )}
                 </>
               )}
             </AccordionDetails>

@@ -5,6 +5,7 @@ import { League } from "models/ninja/Leagues";
 import { AppDispatch } from "./store";
 import { memoize } from "lodash";
 import { GraphNode, NodeMap } from "models/graphElements";
+import { profitInputs } from "./selectors/profitInputs";
 
 function prop<T>(): { type: "simple"; value: T | undefined };
 function prop<T>(value: T): { type: "simple"; value: T };
@@ -43,7 +44,7 @@ export const fields = {
   graphData: prop<NodeMap>({}),
   currentGraph: prop<GraphNode>(),
   load: prop(0),
-  preview: prop(false),
+  devMode: prop(process.env.REACT_APP_GIT_COMMIT === "local"),
   hideNonTextFilters: prop(false),
   overridesTmp: prop<Override[]>([]),
   overrides: prop<Override[]>([]),

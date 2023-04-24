@@ -2,6 +2,7 @@ import { getCurrency } from "functions/getCurrency";
 import { pick } from "lodash";
 import { SearchQueryContainer } from "models/poe/Search";
 import { GraphNode } from "./graphElements";
+import { SkillGem } from "./ninja/Item";
 
 export type ConversionData = { gem: Gem; chance: number; outcomes: string[] };
 export const altQualities = ["Anomalous", "Divergent", "Phantasmal"] as const;
@@ -55,6 +56,7 @@ export const mavenCrucible = [
 ];
 
 export type Gem = {
+  original: SkillGem;
   baseName: string;
   variant: string;
   Name: string;
@@ -74,6 +76,7 @@ export type Gem = {
 };
 
 const GemFields: Required<Gem> = {
+  original: {} as any,
   baseName: "string",
   variant: "string",
   Name: "string",

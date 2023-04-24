@@ -1,22 +1,22 @@
 import { Language } from "models/ninja/Currency";
 
 export interface ItemBase {
-  id: number;
+  id?: number;
   name: string;
-  itemClass: number;
+  itemClass?: number;
   sparkline: Sparkline;
-  lowConfidenceSparkline: Sparkline;
-  implicitModifiers: Modifier[];
-  explicitModifiers: Modifier[];
+  lowConfidenceSparkline?: Sparkline;
+  implicitModifiers?: Modifier[];
+  explicitModifiers?: Modifier[];
   chaosValue: number;
-  exaltedValue: number;
-  divineValue: number;
-  count: number;
-  detailsId: string;
+  exaltedValue?: number;
+  divineValue?: number;
+  count?: number;
+  detailsId?: string;
   listingCount: number;
-  icon: string;
-  flavourText: string;
-  levelRequired: number;
+  icon?: string;
+  flavourText?: string;
+  levelRequired?: number;
 }
 export interface ItemOverview<T extends ItemBase> {
   lines: T[];

@@ -24,9 +24,10 @@ import { ProfitInputs } from "state/selectors/profitInputs";
 
 const million = 1000000;
 
-self.onmessage = (e: MessageEvent<{ inputs: ProfitInputs; cancel: URL }>) => {
-  try {
-    const {
+export const calculateProfits = (
+  {
+    cancel,
+    inputs: {
       gems,
       currencyMap,
       leagueIsIndexed,
@@ -39,8 +40,14 @@ self.onmessage = (e: MessageEvent<{ inputs: ProfitInputs; cancel: URL }>) => {
       incQual,
       mavenExclusiveWeight,
       mavenCrucibleWeight,
-    } = e.data.inputs;
-
+    },
+  }: {
+    inputs: ProfitInputs;
+    cancel?: URL;
+  },
+  self?: Window & typeof globalThis
+) => {
+  try {
     if (
       gems.status !== "done" ||
       currencyMap.status !== "done" ||
@@ -51,60 +58,70 @@ self.onmessage = (e: MessageEvent<{ inputs: ProfitInputs; cancel: URL }>) => {
     }
 
     const checkToken = () => {
+      if (!cancel) return;
       const xhr = new XMLHttpRequest();
-      xhr.open("GET", e.data.cancel, false);
+      xhr.open("GET", cancel, false);
       xhr.send(null);
     };
     const setData = (payload: GemDetails[]) => {
       checkToken();
-      self.postMessage({ action: "data", payload });
+      self?.postMessage({ action: "data", payload });
     };
     let counter = 0;
     const setProgress = (payload: number) => {
       if (counter++ % 10 === 0) {
         checkToken();
       }
-      self.postMessage({ action: "progress", payload });
+      self?.postMessage({ action: "progress", payload });
     };
-    const setProgressMsg = (payload: string) => self.postMessage({ action: "msg", payload });
-    const done = () => self.postMessage({ action: "done" });
+    const setProgressMsg = (payload: string) => self?.postMessage({ action: "msg", payload });
+    const done = () => self?.postMessage({ action: "done" });
 
     setProgressMsg("Formatting data");
 
     const missingXP: { [gem: string]: true } = {};
     const vaalGems: { [key: string]: boolean } = {};
-    let result: GemDetails[] = gems?.value.map(
-      ({ name, variant, chaosValue, gemLevel, gemQuality, corrupted, listingCount, sparkline }) => {
-        const baseName = modifiers.reduce((name, mod) => name.replace(mod, ""), name);
-        const Vaal = name.includes("Vaal");
-        const Type = getType(name);
-        const Meta = (meta.status === "done" && meta.value[name]) || 0;
-        const levels = gemInfo.value?.xp[Type === "Awakened" ? name : baseName];
-        if (!levels) {
-          missingXP[Type === "Awakened" ? name : baseName] = true;
-        }
-        vaalGems[baseName] = vaalGems[baseName] || Vaal;
-        return {
-          Name: name,
-          baseName,
-          variant,
-          Level: gemLevel,
-          XP: levels?.[gemLevel],
-          Quality: gemQuality || 0,
-          Corrupted: corrupted || false,
-          Vaal,
-          Type,
-          Price: Math.round(chaosValue || 0),
-          Meta,
-          Listings: listingCount,
-          maxLevel: gemInfo.value.maxLevel[baseName],
-          lowConfidence:
-            Meta < filterMeta ||
-            !sparkline?.data?.length ||
-            sparkline.data[sparkline.data.length - 1] === null,
-        } as GemDetails;
+    let result: GemDetails[] = gems?.value.map((original) => {
+      const {
+        name,
+        variant,
+        chaosValue,
+        gemLevel,
+        gemQuality,
+        corrupted,
+        listingCount,
+        sparkline,
+      } = original;
+      const baseName = modifiers.reduce((name, mod) => name.replace(mod, ""), name);
+      const Vaal = name.includes("Vaal");
+      const Type = getType(name);
+      const Meta = (meta.status === "done" && meta.value[name]) || 0;
+      const levels = gemInfo.value?.xp[Type === "Awakened" ? name : baseName];
+      if (!levels) {
+        missingXP[Type === "Awakened" ? name : baseName] = true;
       }
-    );
+      vaalGems[baseName] = vaalGems[baseName] || Vaal;
+      return {
+        original,
+        Name: name,
+        baseName,
+        variant,
+        Level: gemLevel,
+        XP: levels?.[gemLevel],
+        Quality: gemQuality || 0,
+        Corrupted: corrupted || false,
+        Vaal,
+        Type,
+        Price: Math.round(chaosValue || 0),
+        Meta,
+        Listings: listingCount,
+        maxLevel: gemInfo.value.maxLevel[baseName],
+        lowConfidence:
+          Meta < filterMeta ||
+          !sparkline?.data?.length ||
+          sparkline.data[sparkline.data.length - 1] === null,
+      } as GemDetails;
+    });
 
     const notFound = new Set(overrides);
     result = result
@@ -533,7 +550,11 @@ self.onmessage = (e: MessageEvent<{ inputs: ProfitInputs; cancel: URL }>) => {
     setProgressMsg("");
     setData(result);
     done();
+
+    return result;
   } catch (e) {
     console.debug(e);
   }
 };
+
+self.onmessage = ({ data }) => calculateProfits(data, self);

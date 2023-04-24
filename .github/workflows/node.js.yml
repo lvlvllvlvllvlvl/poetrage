@@ -18,6 +18,8 @@ jobs:
           cache: "npm"
       - name: Node install
         run: npm ci
+      - name: Test
+        run: npm test
       - name: Build
         run: npm run build
         env:
