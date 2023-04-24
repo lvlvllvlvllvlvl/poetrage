@@ -8,6 +8,8 @@ import TableRow from "@mui/material/TableRow";
 import Tooltip from "@mui/material/Tooltip";
 import {
   Column,
+  FilterFn,
+  filterFns,
   flexRender,
   getCoreRowModel,
   getFacetedMinMaxValues,
@@ -27,6 +29,9 @@ import { zippedData } from "state/selectors/zipData";
 import { useAppDispatch, useAppSelector } from "state/store";
 
 const pin = { id: "Pinned", desc: true };
+
+const wrapFilter: (fn: FilterFn<any>) => FilterFn<any> = (fn) => (row, id, value, meta) =>
+  row.original.Pinned || fn(row, id, value, meta);
 
 export const GemTable = () => {
   const dispatch = useAppDispatch();
@@ -58,7 +63,11 @@ export const GemTable = () => {
   const table = useReactTable({
     data,
     columns,
-    filterFns: { search, includes },
+    filterFns: Object.fromEntries(
+      Object.entries(filterFns)
+        .concat(Object.entries({ search, includes }))
+        .map(([k, fn]) => [k, Object.assign(wrapFilter(fn), fn)])
+    ),
     enablePinning: true,
     enableMultiSort: true,
     maxMultiSortColCount: 3,
