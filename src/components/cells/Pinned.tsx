@@ -10,8 +10,10 @@ import Tooltip from "@mui/material/Tooltip";
 
 export const Pinned = ({ gem }: { gem: GemDetails }) => {
   const pins = useAppSelector((state) => state.app.pins);
+  const data = useAppSelector((state) => state.app.data);
   const devMode = useAppSelector((state) => state.app.devMode);
   const { setPins } = setters(useDispatch());
+  const id = getId(gem);
 
   return (
     <>
@@ -19,16 +21,16 @@ export const Pinned = ({ gem }: { gem: GemDetails }) => {
         value="pinned"
         selected={gem.Pinned}
         sx={{ width: 18, height: 18 }}
-        onClick={() =>
-          setPins(gem.Pinned ? pins.filter((pin) => pin !== getId(gem)) : pins.concat(getId(gem)))
-        }>
+        onClick={() => setPins(gem.Pinned ? pins.filter((pin) => pin !== id) : pins.concat(id))}>
         <PushPinIcon />
       </ToggleButton>
       {devMode && (
         <Tooltip title={JSON.stringify(gem.original)}>
           <IconButton
             sx={{ width: 18, height: 18 }}
-            onClick={() => navigator.clipboard.writeText(JSON.stringify(gem))}>
+            onClick={() =>
+              navigator.clipboard.writeText(JSON.stringify(data.find((d) => getId(d) === id)))
+            }>
             <CopyIcon />
           </IconButton>
         </Tooltip>

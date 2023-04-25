@@ -2,11 +2,11 @@
   {
     "name": "Divergent Spark",
     "variant": "20/20",
-    "chaosValue": 97,
+    "chaosValue": 100,
     "gemLevel": 20,
     "gemQuality": 20,
-    "listingCount": 30,
-    "sparkline": { "data": [0, 63.09, 48.34, 24, -0.2, -5.4, -3], "totalChange": -3 }
+    "listingCount": 38,
+    "sparkline": { "data": [0, -9.04, -23.97, -38.81, -42, -38.81, -38.68], "totalChange": -38.68 }
   },
   {
     "name": "Spark",
@@ -14,26 +14,26 @@
     "chaosValue": 10,
     "gemLevel": 20,
     "gemQuality": 20,
-    "listingCount": 84,
+    "listingCount": 77,
     "sparkline": { "data": [0, 0, 0, 0, 0, 0, 0], "totalChange": 0 }
   },
   {
     "name": "Anomalous Spark",
     "variant": "20/20",
-    "chaosValue": 32,
+    "chaosValue": 33,
     "gemLevel": 20,
     "gemQuality": 20,
-    "listingCount": 9,
-    "sparkline": { "data": [0, 0, 17, 0, 13.33, 0, 6.67], "totalChange": 6.67 }
+    "listingCount": 10,
+    "sparkline": { "data": [0, 17, 0, 13.33, 0, 10, 10], "totalChange": 10 }
   },
   {
     "name": "Phantasmal Spark",
     "variant": "20/20",
-    "chaosValue": 60,
+    "chaosValue": 55,
     "gemLevel": 20,
     "gemQuality": 20,
-    "listingCount": 44,
-    "sparkline": { "data": [0, 1.53, 1.79, 78.57, 76.02, 60.71, 53.06], "totalChange": 53.06 }
+    "listingCount": 46,
+    "sparkline": { "data": [0, 0.25, 75.88, 73.37, 58.29, 50.75, 38.19], "totalChange": 38.19 }
   },
   {
     "name": "Divergent Spark",
@@ -42,10 +42,10 @@
     "gemLevel": 20,
     "gemQuality": 20,
     "corrupted": true,
-    "listingCount": 177,
+    "listingCount": 185,
     "sparkline": {
-      "data": [0, -15.01, -37.4, -47.07, -49.11, -49.11, -49.11],
-      "totalChange": -49.11
+      "data": [0, -26.35, -37.72, -40.12, -40.12, -40.12, -40.12],
+      "totalChange": -40.12
     }
   },
   {
@@ -55,40 +55,43 @@
     "gemLevel": 20,
     "gemQuality": 20,
     "corrupted": true,
-    "listingCount": 214,
-    "sparkline": { "data": [0, -24.5, -25, -50, -50, -50, -50], "totalChange": -50 }
+    "listingCount": 216,
+    "sparkline": {
+      "data": [0, -0.66, -33.77, -33.77, -33.77, -33.77, -33.77],
+      "totalChange": -33.77
+    }
   },
   {
     "name": "Divergent Spark",
     "variant": "21/20c",
-    "chaosValue": 924.57,
+    "chaosValue": 910.11,
     "gemLevel": 21,
     "gemQuality": 20,
     "corrupted": true,
-    "listingCount": 16,
-    "sparkline": { "data": [0, 56.93, 19.14, 16.36, 18.45, 22.12, 41.83], "totalChange": 41.83 }
+    "listingCount": 14,
+    "sparkline": {
+      "data": [0, -24.08, -25.85, -24.52, -22.18, -9.04, -11.03],
+      "totalChange": -11.03
+    }
   },
   {
     "name": "Divergent Spark",
     "variant": "20/20",
-    "chaosValue": 97,
+    "chaosValue": 100,
     "gemLevel": 20,
     "gemQuality": 20,
-    "listingCount": 30,
-    "sparkline": { "data": [0, 63.09, 48.34, 24, -0.2, -5.4, -3], "totalChange": -3 }
+    "listingCount": 38,
+    "sparkline": { "data": [0, -9.04, -23.97, -38.81, -42, -38.81, -38.68], "totalChange": -38.68 }
   },
   {
     "name": "Divergent Spark",
     "variant": "20/23c",
-    "chaosValue": 30,
+    "chaosValue": 28,
     "gemLevel": 20,
     "gemQuality": 23,
     "corrupted": true,
-    "listingCount": 52,
-    "sparkline": {
-      "data": [0, -9.09, -31.82, -31.82, -37.27, -31.82, -31.82],
-      "totalChange": -31.82
-    }
+    "listingCount": 66,
+    "sparkline": { "data": [0, -25, -25, -31, -25, -25, -30], "totalChange": -30 }
   },
   {
     "name": "Divergent Spark",
@@ -97,60 +100,72 @@
     "gemLevel": 20,
     "gemQuality": 20,
     "corrupted": true,
-    "listingCount": 177,
+    "listingCount": 185,
     "sparkline": {
-      "data": [0, -15.01, -37.4, -47.07, -49.11, -49.11, -49.11],
-      "totalChange": -49.11
+      "data": [0, -26.35, -37.72, -40.12, -40.12, -40.12, -40.12],
+      "totalChange": -40.12
     }
   },
   {
     "name": "Divergent Spark",
     "variant": "20c",
-    "chaosValue": 13,
+    "chaosValue": 12,
     "gemLevel": 20,
     "corrupted": true,
-    "listingCount": 107,
-    "sparkline": { "data": [0, -2.6, -2.6, -2.6, -2.6, -3.9, -15.58], "totalChange": -15.58 }
+    "listingCount": 113,
+    "sparkline": { "data": [0, 0, 0, 0, -1.33, -6.67, -20], "totalChange": -20 }
   },
   {
     "name": "Divergent Vaal Spark",
     "variant": "21/20c",
-    "chaosValue": 4109.2,
+    "chaosValue": 3047.6,
     "gemLevel": 21,
     "gemQuality": 20,
+    "corrupted": true,
+    "listingCount": 2,
+    "sparkline": { "data": [], "totalChange": 0 }
+  },
+  {
+    "name": "Divergent Spark",
+    "variant": "21/23c",
+    "chaosValue": 1461.18,
+    "gemLevel": 21,
+    "gemQuality": 23,
     "corrupted": true,
     "listingCount": 1,
     "sparkline": { "data": [], "totalChange": 0 }
   },
   {
     "name": "Divergent Spark",
-    "variant": "21/23c",
-    "chaosValue": 1684.77,
-    "gemLevel": 21,
-    "gemQuality": 23,
-    "corrupted": true,
-    "listingCount": 3,
-    "sparkline": { "data": [], "totalChange": 0 }
-  },
-  {
-    "name": "Divergent Spark",
     "variant": "21/20c",
-    "chaosValue": 924.57,
+    "chaosValue": 910.11,
     "gemLevel": 21,
     "gemQuality": 20,
     "corrupted": true,
-    "listingCount": 16,
-    "sparkline": { "data": [0, 56.93, 19.14, 16.36, 18.45, 22.12, 41.83], "totalChange": 41.83 }
+    "listingCount": 14,
+    "sparkline": {
+      "data": [0, -24.08, -25.85, -24.52, -22.18, -9.04, -11.03],
+      "totalChange": -11.03
+    }
+  },
+  {
+    "name": "Divergent Spark",
+    "variant": "21c",
+    "chaosValue": 170.99,
+    "gemLevel": 21,
+    "corrupted": true,
+    "listingCount": 5,
+    "sparkline": { "data": [null, 0, null, null, null, null, -38.36], "totalChange": -38.36 }
   },
   {
     "name": "Divergent Vaal Spark",
     "variant": "20/23c",
-    "chaosValue": 58,
+    "chaosValue": 59,
     "gemLevel": 20,
     "gemQuality": 23,
     "corrupted": true,
-    "listingCount": 4,
-    "sparkline": { "data": [null, null, null, null, null, 0, null], "totalChange": 0 }
+    "listingCount": 5,
+    "sparkline": { "data": [null, null, null, null, 0, null, 7.27], "totalChange": 7.27 }
   },
   {
     "name": "Divergent Vaal Spark",
@@ -159,21 +174,21 @@
     "gemLevel": 20,
     "gemQuality": 20,
     "corrupted": true,
-    "listingCount": 214,
-    "sparkline": { "data": [0, -24.5, -25, -50, -50, -50, -50], "totalChange": -50 }
+    "listingCount": 216,
+    "sparkline": {
+      "data": [0, -0.66, -33.77, -33.77, -33.77, -33.77, -33.77],
+      "totalChange": -33.77
+    }
   },
   {
     "name": "Divergent Spark",
     "variant": "20/23c",
-    "chaosValue": 30,
+    "chaosValue": 28,
     "gemLevel": 20,
     "gemQuality": 23,
     "corrupted": true,
-    "listingCount": 52,
-    "sparkline": {
-      "data": [0, -9.09, -31.82, -31.82, -37.27, -31.82, -31.82],
-      "totalChange": -31.82
-    }
+    "listingCount": 66,
+    "sparkline": { "data": [0, -25, -25, -31, -25, -25, -30], "totalChange": -30 }
   },
   {
     "name": "Divergent Spark",
@@ -182,55 +197,55 @@
     "gemLevel": 20,
     "gemQuality": 20,
     "corrupted": true,
-    "listingCount": 177,
+    "listingCount": 185,
     "sparkline": {
-      "data": [0, -15.01, -37.4, -47.07, -49.11, -49.11, -49.11],
-      "totalChange": -49.11
+      "data": [0, -26.35, -37.72, -40.12, -40.12, -40.12, -40.12],
+      "totalChange": -40.12
     }
   },
   {
     "name": "Divergent Spark",
     "variant": "20c",
-    "chaosValue": 13,
+    "chaosValue": 12,
     "gemLevel": 20,
     "corrupted": true,
-    "listingCount": 107,
-    "sparkline": { "data": [0, -2.6, -2.6, -2.6, -2.6, -3.9, -15.58], "totalChange": -15.58 }
+    "listingCount": 113,
+    "sparkline": { "data": [0, 0, 0, 0, -1.33, -6.67, -20], "totalChange": -20 }
   },
   {
     "name": "Divergent Spark",
     "variant": "20/20",
-    "chaosValue": 97,
+    "chaosValue": 100,
     "gemLevel": 20,
     "gemQuality": 20,
-    "listingCount": 30,
-    "sparkline": { "data": [0, 63.09, 48.34, 24, -0.2, -5.4, -3], "totalChange": -3 }
+    "listingCount": 38,
+    "sparkline": { "data": [0, -9.04, -23.97, -38.81, -42, -38.81, -38.68], "totalChange": -38.68 }
   },
   {
     "name": "Divergent Spark",
     "variant": "20/20",
-    "chaosValue": 97,
+    "chaosValue": 100,
     "gemLevel": 20,
     "gemQuality": 20,
-    "listingCount": 30,
-    "sparkline": { "data": [0, 63.09, 48.34, 24, -0.2, -5.4, -3], "totalChange": -3 }
+    "listingCount": 38,
+    "sparkline": { "data": [0, -9.04, -23.97, -38.81, -42, -38.81, -38.68], "totalChange": -38.68 }
   },
   {
     "name": "Divergent Spark",
     "variant": "20/20",
-    "chaosValue": 97,
+    "chaosValue": 100,
     "gemLevel": 20,
     "gemQuality": 20,
-    "listingCount": 30,
-    "sparkline": { "data": [0, 63.09, 48.34, 24, -0.2, -5.4, -3], "totalChange": -3 }
+    "listingCount": 38,
+    "sparkline": { "data": [0, -9.04, -23.97, -38.81, -42, -38.81, -38.68], "totalChange": -38.68 }
   },
   {
     "name": "Divergent Spark",
     "variant": "20/20",
-    "chaosValue": 97,
+    "chaosValue": 100,
     "gemLevel": 20,
     "gemQuality": 20,
-    "listingCount": 30,
-    "sparkline": { "data": [0, 63.09, 48.34, 24, -0.2, -5.4, -3], "totalChange": -3 }
+    "listingCount": 38,
+    "sparkline": { "data": [0, -9.04, -23.97, -38.81, -42, -38.81, -38.68], "totalChange": -38.68 }
   }
 ]

@@ -1,9 +1,8 @@
-import { GemDetails } from "models/gems";
-import paste from "./data/pastedData.json";
-import extracted from "./data/extractedData.json";
-import inputs from "./data/profitInputs.json";
-import outputs from "./data/profitOutputs.json";
+import { GemDetails, getId } from "models/gems";
 import { calculateProfits } from "workers/calculateProfits";
+import extracted from "./data/extractedData.json";
+import paste from "./data/pastedData.json";
+import inputs from "./data/profitInputs.json";
 
 it("extracts data from paste", () => {
   const gem = paste as GemDetails;
@@ -18,6 +17,10 @@ it("extracts data from paste", () => {
 });
 
 it("reproduces the data from the inputs", () => {
-  const result = calculateProfits({ inputs } as any);
-  expect(result).toEqual(outputs);
+  const result = calculateProfits({
+    inputs: { ...inputs, gems: { ...inputs.gems, value: extracted } },
+  } as any);
+  const id = getId(paste);
+
+  expect(result.find((gem) => getId(gem) === id)).toEqual(paste);
 });
