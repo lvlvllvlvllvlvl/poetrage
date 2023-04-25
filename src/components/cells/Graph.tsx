@@ -1,7 +1,7 @@
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import { graphlib, layout } from "dagre";
-import { GemId, getId } from "models/gems";
+import { getId } from "models/gems";
 import { GraphChild, GraphNode } from "models/graphElements";
 import ReactFlow, { Background, Controls, Edge, Node } from "reactflow";
 import "reactflow/dist/style.css";
@@ -20,19 +20,24 @@ export const GraphDialog = () => {
 
   g.setGraph({});
   g.setDefaultEdgeLabel(() => ({}));
-  const traverse = (parent: GemId) => (child: GraphChild) => {
+  const traverse = (node: GraphNode) => (child: GraphChild) => {
+    const parent = getId(node.gem);
     if (child.node) {
       const id = getId(child.node.gem);
-      g.setNode(id, { label: id, width: 180, height: 100 });
+      g.setNode(id, { label: id + ": " + child.node.expectedValue, width: 180, height: 100 });
       g.setEdge(parent, id, { label: child.name });
-      child.node.children?.forEach(traverse(id));
+      child.node.children?.forEach(traverse(child.node));
     } else {
-      g.setNode(`${parent}-${child.name}`, { label: child.name, width: 180, height: 100 });
+      g.setNode(`${parent}-${child.name}`, {
+        label: child.name,
+        width: 180,
+        height: 100,
+      });
       g.setEdge(parent, `${parent}-${child.name}`);
     }
   };
   g.setNode(getId(graph.gem), { label: getId(graph.gem), width: 180, height: 100 });
-  graph.children?.forEach(traverse(getId(graph.gem)));
+  graph.children?.forEach(traverse(graph));
 
   layout(g);
 
@@ -51,7 +56,10 @@ export const GraphDialog = () => {
   });
 
   return (
-    <Dialog open={!!graph} onClose={() => setCurrentGraph(undefined)}>
+    <Dialog
+      maxWidth={false}
+      open={!!graph}
+      onClose={() => setCurrentGraph(undefined)}>
       <div style={{ height: "80vh", width: "80vw" }}>
         <ReactFlow nodes={nodes} edges={edges}>
           <Background />

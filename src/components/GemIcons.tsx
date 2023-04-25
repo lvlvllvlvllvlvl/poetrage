@@ -1,10 +1,8 @@
 import InfoIcon from "@mui/icons-material/Info";
 import Tooltip from "@mui/material/Tooltip";
 import { Gem } from "models/gems";
-import { useAppSelector } from "state/store";
 
 export const GemIcons = ({ gem }: { gem: Gem }) => {
-  const filterMeta = useAppSelector((state) => state.app.filterMeta.debounced);
   return (
     <>
       {gem.isOverride && (
@@ -12,7 +10,7 @@ export const GemIcons = ({ gem }: { gem: Gem }) => {
           <InfoIcon fontSize="inherit" color="info" />
         </Tooltip>
       )}
-      {gem.Meta < filterMeta && (
+      {gem.lowMeta && (
         <Tooltip
           title={`this gem is used by only ${gem.Meta} percent of players, and may be hard to sell`}>
           <InfoIcon fontSize="inherit" color="warning" />

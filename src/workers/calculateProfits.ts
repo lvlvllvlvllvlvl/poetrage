@@ -4,6 +4,7 @@ import {
   ConversionData,
   Gem,
   GemDetails,
+  GemType,
   altQualities,
   bestMatch,
   betterOrEqual,
@@ -20,6 +21,7 @@ import {
   strictlyBetter,
   vaal,
 } from "models/gems";
+import { ApiResult } from "state/api";
 import { ProfitInputs } from "state/selectors/profitInputs";
 
 const million = 1000000;
@@ -95,7 +97,8 @@ export const calculateProfits = (
       const baseName = modifiers.reduce((name, mod) => name.replace(mod, ""), name);
       const Vaal = name.includes("Vaal");
       const Type = getType(name);
-      const Meta = (meta.status === "done" && meta.value[name]) || 0;
+
+      const Meta = getMeta(meta, Vaal, Type, name);
       const levels = gemInfo.value?.xp[Type === "Awakened" ? name : baseName];
       if (!levels) {
         missingXP[Type === "Awakened" ? name : baseName] = true;
@@ -116,6 +119,7 @@ export const calculateProfits = (
         Meta,
         Listings: listingCount,
         maxLevel: gemInfo.value.maxLevel[baseName],
+        lowMeta: Meta < filterMeta,
         lowConfidence:
           Meta < filterMeta ||
           !sparkline?.data?.length ||
@@ -167,6 +171,21 @@ export const calculateProfits = (
         }
       });
     });
+
+    //Rebuild gemMap with sanitized data
+    Object.keys(gemMap).forEach((k) => delete gemMap[k]);
+    result.forEach((gem) => {
+      gem.canVaal = vaalGems[gem.baseName];
+      if (!gemMap[gem.baseName]) gemMap[gem.baseName] = {};
+      if (!gemMap[gem.baseName][gem.Type]) gemMap[gem.baseName][gem.Type] = [];
+      gemMap[gem.baseName][gem.Type].push(copy(gem));
+    });
+
+    Object.values(gemMap).forEach((v) =>
+      Object.keys(v).forEach((k) => {
+        v[k] = v[k].sort(compareGem);
+      })
+    );
 
     setData(result);
     setProgressMsg("Calculating gcp values");
@@ -343,9 +362,10 @@ export const calculateProfits = (
         if (exclusive.length + crucible.length === mavenExclusive.length + mavenCrucible.length) {
           console.warn(gem.Name + " not recognized");
         }
-        const convData = exclusive
+        const convertData = exclusive
           .map((Name) => ({
             chance: mavenExclusiveWeight / totalWeight,
+            outcomes: [Name],
             gem: bestMatch(
               copy(gem, { Name, baseName: Name }),
               gemMap[Name]?.[gem.Type],
@@ -355,6 +375,7 @@ export const calculateProfits = (
           .concat(
             crucible.map((Name) => ({
               chance: mavenCrucibleWeight / totalWeight,
+              outcomes: [Name],
               gem: bestMatch(
                 copy(gem, { Name, baseName: Name }),
                 gemMap[Name]?.[gem.Type],
@@ -362,9 +383,12 @@ export const calculateProfits = (
               ),
             }))
           );
+        gem.convertData = convertData;
         gem.convertValue =
-          (convData?.reduce((sum, { gem: { Price }, chance }) => sum + (Price || 0) * chance, 0) ||
-            0) - gem.Price;
+          (convertData?.reduce(
+            (sum, { gem: { Price }, chance }) => sum + (Price || 0) * chance,
+            0
+          ) || 0) - gem.Price;
       }
     }
 
@@ -558,3 +582,20 @@ export const calculateProfits = (
 };
 
 self.onmessage = ({ data }) => calculateProfits(data, self);
+
+function getMeta(
+  meta: ApiResult<{ [key: string]: number }>,
+  Vaal: boolean,
+  Type: GemType,
+  name: string
+) {
+  if (meta.status !== "done") {
+    return 0;
+  } else if (Vaal && Type !== "Superior") {
+    return (
+      Math.min(meta.value[name.replace("Vaal ", "")], meta.value[name.replace(Type + " ", "")]) || 0
+    );
+  } else {
+    return meta.value[name] || 0;
+  }
+}

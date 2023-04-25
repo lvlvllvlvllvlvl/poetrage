@@ -9,7 +9,12 @@ let cancel: string;
 
 startAppListening({
   predicate: (action, currentState, previousState) => {
-    return !shallowEqual(graphInputs(previousState), graphInputs(currentState));
+    return (
+      (!currentState.app.progressMsg ||
+        currentState.app.progressMsg === "Calculating temple corruption outcomes") &&
+      (currentState.app.progressMsg !== previousState.app.progressMsg ||
+        !shallowEqual(graphInputs(previousState), graphInputs(currentState)))
+    );
   },
 
   effect: async (action, listenerApi) => {

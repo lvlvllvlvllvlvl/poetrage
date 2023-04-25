@@ -71,6 +71,7 @@ export type Gem = {
   XP?: number;
   Listings: number;
   maxLevel: number;
+  lowMeta: boolean;
   lowConfidence: boolean;
   isOverride?: boolean;
   Pinned?: boolean;
@@ -91,6 +92,7 @@ const GemFields: Required<Gem> = {
   Meta: 0,
   XP: 0,
   Listings: 0,
+  lowMeta: false,
   lowConfidence: false,
   isOverride: false,
   maxLevel: 0,
@@ -131,6 +133,7 @@ export type GemDetails = Gem & {
   templeValue?: number;
   templeData?: ConversionData[];
   convertValue?: number;
+  convertData?: ConversionData[];
   graph?: GraphNode;
 };
 
@@ -257,9 +260,10 @@ export function bestMatch(gem: Gem, data: Gem[], allowLowConfidence: "none" | "a
   if (!found) {
     return copy(gem, { Price: 0, lowConfidence: true, Listings: 0 });
   } else if (
-    !found.lowConfidence ||
-    allowLowConfidence === "all" ||
-    (allowLowConfidence === "corrupted" && isGoodCorruption(found))
+    !found.lowMeta &&
+    (!found.lowConfidence ||
+      allowLowConfidence === "all" ||
+      (allowLowConfidence === "corrupted" && isGoodCorruption(found)))
   ) {
     return structuredClone(found);
   } else {
@@ -349,12 +353,14 @@ export const vaal = (gem: Gem, chance: number = 1, outcomes: string[] = []) =>
     .filter(exists)
     .filter((v) => v?.chance && v.chance > 0) as ConversionData[];
 
-export const normalizeOutcomes = (outcomes: string[]) =>
-  [...outcomes]
-    .filter((o) => o !== "Vaal (no outcome)" && o !== "No effect")
-    .map((o) => (o === "Vaal (no outcome)" ? "No effect" : o))
-    .sort()
-    .join(" / ") || "No effect";
+export const normalizeOutcomes = (outcomes?: string[]) =>
+  !outcomes
+    ? ""
+    : [...outcomes]
+        .filter((o) => o !== "Vaal (no outcome)" && o !== "No effect")
+        .map((o) => (o === "Vaal (no outcome)" ? "No effect" : o))
+        .sort()
+        .join(" / ") || "No effect";
 
 export const getQuery = (
   gem: Gem,
