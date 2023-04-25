@@ -38,7 +38,7 @@ export const formatStat = (stat: string, values: Value[]) =>
   );
 
 export const qualityStat = (gemInfo: GemInfo, gem: Gem) =>
-  gemInfo.qualityStats[gem.baseName][gem.Type === "Awakened" ? "Superior" : gem.Type]
+  gemInfo.qualityStats[gem.baseName]?.[gem.Type === "Awakened" ? "Superior" : gem.Type]
     ?.map(({ id, stat, value }) => {
       const v: Value = gem.Quality ? [(value * gem.Quality) / 1000] : [value / 1000, value / 50];
       const values: Value[] =
