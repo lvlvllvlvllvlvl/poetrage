@@ -128,7 +128,7 @@ export const buildGraph = (
             gem,
             action[1],
             gem.vaalData!.map((v) => ({
-              name: v.outcomes?.[0] || "",
+              name: `Vaal: ${v.outcomes?.[0]}`,
               probability: v.chance,
               node: normalizedFn(v.gem),
             }))
@@ -138,7 +138,7 @@ export const buildGraph = (
             gem,
             action[1],
             gem.templeData!.map((v) => ({
-              name: v.outcomes?.[0] || "",
+              name: `Temple: ${v.outcomes?.[0]}`,
               probability: v.chance,
               node: normalizedFn(v.gem),
             }))
@@ -154,12 +154,7 @@ export const buildGraph = (
         case "reroll":
           return createNode(gem, action[1], [{ name: "Vivid Watcher", probability: 1 }]);
         case "sell":
-          return createNode(gem, allowLowConfidence || !gem.lowConfidence ? action[1] : gem.Price, [
-            {
-              name: allowLowConfidence || !gem.lowConfidence ? "Sell" : "Sell (low confidence)",
-              probability: 1,
-            },
-          ]);
+          return createNode(gem, action[1]);
       }
     };
 
@@ -234,14 +229,25 @@ export const buildGraph = (
       solve(costs);
       const newEV = values[qualityIndex[gem.Type]][4];
       const expectedCost = costs[qualityIndex[gem.Type]][4];
+      if (getId(node.gem) === "20/20 clean Spectral Shield Throw") {
+        console.log(node.expectedValue, newEV);
+      }
       if (node.expectedValue < newEV) {
         node.expectedValue = newEV;
-        node.children = children.map((child) => ({
-          name: "regrade",
-          expectedCost,
-          probability: weights[child.gem.Type] / (totalWeight - weights[gem.Type]),
-          node: values[qualityIndex[child.gem.Type]][4] > 0 ? child : createReference(child.gem),
-        }));
+        node.children = children.map((child) => {
+          if (getId(child.gem) === "20/20 clean Divergent Spectral Shield Throw") {
+            console.log(values[qualityIndex[child.gem.Type]][4], child.expectedValue);
+          }
+          return {
+            name: "Regrading lens",
+            expectedCost,
+            probability: weights[child.gem.Type] / (totalWeight - weights[gem.Type]),
+            node:
+              values[qualityIndex[child.gem.Type]][4] <= child.expectedValue
+                ? child
+                : createReference(child.gem),
+          };
+        });
       }
       cache.set(getId(gem), node);
     }

@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { setters } from "state/app";
 import { useAppSelector } from "state/store";
 
-export const Pinned = ({ gem }: { gem: GemDetails }) => {
+export const Pinned = ({ gem, copy }: { gem: GemDetails; copy?: any }) => {
   const pins = useAppSelector((state) => state.app.pins);
   const data = useAppSelector((state) => state.app.data);
   const devMode = useAppSelector((state) => state.app.devMode);
@@ -28,7 +28,11 @@ export const Pinned = ({ gem }: { gem: GemDetails }) => {
         <Tooltip title={JSON.stringify(gem.original)}>
           <IconButton
             sx={{ width: 18, height: 18 }}
-            onClick={() => navigator.clipboard.writeText(JSON.stringify(getGemFromData(id, data)))}>
+            onClick={() =>
+              navigator.clipboard.writeText(
+                JSON.stringify(copy ?? getGemFromData(id, data))
+              )
+            }>
             <CopyIcon />
           </IconButton>
         </Tooltip>

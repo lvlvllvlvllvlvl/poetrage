@@ -656,6 +656,5 @@
     ],
     "templeValue": -0.9125000000000023
   },
-  "expectedValue": 3,
-  "children": [{ "name": "Sell", "probability": 1 }]
+  "expectedValue": 3
 }

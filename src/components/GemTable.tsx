@@ -42,7 +42,6 @@ export const GemTable = () => {
   const league = useAppSelector((state) => state.app.league);
   const sorting = useAppSelector((state) => state.app.sorting);
   const columnFilters = useAppSelector((state) => state.app.columnFilters);
-  const preview = useAppSelector((state) => state.app.devMode);
   const data = useAppSelector(zippedData);
 
   const sortingHandler = (col: Column<GemDetails>) => {
@@ -75,7 +74,7 @@ export const GemTable = () => {
     state: {
       sorting,
       columnFilters,
-      columnVisibility: { Meta: !!league?.indexed, Profit: preview },
+      columnVisibility: { Meta: !!league?.indexed },
       columnPinning: { left: ["Name"] },
     },
     onColumnFiltersChange: (updater) =>
