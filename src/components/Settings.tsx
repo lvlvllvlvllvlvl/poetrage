@@ -25,12 +25,19 @@ import { useEffect, useMemo } from "react";
 import * as api from "state/api";
 import { apiSlice } from "state/api";
 import { AppState, actions, setters } from "state/app";
+import { graphInputs } from "state/selectors/graphInputs";
 import { profitInputs } from "state/selectors/profitInputs";
 import { RootState, useAppDispatch, useAppSelector } from "state/store";
 
 const copy =
-  (field: keyof AppState | "profitInputs") => (dispatch: any, getState: () => RootState) => {
-    const data = field === "profitInputs" ? profitInputs(getState()) : getState().app[field];
+  (field: keyof AppState | "profitInputs" | "graphInputs") =>
+  (dispatch: any, getState: () => RootState) => {
+    const data =
+      field === "profitInputs"
+        ? profitInputs(getState())
+        : field === "graphInputs"
+        ? { ...graphInputs(getState()), data: [] }
+        : getState().app[field];
     navigator.clipboard.writeText(JSON.stringify(data));
   };
 
@@ -275,7 +282,9 @@ export const Settings = () => {
                       <Button onClick={() => dispatch(copy("profitInputs"))}>
                         Copy profit inputs
                       </Button>
-                      <Button onClick={() => dispatch(copy("data"))}>Copy profit outputs</Button>
+                      <Button onClick={() => dispatch(copy("graphInputs"))}>
+                        Copy graph inputs
+                      </Button>
                     </Box>
                   )}
                 </>

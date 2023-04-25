@@ -73,6 +73,7 @@ export type Gem = {
   maxLevel: number;
   lowConfidence: boolean;
   isOverride?: boolean;
+  Pinned?: boolean;
 };
 
 const GemFields: Required<Gem> = {
@@ -93,6 +94,7 @@ const GemFields: Required<Gem> = {
   lowConfidence: false,
   isOverride: false,
   maxLevel: 0,
+  Pinned: false,
 };
 
 export type GemId = `${number}/${number}${" corrupted " | " clean "}${string}`;
@@ -101,7 +103,6 @@ export const getId = (gem: Gem): GemId =>
   `${gem.Level}/${gem.Quality}${gem.Corrupted ? " corrupted " : " clean "}${gem.Name}`;
 
 export type GemDetails = Gem & {
-  Pinned?: boolean;
   xpValue?: number;
   xpData?: (Gem & {
     xpValue: number;
@@ -382,4 +383,31 @@ export const getQuery = (
     },
     sort: { price: "asc" },
   };
+};
+
+export const getGemFromData = (id: GemId, data: GemDetails[], processed?: Set<string>) => {
+  const gem = data.find((d) => getId(d) === id);
+  return expand(gem!, data, processed || new Set());
+};
+
+const expand = (gem: GemDetails, data: GemDetails[], processed: Set<string>) => {
+  if (!gem || processed.has(getId(gem))) return gem;
+  processed.add(getId(gem));
+  const result = { ...gem };
+  (["xpData", "gcpData", "levelData"] as const).forEach((prop) => {
+    if (!result[prop]) return;
+    result[prop] = result[prop]?.map(
+      (gem) => getGemFromData(getId(gem), data, processed) || gem
+    ) as any;
+  });
+  (["regrData", "vaalData", "templeData"] as const).forEach((prop) => {
+    if (!result[prop]) return;
+    result[prop] = result[prop]?.map((conversion) => {
+      const id = getId(conversion.gem);
+      return processed.has(id)
+        ? conversion
+        : { ...conversion, gem: getGemFromData(id, data, processed) || conversion.gem };
+    });
+  });
+  return result;
 };

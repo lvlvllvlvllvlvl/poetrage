@@ -14,9 +14,9 @@ import {
 import { GraphChild, GraphNode, NodeMap } from "models/graphElements";
 import { GraphInputs } from "state/selectors/graphInputs";
 
-self.onmessage = (e: MessageEvent<{ inputs: GraphInputs; cancel: URL }>) => {
-  try {
-    const {
+export const buildGraph = (
+  {
+    inputs: {
       data,
       currencyMap,
       allowLowConfidence,
@@ -26,26 +26,34 @@ self.onmessage = (e: MessageEvent<{ inputs: GraphInputs; cancel: URL }>) => {
       awakenedLevelCost,
       awakenedRerollCost,
       gemInfo,
-    } = e.data.inputs;
-
+    },
+    cancel,
+  }: {
+    inputs: GraphInputs;
+    cancel?: URL;
+  },
+  self?: Window & typeof globalThis
+): NodeMap | undefined => {
+  try {
     const checkToken = () => {
+      if (!cancel) return;
       const xhr = new XMLHttpRequest();
-      xhr.open("GET", e.data.cancel, false);
+      xhr.open("GET", cancel, false);
       xhr.send(null);
     };
     const setData = (payload: { [key: GemId]: GraphNode }) => {
       checkToken();
-      self.postMessage({ action: "data", payload });
+      self?.postMessage({ action: "data", payload });
     };
     let counter = 0;
     const setProgress = (payload: number) => {
       if (counter++ % 10 === 0) {
         checkToken();
       }
-      self.postMessage({ action: "progress", payload });
+      self?.postMessage({ action: "progress", payload });
     };
-    const setProgressMsg = (payload: string) => self.postMessage({ action: "msg", payload });
-    const done = () => self.postMessage({ action: "done" });
+    const setProgressMsg = (payload: string) => self?.postMessage({ action: "msg", payload });
+    const done = () => self?.postMessage({ action: "done" });
 
     const map: { [k: GemId]: GemDetails } = {};
     data.forEach((gem) => (map[getId(gem)] = gem));
@@ -237,6 +245,8 @@ self.onmessage = (e: MessageEvent<{ inputs: GraphInputs; cancel: URL }>) => {
     setProgressMsg("");
     setData(graphData);
     done();
+
+    return graphData;
   } catch (e) {
     console.debug(e);
   }
@@ -331,3 +341,5 @@ const handler = {
 };
 
 const defaultObj = () => new Proxy({}, handler);
+
+self.onmessage = (e) => buildGraph(e.data, self);
