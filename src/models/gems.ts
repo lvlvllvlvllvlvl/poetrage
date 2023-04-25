@@ -246,9 +246,7 @@ export const strictlyBetter = (gem: Gem, other: Gem) => {
 
 export const isGoodCorruption = (gem: Gem) => {
   const isGood =
-    gem.Level >= gem.maxLevel &&
-    gem.Quality >= 20 &&
-    (gem.Level > gem.maxLevel || gem.Quality > 20 || gem.Vaal);
+    gem.Level >= gem.maxLevel && gem.Quality >= 20 && (gem.Level > gem.maxLevel || gem.Vaal);
   if (isGood && !gem.Corrupted) {
     console.warn("Uncorrupted gem should not be over limit", gem);
   }
