@@ -210,7 +210,7 @@ export const calculateProfits = (
         gem.gcpData = result
           .filter(
             (other) =>
-              (lowConfidence || !other.lowConfidence) &&
+              (lowConfidence === "all" || !other.lowConfidence) &&
               other.Name === gem.Name &&
               !other.Corrupted &&
               other.Level === gem.Level &&
@@ -251,6 +251,7 @@ export const calculateProfits = (
           (other) =>
             (lowConfidence || !other.lowConfidence) &&
             other.Corrupted === gem.Corrupted &&
+            other.Vaal === gem.Vaal &&
             other.XP !== undefined &&
             gemInfo.value?.xp[gem.baseName][other.Level + 1] === undefined &&
             (other.XP || 0) > (gem.XP || 0)

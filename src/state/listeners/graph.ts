@@ -27,7 +27,7 @@ startAppListening({
       console.debug("Starting graph worker");
       URL.revokeObjectURL(cancel);
 
-      const { setGraphData, setGraphProgress, setGraphProgressMsg } = setters(
+      const { setGraphData, setXpGraphData, setGraphProgress, setGraphProgressMsg } = setters(
         listenerApi.dispatch as AppDispatch
       );
 
@@ -36,6 +36,8 @@ startAppListening({
       worker.onmessage = (e) => {
         if (e.data.action === "data") {
           setGraphData(e.data.payload);
+        } else if (e.data.action === "xpdata") {
+          setXpGraphData(e.data.payload);
         } else if (e.data.action === "progress") {
           setGraphProgress(e.data.payload);
         } else if (e.data.action === "msg") {

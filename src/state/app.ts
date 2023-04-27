@@ -41,6 +41,7 @@ export const fields = {
   vaalableGems: prop<{ [key: string]: boolean }>(),
   data: prop<GemDetails[]>([]),
   graphData: prop<NodeMap>({}),
+  xpGraphData: prop<NodeMap>({}),
   currentGraph: prop<GraphNode>(),
   load: prop(0),
   devMode: prop(process.env.REACT_APP_GIT_COMMIT === "local"),

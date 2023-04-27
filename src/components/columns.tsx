@@ -24,7 +24,6 @@ import { Regrade } from "./cells/Regrade";
 import { Temple } from "./cells/Temple";
 import { Type } from "./cells/Type";
 import { Vaal } from "./cells/Vaal";
-import { XP } from "./cells/XP";
 
 export const getColumns = createSelector(
   [
@@ -260,25 +259,18 @@ export const getColumns = createSelector(
             : "n/a",
       },
       {
-        id: "xpValue",
-        accessorFn: ({ xpValue }) => (xpValue || 0) * fiveWay,
-        header: "Levelling",
-        sortingFn: (({ original: { xpValue: a } }, { original: { xpValue: b } }) =>
-          a === b
-            ? 0
-            : a === undefined
-            ? -1
-            : b === undefined
-            ? 1
-            : a - b) as SortingFn<GemDetails>,
+        id: "Levelling",
+        accessorFn: (gem: GemDetails) => gem.xpGraph?.expectedValue || 0,
         enableColumnFilter,
         filterFn: "inNumberRange",
         meta: {
-          tooltip:
-            "Profit from levelling this gem up, divided by estimated average gem xp earned in a 5-way",
           filter: { isMin: true },
         },
-        cell: ({ row: { original } }) => <XP gem={original} />,
+        cell: ({
+          row: {
+            original: { xpGraph },
+          },
+        }) => <GraphCell xp graph={xpGraph} />,
       },
       {
         id: "xpRatio",

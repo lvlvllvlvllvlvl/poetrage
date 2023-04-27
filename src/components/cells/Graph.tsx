@@ -21,6 +21,7 @@ import { Price } from "./Price";
 import numeral from "numeral";
 import { Pinned } from "./Pinned";
 import Box from "@mui/material/Box";
+import { Type } from "./Type";
 
 type GemNodeData = { label?: string; node?: GraphNode; isTarget: boolean; isSource: boolean };
 
@@ -30,7 +31,9 @@ const GemNode = ({ data: { node, isTarget, isSource } }: { data: GemNodeData }) 
       {node?.gem && (
         <Box sx={{ maxWidth: 200, p: 1, border: 1, borderRadius: 1, backgroundColor: "white" }}>
           <Typography sx={{ textAlign: "center" }}>
-            {node.gem.Level}/{node.gem.Quality} {node.gem.Name}
+            {node.gem.Level}/{node.gem.Quality} <Type gem={node.gem} />
+            {node.gem.Vaal ? " Vaal " : " "}
+            {node.gem.baseName}
             {node.gem.Corrupted ? " (corrupted) " : " "}
             <GemIcons gem={node.gem} />
           </Typography>
@@ -41,8 +44,10 @@ const GemNode = ({ data: { node, isTarget, isSource } }: { data: GemNodeData }) 
       )}
       {isTarget && <Handle type="target" position={Position.Top} />}
       {isSource && <Handle type="source" position={Position.Bottom} />}
-      <Handle type="source" position={Position.Left} id="loop" />
-      <Handle type="target" position={Position.Bottom} id="loop" />
+      <Handle type="source" position={Position.Left} id="parent" />
+      <Handle type="target" position={Position.Bottom} id="parent" />
+      <Handle type="source" position={Position.Bottom} id="self" />
+      <Handle type="target" position={Position.Left} id="self" />
     </>
   );
 };
@@ -61,10 +66,12 @@ const GemEdge = ({
   data,
 }: EdgeProps<GemEdgeData>) => {
   const invert = sourceX > targetX;
-  const isLoop = data?.child?.references === "parent";
-  const curvature = isLoop ? 0.4 : undefined;
-  targetPosition = isLoop ? Position.Left : targetPosition;
-  const textLabel = isLoop || (sourceY < targetY && Math.abs(sourceX - targetX) < 30);
+  const parentLoop = data?.child?.references === "parent";
+  const selfLoop = data?.child?.references === "self";
+  const isLoop = parentLoop || selfLoop;
+  const curvature = parentLoop ? 0.4 : selfLoop ? 0.8 : undefined;
+  targetPosition = parentLoop ? Position.Left : targetPosition;
+  const textLabel = parentLoop || (sourceY < targetY && Math.abs(sourceX - targetX) < 30);
   const showChance = !isLoop && data?.child?.probability && data.child.probability !== 1;
 
   const [edgePath, labelX, labelY] = getBezierPath(
@@ -125,7 +132,11 @@ const GemEdge = ({
       ) : (
         <text dy={-4}>
           <textPath href={`#${id}`} style={{ fontSize: 12 }} startOffset="50%" textAnchor="middle">
-            {data?.child?.name}
+            {isLoop
+              ? data?.child?.expectedCost
+                ? `Average cost: ${Math.round(data.child.expectedCost)}c`
+                : undefined
+              : data?.child?.name}
             {showChance ? ` (${numeral(data!.child!.probability * 100).format("0[.][00]")}%)` : ""}
           </textPath>
         </text>
@@ -156,9 +167,7 @@ export const GraphDialog = () => {
     if (child.node) {
       const id = getId(child.node.gem);
       nodeMap[id] = child.node;
-      const loop = child.references === "parent";
       dagre.setNode(id, {
-        label: id + ": " + (loop ? "repeat" : child.node.expectedValue || "fail"),
         weight: child.node.expectedValue,
         test: "test " + id,
         width: 180,
@@ -166,11 +175,15 @@ export const GraphDialog = () => {
       });
       dagre.setEdge(parent, id);
       childMap[`${parent}-${id}`] = { ...child, references: undefined };
-      if (loop) {
+      if (child.references === "parent") {
         childMap[`${id}-${parent}`] = child;
         dagre.setEdge(id, parent);
       }
       child.node.children?.forEach(traverse(child.node));
+    }
+    if (child.references === "self") {
+      childMap[`${parent}-${parent}`] = child;
+      dagre.setEdge(parent, parent);
     }
   };
   dagre.setNode(getId(graph.gem), { label: getId(graph.gem), width: 200, height: 100 });
@@ -203,8 +216,8 @@ export const GraphDialog = () => {
       source: e.v,
       target: e.w,
       data: { child },
-      sourceHandle: child?.references === "parent" ? "loop" : undefined,
-      targetHandle: child?.references === "parent" ? "loop" : undefined,
+      sourceHandle: child?.references,
+      targetHandle: child?.references,
       markerEnd: { type: MarkerType.ArrowClosed },
     };
   });
@@ -220,11 +233,19 @@ export const GraphDialog = () => {
   );
 };
 
-export const GraphCell = ({ graph }: { graph?: GraphNode }) => {
+export const GraphCell = ({ graph, xp }: { graph?: GraphNode; xp?: boolean }) => {
+  const fiveWay = useAppSelector(({ app }) => app.fiveWay.debounced);
   const { setCurrentGraph } = setters(useAppDispatch());
   return graph && graph.children?.length && graph.children[0].name !== "Sell" ? (
-    <Button onClick={() => setCurrentGraph(graph)}>
-      {Math.round(graph.expectedValue - graph.gem.Price)}
+    <Button sx={{ textTransform: "none" }} onClick={() => setCurrentGraph(graph)}>
+      {xp ? (
+        <>
+          {Math.round(graph.expectedValue * fiveWay)}c/5-way (
+          {numeral((graph.experience || 0) / fiveWay).format("0[.][00]")} 5-ways)
+        </>
+      ) : (
+        Math.round(graph.expectedValue - graph.gem.Price)
+      )}
     </Button>
   ) : (
     <span>n/a</span>

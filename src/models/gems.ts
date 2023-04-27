@@ -135,6 +135,7 @@ export type GemDetails = Gem & {
   convertValue?: number;
   convertData?: ConversionData[];
   graph?: GraphNode;
+  xpGraph?: GraphNode;
 };
 
 export type Override =
