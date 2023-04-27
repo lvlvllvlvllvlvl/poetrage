@@ -61,11 +61,11 @@ const GemEdge = ({
   data,
 }: EdgeProps<GemEdgeData>) => {
   const invert = sourceX > targetX;
-  const isLoop = !data?.child;
+  const isLoop = data?.child?.references === "parent";
   const curvature = isLoop ? 0.4 : undefined;
   targetPosition = isLoop ? Position.Left : targetPosition;
-  const usePath = sourceY < targetY && Math.abs(sourceX - targetX) < 30;
-  const showChance = data?.child?.probability && data.child.probability !== 1;
+  const textLabel = isLoop || (sourceY < targetY && Math.abs(sourceX - targetX) < 30);
+  const showChance = !isLoop && data?.child?.probability && data.child.probability !== 1;
 
   const [edgePath, labelX, labelY] = getBezierPath(
     invert
@@ -98,7 +98,7 @@ const GemEdge = ({
         markerEnd={invert ? undefined : markerEnd}
         markerStart={invert ? markerEnd : undefined}
       />
-      {usePath ? (
+      {textLabel ? (
         <EdgeLabelRenderer>
           <Box
             sx={{
@@ -109,7 +109,11 @@ const GemEdge = ({
               backgroundColor: "white",
             }}>
             <Typography fontSize="small" sx={{ textAlign: "center" }}>
-              {data?.child?.name}
+              {isLoop
+                ? data?.child?.expectedCost
+                  ? `Average cost: ${Math.round(data.child.expectedCost)}c`
+                  : undefined
+                : data?.child?.name}
             </Typography>
             {showChance && (
               <Typography fontSize="small" sx={{ textAlign: "center" }}>
@@ -152,7 +156,7 @@ export const GraphDialog = () => {
     if (child.node) {
       const id = getId(child.node.gem);
       nodeMap[id] = child.node;
-      const loop = child.node.references === "parent";
+      const loop = child.references === "parent";
       dagre.setNode(id, {
         label: id + ": " + (loop ? "repeat" : child.node.expectedValue || "fail"),
         weight: child.node.expectedValue,
@@ -160,9 +164,10 @@ export const GraphDialog = () => {
         width: 180,
         height: 100,
       });
-      dagre.setEdge(parent, id, { label: child.name });
-      childMap[`${parent}-${id}`] = child;
+      dagre.setEdge(parent, id);
+      childMap[`${parent}-${id}`] = { ...child, references: undefined };
       if (loop) {
+        childMap[`${id}-${parent}`] = child;
         dagre.setEdge(id, parent);
       }
       child.node.children?.forEach(traverse(child.node));
@@ -197,10 +202,9 @@ export const GraphDialog = () => {
       type: "gem",
       source: e.v,
       target: e.w,
-      label: dagre.edge(e.v, e.w).label,
       data: { child },
-      sourceHandle: child ? undefined : "loop",
-      targetHandle: child ? undefined : "loop",
+      sourceHandle: child?.references === "parent" ? "loop" : undefined,
+      targetHandle: child?.references === "parent" ? "loop" : undefined,
       markerEnd: { type: MarkerType.ArrowClosed },
     };
   });

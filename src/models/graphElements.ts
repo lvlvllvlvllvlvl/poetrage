@@ -6,7 +6,6 @@ export type GraphNode = {
   gem: GemDetails;
   expectedValue: number;
   children?: GraphChild[];
-  references?: "parent";
 };
 
 export type GraphChild = {
@@ -14,4 +13,5 @@ export type GraphChild = {
   expectedCost?: number;
   probability: number;
   node?: GraphNode;
+  references?: "parent";
 };

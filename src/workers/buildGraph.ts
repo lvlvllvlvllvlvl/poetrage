@@ -228,18 +228,17 @@ export const buildGraph = (
       solve(values);
       solve(costs);
       const newEV = values[qualityIndex[gem.Type]][4];
-      const expectedCost = costs[qualityIndex[gem.Type]][4];
+      const expectedCost = -costs[qualityIndex[gem.Type]][4];
       if (node.expectedValue < newEV) {
         node.expectedValue = newEV;
         node.children = children.map((child) => {
+          const retry = values[qualityIndex[child.gem.Type]][4] > child.expectedValue;
           return {
             name: "Regrading lens",
             expectedCost,
             probability: weights[child.gem.Type] / (totalWeight - weights[gem.Type]),
-            node:
-              values[qualityIndex[child.gem.Type]][4] <= child.expectedValue
-                ? child
-                : createReference(child.gem),
+            node: child,
+            references: retry ? "parent" : undefined,
           };
         });
       }
@@ -289,12 +288,6 @@ const createNode = (
 });
 const createUnknown = (gem: GemDetails): GraphNode => ({
   gem,
-  expectedValue: 0,
-  children: [],
-});
-const createReference = (gem: GemDetails): GraphNode => ({
-  gem,
-  references: "parent",
   expectedValue: 0,
   children: [],
 });
