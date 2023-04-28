@@ -17,7 +17,6 @@ import {
   qualityIndex,
 } from "models/gems";
 import { GraphChild, GraphNode, NodeMap } from "models/graphElements";
-import numeral from "numeral";
 import { GraphInputs } from "state/selectors/graphInputs";
 
 const million = 1000000;
@@ -501,7 +500,7 @@ function getChildren(
     other = { ...other, children: regrade };
   }
   let children: GraphChild[] = [
-    { name: `${numeral(xpDiff).format("0.0a")} xp`, node: other, probability: 1 },
+    { name: `${Math.round(xpDiff)} million xp`, node: other, probability: 1 },
   ];
   if (vaalCost) {
     const vaalGem = copy(gem, {
