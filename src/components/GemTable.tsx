@@ -90,7 +90,7 @@ export const GemTable = () => {
       {gems.status === "done" && currencyMap.status === "done" ? (
         <>
           <Box sx={{ maxWidth: "100vw", overflow: "auto" }}>
-            <Table sx={{ width: table.getCenterTotalSize(), tableLayout: "fixed" }}>
+            <Table stickyHeader sx={{ width: table.getCenterTotalSize(), tableLayout: "fixed" }}>
               <TableHead>
                 {table.getHeaderGroups().map((headerGroup) => (
                   <TableRow key={headerGroup.id}>
@@ -104,18 +104,11 @@ export const GemTable = () => {
                             background: "white",
                             position: header.column.getIsPinned() ? "sticky" : undefined,
                             left: header.column.getIsPinned() ? 0 : undefined,
-                            zIndex: header.column.getIsPinned() ? 1000 : undefined,
+                            zIndex: header.column.getIsPinned() ? 1001 : undefined,
                             width: header.getSize(),
                           }}>
                           {header.isPlaceholder || header.id === "Pinned" ? null : (
-                            <Box
-                              sx={{
-                                flex: "1",
-                                height: "100%",
-                                display: "flex",
-                                flexDirection: "column",
-                                justifyContent: "space-between",
-                              }}>
+                            <Box>
                               <Tooltip title={header.column.columnDef.meta?.tooltip}>
                                 <Box
                                   {...{
