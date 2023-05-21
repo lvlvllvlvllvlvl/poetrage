@@ -177,7 +177,19 @@ export const buildGraph = (
           ]);
         case "reroll":
           return createNode(gem, action[1], [
-            { name: "Vivid Watcher", probability: 1, expectedCost: action[2] },
+            {
+              name: "Vivid Watcher",
+              probability: 1,
+              expectedCost: action[2],
+              node: createNode(
+                copy(gem, {
+                  Name: "Random awakened gem",
+                  baseName: "Gem",
+                  Price: Math.round(action[1]),
+                }),
+                action[1]
+              ),
+            },
           ]);
         case "sell":
           return createNode(gem, action[1]);
@@ -373,7 +385,7 @@ export const buildGraph = (
         weights,
         totalWeight,
         getRegradeValue,
-        (node) => node?.expectedCost || 0
+        (node) => -(node?.expectedCost || 0)
       );
       solve(values);
       solve(costs);

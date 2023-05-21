@@ -29,7 +29,7 @@ type GemNodeData = { label?: string; node?: GraphNode; isTarget: boolean; isSour
 const GemNode = ({ data: { node, isTarget, isSource } }: { data: GemNodeData }) => {
   return (
     <>
-      {node?.gem && (
+      {node?.gem ? (
         <Box sx={{ maxWidth: 200, p: 1, border: 1, borderRadius: 1, backgroundColor: "white" }}>
           <Typography sx={{ textAlign: "center" }}>
             {node.gem.Level}/{node.gem.Quality} <Type gem={node.gem} />
@@ -41,10 +41,9 @@ const GemNode = ({ data: { node, isTarget, isSource } }: { data: GemNodeData }) 
           <Typography sx={{ textAlign: "center" }}>
             <Price inline gem={node.gem} /> <Pinned gem={node.gem} copy={node} />
           </Typography>
-          <Typography sx={{ textAlign: "center" }}>
-            ev: {node.expectedValue}, cost: {node.expectedCost}, roi: {node.roi}
-          </Typography>
         </Box>
+      ) : (
+        <Typography sx={{ textAlign: "center" }}>Average value: {node?.expectedValue}</Typography>
       )}
       {isTarget && <Handle type="target" position={Position.Top} />}
       {isSource && <Handle type="source" position={Position.Bottom} />}
@@ -124,7 +123,7 @@ const GemEdge = ({
                 ? data?.child?.expectedCost
                   ? `Average cost: ${Math.round(data.child.expectedCost)}c`
                   : undefined
-                : data?.child?.name}
+                : `${data?.child?.name || ""} (${data?.child?.expectedCost || 0}c)`}
             </Typography>
             {showChance && (
               <Typography fontSize="small" sx={{ textAlign: "center" }}>
@@ -141,7 +140,9 @@ const GemEdge = ({
                 ? `Average cost: ${Math.round(data.child.expectedCost)}c`
                 : undefined
               : data?.child?.name}
-            {showChance ? ` (${numeral(data!.child!.probability * 100).format("0[.][00]")}%)` : ""}
+            {showChance
+              ? ` (${numeral(data!.child!.probability * 100).format("0[.][00]")}%)`
+              : (data?.child?.expectedCost || 0) + "c"}
           </textPath>
         </text>
       )}
