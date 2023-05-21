@@ -198,6 +198,13 @@ export const getRatios = (
             gem.Price + awakenedRerollCost
           )
         : undefined,
+      gem.graph?.expectedValue && gem.graph.expectedCost
+        ? getRatio(
+            "Flowchart",
+            gem.graph?.expectedValue - gem.Price,
+            gem.graph.expectedCost + gem.Price
+          )
+        : undefined,
     ] as { name: string; profit: number; cost: number; ratio: number }[]
   )
     .filter(exists)

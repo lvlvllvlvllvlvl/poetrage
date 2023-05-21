@@ -74,7 +74,7 @@ export const GemTable = () => {
     state: {
       sorting,
       columnFilters,
-      columnVisibility: { Meta: !!league?.indexed, xpRatio: false },
+      columnVisibility: { Meta: !!league?.indexed },
       columnPinning: { left: ["Name"] },
     },
     onColumnFiltersChange: (updater) =>

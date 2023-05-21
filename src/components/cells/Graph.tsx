@@ -1,10 +1,13 @@
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
+import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { GemIcons } from "components/GemIcons";
 import { graphlib, layout } from "dagre";
 import { getId } from "models/gems";
 import { GraphChild, GraphNode } from "models/graphElements";
+import numeral from "numeral";
 import ReactFlow, {
   Background,
   EdgeLabelRenderer,
@@ -17,10 +20,8 @@ import ReactFlow, {
 import "reactflow/dist/style.css";
 import { setters } from "state/app";
 import { useAppDispatch, useAppSelector } from "state/store";
-import { Price } from "./Price";
-import numeral from "numeral";
 import { Pinned } from "./Pinned";
-import Box from "@mui/material/Box";
+import { Price } from "./Price";
 import { Type } from "./Type";
 
 type GemNodeData = { label?: string; node?: GraphNode; isTarget: boolean; isSource: boolean };
@@ -33,12 +34,15 @@ const GemNode = ({ data: { node, isTarget, isSource } }: { data: GemNodeData }) 
           <Typography sx={{ textAlign: "center" }}>
             {node.gem.Level}/{node.gem.Quality} <Type gem={node.gem} />
             {node.gem.Vaal ? " Vaal " : " "}
-            {node.gem.baseName}
+            {node.gem.baseName.replace("Awakened ", "")}
             {node.gem.Corrupted ? " (corrupted) " : " "}
             <GemIcons gem={node.gem} />
           </Typography>
           <Typography sx={{ textAlign: "center" }}>
             <Price inline gem={node.gem} /> <Pinned gem={node.gem} copy={node} />
+          </Typography>
+          <Typography sx={{ textAlign: "center" }}>
+            ev: {node.expectedValue}, cost: {node.expectedCost}, roi: {node.roi}
           </Typography>
         </Box>
       )}
@@ -239,10 +243,17 @@ export const GraphCell = ({ graph, xp }: { graph?: GraphNode; xp?: boolean }) =>
   return graph && graph.children?.length && graph.children[0].name !== "Sell" ? (
     <Button sx={{ textTransform: "none" }} onClick={() => setCurrentGraph(graph)}>
       {xp ? (
-        <>
-          {Math.round(graph.expectedValue * fiveWay)}c/5-way (
-          {numeral((graph.experience || 0) / fiveWay).format("0[.][00]")} 5-ways)
-        </>
+        <Tooltip
+          title={`${Math.round(
+            ((graph.expectedValue - graph.gem.Price) * fiveWay) / (graph.experience || 0)
+          )}c/5-way (${numeral((graph.experience || 0) / fiveWay).format("0[.][00]")} 5-ways)`}>
+          <span>
+            {Math.round(
+              ((graph.expectedValue - graph.gem.Price) * fiveWay) / (graph.experience || 0)
+            )}
+            c
+          </span>
+        </Tooltip>
       ) : (
         Math.round(graph.expectedValue - graph.gem.Price)
       )}

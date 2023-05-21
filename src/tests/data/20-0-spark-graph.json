@@ -656,5 +656,7 @@
     ],
     "templeValue": -0.9125000000000023
   },
-  "expectedValue": 3
+  "expectedValue": 3,
+  "expectedCost": 0,
+  "roi": 0
 }

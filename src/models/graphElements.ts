@@ -5,6 +5,8 @@ export type NodeMap = { [key: GemId]: GraphNode };
 export type GraphNode = {
   gem: GemDetails;
   expectedValue: number;
+  expectedCost?: number;
+  roi?: number;
   experience?: number;
   children?: GraphChild[];
 };

@@ -110,20 +110,6 @@ export const getColumns = createSelector(
         cell: ({ row: { original } }) => <Price gem={original} />,
       },
       {
-        id: "Profit",
-        accessorFn: (gem: GemDetails) => (gem.graph ? gem.graph.expectedValue - gem.Price : 0),
-        enableColumnFilter,
-        filterFn: "inNumberRange",
-        meta: {
-          filter: { isMin: true },
-        },
-        cell: ({
-          row: {
-            original: { graph },
-          },
-        }) => <GraphCell graph={graph} />,
-      },
-      {
         id: "ratio",
         header: "ROI",
         enableColumnFilter,
@@ -142,6 +128,21 @@ export const getColumns = createSelector(
             costOfAwakenedReroll
           )[0]?.ratio,
         cell: ({ row: { original } }) => <ROI gem={original} />,
+      },
+      {
+        id: "Profit",
+        header: "Flowchart",
+        accessorFn: (gem: GemDetails) => (gem.graph ? gem.graph.expectedValue - gem.Price : 0),
+        enableColumnFilter,
+        filterFn: "inNumberRange",
+        meta: {
+          filter: { isMin: true },
+        },
+        cell: ({
+          row: {
+            original: { graph },
+          },
+        }) => <GraphCell graph={graph} />,
       },
       {
         id: "regrValue",
@@ -260,7 +261,13 @@ export const getColumns = createSelector(
       },
       {
         id: "Levelling",
-        accessorFn: (gem: GemDetails) => gem.xpGraph?.expectedValue || 0,
+        accessorFn: (gem: GemDetails) =>
+          gem.xpGraph?.expectedValue
+            ? Math.round(
+                ((gem.xpGraph.expectedValue - gem.xpGraph.gem.Price) * fiveWay) /
+                  (gem.xpGraph.experience || 0)
+              )
+            : 0,
         enableColumnFilter,
         filterFn: "inNumberRange",
         meta: {
@@ -274,7 +281,7 @@ export const getColumns = createSelector(
       },
       {
         id: "xpRatio",
-        accessorFn: ({ xpValue, Price }) => (xpValue ? (xpValue * fiveWay) / Price : 0),
+        accessorFn: ({ xpGraph }) => xpGraph?.roi,
         header: "XP ROI",
         sortingFn: ((left, right) => {
           const a: number = left.getValue("xpRatio");
@@ -284,8 +291,7 @@ export const getColumns = createSelector(
         enableColumnFilter,
         filterFn: "inNumberRange",
         meta: {
-          tooltip:
-            "Profit per 5-way, divided by the cost of the gem. 5-way price not accounted for",
+          tooltip: "Leveling profit divided by costs. 5-way price not accounted for",
           filter: { isMin: true, isFloat: true },
         },
         cell: (info) =>

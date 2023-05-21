@@ -84,20 +84,26 @@ export const buildGraph = (
 
     const gcp = getCurrency("Gemcutter's Prism", currencyMap.value);
     const fn = (gem: GemDetails): GraphNode => {
-      const gcpBest =
-        gem.gcpData &&
-        max(
-          gem.gcpData.map(normalizedFn) || [],
-          (v) => v.expectedValue - (v.gem.Quality - gem.Quality) * gcp
-        );
+      const gcpResult =
+        !gem.Corrupted && gem.Quality < 20
+          ? normalizedFn(copy(gem, { Quality: 20, Price: 0, lowConfidence: true, Listings: 0 }))
+          : undefined;
+      const levelResult =
+        !gem.Corrupted && gem.Type === "Awakened" && gem.Level < gem.maxLevel
+          ? normalizedFn(
+              copy(gem, { Level: gem.maxLevel, Price: 0, lowConfidence: true, Listings: 0 })
+            )
+          : undefined;
+      const levelCost = (levelResult && (gem.maxLevel - gem.Level) * awakenedLevelCost) || 0;
 
       const action = max(
         [
           [
             "gcp",
-            gcpBest?.expectedValue
-              ? gcpBest.expectedValue - (gcpBest.gem.Quality - gem.Quality) * gcp
+            gcpResult?.expectedValue
+              ? gcpResult.expectedValue - (gcpResult.gem.Quality - gem.Quality) * gcp
               : 0,
+            ((gcpResult?.gem?.Quality || 0) - gem.Quality) * gcp,
           ],
           [
             "vaal",
@@ -105,6 +111,7 @@ export const buildGraph = (
               (sum, d) => sum + normalizedFn(d.gem).expectedValue * d.chance,
               0
             ) || 0) - getCurrency("Vaal Orb", currencyMap.value),
+            getCurrency("Vaal Orb", currencyMap.value),
           ],
           [
             "temple",
@@ -112,13 +119,10 @@ export const buildGraph = (
               (sum, d) => sum + normalizedFn(d.gem).expectedValue * d.chance,
               0
             ) || 0) - templeCost,
+            templeCost,
           ],
-          [
-            "level",
-            (max((gem.levelData || []).map(normalizedFn), (d) => d.expectedValue)?.expectedValue ||
-              0) - awakenedLevelCost,
-          ],
-          ["reroll", (gem.convertValue || 0) - awakenedRerollCost],
+          ["level", levelResult ? levelResult.expectedValue - levelCost : 0, levelCost],
+          ["reroll", (gem.convertValue || 0) - awakenedRerollCost, awakenedRerollCost],
           [
             "sell",
             !gem.lowMeta &&
@@ -138,7 +142,7 @@ export const buildGraph = (
       switch (action[0]) {
         case "gcp":
           return createNode(gem, action[1], [
-            { name: "Gemcutter's Prism", probability: 1, node: gcpBest },
+            { name: "Gemcutter's Prism", probability: 1, node: gcpResult, expectedCost: action[2] },
           ]);
         case "vaal":
           return createNode(
@@ -148,6 +152,7 @@ export const buildGraph = (
               name: `Vaal: ${v.outcomes?.[0]}`,
               probability: v.chance,
               node: normalizedFn(v.gem),
+              expectedCost: action[2],
             }))
           );
         case "temple":
@@ -158,6 +163,7 @@ export const buildGraph = (
               name: `Temple: ${v.outcomes?.[0]}`,
               probability: v.chance,
               node: normalizedFn(v.gem),
+              expectedCost: action[2],
             }))
           );
         case "level":
@@ -165,11 +171,14 @@ export const buildGraph = (
             {
               name: "Wild Brambleback",
               probability: 1,
-              node: max((gem.levelData || []).map(normalizedFn), (d) => d.expectedValue),
+              node: levelResult,
+              expectedCost: action[2],
             },
           ]);
         case "reroll":
-          return createNode(gem, action[1], [{ name: "Vivid Watcher", probability: 1 }]);
+          return createNode(gem, action[1], [
+            { name: "Vivid Watcher", probability: 1, expectedCost: action[2] },
+          ]);
         case "sell":
           return createNode(gem, action[1]);
       }
@@ -252,9 +261,7 @@ export const buildGraph = (
                   node: normalizedFn(child.gem),
                 }))
               : undefined;
-            const xpValue =
-              ((regradeCost ? regrValue : other.expectedValue) - (gem.Price + gcpCost + vaalCost)) /
-              xpDiff;
+            const xpValue = (regradeCost ? regrValue : other.expectedValue) - (gcpCost + vaalCost);
 
             let children = getChildren(
               other,
@@ -296,9 +303,7 @@ export const buildGraph = (
                         }))
                       : undefined;
                     const xpValue =
-                      ((regradeCost ? regrValue : other.expectedValue) -
-                        (gem.Price + gcp + vaalCost)) /
-                      xpDiff;
+                      (regradeCost ? regrValue : other.expectedValue) - (gcp + vaalCost);
 
                     let children = getChildren(other, gem, xpDiff, vaalCost, 1, 0, regradeOutcomes);
                     return createNode(gem, xpValue, children, xpDiff);
@@ -311,7 +316,7 @@ export const buildGraph = (
     }
     setXPData(xpData);
 
-    setProgressMsg("Calculating profit flowchart loops");
+    setProgressMsg("Calculating regrading lens loops");
     setProgress(0);
     timeSlice = Date.now() + processingTime;
 
@@ -346,14 +351,39 @@ export const buildGraph = (
         results[n.gem.Type] = n;
       });
 
-      const values = createMatrix(results, lensPrice, weights, totalWeight, getRegradeValue, false);
-      const costs = createMatrix(results, lensPrice, weights, totalWeight, getRegradeValue, true);
+      const values = createMatrix(
+        results,
+        lensPrice,
+        weights,
+        totalWeight,
+        getRegradeValue,
+        (node) => node?.expectedValue || 0
+      );
+      const costs = createMatrix(
+        results,
+        lensPrice,
+        weights,
+        totalWeight,
+        getRegradeValue,
+        (node) => 0
+      );
+      const totalCosts = createMatrix(
+        results,
+        lensPrice,
+        weights,
+        totalWeight,
+        getRegradeValue,
+        (node) => node?.expectedCost || 0
+      );
       solve(values);
       solve(costs);
+      solve(totalCosts);
       const newEV = values[qualityIndex[gem.Type]][4];
       const expectedCost = -costs[qualityIndex[gem.Type]][4];
       if (node.expectedValue < newEV) {
         node.expectedValue = newEV;
+        node.expectedCost = -totalCosts[qualityIndex[gem.Type]][4];
+        node.roi = newEV / (newEV - node.gem.Price);
         node.children = children.map((child) => {
           const retry = values[qualityIndex[child.gem.Type]][4] > child.expectedValue;
           return {
@@ -405,12 +435,23 @@ const createNode = (
   expectedValue: number,
   children?: GraphChild[],
   experience?: number
-): GraphNode => ({
-  gem,
-  expectedValue,
-  children,
-  experience,
-});
+): GraphNode => {
+  const expectedCost =
+    children?.reduce(
+      (sum, child) =>
+        sum + ((child.expectedCost || 0) + (child.node?.expectedCost || 0)) * child.probability,
+      0
+    ) || 0;
+  const roi = (expectedValue - gem.Price) / (expectedCost + gem.Price);
+  return {
+    gem,
+    expectedValue,
+    expectedCost,
+    roi,
+    children,
+    experience,
+  };
+};
 const createUnknown = (gem: GemDetails): GraphNode => ({
   gem,
   expectedValue: 0,
@@ -455,7 +496,7 @@ const createMatrix = (
   weights: { [k: string]: number },
   totalWeight: number,
   calc: (regrData: ConversionData[]) => number,
-  costOnly: boolean
+  value: (node?: GraphNode) => number
 ): number[][] => {
   return qualities.map((row) =>
     ([...qualities, "Value"] as const).map((col) => {
@@ -465,7 +506,7 @@ const createMatrix = (
       } else if (row === col) {
         return 1;
       } else if (node.expectedValue >= (node.gem.regrData ? calc(node.gem.regrData) : 0)) {
-        return col === "Value" ? (costOnly ? 0 : node.expectedValue) : 0;
+        return col === "Value" ? value(node) : 0;
       } else if (col === "Value") {
         return -lensPrice;
       } else {
