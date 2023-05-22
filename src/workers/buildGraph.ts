@@ -185,7 +185,7 @@ export const buildGraph = (
                 copy(gem, {
                   Name: "Random awakened gem",
                   baseName: "Gem",
-                  Price: Math.round(action[1]),
+                  Price: Math.round(action[1] + action[2]),
                 }),
                 action[1]
               ),

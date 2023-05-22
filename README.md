@@ -1,13 +1,9 @@
 ## TODO
 
-- add multiselect to profit ratio column
-- show json for row (for debugging)
 - vendors (gems start with 8,000,001 xp)
 - rate limiting
 - remove axios cache
 - store state in sessionstorage
-- add gcp + vaal/temple, gcp + regrade and gcp + regrade + vaal/temple profit ratios
-- show pinned rows ignoring filters
 - refresh overrides
 - make cors proxy configurable
 - faceators lens
