@@ -55,7 +55,10 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "rules": {
+      "@typescript-eslint/consistent-type-definitions": "warn"
+    }
   },
   "browserslist": {
     "production": [

@@ -13,7 +13,9 @@ import {
 import { AppState } from "./app";
 import { startAppListening } from "./listener";
 
-type State = { app: AppState };
+interface State {
+  app: AppState;
+}
 
 const methods = {
   gemInfo: getGemInfo,

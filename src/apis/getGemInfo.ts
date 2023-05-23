@@ -2,11 +2,15 @@ import { api } from "apis/axios";
 import { GemType, QualityType } from "models/gems";
 import { Gem } from "models/repoe/Gem";
 
-export type Weights = { [gem: string]: { Type: GemType; weight: number }[] };
-export type Stats = {
+export interface Weights {
+  [gem: string]: { Type: GemType; weight: number }[];
+}
+export interface Stats {
   [gem: string]: { [quality in QualityType]?: { id: string; stat?: string; value: number }[] };
-};
-export type XP = { [gem: string]: { [level: number]: number } };
+}
+export interface XP {
+  [gem: string]: { [level: number]: number };
+}
 
 export type GemInfo = Awaited<ReturnType<typeof getGemInfo>>;
 

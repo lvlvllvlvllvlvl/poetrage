@@ -4,7 +4,11 @@ import { SearchQueryContainer } from "models/poe/Search";
 import { GraphNode } from "./graphElements";
 import { SkillGem } from "./ninja/Item";
 
-export type ConversionData = { gem: Gem; chance: number; outcomes: string[] };
+export interface ConversionData {
+  gem: Gem;
+  chance: number;
+  outcomes: string[];
+}
 export const altQualities = ["Anomalous", "Divergent", "Phantasmal"] as const;
 export const qualities = ["Superior", ...altQualities] as const;
 export const qualityIndex = Object.fromEntries(qualities.map((q, i) => [q, i]));
@@ -55,7 +59,7 @@ export const mavenCrucible = [
   "Awakened Added Fire Damage Support",
 ];
 
-export type Gem = {
+export interface Gem {
   original: SkillGem;
   baseName: string;
   variant: string;
@@ -75,7 +79,7 @@ export type Gem = {
   lowConfidence: boolean;
   isOverride?: boolean;
   Pinned?: boolean;
-};
+}
 
 const GemFields: Required<Gem> = {
   original: {} as any,

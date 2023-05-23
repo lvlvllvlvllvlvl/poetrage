@@ -24,7 +24,12 @@ import { Pinned } from "./Pinned";
 import { Price } from "./Price";
 import { Type } from "./Type";
 
-type GemNodeData = { label?: string; node?: GraphNode; isTarget: boolean; isSource: boolean };
+interface GemNodeData {
+  label?: string;
+  node?: GraphNode;
+  isTarget: boolean;
+  isSource: boolean;
+}
 
 const GemNode = ({ data: { node, isTarget, isSource } }: { data: GemNodeData }) => {
   return (
@@ -55,7 +60,10 @@ const GemNode = ({ data: { node, isTarget, isSource } }: { data: GemNodeData }) 
   );
 };
 
-type GemEdgeData = { label?: string; child?: GraphChild };
+interface GemEdgeData {
+  label?: string;
+  child?: GraphChild;
+}
 
 const GemEdge = ({
   id,
