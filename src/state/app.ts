@@ -23,6 +23,7 @@ function debouncedProp<T>(value?: T) {
 export const fields = {
   league: prop<League>(),
   ladder: prop<"exp" | "depthsolo">("exp"),
+  source: prop<"ninja" | "watch">("ninja"),
   pins: prop<GemId[]>([]),
   sorting: prop<SortingState>([{ id: "Pinned", desc: true }]),
   columnFilters: prop<ColumnFiltersState>([

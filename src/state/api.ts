@@ -93,6 +93,7 @@ const toApiResult = <T>({
 
 const getLeague = ({ app }: State) => app.league;
 const getLadder = ({ app }: State) => app.ladder;
+const getSource = ({ app }: State) => app.source;
 
 const gemInfoSelector = apiSlice.endpoints.gemInfo.select([]);
 export const gemInfo = createSelector([gemInfoSelector], toApiResult);
@@ -133,8 +134,8 @@ startAppListening({
   },
 });
 
-const gemsSelector = createSelector([getLeague], (league) =>
-  apiSlice.endpoints.gems.select(league ? [league.name] : skipToken)
+const gemsSelector = createSelector([getLeague, getSource], (league, source) =>
+  apiSlice.endpoints.gems.select(league ? [league.name, source] : skipToken)
 );
 export const gems = createSelector([(state) => gemsSelector(state)(state)], toApiResult);
 startAppListening({
@@ -143,8 +144,9 @@ startAppListening({
 
   effect: async (action, listenerApi) => {
     const league = getLeague(listenerApi.getState());
+    const source = getSource(listenerApi.getState());
     if (league) {
-      listenerApi.dispatch(apiSlice.endpoints.gems.initiate([league.name]));
+      listenerApi.dispatch(apiSlice.endpoints.gems.initiate([league.name, source]));
     }
   },
 });

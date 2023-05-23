@@ -83,49 +83,90 @@ export const calculateProfits = (
 
     const missingXP: { [gem: string]: true } = {};
     const vaalGems: { [key: string]: boolean } = {};
-    let result: GemDetails[] = gems?.value.map((original) => {
-      const {
-        name,
-        variant,
-        chaosValue,
-        gemLevel,
-        gemQuality,
-        corrupted,
-        listingCount,
-        sparkline,
-      } = original;
-      const baseName = modifiers.reduce((name, mod) => name.replace(mod, ""), name);
-      const Vaal = name.includes("Vaal");
-      const Type = getType(name);
+    let result: GemDetails[] =
+      gems.value.source === "ninja"
+        ? gems.value.data.map((original) => {
+            const {
+              name,
+              variant,
+              chaosValue,
+              gemLevel,
+              gemQuality,
+              corrupted,
+              listingCount,
+              sparkline,
+            } = original;
+            const baseName = modifiers.reduce((name, mod) => name.replace(mod, ""), name);
+            const Vaal = name.includes("Vaal");
+            const Type = getType(name);
 
-      const Meta = getMeta(meta, Vaal, Type, name);
-      const levels = gemInfo.value?.xp[Type === "Awakened" ? name : baseName];
-      if (!levels) {
-        missingXP[Type === "Awakened" ? name : baseName] = true;
-      }
-      vaalGems[baseName] = vaalGems[baseName] || Vaal;
-      return {
-        original,
-        Name: name,
-        baseName,
-        variant,
-        Level: gemLevel,
-        XP: levels?.[gemLevel],
-        Quality: gemQuality || 0,
-        Corrupted: corrupted || false,
-        Vaal,
-        Type,
-        Price: Math.round(chaosValue || 0),
-        Meta,
-        Listings: listingCount,
-        maxLevel: gemInfo.value.maxLevel[baseName],
-        lowMeta: Meta < filterMeta,
-        lowConfidence:
-          Meta < filterMeta ||
-          !sparkline?.data?.length ||
-          sparkline.data[sparkline.data.length - 1] === null,
-      } as GemDetails;
-    });
+            const Meta = getMeta(meta, Vaal, Type, name);
+            const levels = gemInfo.value?.xp[Type === "Awakened" ? name : baseName];
+            if (!levels) {
+              missingXP[Type === "Awakened" ? name : baseName] = true;
+            }
+            vaalGems[baseName] = vaalGems[baseName] || Vaal;
+            return {
+              original,
+              Name: name,
+              baseName,
+              variant,
+              Level: gemLevel,
+              XP: levels?.[gemLevel],
+              Quality: gemQuality || 0,
+              Corrupted: corrupted || false,
+              Vaal,
+              Type,
+              Price: Math.round(chaosValue || 0),
+              Meta,
+              Listings: listingCount,
+              maxLevel: gemInfo.value.maxLevel[baseName],
+              lowMeta: Meta < filterMeta,
+              lowConfidence:
+                Meta < filterMeta ||
+                !sparkline?.data?.length ||
+                sparkline.data[sparkline.data.length - 1] === null,
+            } as GemDetails;
+          })
+        : gems.value.data.map((original) => {
+            const {
+              name,
+              mean: chaosValue,
+              gemLevel,
+              gemQuality,
+              gemIsCorrupted: corrupted,
+              daily: Listings,
+              lowConfidence,
+            } = original;
+            const baseName = modifiers.reduce((name, mod) => name.replace(mod, ""), name);
+            const Vaal = name.includes("Vaal");
+            const Type = getType(name);
+
+            const Meta = getMeta(meta, Vaal, Type, name);
+            const levels = gemInfo.value?.xp[Type === "Awakened" ? name : baseName];
+            if (!levels) {
+              missingXP[Type === "Awakened" ? name : baseName] = true;
+            }
+            vaalGems[baseName] = vaalGems[baseName] || Vaal;
+            return {
+              original,
+              Name: name,
+              baseName,
+              variant: `${gemLevel}/${gemQuality}${corrupted ? "c" : ""}`,
+              Level: gemLevel,
+              XP: levels?.[gemLevel],
+              Quality: gemQuality || 0,
+              Corrupted: corrupted || false,
+              Vaal,
+              Type,
+              Price: Math.round(chaosValue || 0),
+              Meta,
+              Listings,
+              maxLevel: gemInfo.value.maxLevel[baseName],
+              lowMeta: Meta < filterMeta,
+              lowConfidence,
+            } as GemDetails;
+          });
 
     const notFound = new Set(overrides);
     result = result

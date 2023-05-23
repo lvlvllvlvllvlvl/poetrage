@@ -3,6 +3,7 @@ import { pick } from "lodash";
 import { SearchQueryContainer } from "models/poe/Search";
 import { GraphNode } from "./graphElements";
 import { SkillGem } from "./ninja/Item";
+import { Gem as PoeWatchGem } from "./poewatch/Types";
 
 export interface ConversionData {
   gem: Gem;
@@ -60,7 +61,7 @@ export const mavenCrucible = [
 ];
 
 export interface Gem {
-  original: SkillGem;
+  original: SkillGem | PoeWatchGem;
   baseName: string;
   variant: string;
   Name: string;
@@ -240,6 +241,7 @@ export const getType = (name: string) => {
     return "Superior";
   }
 };
+
 export const betterOrEqual = (gem: Gem, other: Gem) => {
   if (other.baseName !== gem.baseName || other.Type !== gem.Type) {
     console.debug("mismatched gem comparison", gem, other);

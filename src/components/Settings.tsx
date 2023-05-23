@@ -46,6 +46,7 @@ export const Settings = () => {
   const {
     setLeague,
     setLadder,
+    setSource,
     setShowOptions,
     setSanitize,
     setTemplePrice,
@@ -66,6 +67,7 @@ export const Settings = () => {
   const currencyMap = useAppSelector(api.currencyMap);
   const templeAverage = useAppSelector(api.templeAverage);
   const league = useAppSelector((state) => state.app.league);
+  const source = useAppSelector((state) => state.app.source);
   const leaderboard = useAppSelector((state) => state.app.ladder);
   const showOptions = useAppSelector((state) => state.app.showOptions);
   const sanitize = useAppSelector((state) => state.app.sanitize);
@@ -107,6 +109,17 @@ export const Settings = () => {
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
+              <FormControl fullWidth margin="normal">
+                <InputLabel>Data source</InputLabel>
+                <Select
+                  value={source}
+                  label="Data source"
+                  onChange={({ target }) => setSource(target.value as any)}>
+                  <MenuItem value="ninja">poe.ninja</MenuItem>
+                  <MenuItem value="watch">poe.watch</MenuItem>
+                </Select>
+              </FormControl>
+
               <FormControl fullWidth margin="normal">
                 <InputLabel>League</InputLabel>
                 <Select
