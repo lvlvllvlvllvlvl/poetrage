@@ -32,7 +32,9 @@ export const getGemInfo = async () => {
     }
     names.add(name);
     if (gem.base_item.max_level) maxLevel[name] = gem.base_item.max_level;
+    const altName = name.includes(" Support") ? name.replace(" Support", "") : name + " Support";
     weights[name] = weights[name] || [];
+    weights[altName] = weights[altName] || [];
     qualityStats[name] = qualityStats[name] || [];
     gem.static.quality_stats.forEach((quality_stat) => {
       if (quality_stat.stat) {
@@ -50,6 +52,7 @@ export const getGemInfo = async () => {
       });
       if (!weights[name].find((w) => w.Type === quality_stat.set_name)) {
         weights[name].push({ Type: quality_stat.set_name, weight: quality_stat.weight });
+        weights[altName].push({ Type: quality_stat.set_name, weight: quality_stat.weight });
       }
     });
     Object.entries(gem.per_level).forEach(([level, data]) => {

@@ -7,9 +7,13 @@ export const getCurrencyOverview = async (league: string) => {
   );
 
   const result: { [key: string]: number } = {};
-  response.data.lines.forEach((c) => (result[c.currencyTypeName] = c.chaosEquivalent));
-  result["exalted"] = result["Exalted Orb"];
-  result["divine"] = result["Divine Orb"];
-  result["chaos"] = result["Chaos Orb"];
+  response.data.lines.forEach((c) => {
+    result[c.currencyTypeName] = c.chaosEquivalent;
+  });
+  response.data.currencyDetails.forEach((c) => {
+    if (c.tradeId) {
+      result[c.tradeId] = result[c.name];
+    }
+  });
   return result;
 };

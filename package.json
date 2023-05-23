@@ -23,6 +23,7 @@
     "axios-cache-adapter": "^2.7.3",
     "dagre": "^0.8.5",
     "gh-pages": "^5.0.0",
+    "just-standard-deviation": "^2.2.0",
     "localforage": "^1.10.0",
     "localforage-memoryStorageDriver": "^0.9.2",
     "lodash": "^4.17.21",

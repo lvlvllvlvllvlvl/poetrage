@@ -21,7 +21,7 @@ const extractData = (gem: GemDetails) => {
 };
 
 it("extracts data from paste", () => {
-  const data = extractData(divergentSpark as GemDetails);
+  const data = extractData(divergentSpark as any);
 
   // console.log(JSON.stringify(data));
   expect(data).toEqual(extracted);
@@ -29,9 +29,12 @@ it("extracts data from paste", () => {
 
 it("calculates simple outputs", () => {
   const profits = calculateProfits({
-    inputs: { ...profitInputs, gems: { ...profitInputs.gems, value: extracted } },
+    inputs: {
+      ...profitInputs,
+      gems: { ...profitInputs.gems, value: { source: "ninja", data: extracted } },
+    },
   } as any);
-  const id = getId(divergentSpark as GemDetails);
+  const id = getId(divergentSpark as any);
 
   const gem = profits?.find((g) => getId(g) === id)!;
 
@@ -48,7 +51,10 @@ it("calculates graph outputs", () => {
       data: calculateProfits({
         inputs: {
           ...profitInputs,
-          gems: { ...profitInputs.gems, value: extractData(leveledSpark as any) },
+          gems: {
+            ...profitInputs.gems,
+            value: { source: "ninja", data: extractData(leveledSpark as any) },
+          },
         },
       } as any),
     },

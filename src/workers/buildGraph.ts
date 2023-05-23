@@ -335,7 +335,7 @@ export const buildGraph = (
     const cache = new memoize.Cache();
 
     i = 0;
-    for (const node of Object.values(graphData).map((node) => ({ ...node }))) {
+    for (const node of Object.values(graphData).map((node) => ({ ...node })) as GraphNode[]) {
       i++;
       if (Date.now() > timeSlice) {
         const p = (100 * i) / data.length;

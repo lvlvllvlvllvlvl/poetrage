@@ -40,6 +40,7 @@ export const GemTable = () => {
   const gems = useAppSelector(api.gems);
   const currencyMap = useAppSelector(api.currencyMap);
   const league = useAppSelector((state) => state.app.league);
+  const source = useAppSelector((state) => state.app.source);
   const sorting = useAppSelector((state) => state.app.sorting);
   const columnFilters = useAppSelector((state) => state.app.columnFilters);
   const data = useAppSelector(zippedData);
@@ -74,7 +75,7 @@ export const GemTable = () => {
     state: {
       sorting,
       columnFilters,
-      columnVisibility: { Meta: !!league?.indexed },
+      columnVisibility: { Meta: !!league?.indexed, Listings: source !== "watch" },
       columnPinning: { left: ["Name"] },
     },
     onColumnFiltersChange: (updater) =>

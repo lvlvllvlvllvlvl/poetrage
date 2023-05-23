@@ -124,7 +124,7 @@ export const Settings = () => {
                 <InputLabel>League</InputLabel>
                 <Select
                   value={leagues.status === "done" && league ? league?.name : ""}
-                  label="league"
+                  label="League"
                   onChange={({ target }) =>
                     setLeague(
                       leagues.value?.economyLeagues?.find(({ name }) => name === target.value)
@@ -156,7 +156,7 @@ export const Settings = () => {
                     <InputLabel>Ladder</InputLabel>
                     <Select
                       value={leaderboard}
-                      label="leaderboard"
+                      label="Ladder"
                       onChange={({ target }) => setLadder(target.value as any)}>
                       <MenuItem value="exp">Experience</MenuItem>
                       <MenuItem value="depthsolo">Depth</MenuItem>

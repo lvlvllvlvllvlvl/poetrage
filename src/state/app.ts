@@ -25,7 +25,10 @@ export const fields = {
   ladder: prop<"exp" | "depthsolo">("exp"),
   source: prop<"ninja" | "watch">("ninja"),
   pins: prop<GemId[]>([]),
-  sorting: prop<SortingState>([{ id: "Pinned", desc: true }]),
+  sorting: prop<SortingState>([
+    { id: "Pinned", desc: true },
+    { id: "ratio", desc: true },
+  ]),
   columnFilters: prop<ColumnFiltersState>([
     { id: "Meta", value: [0.4, undefined] },
     { id: "lowConfidence", value: false },
