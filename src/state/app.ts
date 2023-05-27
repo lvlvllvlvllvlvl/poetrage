@@ -21,6 +21,7 @@ function debouncedProp<T>(value?: T) {
 }
 
 export const fields = {
+  tab: prop<"gems" | "corruptions">("gems"),
   league: prop<League>(),
   ladder: prop<"exp" | "depthsolo">("exp"),
   source: prop<"ninja" | "watch">("ninja"),

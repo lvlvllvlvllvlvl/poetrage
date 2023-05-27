@@ -1,27 +1,141 @@
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import RefreshIcon from "@mui/icons-material/Refresh";
+import SettingsIcon from "@mui/icons-material/Settings";
+import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import "App.css";
+import CssBaseline from "@mui/material/CssBaseline";
+import IconButton from "@mui/material/IconButton";
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { cache } from "apis/axios";
+import { Settings } from "components/GemSettings";
 import { GemTable } from "components/GemTable";
 import { GraphDialog } from "components/cells/Graph";
-import { Settings } from "components/Settings";
+import { useEffect, useMemo, useReducer, useState } from "react";
 import GithubCorner from "react-github-corner";
+import { apiSlice } from "state/api";
+import { actions, setters } from "state/app";
+import { useAppDispatch, useAppSelector } from "state/store";
+
+const tabs = ["gems", "corruptions"] as const;
 
 function App() {
+  const systemMode = useMediaQuery("(prefers-color-scheme: dark)");
+  const [darkMode, toggleMode] = useReducer((state) => !state, systemMode);
+  const tab = useAppSelector((state) => state.app.tab);
+  const showOptions = useAppSelector((state) => state.app.showOptions);
+  const dispatch = useAppDispatch();
+  const { setTab, setShowOptions } = setters(dispatch);
+  const [appBarRef, setAppBarRef] = useState<HTMLElement | null>(null);
+
+  const reload = useMemo(
+    () => () => {
+      dispatch(apiSlice.util.resetApiState());
+      dispatch(actions.reload());
+    },
+    [dispatch]
+  );
+  useEffect(reload, [reload]);
+
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode: darkMode ? "dark" : "light",
+          primary: {
+            main: darkMode ? "#5B95DB" : "#1F334B",
+          },
+          secondary: {
+            main: "#857D05",
+          },
+          error: {
+            main: "#FD5649",
+          },
+          warning: {
+            main: "#F66A00",
+          },
+          info: {
+            main: "#357A79",
+          },
+          success: {
+            main: "#F9A17F",
+          },
+        },
+      }),
+    [darkMode]
+  );
+
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        height: "100vh",
-      }}>
-      <GithubCorner
-        href="https://github.com/lvlvllvlvllvlvl/poetrage"
-        target="_blank"
-        title={process.env.REACT_APP_GIT_COMMIT}
-      />
-      <Settings />
-      <GraphDialog />
-      <GemTable />
-    </Box>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          height: "100vh",
+        }}>
+        <GithubCorner
+          href="https://github.com/lvlvllvlvllvlvl/poetrage"
+          target="_blank"
+          title={process.env.REACT_APP_GIT_COMMIT}
+          octoColor={theme.palette.primary.main}
+          style={{ zIndex: 2000 }}
+        />
+        <div
+          style={{
+            ...theme.mixins.toolbar,
+            height: appBarRef?.clientHeight || theme.mixins.toolbar.height,
+          }}
+        />
+        <AppBar component="nav" ref={setAppBarRef}>
+          <Toolbar>
+            <IconButton color="inherit" onClick={() => setShowOptions(!showOptions)}>
+              <SettingsIcon />
+            </IconButton>
+            <IconButton
+              color="inherit"
+              onClick={async () => {
+                ((await cache).store as LocalForage).clear();
+                reload();
+              }}>
+              <RefreshIcon />
+            </IconButton>
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{ pl: 2, flexGrow: 1 }}
+              onClick={() => setShowOptions(!showOptions)}>
+              poetrage
+            </Typography>
+            <Tabs
+              value={tabs.indexOf(tab)}
+              onChange={(_, i) => setTab(tabs[i])}
+              textColor="inherit"
+              aria-label="app tabs">
+              {tabs.map((tab) => (
+                <Tab key={tab} label={tab} />
+              ))}
+            </Tabs>
+            <IconButton color="inherit" onClick={toggleMode}>
+              {darkMode ? <DarkModeIcon /> : <LightModeIcon />}
+            </IconButton>
+            <Box sx={{ minWidth: 64 }} />
+          </Toolbar>
+        </AppBar>
+        {tab === "gems" && (
+          <>
+            <Settings />
+            <GraphDialog />
+            <GemTable />
+          </>
+        )}
+      </Box>
+    </ThemeProvider>
   );
 }
 

@@ -1,3 +1,4 @@
+import Link from "@mui/material/Link";
 import Tooltip from "@mui/material/Tooltip";
 import { GemIcons } from "components/GemIcons";
 import { Gem, getId, getQuery } from "models/gems";
@@ -8,14 +9,14 @@ export const Name = ({ gem }: { gem: Gem }) => {
   return (
     <>
       <Tooltip title={getId(gem)}>
-        <a
+        <Link
           target="_blank"
           rel="noreferrer"
           href={`https://www.pathofexile.com/trade/search/${league?.name}?q=${JSON.stringify(
             getQuery(gem)
           )}`}>
           {gem.Name}
-        </a>
+        </Link>
       </Tooltip>
       <GemIcons gem={gem} />
     </>

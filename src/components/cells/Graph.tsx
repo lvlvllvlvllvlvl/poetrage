@@ -23,6 +23,7 @@ import { useAppDispatch, useAppSelector } from "state/store";
 import { Pinned } from "./Pinned";
 import { Price } from "./Price";
 import { Type } from "./Type";
+import { useTheme } from "@mui/material/styles";
 
 interface GemNodeData {
   label?: string;
@@ -32,10 +33,19 @@ interface GemNodeData {
 }
 
 const GemNode = ({ data: { node, isTarget, isSource } }: { data: GemNodeData }) => {
+  const theme = useTheme();
+
   return (
     <>
       {node?.gem ? (
-        <Box sx={{ maxWidth: 200, p: 1, border: 1, borderRadius: 1, backgroundColor: "white" }}>
+        <Box
+          sx={{
+            maxWidth: 200,
+            p: 1,
+            border: 1,
+            borderRadius: 1,
+            backgroundColor: theme.palette.background.paper,
+          }}>
           <Typography sx={{ textAlign: "center" }}>
             {node.gem.Level}/{node.gem.Quality} <Type gem={node.gem} />
             {node.gem.Vaal ? " Vaal " : " "}
@@ -76,6 +86,7 @@ const GemEdge = ({
   targetPosition,
   data,
 }: EdgeProps<GemEdgeData>) => {
+  const theme = useTheme();
   const invert = sourceX > targetX;
   const parentLoop = data?.child?.references === "parent";
   const selfLoop = data?.child?.references === "self";
@@ -124,14 +135,16 @@ const GemEdge = ({
               transform: `translate(-50%, -50%) translate(${labelX}px,${
                 showChance ? labelY + 25 : labelY
               }px)`,
-              backgroundColor: "white",
+              backgroundColor: theme.palette.background.paper,
             }}>
             <Typography fontSize="small" sx={{ textAlign: "center" }}>
               {isLoop
                 ? data?.child?.expectedCost
                   ? `Average cost: ${Math.round(data.child.expectedCost)}c`
                   : undefined
-                : `${data?.child?.name || ""} (${data?.child?.expectedCost || 0}c)`}
+                : `${data?.child?.name || ""} (${numeral(data?.child?.expectedCost || 0).format(
+                    "0[.][0]"
+                  )}c)`}
             </Typography>
             {showChance && (
               <Typography fontSize="small" sx={{ textAlign: "center" }}>
