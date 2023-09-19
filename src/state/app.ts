@@ -20,8 +20,10 @@ function debouncedProp<T>(value?: T) {
   return { type: "debounced", value: { value, debounced: value } };
 }
 
+export const tabs = ["gems"] as const
+
 export const fields = {
-  tab: prop<"gems" | "corruptions">("gems"),
+  tab: prop<typeof tabs[number]>(tabs[0]),
   league: prop<League>(),
   ladder: prop<"exp" | "depthsolo">("exp"),
   source: prop<"ninja" | "watch">("ninja"),

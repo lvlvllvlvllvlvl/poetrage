@@ -19,10 +19,8 @@ import { GraphDialog } from "components/cells/Graph";
 import { useEffect, useMemo, useReducer, useState } from "react";
 import GithubCorner from "react-github-corner";
 import { apiSlice } from "state/api";
-import { actions, setters } from "state/app";
+import { actions, setters, tabs } from "state/app";
 import { useAppDispatch, useAppSelector } from "state/store";
-
-const tabs = ["gems", "corruptions"] as const;
 
 function App() {
   const systemMode = useMediaQuery("(prefers-color-scheme: dark)");
@@ -112,7 +110,7 @@ function App() {
               onClick={() => setShowOptions(!showOptions)}>
               poetrage
             </Typography>
-            <Tabs
+            {tabs.length > 1 && <Tabs
               value={tabs.indexOf(tab)}
               onChange={(_, i) => setTab(tabs[i])}
               textColor="inherit"
@@ -120,7 +118,7 @@ function App() {
               {tabs.map((tab) => (
                 <Tab key={tab} label={tab} />
               ))}
-            </Tabs>
+            </Tabs>}
             <IconButton color="inherit" onClick={toggleMode}>
               {darkMode ? <DarkModeIcon /> : <LightModeIcon />}
             </IconButton>
