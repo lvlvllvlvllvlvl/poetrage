@@ -3,7 +3,7 @@ import { pick } from "lodash";
 import { SearchQueryContainer } from "models/poe/Search";
 import { GraphNode } from "./graphElements";
 import { SkillGem } from "./ninja/Item";
-import { Gem as PoeWatchGem } from "./poewatch/Types";
+import { GemPricing as PoeWatchGem } from "./poewatch/Gem";
 
 export interface ConversionData {
   gem: Gem;

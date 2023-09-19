@@ -15,6 +15,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { cache } from "apis/axios";
 import { Settings } from "components/GemSettings";
 import { GemTable } from "components/GemTable";
+import { Uniques } from "components/Uniques";
 import { GraphDialog } from "components/cells/Graph";
 import { useEffect, useMemo, useReducer, useState } from "react";
 import GithubCorner from "react-github-corner";
@@ -89,7 +90,7 @@ function App() {
         <div
           style={{
             ...theme.mixins.toolbar,
-            height: appBarRef?.clientHeight || theme.mixins.toolbar.height,
+            minHeight: appBarRef?.clientHeight || theme.mixins.toolbar.minHeight,
           }}
         />
         <AppBar component="nav" ref={setAppBarRef}>
@@ -134,6 +135,7 @@ function App() {
             <GemTable />
           </>
         )}
+        {tab === "corruptions" && <Uniques />}
       </Box>
     </ThemeProvider>
   );

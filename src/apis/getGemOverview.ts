@@ -1,6 +1,6 @@
 import { ItemOverview, SkillGem } from "models/ninja/Item";
 import { api } from "apis/axios";
-import { GemResult } from "models/poewatch/Types";
+import { GemResult } from "models/poewatch/Gem";
 
 export const getGemOverview = async (league: string, source: "ninja" | "watch") => {
   if (source === "ninja") {

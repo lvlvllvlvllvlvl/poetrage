@@ -1,8 +1,9 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { createApi, skipToken } from "@reduxjs/toolkit/query/react";
+import { api } from "apis/axios";
 import { getCurrencyOverview } from "apis/getCurrencyOverview";
-import { getGemOverview } from "apis/getGemOverview";
 import { getGemInfo } from "apis/getGemInfo";
+import { getGemOverview } from "apis/getGemOverview";
 import { getLeagues } from "apis/getLeagues";
 import { getMeta } from "apis/getMeta";
 import {
@@ -10,6 +11,9 @@ import {
   getAwakenedRerollAverage,
   getTempleAverage,
 } from "apis/getPrices";
+import { Mod } from "models/repoe/Mod";
+import { Translation } from "models/repoe/Translation";
+import { Unique } from "models/repoe/Uniques";
 import { AppState } from "./app";
 import { startAppListening } from "./listener";
 
@@ -26,6 +30,21 @@ const methods = {
   templeAverage: getTempleAverage,
   awakenedLevelAverage: getAwakenedLevelAverage,
   awakenedRerollAverage: getAwakenedRerollAverage,
+  mods: async () =>
+    (await api.get<{ [key: string]: Mod }>("https://lvlvllvlvllvlvl.github.io/RePoE/mods.min.json"))
+      .data,
+  uniques: async () =>
+    (
+      await api.get<{ [name: string]: Unique[] }>(
+        "https://lvlvllvlvllvlvl.github.io/RePoE/uniques_poewiki.min.json"
+      )
+    ).data,
+  translations: async () =>
+    (
+      await api.get<Translation[]>(
+        "https://lvlvllvlvllvlvl.github.io/RePoE/stat_translations.min.json"
+      )
+    ).data,
 } as const;
 
 type Api = typeof methods;
@@ -94,6 +113,36 @@ const toApiResult = <T>({
 const getLeague = ({ app }: State) => app.league;
 const getLadder = ({ app }: State) => app.ladder;
 const getSource = ({ app }: State) => app.source;
+
+const modsSelector = apiSlice.endpoints.mods.select([]);
+export const mods = createSelector([modsSelector], toApiResult);
+startAppListening({
+  predicate: (action, currentState) => mods(currentState).status === "idle",
+
+  effect: async (action, listenerApi) => {
+    listenerApi.dispatch(apiSlice.endpoints.mods.initiate([]));
+  },
+});
+
+const uniquesSelector = apiSlice.endpoints.uniques.select([]);
+export const uniques = createSelector([uniquesSelector], toApiResult);
+startAppListening({
+  predicate: (action, currentState) => uniques(currentState).status === "idle",
+
+  effect: async (action, listenerApi) => {
+    listenerApi.dispatch(apiSlice.endpoints.uniques.initiate([]));
+  },
+});
+
+const translationsSelector = apiSlice.endpoints.translations.select([]);
+export const translations = createSelector([translationsSelector], toApiResult);
+startAppListening({
+  predicate: (action, currentState) => translations(currentState).status === "idle",
+
+  effect: async (action, listenerApi) => {
+    listenerApi.dispatch(apiSlice.endpoints.translations.initiate([]));
+  },
+});
 
 const gemInfoSelector = apiSlice.endpoints.gemInfo.select([]);
 export const gemInfo = createSelector([gemInfoSelector], toApiResult);

@@ -1,45 +1,44 @@
 import { shallowEqual } from "react-redux";
 import { setters } from "state/app";
 import { startAppListening } from "state/listener";
-import { profitInputs } from "state/selectors/profitInputs";
+import { weightInputs } from "state/selectors/weightInputs";
 import { AppDispatch } from "state/store";
 
-const worker = new Worker(new URL("state/workers/calculateProfits.ts", import.meta.url));
+const worker = new Worker(new URL("state/workers/corruptedMods.ts", import.meta.url));
 let cancel: string;
 
 startAppListening({
   predicate: (action, currentState, previousState) => {
-    return !shallowEqual(profitInputs(currentState), profitInputs(previousState));
+    return !shallowEqual(weightInputs(currentState), weightInputs(previousState));
   },
 
   effect: async (action, listenerApi) => {
     try {
-      const inputs = profitInputs(listenerApi.getState());
-      const { gems, currencyMap, leagueIsIndexed, meta, gemInfo } = inputs;
+      const inputs = weightInputs(listenerApi.getState());
+      const { mods, uniques, translations } = inputs;
 
       if (
-        gems.status !== "done" ||
-        currencyMap.status !== "done" ||
-        (leagueIsIndexed && meta.status !== "done") ||
-        gemInfo.status !== "done"
+        mods.status !== "done" ||
+        uniques.status !== "done" ||
+        translations.status !== "done"
       ) {
         return;
       }
 
-      console.debug("Starting profit worker");
+      console.debug("Starting weight worker");
       URL.revokeObjectURL(cancel);
 
-      const { setData, setProgress, setProgressMsg } = setters(listenerApi.dispatch as AppDispatch);
+      const { setUniqueData, setUniqueProgress, setUniqueProgressMsg } = setters(listenerApi.dispatch as AppDispatch);
 
       cancel = URL.createObjectURL(new Blob());
       worker.postMessage({ inputs, cancel });
       worker.onmessage = (e) => {
         if (e.data.action === "data") {
-          setData(e.data.payload);
+          setUniqueData(e.data.payload);
         } else if (e.data.action === "progress") {
-          setProgress(e.data.payload);
+          setUniqueProgress(e.data.payload);
         } else if (e.data.action === "msg") {
-          setProgressMsg(e.data.payload);
+          setUniqueProgressMsg(e.data.payload);
         } else {
           console.debug(e.data);
         }

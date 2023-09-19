@@ -1,6 +1,6 @@
-export type GemResult = Gem[];
+export type GemResult = GemPricing[];
 
-export interface Gem {
+export interface GemPricing {
   id: number;
   name: string;
   category: string;

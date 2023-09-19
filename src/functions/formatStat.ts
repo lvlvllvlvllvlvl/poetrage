@@ -17,7 +17,7 @@ const quantifiers: { [key: string]: (n: number) => string } = {
   milliseconds_to_seconds_2dp: (n) => numeral(n / 1000).format("0.00"),
 };
 
-const getQuantifier = (quantifier: string) => {
+export const getQuantifier = (quantifier: string) => {
   const q = quantifiers[quantifier || "none"];
   if (!q) {
     console.warn("Unknown quantifier", quantifier);

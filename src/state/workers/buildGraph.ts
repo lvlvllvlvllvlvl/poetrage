@@ -528,17 +528,6 @@ const createMatrix = (
   );
 };
 
-const handler = {
-  get: (target: any, name: string) => {
-    if (!target[name]) {
-      target[name] = defaultObj();
-    }
-    return target[name];
-  },
-};
-
-const defaultObj = () => new Proxy({}, handler);
-
 self.onmessage = (e) => buildGraph(e.data, self);
 function getChildren(
   other: GraphNode,
