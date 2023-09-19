@@ -3,8 +3,9 @@ import { setters } from "state/app";
 import { startAppListening } from "state/listener";
 import { graphInputs } from "state/selectors/graphInputs";
 import { AppDispatch } from "state/store";
+import Worker from "workers/buildGraph.ts?worker";
 
-const worker = new Worker(new URL("workers/buildGraph.ts", import.meta.url));
+const worker = new Worker();
 let cancel: string;
 
 startAppListening({

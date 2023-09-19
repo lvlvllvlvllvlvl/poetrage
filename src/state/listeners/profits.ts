@@ -3,8 +3,9 @@ import { setters } from "state/app";
 import { startAppListening } from "state/listener";
 import { profitInputs } from "state/selectors/profitInputs";
 import { AppDispatch } from "state/store";
+import Worker from "workers/calculateProfits.ts?worker";
 
-const worker = new Worker(new URL("workers/calculateProfits.ts", import.meta.url));
+const worker = new Worker();
 let cancel: string;
 
 startAppListening({

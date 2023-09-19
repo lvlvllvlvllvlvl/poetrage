@@ -51,7 +51,7 @@ export const fields = {
   xpGraphData: prop<NodeMap>({}),
   currentGraph: prop<GraphNode>(),
   load: prop(0),
-  devMode: prop(process.env.REACT_APP_GIT_COMMIT === "local"),
+  devMode: prop(import.meta.env.VITE_GIT_COMMIT === "local"),
   hideNonTextFilters: prop(false),
   overridesTmp: prop<Override[]>([]),
   overrides: prop<Override[]>([]),
@@ -95,7 +95,7 @@ export type Setters = {
   }[keyof SetterNames];
 };
 
-const timeouts = {} as { [key: string]: NodeJS.Timeout };
+const timeouts = {} as { [key: string]: number };
 
 export const setters = memoize(
   (dispatch: AppDispatch) =>

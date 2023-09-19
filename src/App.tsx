@@ -80,7 +80,7 @@ function App() {
         <GithubCorner
           href="https://github.com/lvlvllvlvllvlvl/poetrage"
           target="_blank"
-          title={process.env.REACT_APP_GIT_COMMIT}
+          title={import.meta.env.VITE_GIT_COMMIT}
           octoColor={theme.palette.primary.main}
           style={{ zIndex: 2000 }}
         />

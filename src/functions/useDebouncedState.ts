@@ -8,7 +8,7 @@ function useDebouncedState<T>(initialValue?: T, ms: number = 500) {
   const [value, setValue] = useState<T | undefined>(initialValue);
   const [debounced, setDebounced] = useState<T | undefined>(initialValue);
 
-  let timeout: NodeJS.Timeout;
+  let timeout: number;
   const set = (value: T) => {
     setValue(value);
     clearTimeout(timeout);

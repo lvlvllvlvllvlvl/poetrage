@@ -1,6 +1,7 @@
 /* eslint-disable no-restricted-globals */
-import { getCurrency } from "functions/getCurrency";
 import { memoize } from "lodash";
+
+import { getCurrency } from "functions/getCurrency";
 import {
   ConversionData,
   Gem,
@@ -91,8 +92,8 @@ export const buildGraph = (
       const levelResult =
         !gem.Corrupted && gem.Type === "Awakened" && gem.Level < gem.maxLevel
           ? normalizedFn(
-              copy(gem, { Level: gem.maxLevel, Price: 0, lowConfidence: true, Listings: 0 })
-            )
+            copy(gem, { Level: gem.maxLevel, Price: 0, lowConfidence: true, Listings: 0 })
+          )
           : undefined;
       const levelCost = (levelResult && (gem.maxLevel - gem.Level) * awakenedLevelCost) || 0;
 
@@ -126,9 +127,9 @@ export const buildGraph = (
           [
             "sell",
             !gem.lowMeta &&
-            (!gem.lowConfidence ||
-              allowLowConfidence === "all" ||
-              (allowLowConfidence === "corrupted" && isGoodCorruption(gem)))
+              (!gem.lowConfidence ||
+                allowLowConfidence === "all" ||
+                (allowLowConfidence === "corrupted" && isGoodCorruption(gem)))
               ? gem.Price
               : 0,
           ],
@@ -267,11 +268,11 @@ export const buildGraph = (
             const regradeCost = regrValue <= other.expectedValue ? 0 : getLensForGem(gem);
             const regradeOutcomes = regradeCost
               ? other.gem.regrData?.map((child) => ({
-                  name: "Regrading lens",
-                  expectedCost: regradeCost,
-                  probability: child.chance,
-                  node: normalizedFn(child.gem),
-                }))
+                name: "Regrading lens",
+                expectedCost: regradeCost,
+                probability: child.chance,
+                node: normalizedFn(child.gem),
+              }))
               : undefined;
             const xpValue = (regradeCost ? regrValue : other.expectedValue) - (gcpCost + vaalCost);
 
@@ -292,34 +293,34 @@ export const buildGraph = (
               gem.Quality < 20 &&
               gemInfo.value?.xp[gem.baseName][20]
               ? possibles
-                  .filter(
-                    (other) =>
-                      other.Quality === 20 &&
-                      (other.XP || 0) + gemInfo.value?.xp[gem.baseName][20] > (gem.XP || 0)
-                  )
-                  .map(normalizedFn)
-                  .map((other) => {
-                    const xpDiff =
-                      ((other.gem.XP || 0) + gemInfo.value?.xp[gem.baseName][20] - (gem.XP || 0)) /
-                      million /
-                      qualityMultiplier;
-                    const vaalCost = other.gem.Vaal && !gem.Vaal ? 4 * (gem.Price + vaal) : 0;
-                    const regrValue = other.gem.regrData ? getRegradeValue(other.gem.regrData) : 0;
-                    const regradeCost = regrValue <= other.expectedValue ? 0 : getLensForGem(gem);
-                    const regradeOutcomes = regradeCost
-                      ? other.gem.regrData?.map((child) => ({
-                          name: "Regrading lens",
-                          expectedCost: regradeCost,
-                          probability: child.chance,
-                          node: normalizedFn(child.gem),
-                        }))
-                      : undefined;
-                    const xpValue =
-                      (regradeCost ? regrValue : other.expectedValue) - (gcp + vaalCost);
+                .filter(
+                  (other) =>
+                    other.Quality === 20 &&
+                    (other.XP || 0) + gemInfo.value?.xp[gem.baseName][20] > (gem.XP || 0)
+                )
+                .map(normalizedFn)
+                .map((other) => {
+                  const xpDiff =
+                    ((other.gem.XP || 0) + gemInfo.value?.xp[gem.baseName][20] - (gem.XP || 0)) /
+                    million /
+                    qualityMultiplier;
+                  const vaalCost = other.gem.Vaal && !gem.Vaal ? 4 * (gem.Price + vaal) : 0;
+                  const regrValue = other.gem.regrData ? getRegradeValue(other.gem.regrData) : 0;
+                  const regradeCost = regrValue <= other.expectedValue ? 0 : getLensForGem(gem);
+                  const regradeOutcomes = regradeCost
+                    ? other.gem.regrData?.map((child) => ({
+                      name: "Regrading lens",
+                      expectedCost: regradeCost,
+                      probability: child.chance,
+                      node: normalizedFn(child.gem),
+                    }))
+                    : undefined;
+                  const xpValue =
+                    (regradeCost ? regrValue : other.expectedValue) - (gcp + vaalCost);
 
-                    let children = getChildren(other, gem, xpDiff, vaalCost, 1, 0, regradeOutcomes);
-                    return createNode(gem, xpValue, children, xpDiff);
-                  })
+                  let children = getChildren(other, gem, xpDiff, vaalCost, 1, 0, regradeOutcomes);
+                  return createNode(gem, xpValue, children, xpDiff);
+                })
               : []
           )
           .filter(exists)

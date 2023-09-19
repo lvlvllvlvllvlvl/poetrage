@@ -21,13 +21,13 @@ jobs:
       - name: Test
         run: npm test
       - name: show commit message
-        run: echo "REACT_APP_GIT_COMMIT=$(git log --format=reference -n 1 HEAD)" >> $GITHUB_ENV
+        run: echo "VITE_GIT_COMMIT=$(git log --format=reference -n 1 HEAD)" >> $GITHUB_ENV
       - name: Build
         run: npm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: build/
+          path: dist
 
   deploy:
     needs: build
