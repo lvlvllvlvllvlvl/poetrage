@@ -23,14 +23,14 @@ jobs:
         run: npm ci
       - name: Test
         run: npm test
-      - name: show commit message
-        run: echo "VITE_GIT_COMMIT=$(git log --format=reference -n 1 HEAD)" >> $GITHUB_ENV
       - name: Gem info
         run: npx -y tsx scripts/saveGemInfo.ts
       - name: Commit gem info
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: ${{ github.event.client_payload.commit_message }}
+          commit_message: ${{ github.event.client_payload.commit_message || 'updated gem info' }}
+      - name: show commit message
+        run: echo "VITE_GIT_COMMIT=$(git log --format=reference -n 1 HEAD)" >> $GITHUB_ENV
       - name: Build
         run: npm run build
       - name: Upload artifact
