@@ -54,7 +54,7 @@ export const apiSlice = createApi({
     }>((key, api) =>
       builder.query<ApiRet[typeof key], Parameters<typeof api>>({
         query: (args) => ({ api, args }),
-      })
+      }),
     ),
 });
 
@@ -104,7 +104,7 @@ startAppListening({
 });
 
 const metaSelector = createSelector([getLeague, getLadder], (league, ladder) =>
-  apiSlice.endpoints.meta.select(league?.indexed ? [league.name, ladder] : skipToken)
+  apiSlice.endpoints.meta.select(league?.indexed ? [league.name, ladder] : skipToken),
 );
 export const meta = createSelector([(state) => metaSelector(state)(state)], toApiResult);
 startAppListening({
@@ -123,7 +123,7 @@ startAppListening({
 });
 
 const gemsSelector = createSelector([getLeague, getSource], (league, source) =>
-  apiSlice.endpoints.gems.select(league ? [league.name, source] : skipToken)
+  apiSlice.endpoints.gems.select(league ? [league.name, source] : skipToken),
 );
 export const gems = createSelector([(state) => gemsSelector(state)(state)], toApiResult);
 startAppListening({
@@ -140,11 +140,11 @@ startAppListening({
 });
 
 const currencyMapSelector = createSelector([getLeague], (league) =>
-  apiSlice.endpoints.currencyMap.select(league ? [league.name] : skipToken)
+  apiSlice.endpoints.currencyMap.select(league ? [league.name] : skipToken),
 );
 export const currencyMap = createSelector(
   [(state) => currencyMapSelector(state)(state)],
-  toApiResult
+  toApiResult,
 );
 startAppListening({
   predicate: (action, currentState, previousState) =>
@@ -161,12 +161,12 @@ startAppListening({
 
 const templeAverageSelector = createSelector([getLeague, currencyMap], (league, currencyMap) =>
   apiSlice.endpoints.templeAverage.select(
-    league && currencyMap.status === "done" ? [league.name, currencyMap.value] : skipToken
-  )
+    league && currencyMap.status === "done" ? [league.name, currencyMap.value] : skipToken,
+  ),
 );
 export const templeAverage = createSelector(
   [(state) => templeAverageSelector(state)(state)],
-  toApiResult
+  toApiResult,
 );
 startAppListening({
   predicate: (action, currentState, previousState) =>
@@ -179,7 +179,7 @@ startAppListening({
     const currency = currencyMap(listenerApi.getState());
     if (league && currency.status === "done") {
       listenerApi.dispatch(
-        apiSlice.endpoints.templeAverage.initiate([league.name, currency.value])
+        apiSlice.endpoints.templeAverage.initiate([league.name, currency.value]),
       );
     }
   },
@@ -189,12 +189,12 @@ const awakenedLevelAverageSelector = createSelector(
   [getLeague, currencyMap],
   (league, currencyMap) =>
     apiSlice.endpoints.awakenedLevelAverage.select(
-      league && currencyMap.status === "done" ? [league?.name, currencyMap.value] : skipToken
-    )
+      league && currencyMap.status === "done" ? [league?.name, currencyMap.value] : skipToken,
+    ),
 );
 export const awakenedLevelAverage = createSelector(
   [(state) => awakenedLevelAverageSelector(state)(state)],
-  toApiResult
+  toApiResult,
 );
 startAppListening({
   predicate: (action, currentState, previousState) =>
@@ -207,7 +207,7 @@ startAppListening({
     const currency = currencyMap(listenerApi.getState());
     if (league && currency.status === "done") {
       listenerApi.dispatch(
-        apiSlice.endpoints.awakenedLevelAverage.initiate([league.name, currency.value])
+        apiSlice.endpoints.awakenedLevelAverage.initiate([league.name, currency.value]),
       );
     }
   },
@@ -217,12 +217,12 @@ const awakenedRerollAverageSelector = createSelector(
   [getLeague, currencyMap],
   (league, currencyMap) =>
     apiSlice.endpoints.awakenedRerollAverage.select(
-      league && currencyMap.status === "done" ? [league?.name, currencyMap.value] : skipToken
-    )
+      league && currencyMap.status === "done" ? [league?.name, currencyMap.value] : skipToken,
+    ),
 );
 export const awakenedRerollAverage = createSelector(
   [(state) => awakenedRerollAverageSelector(state)(state)],
-  toApiResult
+  toApiResult,
 );
 startAppListening({
   predicate: (action, currentState, previousState) =>
@@ -235,7 +235,7 @@ startAppListening({
     const currency = currencyMap(listenerApi.getState());
     if (league && currency.status === "done") {
       listenerApi.dispatch(
-        apiSlice.endpoints.awakenedRerollAverage.initiate([league.name, currency.value])
+        apiSlice.endpoints.awakenedRerollAverage.initiate([league.name, currency.value]),
       );
     }
   },

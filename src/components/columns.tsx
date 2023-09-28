@@ -19,8 +19,8 @@ import { Listings } from "./cells/Listings";
 import { Meta } from "./cells/Meta";
 import { Name } from "./cells/Name";
 import { Pinned } from "./cells/Pinned";
-import { ROI } from "./cells/ROI";
 import { Regrade } from "./cells/Regrade";
+import { ROI } from "./cells/ROI";
 import { Temple } from "./cells/Temple";
 import { Type } from "./cells/Type";
 import { Vaal } from "./cells/Vaal";
@@ -46,7 +46,7 @@ export const getColumns = createSelector(
     costOfTemple,
     costOfAwakenedLevel,
     costOfAwakenedReroll,
-    getRegrValue
+    getRegrValue,
   ): ColumnDef<GemDetails>[] => {
     return [
       {
@@ -125,7 +125,7 @@ export const getColumns = createSelector(
             currencyMap.value,
             costOfTemple,
             costOfAwakenedLevel,
-            costOfAwakenedReroll
+            costOfAwakenedReroll,
           )[0]?.ratio,
         cell: ({ row: { original } }) => <ROI gem={original} />,
       },
@@ -265,7 +265,7 @@ export const getColumns = createSelector(
           gem.xpGraph?.expectedValue
             ? Math.round(
                 ((gem.xpGraph.expectedValue - gem.xpGraph.gem.Price) * fiveWay) /
-                  (gem.xpGraph.experience || 0)
+                  (gem.xpGraph.experience || 0),
               )
             : 0,
         enableColumnFilter,
@@ -331,5 +331,5 @@ export const getColumns = createSelector(
         cell: (info) => (info.getValue() ? "✓" : "✗"),
       },
     ];
-  }
+  },
 );

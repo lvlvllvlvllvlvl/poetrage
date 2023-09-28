@@ -27,7 +27,7 @@ startAppListening({
       console.debug("Starting graph worker");
 
       const { setGraphData, setXpGraphData, setGraphProgress, setGraphProgressMsg } = setters(
-        listenerApi.dispatch as AppDispatch
+        listenerApi.dispatch as AppDispatch,
       );
 
       worker.postMessage(inputs);

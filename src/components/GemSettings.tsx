@@ -15,7 +15,7 @@ import TextField from "@mui/material/TextField";
 import { getCurrency } from "functions/getCurrency";
 import { Override } from "models/gems";
 import * as api from "state/api";
-import { AppState, actions, setters } from "state/app";
+import { actions, AppState, setters } from "state/app";
 import { graphInputs } from "state/selectors/graphInputs";
 import { profitInputs } from "state/selectors/profitInputs";
 import { RootState, useAppDispatch, useAppSelector } from "state/store";
@@ -161,7 +161,7 @@ export const Settings = () => {
                 margin="normal"
                 label="Prime regrading lens price"
                 placeholder={Math.round(
-                  getCurrency("Prime Regrading Lens", currencyMap.value, 0)
+                  getCurrency("Prime Regrading Lens", currencyMap.value, 0),
                 ).toString()}
                 variant="outlined"
                 value={primeRegrading.value || ""}
@@ -176,7 +176,7 @@ export const Settings = () => {
                 margin="normal"
                 label="Secondary regrading lens price"
                 placeholder={Math.round(
-                  getCurrency("Secondary Regrading Lens", currencyMap.value, 0)
+                  getCurrency("Secondary Regrading Lens", currencyMap.value, 0),
                 ).toString()}
                 variant="outlined"
                 value={secRegrading.value || ""}

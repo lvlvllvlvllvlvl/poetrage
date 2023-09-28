@@ -35,7 +35,7 @@ export const graphInputs = createSelector(
     templeCost,
     awakenedLevelCost,
     awakenedRerollCost,
-  })
+  }),
 );
 
 export type GraphInputs = ReturnType<typeof graphInputs>;

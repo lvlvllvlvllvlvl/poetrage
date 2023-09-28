@@ -1,24 +1,24 @@
-import FilterListIcon from "@mui/icons-material/FilterList";
+import ClearIcon from "@mui/icons-material/Clear";
 import FilterIcon from "@mui/icons-material/FilterAlt";
 import FilterOffIcon from "@mui/icons-material/FilterAltOff";
-import ClearIcon from "@mui/icons-material/Clear";
+import FilterListIcon from "@mui/icons-material/FilterList";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import FormControl from "@mui/material/FormControl";
-import Popover from "@mui/material/Popover";
+import IconButton from "@mui/material/IconButton";
 import MenuItem from "@mui/material/MenuItem";
+import Popover from "@mui/material/Popover";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import ToggleButton from "@mui/material/ToggleButton";
+import Tooltip from "@mui/material/Tooltip";
 import { Column } from "@tanstack/react-table";
 import useDebouncedState from "functions/useDebouncedState";
 import { isUndefined } from "lodash";
 import { GemDetails, gemTypes } from "models/gems";
 import { useEffect, useState } from "react";
-import IconButton from "@mui/material/IconButton";
-import { useAppDispatch, useAppSelector } from "state/store";
 import { setters } from "state/app";
-import Tooltip from "@mui/material/Tooltip";
+import { useAppDispatch, useAppSelector } from "state/store";
 
 type Key = keyof GemDetails | "ratio";
 
@@ -90,7 +90,7 @@ const FilterMenu = <T extends {}>({
   const max = useDebouncedState((currentValue as number[])?.[1]);
   const text = useDebouncedState(currentValue as string);
   const [bool, setBool] = useState(
-    isUndefined(currentValue) ? (key === "lowConfidence" ? false : undefined) : currentValue
+    isUndefined(currentValue) ? (key === "lowConfidence" ? false : undefined) : currentValue,
   );
   const [types, setTypes] = useState(currentValue as string[] | undefined);
 
@@ -133,7 +133,7 @@ const FilterMenu = <T extends {}>({
                 ? isFloat
                   ? parseFloat(target.value)
                   : parseInt(target.value)
-                : undefined
+                : undefined,
             )
           }
         />
@@ -154,7 +154,7 @@ const FilterMenu = <T extends {}>({
                   ? isFloat
                     ? parseFloat(target.value)
                     : parseInt(target.value)
-                  : undefined
+                  : undefined,
               )
             }
           />
@@ -198,7 +198,13 @@ const FilterMenu = <T extends {}>({
           onClose={onClose}
           onChange={({ target: { value } }) =>
             setTypes(
-              Array.isArray(value) ? (value.length === 0 ? undefined : value) : value ? [value] : []
+              Array.isArray(value)
+                ? value.length === 0
+                  ? undefined
+                  : value
+                : value
+                ? [value]
+                : [],
             )
           }>
           {gemTypes.map((name) => (

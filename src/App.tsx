@@ -6,16 +6,16 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import IconButton from "@mui/material/IconButton";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { cache } from "apis/axios";
+import { GraphDialog } from "components/cells/Graph";
 import { Settings } from "components/GemSettings";
 import { GemTable } from "components/GemTable";
-import { GraphDialog } from "components/cells/Graph";
 import { useEffect, useMemo, useReducer, useState } from "react";
 import GithubCorner from "react-github-corner";
 import { apiSlice } from "state/api";
@@ -36,7 +36,7 @@ function App() {
       dispatch(apiSlice.util.resetApiState());
       dispatch(actions.reload());
     },
-    [dispatch]
+    [dispatch],
   );
   useEffect(reload, [reload]);
 
@@ -65,7 +65,7 @@ function App() {
           },
         },
       }),
-    [darkMode]
+    [darkMode],
   );
 
   return (
@@ -110,15 +110,17 @@ function App() {
               onClick={() => setShowOptions(!showOptions)}>
               poetrage
             </Typography>
-            {tabs.length > 1 && <Tabs
-              value={tabs.indexOf(tab)}
-              onChange={(_, i) => setTab(tabs[i])}
-              textColor="inherit"
-              aria-label="app tabs">
-              {tabs.map((tab) => (
-                <Tab key={tab} label={tab} />
-              ))}
-            </Tabs>}
+            {tabs.length > 1 && (
+              <Tabs
+                value={tabs.indexOf(tab)}
+                onChange={(_, i) => setTab(tabs[i])}
+                textColor="inherit"
+                aria-label="app tabs">
+                {tabs.map((tab) => (
+                  <Tab key={tab} label={tab} />
+                ))}
+              </Tabs>
+            )}
             <IconButton color="inherit" onClick={toggleMode}>
               {darkMode ? <DarkModeIcon /> : <LightModeIcon />}
             </IconButton>

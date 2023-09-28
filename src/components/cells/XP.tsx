@@ -15,7 +15,7 @@ export const XP = ({ gem: { xpData } }: { gem: GemDetails }) => {
               reset ? "" : gcpCount === 0 ? "" : ` applying ${gcpCount} gcp and`
             } levelling this gem to ${Level}/${Quality} (${Price}c)${
               reset ? " with vendor reset" : ""
-            }`
+            }`,
         )
         .join("\n")}>
       {Math.round(xpData[0].xpValue * fiveWay)}c/5-way (

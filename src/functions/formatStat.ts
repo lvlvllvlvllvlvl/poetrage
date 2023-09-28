@@ -34,7 +34,7 @@ export const formatStat = (stat: string, values: Value[]) =>
   stat.replaceAll(
     /\{(\d+)\/?(\w*)\}/g,
     (match, index, quantifier) =>
-      (values[parseInt(index)] || values[0])?.map(getQuantifier(quantifier)).join(" to ") || "?"
+      (values[parseInt(index)] || values[0])?.map(getQuantifier(quantifier)).join(" to ") || "?",
   );
 
 export const qualityStat = (gemInfo: GemInfo, gem: Gem) =>

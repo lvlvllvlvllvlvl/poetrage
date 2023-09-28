@@ -10,8 +10,8 @@ export const GCP = ({ gem: { gcpData } }: { gem: GemDetails }) =>
         ?.map(
           ({ gcpValue, Level, Quality, Listings, Price }, i) =>
             `Earn ${numeral(gcpValue).format(
-              "0[.][00]"
-            )}c upgrading this gem to ${Level}/${Quality} (${Listings} listed at ${Price}c)`
+              "0[.][00]",
+            )}c upgrading this gem to ${Level}/${Quality} (${Listings} listed at ${Price}c)`,
         )
         .join("\n")}>
       {Math.round(gcpData[0].gcpValue)}c

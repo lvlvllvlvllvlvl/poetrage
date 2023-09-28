@@ -7,7 +7,7 @@ export const getPrice = async (
   league: string,
   currencyMap: { [key: string]: number },
   query: SearchQueryContainer,
-  type: "average" | "cheapest" = "average"
+  type: "average" | "cheapest" = "average",
 ) => {
   const { search, fetch } = await searchItems(league, query);
 
@@ -61,7 +61,7 @@ export const getTempleAverage = async (league: string, currencyMap: { [key: stri
 
 export const getAwakenedLevelAverage = async (
   league: string,
-  currencyMap: { [key: string]: number }
+  currencyMap: { [key: string]: number },
 ) => {
   return await getPrice(league, currencyMap, {
     query: {
@@ -76,7 +76,7 @@ export const getAwakenedLevelAverage = async (
 
 export const getAwakenedRerollAverage = async (
   league: string,
-  currencyMap: { [key: string]: number }
+  currencyMap: { [key: string]: number },
 ) => {
   return await getPrice(league, currencyMap, {
     query: {

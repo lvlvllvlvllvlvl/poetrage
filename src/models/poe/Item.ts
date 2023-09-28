@@ -54,11 +54,11 @@ export interface Socket {
   sColour?: SocketColour;
 }
 export declare const ATTRIBUTE_VALUES: readonly ["A", "D", "DV", "G", "I", "S"];
-export declare type Attribute = typeof ATTRIBUTE_VALUES[number];
+export declare type Attribute = (typeof ATTRIBUTE_VALUES)[number];
 export declare const SOCKET_COLOUR_VALUES: readonly ["A", "B", "DV", "G", "R", "W"];
-export declare type SocketColour = typeof SOCKET_COLOUR_VALUES[number];
+export declare type SocketColour = (typeof SOCKET_COLOUR_VALUES)[number];
 export declare const COLOUR_VALUES: readonly ["S", "D", "I", "G"];
-export declare type ItemColour = typeof COLOUR_VALUES[number];
+export declare type ItemColour = (typeof COLOUR_VALUES)[number];
 export interface Property {
   name: string;
   values: Array<Array<number | string>>;
@@ -199,8 +199,8 @@ export interface ModHashes {
 }
 declare const SCOURGE_ITEM_TIERS: readonly [1, 2, 3];
 declare const SCOURGE_MAP_TIERS: readonly [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-export declare type ScourgeTierItem = typeof SCOURGE_ITEM_TIERS[number];
-export declare type ScourgeTierMap = typeof SCOURGE_MAP_TIERS[number];
+export declare type ScourgeTierItem = (typeof SCOURGE_ITEM_TIERS)[number];
+export declare type ScourgeTierMap = (typeof SCOURGE_MAP_TIERS)[number];
 export interface Scourged {
   tier: ScourgeTierItem | ScourgeTierMap;
   level?: number;

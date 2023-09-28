@@ -27,7 +27,7 @@ export const profitInputs = createSelector(
     lowConfidence,
     incQual,
     mavenExclusiveWeight,
-    mavenCrucibleWeight
+    mavenCrucibleWeight,
   ) => ({
     gems,
     currencyMap,
@@ -40,7 +40,7 @@ export const profitInputs = createSelector(
     incQual,
     mavenExclusiveWeight,
     mavenCrucibleWeight,
-  })
+  }),
 );
 
 export type ProfitInputs = ReturnType<typeof profitInputs>;

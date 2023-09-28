@@ -383,6 +383,9 @@ export const normalizeOutcomes = (outcomes?: string[]) =>
         .sort()
         .join(" / ") || "No effect";
 
+export const getQueryUrl = (gem: Gem, league?: string) =>
+  `https://www.pathofexile.com/trade/search/${league}?q=${JSON.stringify(getQuery(gem))}`;
+
 export const getQuery = (
   gem: Gem,
   online: boolean = true,

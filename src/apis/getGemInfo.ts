@@ -18,7 +18,7 @@ const regex = /{[^/]\/?([^}]*)}/g;
 const quants: string[] = [];
 export const getGemInfo = async () => {
   const response = await api.get<{ [key: string]: Gem }>(
-    "https://lvlvllvlvllvlvl.github.io/RePoE/gems.min.json"
+    "https://lvlvllvlvllvlvl.github.io/RePoE/gems.min.json",
   );
   const weights: Weights = {};
   const qualityStats: Stats = {};

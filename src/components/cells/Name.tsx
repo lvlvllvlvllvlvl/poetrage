@@ -1,7 +1,7 @@
 import Link from "@mui/material/Link";
 import Tooltip from "@mui/material/Tooltip";
 import { GemIcons } from "components/GemIcons";
-import { Gem, getId, getQuery } from "models/gems";
+import { Gem, getId, getQueryUrl } from "models/gems";
 import { useAppSelector } from "state/store";
 
 export const Name = ({ gem }: { gem: Gem }) => {
@@ -9,12 +9,7 @@ export const Name = ({ gem }: { gem: Gem }) => {
   return (
     <>
       <Tooltip title={getId(gem)}>
-        <Link
-          target="_blank"
-          rel="noreferrer"
-          href={`https://www.pathofexile.com/trade/search/${league?.name}?q=${JSON.stringify(
-            getQuery(gem)
-          )}`}>
+        <Link target="_blank" rel="noreferrer" href={getQueryUrl(gem, league?.name)}>
           {gem.Name}
         </Link>
       </Tooltip>

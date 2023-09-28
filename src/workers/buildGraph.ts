@@ -5,15 +5,15 @@ import { GemInfo } from "apis/getGemInfo";
 import info from "data/gemInfo.json";
 import { getCurrency } from "functions/getCurrency";
 import {
+  altQualities,
   ConversionData,
+  copy,
+  exceptional,
+  exists,
   Gem,
   GemDetails,
   GemId,
   GemType,
-  altQualities,
-  copy,
-  exceptional,
-  exists,
   getId,
   isGoodCorruption,
   qualities,
