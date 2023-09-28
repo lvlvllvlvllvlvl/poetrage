@@ -27,12 +27,10 @@ it("extracts data from paste", () => {
   expect(data).toEqual(extracted);
 });
 
-it("calculates simple outputs", () => {
-  const profits = calculateProfits({
-    inputs: {
-      ...profitInputs,
-      gems: { ...profitInputs.gems, value: { source: "ninja", data: extracted } },
-    },
+it("calculates simple outputs", async () => {
+  const profits = await calculateProfits({
+    ...profitInputs,
+    gems: { ...profitInputs.gems, value: { source: "ninja", data: extracted } },
   } as any);
   const id = getId(divergentSpark as any);
 
@@ -44,20 +42,16 @@ it("calculates simple outputs", () => {
   expect(gem.regrValue).toBeCloseTo(divergentSpark.regrValue);
 });
 
-it("calculates graph outputs", () => {
-  const graph: NodeMap = buildGraph({
-    inputs: {
-      ...graphInputs,
-      data: calculateProfits({
-        inputs: {
-          ...profitInputs,
-          gems: {
-            ...profitInputs.gems,
-            value: { source: "ninja", data: extractData(leveledSpark as any) },
-          },
-        },
-      } as any),
-    },
+it("calculates graph outputs", async () => {
+  const graph: NodeMap = await buildGraph({
+    ...graphInputs,
+    data: await calculateProfits({
+      ...profitInputs,
+      gems: {
+        ...profitInputs.gems,
+        value: { source: "ninja", data: extractData(leveledSpark as any) },
+      },
+    } as any),
   } as any);
   const id = getId(leveledSpark as any);
 
