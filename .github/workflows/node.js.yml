@@ -22,10 +22,10 @@ jobs:
         run: npm test
       - name: show commit message
         run: echo "VITE_GIT_COMMIT=$(git log --format=reference -n 1 HEAD)" >> $GITHUB_ENV
+      - name: Gem info
+        run: npx -y tsx scripts/saveGemInfo.ts
       - name: Build
-        run: >
-          npx -y tsx scripts/saveGemInfo.ts
-          npm run build
+        run: npm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
