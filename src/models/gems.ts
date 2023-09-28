@@ -159,7 +159,7 @@ export const getRatios = (
   currencyMap: { [key: string]: number } | undefined,
   templeCost: number,
   awakenedLevelCost: number,
-  awakenedRerollCost: number
+  awakenedRerollCost: number,
 ) =>
   (
     [
@@ -173,14 +173,14 @@ export const getRatios = (
               getCurrency(
                 gem.Name.includes("Support") ? "Secondary Regrading Lens" : "Prime Regrading Lens",
                 currencyMap,
-                0
+                0,
               ),
             gem.Price +
               getCurrency(
                 gem.Name.includes("Support") ? "Secondary Regrading Lens" : "Prime Regrading Lens",
                 currencyMap,
-                0
-              )
+                0,
+              ),
           )
         : undefined,
       gem.vaalValue !== undefined
@@ -193,21 +193,21 @@ export const getRatios = (
         ? getRatio(
             "Wild Brambleback",
             (gem.levelData[0].levelValue - awakenedLevelCost) * gem.levelData[0].levelDiff,
-            gem.Price + gem.levelData[0].gcpCost + gem.levelData[0].levelDiff * awakenedLevelCost
+            gem.Price + gem.levelData[0].gcpCost + gem.levelData[0].levelDiff * awakenedLevelCost,
           )
         : undefined,
       gem.convertValue !== undefined
         ? getRatio(
             "Vivid Watcher",
             gem.convertValue - awakenedRerollCost,
-            gem.Price + awakenedRerollCost
+            gem.Price + awakenedRerollCost,
           )
         : undefined,
       gem.graph?.expectedValue && gem.graph.expectedCost
         ? getRatio(
             "Flowchart",
             gem.graph?.expectedValue - gem.Price,
-            gem.graph.expectedCost + gem.Price
+            gem.graph.expectedCost + gem.Price,
           )
         : undefined,
     ] as { name: string; profit: number; cost: number; ratio: number }[]
@@ -250,7 +250,8 @@ export const betterOrEqual = (gem: Gem, other: Gem) => {
     (gem.Vaal || !other.Vaal) &&
     (other.Corrupted || !gem.Corrupted) &&
     other.Level <= gem.Level &&
-    (other.Quality <= gem.Quality || !!exceptional.find((e) => gem.Name.includes(e)))
+    (other.Quality <= gem.Quality ||
+      (exceptional.find((e) => gem.Name.includes(e)) && !altQualities.includes(gem.Type as any)))
   );
 };
 
@@ -259,6 +260,14 @@ export const strictlyBetter = (gem: Gem, other: Gem) => {
 };
 
 export const isGoodCorruption = (gem: Gem) => {
+  if (
+    gem.Quality > 20 &&
+    exceptional.find((e) => gem.Name.includes(e)) &&
+    !altQualities.includes(gem.Type as any)
+  ) {
+    // 23-quality exceptional gems don't get this special treatment
+    return false;
+  }
   const isGood =
     gem.Level >= gem.maxLevel && gem.Quality >= 20 && (gem.Level > gem.maxLevel || gem.Vaal);
   if (isGood && !gem.Corrupted) {
@@ -377,7 +386,7 @@ export const normalizeOutcomes = (outcomes?: string[]) =>
 export const getQuery = (
   gem: Gem,
   online: boolean = true,
-  indexed?: string
+  indexed?: string,
 ): SearchQueryContainer => {
   const type = gem.Vaal ? "Vaal " + gem.baseName : gem.baseName;
   return {
@@ -415,7 +424,7 @@ const expand = (gem: GemDetails, data: GemDetails[], processed: Set<string>) => 
   (["xpData", "gcpData", "levelData"] as const).forEach((prop) => {
     if (!result[prop]) return;
     result[prop] = result[prop]?.map(
-      (gem) => getGemFromData(getId(gem), data, processed) || gem
+      (gem) => getGemFromData(getId(gem), data, processed) || gem,
     ) as any;
   });
   (["regrData", "vaalData", "templeData"] as const).forEach((prop) => {
