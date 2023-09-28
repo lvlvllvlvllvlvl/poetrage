@@ -25,10 +25,13 @@ jobs:
         run: npm test
       - name: Gem info
         run: npx -y tsx scripts/saveGemInfo.ts
+      - name: set version
+        id: set-version
+        run: echo "version=$(curl https://raw.githubusercontent.com/poe-tool-dev/latest-patch-version/main/latest.txt)" >> "$GITHUB_OUTPUT"
       - name: Commit gem info
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: ${{ github.event.client_payload.commit_message || 'updated gem info' }}
+          commit_message: updated data for ${{ steps.set-version.outputs.version }}
       - name: show commit message
         run: echo "VITE_GIT_COMMIT=$(git log --format=reference -n 1 HEAD)" >> $GITHUB_ENV
       - name: Build
