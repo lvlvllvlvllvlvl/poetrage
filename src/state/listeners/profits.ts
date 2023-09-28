@@ -6,7 +6,6 @@ import { AppDispatch } from "state/store";
 import Worker from "workers/calculateProfits.ts?worker";
 
 const worker = new Worker();
-let cancel: string;
 
 startAppListening({
   predicate: (action, currentState, previousState) => {
@@ -27,12 +26,10 @@ startAppListening({
       }
 
       console.debug("Starting profit worker");
-      URL.revokeObjectURL(cancel);
 
       const { setData, setProgress, setProgressMsg } = setters(listenerApi.dispatch as AppDispatch);
 
-      cancel = URL.createObjectURL(new Blob());
-      worker.postMessage({ inputs, cancel });
+      worker.postMessage(inputs);
       worker.onmessage = (e) => {
         if (e.data.action === "data") {
           setData(e.data.payload);

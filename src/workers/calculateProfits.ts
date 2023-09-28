@@ -28,31 +28,33 @@ import {
 import { ApiResult } from "state/api";
 import { ProfitInputs } from "state/selectors/profitInputs";
 
-const gemInfo = info as GemInfo
-
+const gemInfo = info as GemInfo;
 const million = 1000000;
+const channel = new MessageChannel();
+const sleep = () =>
+  new Promise((resolve) => {
+    channel.port1.onmessage = () => {
+      channel.port1.onmessage = null;
+      resolve(null);
+    };
+    channel.port2.postMessage(null);
+  });
 
-export const calculateProfits = (
+export const calculateProfits = async (
   {
-    cancel,
-    inputs: {
-      gems,
-      currencyMap,
-      leagueIsIndexed,
-      meta,
-      filterMeta,
-      overrides,
-      sanitize,
-      lowConfidence,
-      incQual,
-      mavenExclusiveWeight,
-      mavenCrucibleWeight,
-    },
-  }: {
-    inputs: ProfitInputs;
-    cancel?: URL;
-  },
-  self?: Window & typeof globalThis
+    gems,
+    currencyMap,
+    leagueIsIndexed,
+    meta,
+    filterMeta,
+    overrides,
+    sanitize,
+    lowConfidence,
+    incQual,
+    mavenExclusiveWeight,
+    mavenCrucibleWeight,
+  }: ProfitInputs,
+  self?: Window & typeof globalThis,
 ) => {
   try {
     if (
@@ -63,20 +65,14 @@ export const calculateProfits = (
       return;
     }
 
-    const checkToken = () => {
-      if (!cancel) return;
-      const xhr = new XMLHttpRequest();
-      xhr.open("GET", cancel, false);
-      xhr.send(null);
-    };
-    const setData = (payload: GemDetails[]) => {
-      checkToken();
+    const setData = async (payload: GemDetails[]) => {
+      await sleep();
       self?.postMessage({ action: "data", payload });
     };
     let counter = 0;
-    const setProgress = (payload: number) => {
+    const setProgress = async (payload: number) => {
       if (counter++ % 10 === 0) {
-        checkToken();
+        await sleep();
       }
       self?.postMessage({ action: "progress", payload });
     };
@@ -90,124 +86,124 @@ export const calculateProfits = (
     let result: GemDetails[] =
       gems.value.source === "ninja"
         ? gems.value.data.map((original) => {
-          const {
-            name,
-            variant,
-            chaosValue,
-            gemLevel,
-            gemQuality,
-            corrupted,
-            listingCount,
-            sparkline,
-          } = original;
-          const baseName = modifiers.reduce((name, mod) => name.replace(mod, ""), name);
-          const Vaal = name.includes("Vaal");
-          const Type = getType(name);
+            const {
+              name,
+              variant,
+              chaosValue,
+              gemLevel,
+              gemQuality,
+              corrupted,
+              listingCount,
+              sparkline,
+            } = original;
+            const baseName = modifiers.reduce((name, mod) => name.replace(mod, ""), name);
+            const Vaal = name.includes("Vaal");
+            const Type = getType(name);
 
-          const Meta = getMeta(meta, Vaal, Type, name);
-          const key = Type === "Awakened" ? name : baseName;
-          const levels = gemInfo.xp[key];
-          if (!levels) {
-            missingXP[key] = true;
-          }
-          vaalGems[baseName] = vaalGems[baseName] || Vaal;
-          let lowConfidence = !sparkline?.data?.length;
-          if (!lowConfidence) {
-            const today = sparkline.data[sparkline.data.length - 1];
-            if (isNumber(today) && isFinite(today)) {
-              const avg = mean(sparkline.data.filter(isNumber)) + 100;
-              const absRatio = Math.max(avg, today + 100) / Math.min(avg, today + 100);
+            const Meta = getMeta(meta, Vaal, Type, name);
+            const key = Type === "Awakened" ? name : baseName;
+            const levels = gemInfo.xp[key];
+            if (!levels) {
+              missingXP[key] = true;
+            }
+            vaalGems[baseName] = vaalGems[baseName] || Vaal;
+            let lowConfidence = !sparkline?.data?.length;
+            if (!lowConfidence) {
+              const today = sparkline.data[sparkline.data.length - 1];
+              if (isNumber(today) && isFinite(today)) {
+                const avg = mean(sparkline.data.filter(isNumber)) + 100;
+                const absRatio = Math.max(avg, today + 100) / Math.min(avg, today + 100);
+                //price is more than double or half recent average, check if it is an outlier
+                if (absRatio > 2) {
+                  const filtered = filterOutliers(sparkline.data.filter(isNumber), 2);
+                  if (!filtered.includes(today)) {
+                    lowConfidence = true;
+                    console.debug(
+                      `${name} ${variant} (${chaosValue}c) failed tau test (${today}, [${filtered}], ratio: ${absRatio}), marking low confidence`,
+                    );
+                  }
+                }
+              } else {
+                lowConfidence = true;
+              }
+            }
+            return {
+              original,
+              Name: name,
+              baseName,
+              variant,
+              Level: gemLevel,
+              XP: levels?.[gemLevel],
+              Quality: gemQuality || 0,
+              Corrupted: corrupted || false,
+              Vaal,
+              Type,
+              Price: Math.round(chaosValue || 0),
+              Meta,
+              Listings: listingCount,
+              maxLevel: gemInfo.maxLevel[baseName as keyof typeof gemInfo.maxLevel],
+              lowMeta: Meta < filterMeta,
+              lowConfidence: lowConfidence || Meta < filterMeta,
+            } as GemDetails;
+          })
+        : gems.value.data.map((original) => {
+            let {
+              name,
+              gemLevel,
+              gemQuality,
+              gemIsCorrupted: corrupted,
+              daily: Listings,
+              lowConfidence,
+            } = original;
+            const chaosValue = original.min || original.mean;
+            const baseName = modifiers.reduce((name, mod) => name.replace(mod, ""), name);
+            const Vaal = name.includes("Vaal");
+            const Type = getType(name);
+            const Meta = getMeta(meta, Vaal, Type, name);
+            const variant = `${gemLevel}/${gemQuality}${corrupted ? "c" : ""}`;
+            const key = Type === "Awakened" ? name : baseName;
+            const levels = gemInfo.xp[key];
+
+            if (!levels) {
+              missingXP[key] = true;
+            }
+            vaalGems[baseName] = vaalGems[baseName] || Vaal;
+            if (!chaosValue) {
+              lowConfidence = true;
+            }
+            if (!lowConfidence) {
+              const avg = mean(original.history);
+              const absRatio = Math.max(avg, chaosValue) / Math.min(avg, chaosValue);
               //price is more than double or half recent average, check if it is an outlier
               if (absRatio > 2) {
-                const filtered = filterOutliers(sparkline.data.filter(isNumber), 2);
-                if (!filtered.includes(today)) {
+                const filtered = filterOutliers([...original.history, chaosValue], 2);
+                if (!filtered.includes(chaosValue)) {
                   lowConfidence = true;
                   console.debug(
-                    `${name} ${variant} (${chaosValue}c) failed tau test (${today}, [${filtered}], ratio: ${absRatio}), marking low confidence`
+                    `${name} ${variant} (${chaosValue}c) failed tau test (${filtered}, ${absRatio}), marking low confidence`,
                   );
                 }
               }
-            } else {
-              lowConfidence = true;
             }
-          }
-          return {
-            original,
-            Name: name,
-            baseName,
-            variant,
-            Level: gemLevel,
-            XP: levels?.[gemLevel],
-            Quality: gemQuality || 0,
-            Corrupted: corrupted || false,
-            Vaal,
-            Type,
-            Price: Math.round(chaosValue || 0),
-            Meta,
-            Listings: listingCount,
-            maxLevel: gemInfo.maxLevel[baseName as keyof typeof gemInfo.maxLevel],
-            lowMeta: Meta < filterMeta,
-            lowConfidence: lowConfidence || Meta < filterMeta,
-          } as GemDetails;
-        })
-        : gems.value.data.map((original) => {
-          let {
-            name,
-            gemLevel,
-            gemQuality,
-            gemIsCorrupted: corrupted,
-            daily: Listings,
-            lowConfidence,
-          } = original;
-          const chaosValue = original.min || original.mean;
-          const baseName = modifiers.reduce((name, mod) => name.replace(mod, ""), name);
-          const Vaal = name.includes("Vaal");
-          const Type = getType(name);
-          const Meta = getMeta(meta, Vaal, Type, name);
-          const variant = `${gemLevel}/${gemQuality}${corrupted ? "c" : ""}`;
-          const key = Type === "Awakened" ? name : baseName
-          const levels = gemInfo.xp[key];
-
-          if (!levels) {
-            missingXP[key] = true;
-          }
-          vaalGems[baseName] = vaalGems[baseName] || Vaal;
-          if (!chaosValue) {
-            lowConfidence = true;
-          }
-          if (!lowConfidence) {
-            const avg = mean(original.history);
-            const absRatio = Math.max(avg, chaosValue) / Math.min(avg, chaosValue);
-            //price is more than double or half recent average, check if it is an outlier
-            if (absRatio > 2) {
-              const filtered = filterOutliers([...original.history, chaosValue], 2);
-              if (!filtered.includes(chaosValue)) {
-                lowConfidence = true;
-                console.debug(
-                  `${name} ${variant} (${chaosValue}c) failed tau test (${filtered}, ${absRatio}), marking low confidence`
-                );
-              }
-            }
-          }
-          return {
-            original,
-            Name: name,
-            baseName,
-            variant,
-            Level: gemLevel,
-            XP: levels?.[gemLevel],
-            Quality: gemQuality || 0,
-            Corrupted: corrupted || false,
-            Vaal,
-            Type,
-            Price: Math.round(chaosValue || 0),
-            Meta,
-            Listings,
-            maxLevel: gemInfo.maxLevel[baseName as keyof typeof gemInfo.maxLevel],
-            lowMeta: Meta < filterMeta,
-            lowConfidence: lowConfidence || Meta < filterMeta,
-          } as GemDetails;
-        });
+            return {
+              original,
+              Name: name,
+              baseName,
+              variant,
+              Level: gemLevel,
+              XP: levels?.[gemLevel],
+              Quality: gemQuality || 0,
+              Corrupted: corrupted || false,
+              Vaal,
+              Type,
+              Price: Math.round(chaosValue || 0),
+              Meta,
+              Listings,
+              maxLevel: gemInfo.maxLevel[baseName as keyof typeof gemInfo.maxLevel],
+              lowMeta: Meta < filterMeta,
+              lowConfidence: lowConfidence || Meta < filterMeta,
+            } as GemDetails;
+          });
 
     const notFound = new Set(overrides);
     result = result
@@ -233,7 +229,7 @@ export const calculateProfits = (
     Object.values(gemMap).forEach((v) =>
       Object.keys(v).forEach((k) => {
         v[k] = v[k].sort(compareGem);
-      })
+      }),
     );
 
     const toMark: Gem[] = [];
@@ -249,7 +245,7 @@ export const calculateProfits = (
           strictlyBetter(other, gem)
         ) {
           console.debug(
-            `${gem.Name} ${gem.variant} (${gem.Price} chaos) worth more than ${other.variant} (${other.Price} chaos), marking low confidence`
+            `${gem.Name} ${gem.variant} (${gem.Price} chaos) worth more than ${other.variant} (${other.Price} chaos), marking low confidence`,
           );
           toMark.push(gem);
           break;
@@ -272,12 +268,12 @@ export const calculateProfits = (
     Object.values(gemMap).forEach((v) =>
       Object.keys(v).forEach((k) => {
         v[k] = v[k].sort(compareGem);
-      })
+      }),
     );
 
-    setData(result);
+    await setData(result);
     setProgressMsg("Calculating gcp values");
-    setProgress(0);
+    await setProgress(0);
 
     const processingTime = 400;
     let timeSlice = Date.now() + processingTime;
@@ -289,7 +285,7 @@ export const calculateProfits = (
       i++;
       if (Date.now() > timeSlice) {
         const p = (100 * i) / result.length;
-        setProgress(p);
+        await setProgress(p);
         timeSlice = Date.now() + processingTime;
       }
 
@@ -302,7 +298,7 @@ export const calculateProfits = (
               other.Name === gem.Name &&
               !other.Corrupted &&
               other.Level === gem.Level &&
-              other.Quality > gem.Quality
+              other.Quality > gem.Quality,
           )
           .map((other) => {
             const gcpCount = other.Quality - gem.Quality;
@@ -315,9 +311,9 @@ export const calculateProfits = (
       }
     }
 
-    setData(result);
+    await setData(result);
     setProgressMsg("Calculating xp values");
-    setProgress(0);
+    await setProgress(0);
     timeSlice = Date.now() + processingTime;
 
     i = 0;
@@ -325,7 +321,7 @@ export const calculateProfits = (
       i++;
       if (Date.now() > timeSlice) {
         const p = (100 * i) / result.length;
-        setProgress(p);
+        await setProgress(p);
         timeSlice = Date.now() + processingTime;
       }
 
@@ -342,7 +338,7 @@ export const calculateProfits = (
             other.Vaal === gem.Vaal &&
             other.XP !== undefined &&
             gemInfo.xp[gem.baseName][other.Level + 1] === undefined &&
-            (other.XP || 0) > (gem.XP || 0)
+            (other.XP || 0) > (gem.XP || 0),
         );
         gem.xpData = possibles
           .map((other) => {
@@ -359,26 +355,26 @@ export const calculateProfits = (
               gem.Quality < 20 &&
               gemInfo.xp[gem.baseName][20]
               ? possibles
-                .filter(
-                  (other) =>
-                    other.Quality === 20 &&
-                    (other.XP || 0) + (gemInfo.xp[gem.baseName][20] || 0) > (gem.XP || 0)
-                )
-                .map((other) => {
-                  const xpDiff =
-                    ((other.XP || 0) + (gemInfo.xp[gem.baseName][20] || 0) - (gem.XP || 0)) /
-                    million /
-                    qualityMultiplier;
+                  .filter(
+                    (other) =>
+                      other.Quality === 20 &&
+                      (other.XP || 0) + (gemInfo.xp[gem.baseName][20] || 0) > (gem.XP || 0),
+                  )
+                  .map((other) => {
+                    const xpDiff =
+                      ((other.XP || 0) + (gemInfo.xp[gem.baseName][20] || 0) - (gem.XP || 0)) /
+                      million /
+                      qualityMultiplier;
 
-                  return copy(other, {
-                    gcpCount: 1,
-                    gcpCost: oneGcp,
-                    reset: true,
-                    xpDiff,
-                    xpValue: (other.Price - (gem.Price + oneGcp)) / xpDiff,
-                  });
-                })
-              : []
+                    return copy(other, {
+                      gcpCount: 1,
+                      gcpCost: oneGcp,
+                      reset: true,
+                      xpDiff,
+                      xpValue: (other.Price - (gem.Price + oneGcp)) / xpDiff,
+                    });
+                  })
+              : [],
           )
           .filter(exists)
           .sort((a, b) => b.xpValue - a.xpValue);
@@ -386,9 +382,9 @@ export const calculateProfits = (
       }
     }
 
-    setData(result);
+    await setData(result);
     setProgressMsg("Calculating Wild Brambleback values");
-    setProgress(0);
+    await setProgress(0);
     timeSlice = Date.now() + processingTime;
 
     i = 0;
@@ -396,7 +392,7 @@ export const calculateProfits = (
       i++;
       if (Date.now() > timeSlice) {
         const p = (100 * i) / result.length;
-        setProgress(p);
+        await setProgress(p);
         timeSlice = Date.now() + processingTime;
       }
 
@@ -407,7 +403,7 @@ export const calculateProfits = (
             (lowConfidence || !other.lowConfidence) &&
             !other.Corrupted &&
             other.XP !== undefined &&
-            other.Level > gem.Level
+            other.Level > gem.Level,
         );
         gem.levelData = possibles
           .map((other) => {
@@ -424,9 +420,9 @@ export const calculateProfits = (
       }
     }
 
-    setData(result);
+    await setData(result);
     setProgressMsg("Calculating Vivid Watcher values");
-    setProgress(0);
+    await setProgress(0);
     timeSlice = Date.now() + processingTime;
 
     i = 0;
@@ -434,7 +430,7 @@ export const calculateProfits = (
       i++;
       if (Date.now() > timeSlice) {
         const p = (100 * i) / result.length;
-        setProgress(p);
+        await setProgress(p);
         timeSlice = Date.now() + processingTime;
       }
 
@@ -458,7 +454,7 @@ export const calculateProfits = (
             gem: bestMatch(
               copy(gem, { Name, baseName: Name }),
               gemMap[Name]?.[gem.Type],
-              lowConfidence
+              lowConfidence,
             ),
           }))
           .concat(
@@ -468,22 +464,22 @@ export const calculateProfits = (
               gem: bestMatch(
                 copy(gem, { Name, baseName: Name }),
                 gemMap[Name]?.[gem.Type],
-                lowConfidence
+                lowConfidence,
               ),
-            }))
+            })),
           );
         gem.convertData = convertData;
         gem.convertValue =
           (convertData?.reduce(
             (sum, { gem: { Price }, chance }) => sum + (Price || 0) * chance,
-            0
+            0,
           ) || 0) - gem.Price;
       }
     }
 
-    setData(result);
+    await setData(result);
     setProgressMsg("Calculating regrading lens values");
-    setProgress(0);
+    await setProgress(0);
     timeSlice = Date.now() + processingTime;
     const missingQual = {} as { [baseName: string]: true };
 
@@ -492,17 +488,15 @@ export const calculateProfits = (
     for (const gem of result) {
       if (Date.now() > timeSlice) {
         const p = (100 * i) / result.length;
-        setProgress(p);
+        await setProgress(p);
         timeSlice = Date.now() + processingTime;
       }
 
       if (!gem.Corrupted && gem.Type !== "Awakened" && gemInfo.weights[gem.baseName]) {
-        const weights = gemInfo.weights[gem.baseName].filter(
-          ({ Type }) => Type !== gem.Type
-        );
+        const weights = gemInfo.weights[gem.baseName].filter(({ Type }) => Type !== gem.Type);
         const totalWeight = weights.reduce(
           (sum, { Type, weight }) => (Type === gem.Type ? sum : sum + weight),
-          0
+          0,
         );
         if (!totalWeight) return;
         gem.regrData = weights.map(({ Type, weight }) => ({
@@ -513,7 +507,7 @@ export const calculateProfits = (
         gem.regrValue =
           (gem.regrData?.reduce(
             (sum, { gem: { Price }, chance }) => sum + (Price || 0) * chance,
-            0
+            0,
           ) || 0) - gem.Price;
       } else {
         if (!gem.Corrupted && gem.Type !== "Awakened") {
@@ -527,9 +521,9 @@ export const calculateProfits = (
       console.debug(`Missing alt quality data for ${missing}`);
     }
 
-    setData(result);
+    await setData(result);
     setProgressMsg("Calculating vaal outcomes");
-    setProgress(0);
+    await setProgress(0);
     timeSlice = Date.now() + processingTime;
 
     i = 0;
@@ -537,7 +531,7 @@ export const calculateProfits = (
       i++;
       if (Date.now() > timeSlice) {
         const p = (100 * i) / result.length;
-        setProgress(p);
+        await setProgress(p);
         timeSlice = Date.now() + processingTime;
       }
 
@@ -588,9 +582,9 @@ export const calculateProfits = (
       }
     }
 
-    setData(result);
+    await setData(result);
     setProgressMsg("Calculating temple corruption outcomes");
-    setProgress(0);
+    await setProgress(0);
     timeSlice = Date.now() + processingTime;
 
     i = 0;
@@ -598,7 +592,7 @@ export const calculateProfits = (
       i++;
       if (Date.now() > timeSlice) {
         const p = (100 * i) / result.length;
-        setProgress(p);
+        await setProgress(p);
         timeSlice = Date.now() + processingTime;
       }
 
@@ -652,9 +646,9 @@ export const calculateProfits = (
       }
     }
 
-    setProgress(100);
+    await setProgress(100);
     setProgressMsg("");
-    setData(result);
+    await setData(result);
     done();
 
     return result;
@@ -669,7 +663,7 @@ function getMeta(
   meta: ApiResult<{ [key: string]: number }>,
   Vaal: boolean,
   Type: GemType,
-  name: string
+  name: string,
 ) {
   if (meta.status !== "done") {
     return 0;
