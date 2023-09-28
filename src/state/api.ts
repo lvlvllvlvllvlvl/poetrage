@@ -2,7 +2,6 @@ import { createSelector } from "@reduxjs/toolkit";
 import { createApi, skipToken } from "@reduxjs/toolkit/query/react";
 import { getCurrencyOverview } from "apis/getCurrencyOverview";
 import { getGemOverview } from "apis/getGemOverview";
-import { getGemInfo } from "apis/getGemInfo";
 import { getLeagues } from "apis/getLeagues";
 import { getMeta } from "apis/getMeta";
 import {
@@ -18,7 +17,6 @@ interface State {
 }
 
 const methods = {
-  gemInfo: getGemInfo,
   leagues: getLeagues,
   meta: getMeta,
   gems: getGemOverview,
@@ -94,16 +92,6 @@ const toApiResult = <T>({
 const getLeague = ({ app }: State) => app.league;
 const getLadder = ({ app }: State) => app.ladder;
 const getSource = ({ app }: State) => app.source;
-
-const gemInfoSelector = apiSlice.endpoints.gemInfo.select([]);
-export const gemInfo = createSelector([gemInfoSelector], toApiResult);
-startAppListening({
-  predicate: (action, currentState) => gemInfo(currentState).status === "idle",
-
-  effect: async (action, listenerApi) => {
-    listenerApi.dispatch(apiSlice.endpoints.gemInfo.initiate([]));
-  },
-});
 
 const leaguesSelector = apiSlice.endpoints.leagues.select([]);
 export const leagues = createSelector([leaguesSelector], toApiResult);

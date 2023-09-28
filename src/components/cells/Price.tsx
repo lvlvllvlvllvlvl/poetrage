@@ -19,12 +19,14 @@ import { getPrice } from "apis/getPrices";
 import { GemDetails, Override, getQuery, isEqual } from "models/gems";
 import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { currencyMap, gemInfo } from "state/api";
+import { currencyMap } from "state/api";
 import { actions } from "state/app";
 import { useAppSelector } from "state/store";
 import { EditGem } from "../EditGem";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
+import info from "data/gemInfo.json";
+import { GemInfo } from "apis/getGemInfo";
 
 const clean = <T extends {}>(obj: T) => {
   Object.keys(obj).forEach(
@@ -37,7 +39,6 @@ export const Price = ({ gem: original, inline }: { gem: GemDetails; inline?: boo
   const dispatch = useDispatch();
   const setOverride = (o: Override) => dispatch(actions.setOverride(o));
   const league = useAppSelector(({ app }) => app.league?.name);
-  const info = useAppSelector(gemInfo);
   const currency = useAppSelector(currencyMap);
   const overrides = useAppSelector((state) => state.app.overrides);
   const overridesTmp = useAppSelector((state) => state.app.overridesTmp);
@@ -79,18 +80,18 @@ export const Price = ({ gem: original, inline }: { gem: GemDetails; inline?: boo
       setOverride(
         custom
           ? {
-              original: isEqual(custom, original) ? original : undefined,
-              override: { ...custom, Price: price, isOverride: true },
-            }
+            original: isEqual(custom, original) ? original : undefined,
+            override: { ...custom, Price: price, isOverride: true },
+          }
           : {
-              original,
-              override: clean({
-                ...(override?.override || {}),
-                Price: price,
-                lowConfidence: false,
-                isOverride: true,
-              }),
-            }
+            original,
+            override: clean({
+              ...(override?.override || {}),
+              Price: price,
+              lowConfidence: false,
+              isOverride: true,
+            }),
+          }
       );
     } catch (e) {
       setError(true);
@@ -121,9 +122,9 @@ export const Price = ({ gem: original, inline }: { gem: GemDetails; inline?: boo
         inline
           ? undefined
           : {
-              display: "flex",
-              alignItems: "center",
-            }
+            display: "flex",
+            alignItems: "center",
+          }
       }>
       <Typography
         component="span"
@@ -185,7 +186,7 @@ export const Price = ({ gem: original, inline }: { gem: GemDetails; inline?: boo
           <EditGem
             gem={custom}
             onChange={(g) => setCustom({ ...g, isOverride: true })}
-            gemInfo={info.value}
+            gemInfo={info as GemInfo}
           />
           <FormLabel id="search-type">Price search</FormLabel>
           <RadioGroup

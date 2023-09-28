@@ -16,13 +16,12 @@ startAppListening({
   effect: async (action, listenerApi) => {
     try {
       const inputs = profitInputs(listenerApi.getState());
-      const { gems, currencyMap, leagueIsIndexed, meta, gemInfo } = inputs;
+      const { gems, currencyMap, leagueIsIndexed, meta } = inputs;
 
       if (
         gems.status !== "done" ||
         currencyMap.status !== "done" ||
-        (leagueIsIndexed && meta.status !== "done") ||
-        gemInfo.status !== "done"
+        (leagueIsIndexed && meta.status !== "done")
       ) {
         return;
       }

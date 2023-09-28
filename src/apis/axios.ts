@@ -35,7 +35,7 @@ export const uncachedApi = axios.create({
 });
 
 api.interceptors.request.use((req) => {
-  if (req.url) {
+  if (req.url && !req.url.includes("github.io")) {
     req.url = "https://corsproxy.io/?" + encodeURIComponent(req.url);
   }
   return req;

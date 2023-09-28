@@ -46,7 +46,6 @@ export const GemTable = () => {
 
   const gems = useAppSelector(api.gems);
   const currencyMap = useAppSelector(api.currencyMap);
-  const gemInfo = useAppSelector(api.gemInfo);
   const meta = useAppSelector(api.meta);
   const league = useAppSelector((state) => state.app.league);
   const source = useAppSelector((state) => state.app.source);
@@ -134,9 +133,9 @@ export const GemTable = () => {
                                     style: {
                                       ...(header.column.getCanSort()
                                         ? {
-                                            cursor: "pointer",
-                                            userSelect: "none",
-                                          }
+                                          cursor: "pointer",
+                                          userSelect: "none",
+                                        }
                                         : {}),
                                       verticalAlign: "top",
                                       whiteSpace: "nowrap",
@@ -205,9 +204,8 @@ export const GemTable = () => {
           />
         )}
         {gems.status === "done" &&
-        currencyMap.status === "done" &&
-        meta.status === "done" &&
-        gemInfo.status === "done" ? (
+          currencyMap.status === "done" &&
+          meta.status === "done" ? (
           <Box sx={{ pl: 2, flexGrow: 1 }}>
             <Typography component="p" p={1}>
               {progressMsg || "All currency costs accounted for in profit values"}
@@ -217,7 +215,7 @@ export const GemTable = () => {
           </Box>
         ) : (
           <Box>
-            fetching data... gem data: {gemInfo.error || gemInfo.status}, gem prices:{" "}
+            fetching data... gem prices:{" "}
             {gems.error || gems.status}, currency: {currencyMap.error || currencyMap.status},
             builds: {meta.error || meta.status}
           </Box>

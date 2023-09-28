@@ -1,6 +1,8 @@
 /* eslint-disable no-restricted-globals */
 import { memoize } from "lodash";
 
+import { GemInfo } from "apis/getGemInfo";
+import info from "data/gemInfo.json";
 import { getCurrency } from "functions/getCurrency";
 import {
   ConversionData,
@@ -20,6 +22,8 @@ import {
 import { GraphChild, GraphNode, NodeMap } from "models/graphElements";
 import { GraphInputs } from "state/selectors/graphInputs";
 
+const gemInfo = info as GemInfo;
+
 const million = 1000000;
 
 export const buildGraph = (
@@ -34,7 +38,6 @@ export const buildGraph = (
       templeCost,
       awakenedLevelCost,
       awakenedRerollCost,
-      gemInfo,
     },
     cancel,
   }: {
@@ -220,7 +223,6 @@ export const buildGraph = (
 
     setData(graphData);
 
-    if (gemInfo.status !== "done") return;
     const getRegradeValue = (regrData: ConversionData[]) =>
       regrData.reduce((sum, d) => sum + normalizedFn(d.gem).expectedValue * d.chance, 0) -
       getLensForGem(regrData[0].gem);
@@ -252,7 +254,7 @@ export const buildGraph = (
             other.Quality <= 20 &&
             other.Level <= gem.maxLevel &&
             other.XP !== undefined &&
-            gemInfo.value?.xp[gem.baseName][other.Level + 1] === undefined &&
+            gemInfo.xp[gem.baseName][other.Level + 1] === undefined &&
             (other.XP || 0) > (gem.XP || 0)
         );
         xpData[getId(gem)] = possibles
@@ -291,17 +293,17 @@ export const buildGraph = (
             gem.Type === "Superior" &&
               !gem.Corrupted &&
               gem.Quality < 20 &&
-              gemInfo.value?.xp[gem.baseName][20]
+              gemInfo.xp[gem.baseName][20]
               ? possibles
                 .filter(
                   (other) =>
                     other.Quality === 20 &&
-                    (other.XP || 0) + gemInfo.value?.xp[gem.baseName][20] > (gem.XP || 0)
+                    (other.XP || 0) + (gemInfo.xp[gem.baseName][20] || 0) > (gem.XP || 0)
                 )
                 .map(normalizedFn)
                 .map((other) => {
                   const xpDiff =
-                    ((other.gem.XP || 0) + gemInfo.value?.xp[gem.baseName][20] - (gem.XP || 0)) /
+                    ((other.gem.XP || 0) + (gemInfo.xp[gem.baseName][20] || 0) - (gem.XP || 0)) /
                     million /
                     qualityMultiplier;
                   const vaalCost = other.gem.Vaal && !gem.Vaal ? 4 * (gem.Price + vaal) : 0;
@@ -351,9 +353,9 @@ export const buildGraph = (
       if (value <= node.expectedValue) continue;
 
       const weights = Object.fromEntries(
-        gemInfo.value.weights[gem.baseName].map(({ Type, weight }) => [Type, weight])
+        gemInfo.weights[gem.baseName].map(({ Type, weight }) => [Type, weight])
       );
-      const totalWeight = gemInfo.value.weights[gem.baseName].reduce(
+      const totalWeight = gemInfo.weights[gem.baseName].reduce(
         (acc, { weight }) => acc + weight,
         0
       );

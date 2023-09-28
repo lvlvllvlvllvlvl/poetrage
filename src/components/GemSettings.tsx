@@ -52,7 +52,6 @@ export const Settings = () => {
   } = setters(dispatch);
 
   const showOptions = useAppSelector((state) => state.app.showOptions);
-  const gemInfo = useAppSelector(api.gemInfo);
   const leagues = useAppSelector(api.leagues);
   const meta = useAppSelector(api.meta);
   const gems = useAppSelector(api.gems);
@@ -266,7 +265,6 @@ export const Settings = () => {
         </Box>
       </Drawer>
 
-      {gemInfo.error && <Alert severity="error">Error getting gem details: {gemInfo.error}</Alert>}
       {gems.error && <Alert severity="error">Error getting gem prices: {gems.error}</Alert>}
       {currencyMap.error && (
         <Alert severity="error">Error getting currency values: {currencyMap.error}</Alert>
