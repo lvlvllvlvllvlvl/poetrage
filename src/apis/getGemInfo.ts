@@ -35,7 +35,7 @@ export const getGemInfo = async () => {
     const altName = name.includes(" Support") ? name.replace(" Support", "") : name + " Support";
     weights[name] = weights[name] || [];
     weights[altName] = weights[altName] || [];
-    qualityStats[name] = qualityStats[name] || [];
+    qualityStats[name] = qualityStats[name] || {};
     gem.static.quality_stats.forEach((quality_stat) => {
       if (quality_stat.stat) {
         for (const [, quant] of Array.from(quality_stat.stat.matchAll(regex))) {

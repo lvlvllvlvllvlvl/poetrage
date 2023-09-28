@@ -25,8 +25,8 @@ export const AwakenedLevel = ({ gem: original, gem: { levelData } }: { gem: GemD
             {levelData?.map((gem, i) => (
               <Typography key={i} sx={{ m: 1 }}>
                 {Math.round(gem.levelValue - costOfAwakenedLevel)}c profit/level applying
-                {gem.gcpCount === 0 ? "" : ` ${gem.gcpCount} gcp and`} {gem.levelDiff}{" "}
-                Wild Brambleback to{" "}
+                {gem.gcpCount === 0 ? "" : ` ${gem.gcpCount} gcp and`} {gem.levelDiff} Wild
+                Brambleback to{" "}
                 <Link target="_blank" rel="noreferrer" href={getQueryUrl(gem, league?.name)}>
                   {gem.Level}/{gem.Quality}
                 </Link>{" "}
