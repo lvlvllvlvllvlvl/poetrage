@@ -307,7 +307,7 @@ export const calculateProfits = async (
             return { ...other, gcpCount, gcpCost, gcpValue };
           })
           .sort((a, b) => b.gcpValue - a.gcpValue);
-        gem.gcpValue = gem.gcpData[0]?.gcpValue || 0;
+        gem.gcpValue = gem.gcpData[0]?.gcpValue;
       }
     }
 

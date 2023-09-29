@@ -195,6 +195,7 @@ export const getColumns = createSelector(
         },
         sortingFn: (a, b) =>
           (a.original.gcpData?.[0]?.gcpValue || 0) - (b.original.gcpData?.[0]?.gcpValue || 0),
+        sortUndefined: false,
         cell: ({ row: { original } }) => <GCP gem={original} />,
       },
       {
@@ -229,6 +230,7 @@ export const getColumns = createSelector(
             : b === undefined
             ? 1
             : a - b) as SortingFn<GemDetails>,
+        sortUndefined: false,
         enableColumnFilter,
         filterFn: "inNumberRange",
         meta: {
@@ -250,6 +252,7 @@ export const getColumns = createSelector(
             : a - b) as SortingFn<GemDetails>,
         enableColumnFilter,
         filterFn: "inNumberRange",
+        sortUndefined: false,
         meta: {
           tooltip: "Amount of xp required to reach this gem level",
           filter: { isMin: true },
@@ -290,6 +293,7 @@ export const getColumns = createSelector(
         }) as SortingFn<GemDetails>,
         enableColumnFilter,
         filterFn: "inNumberRange",
+        sortUndefined: false,
         meta: {
           tooltip: "Leveling profit divided by costs. 5-way price not accounted for",
           filter: { isMin: true, isFloat: true },
