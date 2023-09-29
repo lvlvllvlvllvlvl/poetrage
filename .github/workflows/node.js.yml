@@ -1,6 +1,9 @@
 name: Node.js CI
 
 on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: ["build"]
   push:
     branches: ["main"]
 
@@ -20,14 +23,25 @@ jobs:
         run: npm ci
       - name: Test
         run: npm test
+      - name: Gem info
+        run: |
+          npx -y tsx scripts/saveGemInfo.ts
+          npm run prettier
+      - name: set version
+        id: set-version
+        run: echo "version=$(curl https://raw.githubusercontent.com/poe-tool-dev/latest-patch-version/main/latest.txt)" >> "$GITHUB_OUTPUT"
+      - name: Commit gem info
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: updated data for ${{ steps.set-version.outputs.version }}
       - name: show commit message
-        run: echo "REACT_APP_GIT_COMMIT=$(git log --format=reference -n 1 HEAD)" >> $GITHUB_ENV
+        run: echo "VITE_GIT_COMMIT=$(git log --format=reference -n 1 HEAD)" >> $GITHUB_ENV
       - name: Build
         run: npm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: build/
+          path: dist
 
   deploy:
     needs: build

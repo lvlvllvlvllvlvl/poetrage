@@ -1,6 +1,7 @@
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import LinearProgress from "@mui/material/LinearProgress";
 import Paper from "@mui/material/Paper";
+import { useTheme } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -9,21 +10,21 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Tooltip from "@mui/material/Tooltip";
-import { useTheme } from "@mui/material/styles";
+import Typography from "@mui/material/Typography";
 import {
-  Column,
-  FilterFn,
-  filterFns,
-  flexRender,
-  getCoreRowModel,
-  getFacetedMinMaxValues,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
+    Column,
+    FilterFn,
+    filterFns,
+    flexRender,
+    getCoreRowModel,
+    getFacetedMinMaxValues,
+    getFilteredRowModel,
+    getPaginationRowModel,
+    getSortedRowModel,
+    useReactTable
 } from "@tanstack/react-table";
-import Filter from "components/Filter";
 import { getColumns } from "components/columns";
+import Filter from "components/Filter";
 import { includes, search } from "functions/columnFilters";
 import { isFunction } from "lodash";
 import { GemDetails } from "models/gems";
@@ -32,7 +33,6 @@ import * as api from "state/api";
 import { setters } from "state/app";
 import { zippedData } from "state/selectors/zipData";
 import { useAppDispatch, useAppSelector } from "state/store";
-import LinearProgress from "@mui/material/LinearProgress";
 
 const pin = { id: "Pinned", desc: true };
 
@@ -46,7 +46,6 @@ export const GemTable = () => {
 
   const gems = useAppSelector(api.gems);
   const currencyMap = useAppSelector(api.currencyMap);
-  const gemInfo = useAppSelector(api.gemInfo);
   const meta = useAppSelector(api.meta);
   const league = useAppSelector((state) => state.app.league);
   const source = useAppSelector((state) => state.app.source);
@@ -82,7 +81,7 @@ export const GemTable = () => {
     filterFns: Object.fromEntries(
       Object.entries(filterFns)
         .concat(Object.entries({ search, includes }))
-        .map(([k, fn]) => [k, Object.assign(wrapFilter(fn), fn)])
+        .map(([k, fn]) => [k, Object.assign(wrapFilter(fn), fn)]),
     ),
     enablePinning: true,
     enableMultiSort: true,
@@ -204,10 +203,7 @@ export const GemTable = () => {
             }}
           />
         )}
-        {gems.status === "done" &&
-        currencyMap.status === "done" &&
-        meta.status === "done" &&
-        gemInfo.status === "done" ? (
+        {gems.status === "done" && currencyMap.status === "done" && meta.status === "done" ? (
           <Box sx={{ pl: 2, flexGrow: 1 }}>
             <Typography component="p" p={1}>
               {progressMsg || "All currency costs accounted for in profit values"}
@@ -217,9 +213,8 @@ export const GemTable = () => {
           </Box>
         ) : (
           <Box>
-            fetching data... gem data: {gemInfo.error || gemInfo.status}, gem prices:{" "}
-            {gems.error || gems.status}, currency: {currencyMap.error || currencyMap.status},
-            builds: {meta.error || meta.status}
+            fetching data... gem prices: {gems.error || gems.status}, currency:{" "}
+            {currencyMap.error || currencyMap.status}, builds: {meta.error || meta.status}
           </Box>
         )}
         <Typography p={1}>

@@ -1,9 +1,9 @@
-import { CurrencyOverview } from "models/ninja/Currency";
 import { api } from "apis/axios";
+import { CurrencyOverview } from "models/ninja/Currency";
 
 export const getCurrencyOverview = async (league: string) => {
   const response = await api.get<CurrencyOverview>(
-    `https://poe.ninja/api/data/currencyoverview?league=${league}&type=Currency`
+    `https://poe.ninja/api/data/currencyoverview?league=${league}&type=Currency`,
   );
 
   const result: { [key: string]: number } = {};

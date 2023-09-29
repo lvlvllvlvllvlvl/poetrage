@@ -1,7 +1,7 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ColumnFiltersState, SortingState } from "@tanstack/react-table";
 import { memoize } from "lodash";
-import { GemDetails, GemId, Override, isEqual } from "models/gems";
+import { GemDetails, GemId, isEqual, Override } from "models/gems";
 import { GraphNode, NodeMap } from "models/graphElements";
 import { League } from "models/ninja/Leagues";
 import { AppDispatch } from "./store";
@@ -20,8 +20,10 @@ function debouncedProp<T>(value?: T) {
   return { type: "debounced", value: { value, debounced: value } };
 }
 
+export const tabs = ["gems", "corruptions"] as const;
+
 export const fields = {
-  tab: prop<"gems" | "corruptions">("gems"),
+  tab: prop<(typeof tabs)[number]>(tabs[0]),
   league: prop<League>(),
   ladder: prop<"exp" | "depthsolo">("exp"),
   source: prop<"ninja" | "watch">("ninja"),
@@ -52,7 +54,7 @@ export const fields = {
   xpGraphData: prop<NodeMap>({}),
   currentGraph: prop<GraphNode>(),
   load: prop(0),
-  devMode: prop(process.env.REACT_APP_GIT_COMMIT === "local"),
+  devMode: prop(import.meta.env.VITE_GIT_COMMIT === "local"),
   hideNonTextFilters: prop(false),
   overridesTmp: prop<Override[]>([]),
   overrides: prop<Override[]>([]),
@@ -96,13 +98,13 @@ export type Setters = {
   }[keyof SetterNames];
 };
 
-const timeouts = {} as { [key: string]: NodeJS.Timeout };
+const timeouts = {} as { [key: string]: number };
 
 export const setters = memoize(
   (dispatch: AppDispatch) =>
     Object.keys(fields).reduce((acc, key: any) => {
       acc[("set" + key.charAt(0).toUpperCase() + key.substring(1)) as keyof Setters] = (
-        value: any
+        value: any,
       ) => {
         switch (fields[key as keyof AppState].type) {
           case "simple":
@@ -112,13 +114,13 @@ export const setters = memoize(
             dispatch(actions.setDebounced({ key, value, type: "value" }));
             clearTimeout(timeouts[key]);
             timeouts[key] = setTimeout(() =>
-              dispatch(actions.setDebounced({ key, value, type: "debounced" }))
+              dispatch(actions.setDebounced({ key, value, type: "debounced" })),
             );
         }
       };
       return acc;
     }, {} as Setters),
-  (dispatch) => dispatch
+  (dispatch) => dispatch,
 );
 
 export const appSlice = createSlice({
@@ -127,7 +129,7 @@ export const appSlice = createSlice({
   reducers: {
     setSimple: <K extends PickFields<"simple">>(
       state: AppState,
-      { payload: { key, value } }: PayloadAction<{ key: K; value: AppState[K] }>
+      { payload: { key, value } }: PayloadAction<{ key: K; value: AppState[K] }>,
     ) => {
       return { ...state, [key]: value };
     },
@@ -135,7 +137,7 @@ export const appSlice = createSlice({
       state: AppState,
       {
         payload: { key, type, value },
-      }: PayloadAction<{ key: K; type: "value" | "debounced"; value: AppState[K] }>
+      }: PayloadAction<{ key: K; type: "value" | "debounced"; value: AppState[K] }>,
     ) => {
       return { ...state, [key]: { ...state[key], [type]: value } };
     },
@@ -151,7 +153,7 @@ export const appSlice = createSlice({
         if (
           isEqual(
             o.original ? { ...o.original, ...o.override } : o.override,
-            payload.original ? { ...payload.original, ...payload.override } : payload.override
+            payload.original ? { ...payload.original, ...payload.override } : payload.override,
           )
         ) {
           found = true;

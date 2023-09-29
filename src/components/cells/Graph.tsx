@@ -1,6 +1,7 @@
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
+import { useTheme } from "@mui/material/styles";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { GemIcons } from "components/GemIcons";
@@ -9,13 +10,13 @@ import { getId } from "models/gems";
 import { GraphChild, GraphNode } from "models/graphElements";
 import numeral from "numeral";
 import ReactFlow, {
-  Background,
-  EdgeLabelRenderer,
-  EdgeProps,
-  Handle,
-  MarkerType,
-  Position,
-  getBezierPath,
+    Background,
+    EdgeLabelRenderer,
+    EdgeProps,
+    getBezierPath,
+    Handle,
+    MarkerType,
+    Position
 } from "reactflow";
 import "reactflow/dist/style.css";
 import { setters } from "state/app";
@@ -23,7 +24,6 @@ import { useAppDispatch, useAppSelector } from "state/store";
 import { Pinned } from "./Pinned";
 import { Price } from "./Price";
 import { Type } from "./Type";
-import { useTheme } from "@mui/material/styles";
 
 interface GemNodeData {
   label?: string;
@@ -115,7 +115,7 @@ const GemEdge = ({
           targetY,
           targetPosition,
           curvature,
-        }
+        },
   );
 
   return (
@@ -143,7 +143,7 @@ const GemEdge = ({
                   ? `Average cost: ${Math.round(data.child.expectedCost)}c`
                   : undefined
                 : `${data?.child?.name || ""} (${numeral(data?.child?.expectedCost || 0).format(
-                    "0[.][0]"
+                    "0[.][0]",
                   )}c)`}
             </Typography>
             {showChance && (
@@ -267,11 +267,11 @@ export const GraphCell = ({ graph, xp }: { graph?: GraphNode; xp?: boolean }) =>
       {xp ? (
         <Tooltip
           title={`${Math.round(
-            ((graph.expectedValue - graph.gem.Price) * fiveWay) / (graph.experience || 0)
+            ((graph.expectedValue - graph.gem.Price) * fiveWay) / (graph.experience || 0),
           )}c/5-way (${numeral((graph.experience || 0) / fiveWay).format("0[.][00]")} 5-ways)`}>
           <span>
             {Math.round(
-              ((graph.expectedValue - graph.gem.Price) * fiveWay) / (graph.experience || 0)
+              ((graph.expectedValue - graph.gem.Price) * fiveWay) / (graph.experience || 0),
             )}
             c
           </span>

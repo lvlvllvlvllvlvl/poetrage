@@ -3,8 +3,9 @@ import { setters } from "state/app";
 import { startAppListening } from "state/listener";
 import { weightInputs } from "state/selectors/weightInputs";
 import { AppDispatch } from "state/store";
+import Worker from "state/workers/corruptedMods.ts?worker";
 
-const worker = new Worker(new URL("state/workers/corruptedMods.ts", import.meta.url));
+const worker = new Worker();
 let cancel: string;
 
 startAppListening({
@@ -17,18 +18,16 @@ startAppListening({
       const inputs = weightInputs(listenerApi.getState());
       const { mods, uniques, translations } = inputs;
 
-      if (
-        mods.status !== "done" ||
-        uniques.status !== "done" ||
-        translations.status !== "done"
-      ) {
+      if (mods.status !== "done" || uniques.status !== "done" || translations.status !== "done") {
         return;
       }
 
       console.debug("Starting weight worker");
       URL.revokeObjectURL(cancel);
 
-      const { setUniqueData, setUniqueProgress, setUniqueProgressMsg } = setters(listenerApi.dispatch as AppDispatch);
+      const { setUniqueData, setUniqueProgress, setUniqueProgressMsg } = setters(
+        listenerApi.dispatch as AppDispatch,
+      );
 
       cancel = URL.createObjectURL(new Blob());
       worker.postMessage({ inputs, cancel });

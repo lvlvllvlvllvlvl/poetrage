@@ -1,19 +1,21 @@
 /* eslint-disable no-restricted-globals */
+import { GemInfo } from "apis/getGemInfo";
+import info from "data/gemInfo.json";
 import { filterOutliers, mean } from "functions/filterOutliers";
 import { getCurrency } from "functions/getCurrency";
 import { isNumber } from "lodash";
 import {
-  ConversionData,
-  Gem,
-  GemDetails,
-  GemType,
   altQualities,
   bestMatch,
   betterOrEqual,
   compareGem,
+  ConversionData,
   copy,
   exceptional,
   exists,
+  Gem,
+  GemDetails,
+  GemType,
   getType,
   isEqual,
   mavenCrucible,
@@ -26,55 +28,51 @@ import {
 import { ApiResult } from "state/api";
 import { ProfitInputs } from "state/selectors/profitInputs";
 
+const gemInfo = info as GemInfo;
 const million = 1000000;
+const channel = new MessageChannel();
+const sleep = () =>
+  new Promise((resolve) => {
+    channel.port1.onmessage = () => {
+      channel.port1.onmessage = null;
+      resolve(null);
+    };
+    channel.port2.postMessage(null);
+  });
 
-export const calculateProfits = (
+export const calculateProfits = async (
   {
-    cancel,
-    inputs: {
-      gems,
-      currencyMap,
-      leagueIsIndexed,
-      meta,
-      gemInfo,
-      filterMeta,
-      overrides,
-      sanitize,
-      lowConfidence,
-      incQual,
-      mavenExclusiveWeight,
-      mavenCrucibleWeight,
-    },
-  }: {
-    inputs: ProfitInputs;
-    cancel?: URL;
-  },
-  self?: Window & typeof globalThis
+    gems,
+    currencyMap,
+    leagueIsIndexed,
+    meta,
+    filterMeta,
+    overrides,
+    sanitize,
+    lowConfidence,
+    incQual,
+    mavenExclusiveWeight,
+    mavenCrucibleWeight,
+  }: ProfitInputs,
+  self?: Window & typeof globalThis,
 ) => {
   try {
     if (
       gems.status !== "done" ||
       currencyMap.status !== "done" ||
-      (leagueIsIndexed && meta.status !== "done") ||
-      gemInfo.status !== "done"
+      (leagueIsIndexed && meta.status !== "done")
     ) {
       return;
     }
 
-    const checkToken = () => {
-      if (!cancel) return;
-      const xhr = new XMLHttpRequest();
-      xhr.open("GET", cancel, false);
-      xhr.send(null);
-    };
-    const setData = (payload: GemDetails[]) => {
-      checkToken();
+    const setData = async (payload: GemDetails[]) => {
+      await sleep();
       self?.postMessage({ action: "data", payload });
     };
     let counter = 0;
-    const setProgress = (payload: number) => {
+    const setProgress = async (payload: number) => {
       if (counter++ % 10 === 0) {
-        checkToken();
+        await sleep();
       }
       self?.postMessage({ action: "progress", payload });
     };
@@ -103,9 +101,10 @@ export const calculateProfits = (
             const Type = getType(name);
 
             const Meta = getMeta(meta, Vaal, Type, name);
-            const levels = gemInfo.value?.xp[Type === "Awakened" ? name : baseName];
+            const key = Type === "Awakened" ? name : baseName;
+            const levels = gemInfo.xp[key];
             if (!levels) {
-              missingXP[Type === "Awakened" ? name : baseName] = true;
+              missingXP[key] = true;
             }
             vaalGems[baseName] = vaalGems[baseName] || Vaal;
             let lowConfidence = !sparkline?.data?.length;
@@ -120,7 +119,7 @@ export const calculateProfits = (
                   if (!filtered.includes(today)) {
                     lowConfidence = true;
                     console.debug(
-                      `${name} ${variant} (${chaosValue}c) failed tau test (${today}, [${filtered}], ratio: ${absRatio}), marking low confidence`
+                      `${name} ${variant} (${chaosValue}c) failed tau test (${today}, [${filtered}], ratio: ${absRatio}), marking low confidence`,
                     );
                   }
                 }
@@ -142,7 +141,7 @@ export const calculateProfits = (
               Price: Math.round(chaosValue || 0),
               Meta,
               Listings: listingCount,
-              maxLevel: gemInfo.value.maxLevel[baseName],
+              maxLevel: gemInfo.maxLevel[baseName as keyof typeof gemInfo.maxLevel],
               lowMeta: Meta < filterMeta,
               lowConfidence: lowConfidence || Meta < filterMeta,
             } as GemDetails;
@@ -162,10 +161,11 @@ export const calculateProfits = (
             const Type = getType(name);
             const Meta = getMeta(meta, Vaal, Type, name);
             const variant = `${gemLevel}/${gemQuality}${corrupted ? "c" : ""}`;
-            const levels = gemInfo.value?.xp[Type === "Awakened" ? name : baseName];
+            const key = Type === "Awakened" ? name : baseName;
+            const levels = gemInfo.xp[key];
 
             if (!levels) {
-              missingXP[Type === "Awakened" ? name : baseName] = true;
+              missingXP[key] = true;
             }
             vaalGems[baseName] = vaalGems[baseName] || Vaal;
             if (!chaosValue) {
@@ -180,7 +180,7 @@ export const calculateProfits = (
                 if (!filtered.includes(chaosValue)) {
                   lowConfidence = true;
                   console.debug(
-                    `${name} ${variant} (${chaosValue}c) failed tau test (${filtered}, ${absRatio}), marking low confidence`
+                    `${name} ${variant} (${chaosValue}c) failed tau test (${filtered}, ${absRatio}), marking low confidence`,
                   );
                 }
               }
@@ -199,7 +199,7 @@ export const calculateProfits = (
               Price: Math.round(chaosValue || 0),
               Meta,
               Listings,
-              maxLevel: gemInfo.value.maxLevel[baseName],
+              maxLevel: gemInfo.maxLevel[baseName as keyof typeof gemInfo.maxLevel],
               lowMeta: Meta < filterMeta,
               lowConfidence: lowConfidence || Meta < filterMeta,
             } as GemDetails;
@@ -229,7 +229,7 @@ export const calculateProfits = (
     Object.values(gemMap).forEach((v) =>
       Object.keys(v).forEach((k) => {
         v[k] = v[k].sort(compareGem);
-      })
+      }),
     );
 
     const toMark: Gem[] = [];
@@ -245,7 +245,7 @@ export const calculateProfits = (
           strictlyBetter(other, gem)
         ) {
           console.debug(
-            `${gem.Name} ${gem.variant} (${gem.Price} chaos) worth more than ${other.variant} (${other.Price} chaos), marking low confidence`
+            `${gem.Name} ${gem.variant} (${gem.Price} chaos) worth more than ${other.variant} (${other.Price} chaos), marking low confidence`,
           );
           toMark.push(gem);
           break;
@@ -268,12 +268,12 @@ export const calculateProfits = (
     Object.values(gemMap).forEach((v) =>
       Object.keys(v).forEach((k) => {
         v[k] = v[k].sort(compareGem);
-      })
+      }),
     );
 
-    setData(result);
+    await setData(result);
     setProgressMsg("Calculating gcp values");
-    setProgress(0);
+    await setProgress(0);
 
     const processingTime = 400;
     let timeSlice = Date.now() + processingTime;
@@ -285,7 +285,7 @@ export const calculateProfits = (
       i++;
       if (Date.now() > timeSlice) {
         const p = (100 * i) / result.length;
-        setProgress(p);
+        await setProgress(p);
         timeSlice = Date.now() + processingTime;
       }
 
@@ -298,7 +298,7 @@ export const calculateProfits = (
               other.Name === gem.Name &&
               !other.Corrupted &&
               other.Level === gem.Level &&
-              other.Quality > gem.Quality
+              other.Quality > gem.Quality,
           )
           .map((other) => {
             const gcpCount = other.Quality - gem.Quality;
@@ -307,13 +307,13 @@ export const calculateProfits = (
             return { ...other, gcpCount, gcpCost, gcpValue };
           })
           .sort((a, b) => b.gcpValue - a.gcpValue);
-        gem.gcpValue = gem.gcpData[0]?.gcpValue || 0;
+        gem.gcpValue = gem.gcpData[0]?.gcpValue;
       }
     }
 
-    setData(result);
+    await setData(result);
     setProgressMsg("Calculating xp values");
-    setProgress(0);
+    await setProgress(0);
     timeSlice = Date.now() + processingTime;
 
     i = 0;
@@ -321,7 +321,7 @@ export const calculateProfits = (
       i++;
       if (Date.now() > timeSlice) {
         const p = (100 * i) / result.length;
-        setProgress(p);
+        await setProgress(p);
         timeSlice = Date.now() + processingTime;
       }
 
@@ -337,8 +337,8 @@ export const calculateProfits = (
             other.Corrupted === gem.Corrupted &&
             other.Vaal === gem.Vaal &&
             other.XP !== undefined &&
-            gemInfo.value?.xp[gem.baseName][other.Level + 1] === undefined &&
-            (other.XP || 0) > (gem.XP || 0)
+            gemInfo.xp[gem.baseName][other.Level + 1] === undefined &&
+            (other.XP || 0) > (gem.XP || 0),
         );
         gem.xpData = possibles
           .map((other) => {
@@ -353,16 +353,16 @@ export const calculateProfits = (
             gem.Type === "Superior" &&
               !gem.Corrupted &&
               gem.Quality < 20 &&
-              gemInfo.value?.xp[gem.baseName][20]
+              gemInfo.xp[gem.baseName][20]
               ? possibles
                   .filter(
                     (other) =>
                       other.Quality === 20 &&
-                      (other.XP || 0) + gemInfo.value?.xp[gem.baseName][20] > (gem.XP || 0)
+                      (other.XP || 0) + (gemInfo.xp[gem.baseName][20] || 0) > (gem.XP || 0),
                   )
                   .map((other) => {
                     const xpDiff =
-                      ((other.XP || 0) + gemInfo.value?.xp[gem.baseName][20] - (gem.XP || 0)) /
+                      ((other.XP || 0) + (gemInfo.xp[gem.baseName][20] || 0) - (gem.XP || 0)) /
                       million /
                       qualityMultiplier;
 
@@ -374,7 +374,7 @@ export const calculateProfits = (
                       xpValue: (other.Price - (gem.Price + oneGcp)) / xpDiff,
                     });
                   })
-              : []
+              : [],
           )
           .filter(exists)
           .sort((a, b) => b.xpValue - a.xpValue);
@@ -382,9 +382,9 @@ export const calculateProfits = (
       }
     }
 
-    setData(result);
+    await setData(result);
     setProgressMsg("Calculating Wild Brambleback values");
-    setProgress(0);
+    await setProgress(0);
     timeSlice = Date.now() + processingTime;
 
     i = 0;
@@ -392,7 +392,7 @@ export const calculateProfits = (
       i++;
       if (Date.now() > timeSlice) {
         const p = (100 * i) / result.length;
-        setProgress(p);
+        await setProgress(p);
         timeSlice = Date.now() + processingTime;
       }
 
@@ -403,7 +403,7 @@ export const calculateProfits = (
             (lowConfidence || !other.lowConfidence) &&
             !other.Corrupted &&
             other.XP !== undefined &&
-            other.Level > gem.Level
+            other.Level > gem.Level,
         );
         gem.levelData = possibles
           .map((other) => {
@@ -420,9 +420,9 @@ export const calculateProfits = (
       }
     }
 
-    setData(result);
+    await setData(result);
     setProgressMsg("Calculating Vivid Watcher values");
-    setProgress(0);
+    await setProgress(0);
     timeSlice = Date.now() + processingTime;
 
     i = 0;
@@ -430,7 +430,7 @@ export const calculateProfits = (
       i++;
       if (Date.now() > timeSlice) {
         const p = (100 * i) / result.length;
-        setProgress(p);
+        await setProgress(p);
         timeSlice = Date.now() + processingTime;
       }
 
@@ -454,7 +454,7 @@ export const calculateProfits = (
             gem: bestMatch(
               copy(gem, { Name, baseName: Name }),
               gemMap[Name]?.[gem.Type],
-              lowConfidence
+              lowConfidence,
             ),
           }))
           .concat(
@@ -464,60 +464,56 @@ export const calculateProfits = (
               gem: bestMatch(
                 copy(gem, { Name, baseName: Name }),
                 gemMap[Name]?.[gem.Type],
-                lowConfidence
+                lowConfidence,
               ),
-            }))
+            })),
           );
         gem.convertData = convertData;
         gem.convertValue =
           (convertData?.reduce(
             (sum, { gem: { Price }, chance }) => sum + (Price || 0) * chance,
-            0
+            0,
           ) || 0) - gem.Price;
       }
     }
 
-    setData(result);
+    await setData(result);
     setProgressMsg("Calculating regrading lens values");
-    setProgress(0);
+    await setProgress(0);
     timeSlice = Date.now() + processingTime;
     const missingQual = {} as { [baseName: string]: true };
 
     i = 0;
-    if (gemInfo.status === "done") {
-      i++;
-      for (const gem of result) {
-        if (Date.now() > timeSlice) {
-          const p = (100 * i) / result.length;
-          setProgress(p);
-          timeSlice = Date.now() + processingTime;
-        }
+    i++;
+    for (const gem of result) {
+      if (Date.now() > timeSlice) {
+        const p = (100 * i) / result.length;
+        await setProgress(p);
+        timeSlice = Date.now() + processingTime;
+      }
 
-        if (!gem.Corrupted && gem.Type !== "Awakened" && gemInfo.value.weights[gem.baseName]) {
-          const weights = gemInfo.value.weights[gem.baseName].filter(
-            ({ Type }) => Type !== gem.Type
-          );
-          const totalWeight = weights.reduce(
-            (sum, { Type, weight }) => (Type === gem.Type ? sum : sum + weight),
-            0
-          );
-          if (!totalWeight) return;
-          gem.regrData = weights.map(({ Type, weight }) => ({
-            chance: weight / totalWeight,
-            outcomes: [Type],
-            gem: bestMatch(copy(gem, { Type }), gemMap[gem.baseName][Type], lowConfidence),
-          }));
-          gem.regrValue =
-            (gem.regrData?.reduce(
-              (sum, { gem: { Price }, chance }) => sum + (Price || 0) * chance,
-              0
-            ) || 0) - gem.Price;
-        } else {
-          if (!gem.Corrupted && gem.Type !== "Awakened") {
-            missingQual[gem.baseName] = true;
-          }
-          gem.regrValue = 0;
+      if (!gem.Corrupted && gem.Type !== "Awakened" && gemInfo.weights[gem.baseName]) {
+        const weights = gemInfo.weights[gem.baseName].filter(({ Type }) => Type !== gem.Type);
+        const totalWeight = weights.reduce(
+          (sum, { Type, weight }) => (Type === gem.Type ? sum : sum + weight),
+          0,
+        );
+        if (!totalWeight) return;
+        gem.regrData = weights.map(({ Type, weight }) => ({
+          chance: weight / totalWeight,
+          outcomes: [Type],
+          gem: bestMatch(copy(gem, { Type }), gemMap[gem.baseName][Type], lowConfidence),
+        }));
+        gem.regrValue =
+          (gem.regrData?.reduce(
+            (sum, { gem: { Price }, chance }) => sum + (Price || 0) * chance,
+            0,
+          ) || 0) - gem.Price;
+      } else {
+        if (!gem.Corrupted && gem.Type !== "Awakened") {
+          missingQual[gem.baseName] = true;
         }
+        gem.regrValue = 0;
       }
     }
 
@@ -525,9 +521,9 @@ export const calculateProfits = (
       console.debug(`Missing alt quality data for ${missing}`);
     }
 
-    setData(result);
+    await setData(result);
     setProgressMsg("Calculating vaal outcomes");
-    setProgress(0);
+    await setProgress(0);
     timeSlice = Date.now() + processingTime;
 
     i = 0;
@@ -535,7 +531,7 @@ export const calculateProfits = (
       i++;
       if (Date.now() > timeSlice) {
         const p = (100 * i) / result.length;
-        setProgress(p);
+        await setProgress(p);
         timeSlice = Date.now() + processingTime;
       }
 
@@ -586,9 +582,9 @@ export const calculateProfits = (
       }
     }
 
-    setData(result);
+    await setData(result);
     setProgressMsg("Calculating temple corruption outcomes");
-    setProgress(0);
+    await setProgress(0);
     timeSlice = Date.now() + processingTime;
 
     i = 0;
@@ -596,7 +592,7 @@ export const calculateProfits = (
       i++;
       if (Date.now() > timeSlice) {
         const p = (100 * i) / result.length;
-        setProgress(p);
+        await setProgress(p);
         timeSlice = Date.now() + processingTime;
       }
 
@@ -650,9 +646,9 @@ export const calculateProfits = (
       }
     }
 
-    setProgress(100);
+    await setProgress(100);
     setProgressMsg("");
-    setData(result);
+    await setData(result);
     done();
 
     return result;
@@ -667,7 +663,7 @@ function getMeta(
   meta: ApiResult<{ [key: string]: number }>,
   Vaal: boolean,
   Type: GemType,
-  name: string
+  name: string,
 ) {
   if (meta.status !== "done") {
     return 0;

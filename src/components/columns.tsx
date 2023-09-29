@@ -6,10 +6,10 @@ import numeral from "numeral";
 import { currencyMap } from "state/api";
 import { RootState as AppState } from "state/store";
 import {
-  awakenedLevelCost,
-  awakenedRerollCost,
-  regradeValue,
-  templeCost,
+    awakenedLevelCost,
+    awakenedRerollCost,
+    regradeValue,
+    templeCost
 } from "../state/selectors/costs";
 import { AwakenedLevel } from "./cells/AwakenedLevel";
 import { AwakenedReroll } from "./cells/AwakenedReroll";
@@ -19,11 +19,12 @@ import { Listings } from "./cells/Listings";
 import { Meta } from "./cells/Meta";
 import { Name } from "./cells/Name";
 import { Pinned } from "./cells/Pinned";
-import { ROI } from "./cells/ROI";
 import { Regrade } from "./cells/Regrade";
+import { ROI } from "./cells/ROI";
 import { Temple } from "./cells/Temple";
 import { Type } from "./cells/Type";
 import { Vaal } from "./cells/Vaal";
+import { XP } from "./cells/XP";
 
 export const getColumns = createSelector(
   [
@@ -46,7 +47,7 @@ export const getColumns = createSelector(
     costOfTemple,
     costOfAwakenedLevel,
     costOfAwakenedReroll,
-    getRegrValue
+    getRegrValue,
   ): ColumnDef<GemDetails>[] => {
     return [
       {
@@ -125,7 +126,7 @@ export const getColumns = createSelector(
             currencyMap.value,
             costOfTemple,
             costOfAwakenedLevel,
-            costOfAwakenedReroll
+            costOfAwakenedReroll,
           )[0]?.ratio,
         cell: ({ row: { original } }) => <ROI gem={original} />,
       },
@@ -195,6 +196,7 @@ export const getColumns = createSelector(
         },
         sortingFn: (a, b) =>
           (a.original.gcpData?.[0]?.gcpValue || 0) - (b.original.gcpData?.[0]?.gcpValue || 0),
+        sortUndefined: false,
         cell: ({ row: { original } }) => <GCP gem={original} />,
       },
       {
@@ -229,6 +231,7 @@ export const getColumns = createSelector(
             : b === undefined
             ? 1
             : a - b) as SortingFn<GemDetails>,
+        sortUndefined: false,
         enableColumnFilter,
         filterFn: "inNumberRange",
         meta: {
@@ -250,6 +253,7 @@ export const getColumns = createSelector(
             : a - b) as SortingFn<GemDetails>,
         enableColumnFilter,
         filterFn: "inNumberRange",
+        sortUndefined: false,
         meta: {
           tooltip: "Amount of xp required to reach this gem level",
           filter: { isMin: true },
@@ -260,12 +264,54 @@ export const getColumns = createSelector(
             : "n/a",
       },
       {
+        id: "5way",
+        accessorFn: ({ xpValue }) => (xpValue || 0) * fiveWay,
+        header: "5-ways",
+        sortingFn: (({ original: { xpValue: a } }, { original: { xpValue: b } }) =>
+          a === b
+            ? 0
+            : a === undefined
+            ? -1
+            : b === undefined
+            ? 1
+            : a - b) as SortingFn<GemDetails>,
+        enableColumnFilter,
+        filterFn: "inNumberRange",
+        meta: {
+          tooltip:
+            "Profit from levelling this gem up, divided by estimated average gem xp earned in a 5-way",
+          filter: { isMin: true },
+        },
+        cell: ({ row: { original } }) => <XP gem={original} />,
+      },
+      {
+        id: "5wayRatio",
+        accessorFn: ({ xpValue, Price }) => (xpValue ? (xpValue * fiveWay) / Price : 0),
+        header: "5-way ROI",
+        sortingFn: ((left, right) => {
+          const a: number = left.getValue("xpRatio");
+          const b: number = right.getValue("xpRatio");
+          return a === b ? 0 : a === undefined ? -1 : b === undefined ? 1 : a - b;
+        }) as SortingFn<GemDetails>,
+        enableColumnFilter,
+        filterFn: "inNumberRange",
+        meta: {
+          tooltip:
+            "Profit per 5-way, divided by the cost of the gem. 5-way price not accounted for",
+          filter: { isMin: true, isFloat: true },
+        },
+        cell: (info) =>
+          isNaN(info.getValue() as any)
+            ? "n/a"
+            : numeral((info.getValue() as number).toPrecision(3)).format("0[.][00]a"),
+      },
+      {
         id: "Levelling",
         accessorFn: (gem: GemDetails) =>
           gem.xpGraph?.expectedValue
             ? Math.round(
                 ((gem.xpGraph.expectedValue - gem.xpGraph.gem.Price) * fiveWay) /
-                  (gem.xpGraph.experience || 0)
+                  (gem.xpGraph.experience || 0),
               )
             : 0,
         enableColumnFilter,
@@ -290,6 +336,7 @@ export const getColumns = createSelector(
         }) as SortingFn<GemDetails>,
         enableColumnFilter,
         filterFn: "inNumberRange",
+        sortUndefined: false,
         meta: {
           tooltip: "Leveling profit divided by costs. 5-way price not accounted for",
           filter: { isMin: true, isFloat: true },
@@ -331,5 +378,5 @@ export const getColumns = createSelector(
         cell: (info) => (info.getValue() ? "✓" : "✗"),
       },
     ];
-  }
+  },
 );

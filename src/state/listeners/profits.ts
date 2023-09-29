@@ -3,9 +3,9 @@ import { setters } from "state/app";
 import { startAppListening } from "state/listener";
 import { profitInputs } from "state/selectors/profitInputs";
 import { AppDispatch } from "state/store";
+import Worker from "state/workers/calculateProfits.ts?worker";
 
-const worker = new Worker(new URL("state/workers/calculateProfits.ts", import.meta.url));
-let cancel: string;
+const worker = new Worker();
 
 startAppListening({
   predicate: (action, currentState, previousState) => {
@@ -15,24 +15,21 @@ startAppListening({
   effect: async (action, listenerApi) => {
     try {
       const inputs = profitInputs(listenerApi.getState());
-      const { gems, currencyMap, leagueIsIndexed, meta, gemInfo } = inputs;
+      const { gems, currencyMap, leagueIsIndexed, meta } = inputs;
 
       if (
         gems.status !== "done" ||
         currencyMap.status !== "done" ||
-        (leagueIsIndexed && meta.status !== "done") ||
-        gemInfo.status !== "done"
+        (leagueIsIndexed && meta.status !== "done")
       ) {
         return;
       }
 
       console.debug("Starting profit worker");
-      URL.revokeObjectURL(cancel);
 
       const { setData, setProgress, setProgressMsg } = setters(listenerApi.dispatch as AppDispatch);
 
-      cancel = URL.createObjectURL(new Blob());
-      worker.postMessage({ inputs, cancel });
+      worker.postMessage(inputs);
       worker.onmessage = (e) => {
         if (e.data.action === "data") {
           setData(e.data.payload);

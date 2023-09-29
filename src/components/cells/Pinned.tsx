@@ -29,9 +29,7 @@ export const Pinned = ({ gem, copy }: { gem: GemDetails; copy?: any }) => {
           <IconButton
             sx={{ width: 18, height: 18 }}
             onClick={() =>
-              navigator.clipboard.writeText(
-                JSON.stringify(copy ?? getGemFromData(id, data))
-              )
+              navigator.clipboard.writeText(JSON.stringify(copy ?? getGemFromData(id, data)))
             }>
             <CopyIcon />
           </IconButton>

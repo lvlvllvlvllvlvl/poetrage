@@ -17,7 +17,7 @@ export const ROI = ({ gem }: { gem: GemDetails }) => {
     currency.value,
     costOfTemple,
     costOfAwakenedLevel,
-    costOfAwakenedReroll
+    costOfAwakenedReroll,
   );
   return ratios?.length ? (
     <PopupState variant="popover" popupId={getId(gem) + "-roi"}>

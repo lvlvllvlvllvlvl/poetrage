@@ -15,7 +15,7 @@ export const zippedData = createSelector(
         ...gem,
         Pinned: pins.includes(getId(gem)),
         graph: graphData[getId(gem)],
-        xpGraph: xpData[getId(gem)]
-      })
-    )
+        xpGraph: xpData[getId(gem)],
+      }),
+    ),
 );

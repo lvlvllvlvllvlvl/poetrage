@@ -3,9 +3,9 @@ import { setters } from "state/app";
 import { startAppListening } from "state/listener";
 import { graphInputs } from "state/selectors/graphInputs";
 import { AppDispatch } from "state/store";
+import Worker from "state/workers/buildGraph.ts?worker";
 
-const worker = new Worker(new URL("state/workers/buildGraph.ts", import.meta.url));
-let cancel: string;
+const worker = new Worker();
 
 startAppListening({
   predicate: (action, currentState, previousState) => {
@@ -25,14 +25,12 @@ startAppListening({
       }
 
       console.debug("Starting graph worker");
-      URL.revokeObjectURL(cancel);
 
       const { setGraphData, setXpGraphData, setGraphProgress, setGraphProgressMsg } = setters(
-        listenerApi.dispatch as AppDispatch
+        listenerApi.dispatch as AppDispatch,
       );
 
-      cancel = URL.createObjectURL(new Blob());
-      worker.postMessage({ inputs, cancel });
+      worker.postMessage(inputs);
       worker.onmessage = (e) => {
         if (e.data.action === "data") {
           setGraphData(e.data.payload);

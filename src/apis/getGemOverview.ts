@@ -1,11 +1,11 @@
-import { ItemOverview, SkillGem } from "models/ninja/Item";
 import { api } from "apis/axios";
+import { ItemOverview, SkillGem } from "models/ninja/Item";
 import { GemResult } from "models/poewatch/Gem";
 
 export const getGemOverview = async (league: string, source: "ninja" | "watch") => {
   if (source === "ninja") {
     const response = await api.get<ItemOverview<SkillGem>>(
-      `https://poe.ninja/api/data/itemoverview?league=${league}&type=SkillGem`
+      `https://poe.ninja/api/data/itemoverview?league=${league}&type=SkillGem`,
     );
     return {
       source,
@@ -20,12 +20,12 @@ export const getGemOverview = async (league: string, source: "ninja" | "watch") 
             corrupted,
             listingCount,
             sparkline,
-          } as SkillGem)
+          }) as SkillGem,
       ),
     };
   } else {
     const { data } = await api.get<GemResult>(
-      `https://api.poe.watch/get?category=gem&league=${league}`
+      `https://api.poe.watch/get?category=gem&league=${league}`,
     );
     return { source, data };
   }

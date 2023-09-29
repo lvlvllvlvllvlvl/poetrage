@@ -6,24 +6,22 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import IconButton from "@mui/material/IconButton";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { cache } from "apis/axios";
+import { GraphDialog } from "components/cells/Graph";
 import { Settings } from "components/GemSettings";
 import { GemTable } from "components/GemTable";
 import { Uniques } from "components/Uniques";
-import { GraphDialog } from "components/cells/Graph";
 import { useEffect, useMemo, useReducer, useState } from "react";
 import GithubCorner from "react-github-corner";
 import { apiSlice } from "state/api";
-import { actions, setters } from "state/app";
+import { actions, setters, tabs } from "state/app";
 import { useAppDispatch, useAppSelector } from "state/store";
-
-const tabs = ["gems", "corruptions"] as const;
 
 function App() {
   const systemMode = useMediaQuery("(prefers-color-scheme: dark)");
@@ -39,7 +37,7 @@ function App() {
       dispatch(apiSlice.util.resetApiState());
       dispatch(actions.reload());
     },
-    [dispatch]
+    [dispatch],
   );
   useEffect(reload, [reload]);
 
@@ -68,7 +66,7 @@ function App() {
           },
         },
       }),
-    [darkMode]
+    [darkMode],
   );
 
   return (
@@ -83,7 +81,7 @@ function App() {
         <GithubCorner
           href="https://github.com/lvlvllvlvllvlvl/poetrage"
           target="_blank"
-          title={process.env.REACT_APP_GIT_COMMIT}
+          title={import.meta.env.VITE_GIT_COMMIT}
           octoColor={theme.palette.primary.main}
           style={{ zIndex: 2000 }}
         />
@@ -113,15 +111,17 @@ function App() {
               onClick={() => setShowOptions(!showOptions)}>
               poetrage
             </Typography>
-            <Tabs
-              value={tabs.indexOf(tab)}
-              onChange={(_, i) => setTab(tabs[i])}
-              textColor="inherit"
-              aria-label="app tabs">
-              {tabs.map((tab) => (
-                <Tab key={tab} label={tab} />
-              ))}
-            </Tabs>
+            {tabs.length > 1 && (
+              <Tabs
+                value={tabs.indexOf(tab)}
+                onChange={(_, i) => setTab(tabs[i])}
+                textColor="inherit"
+                aria-label="app tabs">
+                {tabs.map((tab) => (
+                  <Tab key={tab} label={tab} />
+                ))}
+              </Tabs>
+            )}
             <IconButton color="inherit" onClick={toggleMode}>
               {darkMode ? <DarkModeIcon /> : <LightModeIcon />}
             </IconButton>

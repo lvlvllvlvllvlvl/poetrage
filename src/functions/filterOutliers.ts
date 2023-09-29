@@ -13,7 +13,7 @@ export function filterOutliers(
   data: number[],
   strictness = 3,
   is_sorted = false,
-  in_place = false
+  in_place = false,
 ) {
   strictness = Math.min(5, Math.max(1, strictness));
   if (!in_place) {

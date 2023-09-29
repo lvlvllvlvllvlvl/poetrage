@@ -4,8 +4,7 @@ import { apiSlice } from "state/api";
 import { appSlice } from "./app";
 import { listenerMiddleware } from "./listener";
 
-const r = require.context("state/listeners", false, /\.ts$/);
-r.keys().forEach(r);
+const r = import.meta.glob("./listeners/*", { eager: true });
 
 export const store = configureStore({
   reducer: { app: appSlice.reducer, [apiSlice.reducerPath]: apiSlice.reducer },

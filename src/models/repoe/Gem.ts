@@ -860,7 +860,7 @@ export interface Base_item {
   release_state: string;
 }
 export interface Per_level {
-  [level: `${number}`]: Level
+  [level: `${number}`]: Level;
 }
 export interface Level {
   costs?: Costs;

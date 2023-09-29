@@ -15,20 +15,22 @@ import MenuItem from "@mui/material/MenuItem";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import TextField from "@mui/material/TextField";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
+import { GemInfo } from "apis/getGemInfo";
 import { getPrice } from "apis/getPrices";
-import { GemDetails, Override, getQuery, isEqual } from "models/gems";
+import info from "data/gemInfo.json";
+import { GemDetails, getQuery, isEqual, Override } from "models/gems";
 import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { currencyMap, gemInfo } from "state/api";
+import { currencyMap } from "state/api";
 import { actions } from "state/app";
 import { useAppSelector } from "state/store";
 import { EditGem } from "../EditGem";
-import Tooltip from "@mui/material/Tooltip";
-import Typography from "@mui/material/Typography";
 
 const clean = <T extends {}>(obj: T) => {
   Object.keys(obj).forEach(
-    (key) => obj[key as keyof T] === undefined && delete obj[key as keyof T]
+    (key) => obj[key as keyof T] === undefined && delete obj[key as keyof T],
   );
   return obj;
 };
@@ -37,7 +39,6 @@ export const Price = ({ gem: original, inline }: { gem: GemDetails; inline?: boo
   const dispatch = useDispatch();
   const setOverride = (o: Override) => dispatch(actions.setOverride(o));
   const league = useAppSelector(({ app }) => app.league?.name);
-  const info = useAppSelector(gemInfo);
   const currency = useAppSelector(currencyMap);
   const overrides = useAppSelector((state) => state.app.overrides);
   const overridesTmp = useAppSelector((state) => state.app.overridesTmp);
@@ -68,13 +69,13 @@ export const Price = ({ gem: original, inline }: { gem: GemDetails; inline?: boo
       const query = getQuery(
         custom || original,
         type !== "daily",
-        type === "daily" ? "1day" : undefined
+        type === "daily" ? "1day" : undefined,
       );
       const { price } = await getPrice(
         league,
         currency.value!,
         query,
-        type === "cheapest" ? "cheapest" : "average"
+        type === "cheapest" ? "cheapest" : "average",
       );
       setOverride(
         custom
@@ -90,7 +91,7 @@ export const Price = ({ gem: original, inline }: { gem: GemDetails; inline?: boo
                 lowConfidence: false,
                 isOverride: true,
               }),
-            }
+            },
       );
     } catch (e) {
       setError(true);
@@ -185,7 +186,7 @@ export const Price = ({ gem: original, inline }: { gem: GemDetails; inline?: boo
           <EditGem
             gem={custom}
             onChange={(g) => setCustom({ ...g, isOverride: true })}
-            gemInfo={info.value}
+            gemInfo={info as GemInfo}
           />
           <FormLabel id="search-type">Price search</FormLabel>
           <RadioGroup
