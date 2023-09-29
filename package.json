@@ -82,7 +82,7 @@
   },
   "lint-staged": {
     "{src,public}/**": [
-      "organize-imports-cli tsconfig.json",
+      "organize-imports-cli",
       "prettier --write"
     ]
   }

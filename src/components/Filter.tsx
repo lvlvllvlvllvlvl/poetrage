@@ -203,8 +203,8 @@ const FilterMenu = <T extends {}>({
                   ? undefined
                   : value
                 : value
-                  ? [value]
-                  : [],
+                ? [value]
+                : [],
             )
           }>
           {gemTypes.map((name) => (
