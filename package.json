@@ -24,9 +24,11 @@
     "axios-cache-adapter": "^2.7.3",
     "dagre": "^0.8.5",
     "eslint": "^8.49.0",
+    "husky": "^8.0.3",
     "jest": "^29.7.0",
     "jsdom": "^22.1.0",
     "just-standard-deviation": "^2.2.0",
+    "lint-staged": "^14.0.1",
     "localforage": "^1.10.0",
     "localforage-memoryStorageDriver": "^0.9.2",
     "lodash": "^4.17.21",
@@ -51,9 +53,11 @@
     "start": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "vitest",
+    "test": "vitest run",
     "prettier": "organize-imports-cli tsconfig.json && prettier --write src public",
-    "deploy": "npm run build && gh-pages -d build"
+    "deploy": "npm run build && gh-pages -d build",
+    "husky": "husky install",
+    "lint": "lint-staged"
   },
   "eslintConfig": {
     "rules": {
@@ -75,5 +79,11 @@
   "prettier": {
     "printWidth": 100,
     "bracketSameLine": true
+  },
+  "lint-staged": {
+    "{src,public}/**": [
+      "organize-imports-cli tsconfig.json",
+      "prettier --write"
+    ]
   }
 }
