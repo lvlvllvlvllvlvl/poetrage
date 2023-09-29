@@ -88,7 +88,7 @@ const FilterMenu = <T extends {}>({
   const currentValue = column.getFilterValue();
   const min = useDebouncedState((currentValue as number[])?.[0]);
   const max = useDebouncedState((currentValue as number[])?.[1]);
-  const text = useDebouncedState(currentValue as string);
+  const text = useDebouncedState(currentValue as string, 500);
   const [bool, setBool] = useState(
     isUndefined(currentValue) ? (key === "lowConfidence" ? false : undefined) : currentValue,
   );
@@ -203,8 +203,8 @@ const FilterMenu = <T extends {}>({
                   ? undefined
                   : value
                 : value
-                ? [value]
-                : [],
+                  ? [value]
+                  : [],
             )
           }>
           {gemTypes.map((name) => (
