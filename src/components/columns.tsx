@@ -24,6 +24,7 @@ import { ROI } from "./cells/ROI";
 import { Temple } from "./cells/Temple";
 import { Type } from "./cells/Type";
 import { Vaal } from "./cells/Vaal";
+import { XP } from "./cells/XP";
 
 export const getColumns = createSelector(
   [
@@ -261,6 +262,48 @@ export const getColumns = createSelector(
           Number.isInteger(info.getValue())
             ? numeral((info.getValue() as number).toPrecision(3)).format("0[.][00]a")
             : "n/a",
+      },
+      {
+        id: "5way",
+        accessorFn: ({ xpValue }) => (xpValue || 0) * fiveWay,
+        header: "5-ways",
+        sortingFn: (({ original: { xpValue: a } }, { original: { xpValue: b } }) =>
+          a === b
+            ? 0
+            : a === undefined
+            ? -1
+            : b === undefined
+            ? 1
+            : a - b) as SortingFn<GemDetails>,
+        enableColumnFilter,
+        filterFn: "inNumberRange",
+        meta: {
+          tooltip:
+            "Profit from levelling this gem up, divided by estimated average gem xp earned in a 5-way",
+          filter: { isMin: true },
+        },
+        cell: ({ row: { original } }) => <XP gem={original} />,
+      },
+      {
+        id: "5wayRatio",
+        accessorFn: ({ xpValue, Price }) => (xpValue ? (xpValue * fiveWay) / Price : 0),
+        header: "5-way ROI",
+        sortingFn: ((left, right) => {
+          const a: number = left.getValue("xpRatio");
+          const b: number = right.getValue("xpRatio");
+          return a === b ? 0 : a === undefined ? -1 : b === undefined ? 1 : a - b;
+        }) as SortingFn<GemDetails>,
+        enableColumnFilter,
+        filterFn: "inNumberRange",
+        meta: {
+          tooltip:
+            "Profit per 5-way, divided by the cost of the gem. 5-way price not accounted for",
+          filter: { isMin: true, isFloat: true },
+        },
+        cell: (info) =>
+          isNaN(info.getValue() as any)
+            ? "n/a"
+            : numeral((info.getValue() as number).toPrecision(3)).format("0[.][00]a"),
       },
       {
         id: "Levelling",
