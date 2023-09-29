@@ -24,7 +24,9 @@ jobs:
       - name: Test
         run: npm test
       - name: Gem info
-        run: npx -y tsx scripts/saveGemInfo.ts
+        run: |
+          npx -y tsx scripts/saveGemInfo.ts
+          npm run prettier
       - name: set version
         id: set-version
         run: echo "version=$(curl https://raw.githubusercontent.com/poe-tool-dev/latest-patch-version/main/latest.txt)" >> "$GITHUB_OUTPUT"
