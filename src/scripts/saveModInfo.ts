@@ -57,7 +57,7 @@ Promise.all([
         console.debug("no tags found for unique", name, variants);
       }
 
-      results.uniques[name] = variants
+      results.uniques[name.toLowerCase()] = variants
         .filter((v) => !v.page_name.includes(":") && v.is_in_game === "1" && v.drop_enabled === "1")
         .map(({ tags, page_name, base_item_id, base_item }) => {
           tags = tags.split(",").sort().join();

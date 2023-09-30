@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@apollo/client": "^3.8.4",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@graphql-codegen/cli": "^5.0.0",
+    "@graphql-codegen/cli": "5.0.0",
+    "@graphql-codegen/client-preset": "4.1.0",
+    "@graphql-codegen/introspection": "4.0.0",
     "@graphql-codegen/typescript": "^4.0.1",
     "@graphql-codegen/typescript-resolvers": "^4.0.1",
     "@mui/icons-material": "^5.14.11",
@@ -61,7 +64,8 @@
     "prettier": "organize-imports-cli tsconfig.json && prettier --write src public",
     "deploy": "npm run build && gh-pages -d build",
     "husky": "husky install",
-    "lint": "lint-staged"
+    "lint": "lint-staged",
+    "codegen": "graphql-codegen --config codegen.ts"
   },
   "eslintConfig": {
     "rules": {
