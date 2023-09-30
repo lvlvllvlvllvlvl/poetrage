@@ -246,9 +246,9 @@ export const poeStack = async ({}: ModInputs, self?: Window & typeof globalThis)
 
       if (Object.keys(results).length === 0) return;
 
-      const payload = Object.fromEntries(
-        Object.entries(results).sort(([, { profit: l }], [, { profit: r }]) => r - l),
-      );
+      const entries = Object.entries(results).sort(([, { profit: l }], [, { profit: r }]) => r - l);
+      const profitable = entries.findIndex(([, { profit }]) => profit <= 0);
+      const payload = Object.fromEntries(profitable < 20 ? entries : entries.slice(0, profitable));
       self?.postMessage({ action: "data", payload });
       self?.postMessage({
         action: "msg",
