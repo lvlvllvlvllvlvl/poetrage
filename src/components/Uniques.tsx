@@ -1,12 +1,13 @@
 import CopyIcon from "@mui/icons-material/CopyAll";
 import {
-    Accordion,
-    AccordionDetails,
-    AccordionSummary,
-    Box,
-    IconButton, Paper,
-    Tooltip,
-    Typography
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  IconButton,
+  Paper,
+  Tooltip,
+  Typography,
 } from "@mui/material";
 import numeral from "numeral";
 import { useAppSelector } from "state/store";
