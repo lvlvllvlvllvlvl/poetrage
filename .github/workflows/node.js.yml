@@ -28,7 +28,7 @@ jobs:
             npx -y tsx $script
           done
           npm run codegen
-          npm run lint -- --diff HEAD
+          npm run lint -- --diff HEAD --allow-empty
       - name: Test
         run: npm test
       - name: set version
