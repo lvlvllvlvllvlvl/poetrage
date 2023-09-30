@@ -6,10 +6,10 @@ import numeral from "numeral";
 import { currencyMap } from "state/api";
 import { RootState as AppState } from "state/store";
 import {
-    awakenedLevelCost,
-    awakenedRerollCost,
-    regradeValue,
-    templeCost
+  awakenedLevelCost,
+  awakenedRerollCost,
+  regradeValue,
+  templeCost,
 } from "../state/selectors/costs";
 import { AwakenedLevel } from "./cells/AwakenedLevel";
 import { AwakenedReroll } from "./cells/AwakenedReroll";

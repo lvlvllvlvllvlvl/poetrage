@@ -10,13 +10,13 @@ import { getId } from "models/gems";
 import { GraphChild, GraphNode } from "models/graphElements";
 import numeral from "numeral";
 import ReactFlow, {
-    Background,
-    EdgeLabelRenderer,
-    EdgeProps,
-    getBezierPath,
-    Handle,
-    MarkerType,
-    Position
+  Background,
+  EdgeLabelRenderer,
+  EdgeProps,
+  getBezierPath,
+  Handle,
+  MarkerType,
+  Position,
 } from "reactflow";
 import "reactflow/dist/style.css";
 import { setters } from "state/app";

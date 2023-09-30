@@ -12,16 +12,16 @@ import TableRow from "@mui/material/TableRow";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import {
-    Column,
-    FilterFn,
-    filterFns,
-    flexRender,
-    getCoreRowModel,
-    getFacetedMinMaxValues,
-    getFilteredRowModel,
-    getPaginationRowModel,
-    getSortedRowModel,
-    useReactTable
+  Column,
+  FilterFn,
+  filterFns,
+  flexRender,
+  getCoreRowModel,
+  getFacetedMinMaxValues,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  useReactTable,
 } from "@tanstack/react-table";
 import { getColumns } from "components/columns";
 import Filter from "components/Filter";
