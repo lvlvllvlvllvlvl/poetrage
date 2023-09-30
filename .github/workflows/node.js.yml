@@ -28,7 +28,7 @@ jobs:
             npx -y tsx $script
           done
           npm run codegen
-          npm run prettier
+          npm run lint -- --diff HEAD
       - name: Test
         run: npm test
       - name: set version

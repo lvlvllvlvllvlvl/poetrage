@@ -62,7 +62,6 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest run",
-    "prettier": "organize-imports-cli tsconfig.json && prettier --write src public",
     "deploy": "npm run build && gh-pages -d build",
     "husky": "husky install",
     "lint": "lint-staged",
@@ -90,11 +89,10 @@
     "bracketSameLine": true
   },
   "lint-staged": {
-    "src/**/*.ts?": [
-      "organize-imports-cli"
-    ],
-    "{src,public}/**": [
+    "src/**/*.{ts,tsx}": [
+      "organize-imports-cli",
       "prettier --write"
-    ]
+    ],
+    "src/**/*.json": "prettier --write"
   }
 }

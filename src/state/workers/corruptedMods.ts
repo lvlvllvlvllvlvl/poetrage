@@ -150,7 +150,7 @@ export const poeStack = async ({}: ModInputs, self?: Window & typeof globalThis)
     if (count === 0) {
       break;
     }
-    offSet += Math.floor(count * 0.95);
+    offSet += Math.max(1, Math.floor(count * 0.95));
 
     queueMicrotask(() => {
       result.data.livePricingSummarySearch.entries.forEach((e) => {
