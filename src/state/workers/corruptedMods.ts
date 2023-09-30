@@ -1,157 +1,110 @@
-/* eslint-disable no-restricted-globals */
-import { defaultObj } from "functions/defaultObj";
-import { getQuantifier } from "functions/formatStat";
-import { cloneDeep, isNumber } from "lodash";
-import { NodeMap } from "models/graphElements";
-import { Stat } from "models/repoe/Translation";
-import { Unique } from "models/repoe/Uniques";
-import { WeightClass, WeightInputs } from "state/selectors/weightInputs";
+import modData from "data/mods.json";
+import { UniqueProfits } from "models/corruptions";
+import { CorruptedMod, UniquePricing } from "models/poewatch/Unique";
+import { ModInfo, ModInputs } from "state/selectors/modInputs";
 
-export const uniqueProfits = (
-  {
-    inputs: { mods, uniques, translations },
-    cancel,
-  }: {
-    inputs: WeightInputs;
-    cancel?: URL;
-  },
-  self?: Window & typeof globalThis
-): NodeMap | undefined => {
-  try {
-    const checkToken = () => {
-      if (!cancel) return;
-      const xhr = new XMLHttpRequest();
-      xhr.open("GET", cancel, false);
-      xhr.send(null);
-    };
-    const setData = (payload: any) => {
-      checkToken();
-      self?.postMessage({ action: "data", payload });
-    };
-    let counter = 0;
-    const setProgress = (payload: number) => {
-      if (counter++ % 10 === 0) {
-        checkToken();
-      }
-      self?.postMessage({ action: "progress", payload });
-    };
-    const setProgressMsg = (payload: string) => self?.postMessage({ action: "msg", payload });
-    const done = () => self?.postMessage({ action: "done" });
+const { uniques, mods, weights } = modData as ModInfo;
 
-    if (mods.status !== "done" || uniques.status !== "done" || translations.status !== "done") {
-      return;
+let cancel = new AbortController();
+const channel = new MessageChannel();
+const sleep = (ms?: number) =>
+  ms
+    ? new Promise((resolve) => setTimeout(resolve, ms))
+    : new Promise((resolve) => {
+        channel.port1.onmessage = () => {
+          channel.port1.onmessage = null;
+          resolve(null);
+        };
+        channel.port2.postMessage(null);
+      });
+
+export const poeWatch = async (
+  { league }: ModInputs,
+  self?: Window & typeof globalThis,
+): Promise<any> => {
+  cancel.abort();
+  cancel = new AbortController();
+  const signal = cancel.signal;
+  const pricing: UniquePricing[] = (
+    await Promise.all(
+      ["accessory", "armour", "jewel", "weapon"].map((category) =>
+        fetch(`https://api.poe.watch/get?category=${category}&league=${league?.name}`, {
+          signal,
+        }).then((r) => r.json()),
+      ),
+    )
+  ).flatMap((v) => v);
+  const requests: Promise<any>[] = [];
+  const results: UniqueProfits = {};
+  for (const item of pricing) {
+    if (!uniques[item.name]) {
+      console.debug(item.name, "not in mod data");
+      continue;
     }
-
-    const stats: { [id: string]: Stat[] } = {};
-    for (const { ids, English } of translations.value) {
-      for (const id of ids) {
-        if (!stats[id]) {
-          stats[id] = [];
-        }
-        stats[id].push(...English.filter(({ format }) => !format.includes("ignore")));
+    const r = uniques[item.name].map(({ page_name, tags }) => {
+      const uniqueName = page_name + (item.linkCount ? ` (${item.linkCount}-link)` : "");
+      if (uniqueName in results) {
+        console.warn("duplicate item", uniqueName);
+      } else {
+        results[uniqueName] = { cost: item.mean, profit: 0.25 * -item.mean, outcomes: {} };
       }
-    }
-
-    const corruptedMods = Object.entries(mods.value)
-      .filter(([, mod]) => mod.generation_type === "corrupted" && mod.domain === "item")
-      .map(([id, mod]) => ({ ...mod, id }));
-
-    const results: { [base: string]: WeightClass } = {};
-
-    for (const [name, variants] of Object.entries(uniques.value) as [string, Unique[]][]) {
-      if (variants.length === 0 || !variants[0].tags) {
-        console.debug("no tags found for unique", name, variants);
-      }
-
-      results[name] = { variants, sumWeight: 0, stats: defaultObj() };
-
-      for (const mod of corruptedMods) {
-        const weight =
-          variants[0].tags
-            .split(",")
-            .map((tag) => mod.spawn_weights.find((mod) => mod.tag === tag))
-            .find((w) => w)?.weight || 0;
-        variants.slice(1).forEach(({ tags }) => {
-          if (
-            weight !==
-              tags
-                .split(",")
-                .map((tag) => mod.spawn_weights.find((mod) => mod.tag === tag))
-                .find((w) => w)?.weight ||
-            0
-          ) {
-            console.debug("variant found with different weights", name, variants);
-          }
-        });
-        if (!weight) continue;
-
-        results[name].sumWeight += weight;
-
-        if (!mod.stats.length || !stats[mod.stats[0].id]) {
-          console.debug("no stat for corrupted mod", mod);
-          results[name].stats["Unknown"][mod.id] = {
-            ...mod,
-            weight,
-            stat: "Unknown",
-          };
-          continue;
-        }
-
-        if (mod.stats.length > 1) {
-          console.log(mod.id);
-        }
-        for (const stat of mod.stats.flatMap(({ id, min, max }) => stats[id])) {
-          if (stat.condition.find((c) => c.negated)) {
-            console.debug("negated stat", stat);
-          }
-
-          let valid = true;
-          const text = stat.string;
-          const placeholders = text.replaceAll(/\{\d+\}/g, "#");
-          const formatted = text.replaceAll(/\{(\d+)\}/g, (_, group) => {
-            const index = parseInt(group);
-            const value = mod.stats[index];
-            const format = stat.format[index];
-            if (!value) {
-              return format;
-            } else {
-              const handler = stat.index_handlers[index];
-              if (handler.length > 1) {
-                console.debug("multiple index handlers", handler);
-              }
-              const condition = stat.condition[index];
-              if (
-                condition &&
-                ((isNumber(condition.max) && value.max > condition.max) ||
-                  (isNumber(condition.min) && value.min < condition.min))
-              ) {
-                valid = false;
-              }
-              const quantifier = getQuantifier(handler[0] || "none");
-              const prefix = format === "+#" && value.min > 0 ? "+" : "";
-              if (value.min === value.max) {
-                return prefix + quantifier(value.min);
-              } else {
-                return `${prefix}(${quantifier(value.min)}-${quantifier(value.max)})`;
-              }
-            }
-          });
-          if (!valid) continue;
-
-          const result = {
-            ...mod,
-            weight,
-            stat: formatted,
-          };
-          results[name].stats[placeholders][mod.id] = result;
-        }
-      }
-    }
-
-    setData(cloneDeep(results));
-  } catch (e) {
-    console.debug(e);
+      return { tags, uniqueName };
+    });
+    const req = () =>
+      fetch(`https://api.poe.watch/corruptions?id=${item.id}&league=${league?.name}`, { signal });
+    requests.push(
+      req()
+        .catch(() => sleep(200).then(req))
+        .catch(() => sleep(400).then(req))
+        .catch(() => sleep(800).then(req))
+        .then((r) => r.json())
+        .then(
+          (m: CorruptedMod[]) =>
+            m?.forEach(
+              ({ name, mean }) =>
+                r?.forEach(({ tags, uniqueName }) => {
+                  const weight = weights[tags];
+                  if (!weight) {
+                    console.log("no weight for", uniqueName, tags, name);
+                    return;
+                  }
+                  const mod = mods[name.toLowerCase()];
+                  if (mod) {
+                    for (const [id, m] of Object.entries(mod)) {
+                      if (!weight.mods[id]) continue;
+                      const profit = mean - item.mean;
+                      const chance = 0.25 * (weight.mods[id] / weight.sumWeight);
+                      const ev = profit * chance;
+                      if (isNaN(ev)) {
+                        console.debug(mean, item.mean, name, weight, id);
+                      } else {
+                        const result = results[uniqueName];
+                        result.profit = result.profit + ev;
+                        result.outcomes[m.stat.formatted] = { profit, chance, ev };
+                      }
+                    }
+                  } else if (
+                    !item.implicits?.includes(name) &&
+                    !item.implicits?.find((i) => i.includes("Synthesis implicit"))
+                  ) {
+                    // Probably just the item's regular implicit hasn't been updated in poe.watch
+                    console.debug(name, "corrupted mod not found for", item.name);
+                  }
+                }),
+            ),
+        )
+        .catch(console.warn),
+    );
+    await sleep();
   }
+  await Promise.all(requests);
+  const payload = Object.fromEntries(
+    Object.entries(results).sort(([, { profit: l }], [, { profit: r }]) => r - l),
+  );
+  self?.postMessage({ action: "data", payload });
 };
 
-self.onmessage = ({ data }) => uniqueProfits(data, self);
+self.onmessage = ({ data }: { data: ModInputs }) =>
+  data.source === "watch"
+    ? poeWatch(data, self).catch(console.error)
+    : poeWatch(data, self).catch(console.error);

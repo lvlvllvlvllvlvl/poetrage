@@ -47,3 +47,8 @@ export type Group =
   | "wand"
   | "twosword"
   | "sceptre";
+
+export interface CorruptedMod {
+  name: string;
+  mean: number;
+}

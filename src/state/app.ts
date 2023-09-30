@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ColumnFiltersState, SortingState } from "@tanstack/react-table";
 import { memoize } from "lodash";
+import { UniqueProfits } from "models/corruptions";
 import { GemDetails, GemId, isEqual, Override } from "models/gems";
 import { GraphNode, NodeMap } from "models/graphElements";
 import { League } from "models/ninja/Leagues";
@@ -49,7 +50,7 @@ export const fields = {
   uniqueProgressMsg: prop(""),
   vaalableGems: prop<{ [key: string]: boolean }>(),
   data: prop<GemDetails[]>([]),
-  uniqueData: prop<any>(),
+  uniqueData: prop<UniqueProfits>(),
   graphData: prop<NodeMap>({}),
   xpGraphData: prop<NodeMap>({}),
   currentGraph: prop<GraphNode>(),
@@ -98,7 +99,7 @@ export type Setters = {
   }[keyof SetterNames];
 };
 
-const timeouts = {} as { [key: string]: number };
+const timeouts = {} as { [key: string]: any };
 
 export const setters = memoize(
   (dispatch: AppDispatch) =>

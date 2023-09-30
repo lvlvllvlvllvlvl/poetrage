@@ -1,9 +1,7 @@
-/* eslint-disable no-restricted-globals */
-import { memoize } from "lodash";
-
 import { GemInfo } from "apis/getGemInfo";
 import info from "data/gemInfo.json";
 import { getCurrency } from "functions/getCurrency";
+import { memoize } from "lodash";
 import {
   altQualities,
   ConversionData,

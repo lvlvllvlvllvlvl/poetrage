@@ -15,6 +15,7 @@ const quantifiers: { [key: string]: (n: number) => string } = {
   milliseconds_to_seconds: (n) => numeral(n / 1000).format("0[.][00]"),
   milliseconds_to_seconds_2dp_if_required: (n) => numeral(n / 60).format("0[.][00]"),
   milliseconds_to_seconds_2dp: (n) => numeral(n / 1000).format("0.00"),
+  locations_to_metres: (n) => numeral(n / 10).format("0.0"),
 };
 
 export const getQuantifier = (quantifier: string) => {

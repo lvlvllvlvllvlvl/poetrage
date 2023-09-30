@@ -7,7 +7,7 @@ function useDebouncedState<T>(initialValue: T, ms?: number): DebouncedState<T>;
 function useDebouncedState<T>(initialValue?: T, ms: number = 350) {
   const [value, setValue] = useState<T | undefined>(initialValue);
   const [debounced, setDebounced] = useState<T | undefined>(initialValue);
-  const [timeoutId, setTimeoutId] = useState<number>();
+  const [timeoutId, setTimeoutId] = useState<any>();
 
   const set = (value: T) => {
     setValue(value);
