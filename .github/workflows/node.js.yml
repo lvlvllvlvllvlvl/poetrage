@@ -21,7 +21,7 @@ jobs:
           cache: "npm"
       - name: Node install
         run: npm ci
-      - name: Gem info
+      - name: code gen
         run: |
           for script in src/scripts/*
           do
@@ -34,10 +34,10 @@ jobs:
       - name: set version
         id: set-version
         run: echo "version=$(curl https://raw.githubusercontent.com/poe-tool-dev/latest-patch-version/main/latest.txt)" >> "$GITHUB_OUTPUT"
-      - name: Commit gem info
+      - name: commit generated code
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: updated data for ${{ steps.set-version.outputs.version }}
+          commit_message: updated for ${{ steps.set-version.outputs.version }}
       - name: show commit message
         run: echo "VITE_GIT_COMMIT=$(git log --format=reference -n 1 HEAD)" >> $GITHUB_ENV
       - name: Build

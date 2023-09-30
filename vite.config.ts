@@ -23,7 +23,7 @@ export default defineConfig({
             // const debug = segments[segments.indexOf("node_modules") + 1];
             // return debug || "vendor";
             return (
-              ["axios", "lodash", "mui", "reactflow", "react-dom"].find((dep) =>
+              ["axios", "lodash", "mui", "reactflow"].find((dep) =>
                 id.includes(dep),
               ) || "vendor"
             );

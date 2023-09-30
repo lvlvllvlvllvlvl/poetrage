@@ -89,11 +89,11 @@
     "bracketSameLine": true
   },
   "lint-staged": {
-    "{src,public}/**": [
-      "prettier --write"
-    ],
     "src/**/*.ts?": [
       "organize-imports-cli"
+    ],
+    "{src,public}/**": [
+      "prettier --write"
     ]
   }
 }
