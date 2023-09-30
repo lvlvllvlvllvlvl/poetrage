@@ -21,12 +21,16 @@ jobs:
           cache: "npm"
       - name: Node install
         run: npm ci
-      - name: Test
-        run: npm test
       - name: Gem info
         run: |
-          npx -y tsx scripts/saveGemInfo.ts
+          for script in src/scripts/*
+          do
+            npx -y tsx $script
+          done
+          npm run codegen
           npm run prettier
+      - name: Test
+        run: npm test
       - name: set version
         id: set-version
         run: echo "version=$(curl https://raw.githubusercontent.com/poe-tool-dev/latest-patch-version/main/latest.txt)" >> "$GITHUB_OUTPUT"

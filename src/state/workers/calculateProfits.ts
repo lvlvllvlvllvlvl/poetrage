@@ -4,17 +4,17 @@ import { filterOutliers, mean } from "functions/filterOutliers";
 import { getCurrency } from "functions/getCurrency";
 import { isNumber } from "lodash";
 import {
-  ConversionData,
-  Gem,
-  GemDetails,
-  GemType,
   altQualities,
   bestMatch,
   betterOrEqual,
   compareGem,
+  ConversionData,
   copy,
   exceptional,
   exists,
+  Gem,
+  GemDetails,
+  GemType,
   getType,
   isEqual,
   mavenCrucible,
