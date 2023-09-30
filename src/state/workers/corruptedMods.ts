@@ -1,4 +1,6 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { forageStore } from "apis/localForage";
+import { LocalForageWrapper, persistCache } from "apollo3-cache-persist";
 import modData from "data/mods.json";
 import { graphql } from "gql";
 import { UniqueProfits } from "models/corruptions";
@@ -128,14 +130,16 @@ const search = {
   offSet: 0,
 };
 
-export const poeStack = async (
-  { league }: ModInputs,
-  self?: Window & typeof globalThis,
-): Promise<any> => {
+export const poeStack = async ({}: ModInputs, self?: Window & typeof globalThis): Promise<any> => {
   if (!client) {
+    const cache = new InMemoryCache();
+    await persistCache({
+      cache,
+      storage: new LocalForageWrapper(await forageStore),
+    });
     client = new ApolloClient({
       uri: "https://api.poestack.com/graphql",
-      cache: new InMemoryCache(),
+      cache,
     });
   }
   let offSet = 0;
@@ -146,10 +150,12 @@ export const poeStack = async (
     if (count === 0) {
       break;
     }
-    offSet += count;
+    offSet += Math.floor(count * 0.95);
+
     queueMicrotask(() => {
       result.data.livePricingSummarySearch.entries.forEach((e) => {
         if (
+          !e.valuation ||
           e.itemGroup.properties?.find(
             ({ key, value }) => (key === "foilVariation" || key === "enchantMods") && value,
           )
@@ -216,16 +222,10 @@ export const poeStack = async (
             }
           }
         }
-        if ("corrupted" in data) {
-          const chance =
-            1 - Object.values(result.outcomes).reduce((sum, { chance }) => sum + chance, 0);
-          const profit = (data["corrupted"] || 0) - cost;
-          const ev = profit * chance;
-          result.profit += ev;
-          result.outcomes["Other corruptions"];
-        }
 
-        results[uniqueName] = result;
+        if (Object.keys(result.outcomes).length > 1) {
+          results[uniqueName] = result;
+        }
       }
 
       if (Object.keys(results).length === 0) return;
@@ -234,8 +234,15 @@ export const poeStack = async (
         Object.entries(results).sort(([, { profit: l }], [, { profit: r }]) => r - l),
       );
       self?.postMessage({ action: "data", payload });
+      self?.postMessage({
+        action: "msg",
+        payload:
+          Object.values(prices).reduce((sum, p) => sum + Object.keys(p.data).length, 0) +
+          " rows processed out of ???",
+      });
     });
   }
+  self?.postMessage({ action: "msg", payload: null });
 };
 
 self.onmessage = ({ data }: { data: ModInputs }) =>
