@@ -107,6 +107,7 @@ export const poeWatch = async (
 };
 
 let client: ApolloClient<any> | null = null;
+let localForage: LocalForage | null = null;
 const query = graphql(`
   query GetUniques($search: LivePricingSummarySearch!) {
     livePricingSummarySearch(search: $search) {
@@ -131,11 +132,15 @@ const search = {
 };
 
 export const poeStack = async ({}: ModInputs, self?: Window & typeof globalThis): Promise<any> => {
+  cancel.abort();
+  cancel = new AbortController();
+  const signal = cancel.signal;
   if (!client) {
+    localForage = await forageStore;
     const cache = new InMemoryCache();
     await persistCache({
       cache,
-      storage: new LocalForageWrapper(await forageStore),
+      storage: new LocalForageWrapper(localForage),
     });
     client = new ApolloClient({
       uri: "https://api.poestack.com/graphql",
@@ -145,7 +150,18 @@ export const poeStack = async ({}: ModInputs, self?: Window & typeof globalThis)
   let offSet = 0;
   const prices = {} as Record<string, { tags: string; data: Record<string, number> }>;
   while (true) {
-    const result = await client.query({ query, variables: { search: { ...search, offSet } } });
+    if (signal.aborted) {
+      return;
+    }
+    const result = await client.query({
+      query,
+      variables: { search: { ...search, offSet } },
+      context: {
+        fetchOptions: {
+          signal,
+        },
+      },
+    });
     const count = result.data.livePricingSummarySearch.entries.length;
     if (count === 0) {
       break;
@@ -245,7 +261,10 @@ export const poeStack = async ({}: ModInputs, self?: Window & typeof globalThis)
   self?.postMessage({ action: "msg", payload: null });
 };
 
-self.onmessage = ({ data }: { data: ModInputs }) =>
-  data.source === "watch"
-    ? poeWatch(data, self).catch(console.error)
-    : poeStack(data, self).catch(console.error);
+self.onmessage = ({ data }: { data: ModInputs }) => {
+  if (data.source === "watch") {
+    poeWatch(data, self).catch(console.error);
+  } else {
+    poeStack(data, self).catch(console.error);
+  }
+};

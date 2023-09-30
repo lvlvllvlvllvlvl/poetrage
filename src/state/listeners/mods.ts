@@ -1,19 +1,23 @@
 import { shallowEqual } from "react-redux";
+import { apiSlice } from "state/api";
 import { setters } from "state/app";
 import { startAppListening } from "state/listener";
 import { modInputs } from "state/selectors/modInputs";
 import { AppDispatch } from "state/store";
 import Worker from "state/workers/corruptedMods.ts?worker";
 
-const worker = new Worker();
+let worker = new Worker();
+
+const reset = apiSlice.util.resetApiState().type;
 
 startAppListening({
   predicate: (action, currentState, previousState) => {
     const inputs = modInputs(currentState);
     return (
-      !!inputs.league &&
-      inputs.tab === "corruptions" &&
-      !shallowEqual(inputs, modInputs(previousState))
+      action.type === reset ||
+      (!!inputs.league &&
+        inputs.tab === "corruptions" &&
+        !shallowEqual(inputs, modInputs(previousState)))
     );
   },
 
@@ -24,6 +28,15 @@ startAppListening({
       const { setUniqueData, setUniqueProgress, setUniqueProgressMsg } = setters(
         listenerApi.dispatch as AppDispatch,
       );
+
+      if (action.type === reset) {
+        console.debug("Cancel weight worker");
+        setUniqueData(undefined);
+        setUniqueProgressMsg("");
+        worker.terminate();
+        worker = new Worker();
+        return;
+      }
 
       worker.postMessage(modInputs(listenerApi.getState()));
       worker.onmessage = (e) => {

@@ -28,11 +28,13 @@ export interface ModInfo {
 
 export const modInputs = createSelector(
   [
+    ({ app }: RootState) => app.load,
     ({ app }: RootState) => app.league,
     ({ app }: RootState) => app.source,
     ({ app }: RootState) => app.tab,
   ],
-  (league, source, tab) => ({
+  (load, league, source, tab) => ({
+    load,
     league,
     source,
     tab,
