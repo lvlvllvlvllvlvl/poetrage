@@ -1,4 +1,5 @@
-import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { ApolloClient, from, HttpLink, InMemoryCache } from "@apollo/client";
+import { RetryLink } from "@apollo/client/link/retry";
 import { forageStore } from "apis/localForage";
 import { LocalForageWrapper, persistCache } from "apollo3-cache-persist";
 import modData from "data/mods.json";
@@ -131,7 +132,12 @@ const search = {
   offSet: 0,
 };
 
-export const poeStack = async ({}: ModInputs, self?: Window & typeof globalThis): Promise<any> => {
+const batch = Array.from(Array(30).keys());
+
+export const poeStack = async (
+  { league }: ModInputs,
+  self?: Window & typeof globalThis,
+): Promise<any> => {
   cancel.abort();
   cancel = new AbortController();
   const signal = cancel.signal;
@@ -142,121 +148,131 @@ export const poeStack = async ({}: ModInputs, self?: Window & typeof globalThis)
       cache,
       storage: new LocalForageWrapper(localForage),
     });
-    client = new ApolloClient({
-      uri: "https://api.poestack.com/graphql",
-      cache,
-    });
+    const link = from([new RetryLink(), new HttpLink({ uri: "https://api.poestack.com/graphql" })]);
+    client = new ApolloClient({ link, cache });
   }
+  let done = false;
   let offSet = 0;
   const prices = {} as Record<string, { tags: string; data: Record<string, number> }>;
-  while (true) {
+  while (league?.name && !done) {
     if (signal.aborted) {
       return;
     }
-    const result = await client.query({
-      query,
-      variables: { search: { ...search, offSet } },
-      context: {
-        fetchOptions: {
-          signal,
-        },
-      },
-    });
-    const count = result.data.livePricingSummarySearch.entries.length;
-    if (count === 0) {
-      break;
-    }
-    offSet += Math.max(1, Math.floor(count * 0.95));
-
-    queueMicrotask(() => {
-      result.data.livePricingSummarySearch.entries.forEach((e) => {
-        if (
-          !e.valuation ||
-          e.itemGroup.properties?.find(
-            ({ key, value }) => (key === "foilVariation" || key === "enchantMods") && value,
-          )
-        ) {
-          return;
-        }
-        const variants = uniques[e.itemGroup.key];
-        if (!variants) {
-          console.debug("unique not recognized", e.itemGroup.key);
-          return;
-        }
-        const corruptedMods = e.itemGroup.properties?.find(({ key }) => key === "corruptedMods")
-          ?.value;
-        let mod = "uncorrupted";
-        if (corruptedMods?.length === 0) {
-          mod = "corrupted";
-        } else if (corruptedMods?.length === 1) {
-          mod = corruptedMods[0];
-        } else if (corruptedMods?.length > 1) {
-          // Don't handle double corrupts yet
-          return;
-        }
-        const sixLink = Boolean(
-          e.itemGroup.properties?.find(({ key }) => key === "sixLink")?.value,
-        );
-        for (const { page_name, tags } of variants) {
-          const uniqueName = page_name + (sixLink ? " (6-link)" : "");
-          prices[uniqueName] = prices[uniqueName] || { tags, data: {} };
-          prices[uniqueName].data[mod] = e.valuation?.value || 0;
-        }
-      });
-      const results: UniqueProfits = {};
-      for (const [uniqueName, { tags, data }] of Object.entries(prices)) {
-        const cost = data["uncorrupted"];
-        if (!cost) {
-          continue;
-        }
-        const weight = weights[tags];
-        if (!weight) {
-          continue;
-        }
-
-        let profit = 0.25 * -cost;
-        const result: UniqueProfits[string] = {
-          cost,
-          profit,
-          outcomes: {
-            "Brick to rare": { chance: 0.25, profit: -cost, ev: profit },
-          },
-        };
-        for (const [placeholder, value] of Object.entries(data)) {
-          if (placeholder === "corrupted" || placeholder === "uncorrupted") continue;
-          const mod = mods[placeholder] || {};
-          for (const [id, m] of Object.entries(mod)) {
-            if (!weight.mods[id]) continue;
-            const profit = value - cost;
-            const chance = 0.25 * (weight.mods[id] / weight.sumWeight);
-            const ev = profit * chance;
-            if (isNaN(ev)) {
-              console.debug(value, cost, uniqueName, weight, id);
-            } else {
-              result.profit = result.profit + ev;
-              result.outcomes[m.stat.formatted] = { profit, chance, ev };
+    await Promise.all(
+      batch.map((i) =>
+        client!
+          .query({
+            query,
+            variables: { search: { ...search, league: league.name, offSet: offSet + i * 99 } },
+            context: {
+              fetchOptions: {
+                signal,
+              },
+            },
+          })
+          .then(({ data }) => {
+            if (data.livePricingSummarySearch.entries.length === 0) {
+              done = true;
             }
-          }
-        }
 
-        if (Object.keys(result.outcomes).length > 1) {
-          results[uniqueName] = result;
-        }
-      }
+            setTimeout(() => {
+              data.livePricingSummarySearch.entries.forEach((e) => {
+                if (
+                  !e.valuation ||
+                  e.itemGroup.properties?.find(
+                    ({ key, value }) => (key === "foilVariation" || key === "enchantMods") && value,
+                  )
+                ) {
+                  return;
+                }
+                const variants = uniques[e.itemGroup.key];
+                if (!variants) {
+                  console.debug("unique not recognized", e.itemGroup.key);
+                  return;
+                }
+                const corruptedMods = e.itemGroup.properties?.find(
+                  ({ key }) => key === "corruptedMods",
+                )?.value;
+                let mod = "uncorrupted";
+                if (corruptedMods?.length === 0) {
+                  mod = "corrupted";
+                } else if (corruptedMods?.length === 1) {
+                  mod = corruptedMods[0];
+                } else if (corruptedMods?.length > 1) {
+                  // Don't handle double corrupts yet
+                  return;
+                }
+                const sixLink = Boolean(
+                  e.itemGroup.properties?.find(({ key }) => key === "sixLink")?.value,
+                );
+                for (const { page_name, tags } of variants) {
+                  const uniqueName = page_name + (sixLink ? " (6-link)" : "");
+                  prices[uniqueName] = prices[uniqueName] || { tags, data: {} };
+                  prices[uniqueName].data[mod] = e.valuation?.value || 0;
+                }
+              });
+              const results: UniqueProfits = {};
+              for (const [uniqueName, { tags, data }] of Object.entries(prices)) {
+                const cost = data["uncorrupted"];
+                if (!cost) {
+                  continue;
+                }
+                const weight = weights[tags];
+                if (!weight) {
+                  continue;
+                }
 
-      if (Object.keys(results).length === 0) return;
+                let profit = 0.25 * -cost;
+                const result: UniqueProfits[string] = {
+                  cost,
+                  profit,
+                  outcomes: {
+                    "Brick to rare": { chance: 0.25, profit: -cost, ev: profit },
+                  },
+                };
+                for (const [placeholder, value] of Object.entries(data)) {
+                  if (placeholder === "corrupted" || placeholder === "uncorrupted") continue;
+                  const mod = mods[placeholder] || {};
+                  for (const [id, m] of Object.entries(mod)) {
+                    if (!weight.mods[id]) continue;
+                    const profit = value - cost;
+                    const chance = 0.25 * (weight.mods[id] / weight.sumWeight);
+                    const ev = profit * chance;
+                    if (isNaN(ev)) {
+                      console.debug(value, cost, uniqueName, weight, id);
+                    } else {
+                      result.profit = result.profit + ev;
+                      result.outcomes[m.stat.formatted] = { profit, chance, ev };
+                    }
+                  }
+                }
 
-      const entries = Object.entries(results).sort(([, { profit: l }], [, { profit: r }]) => r - l);
-      const profitable = entries.findIndex(([, { profit }]) => profit <= 0);
-      const payload = Object.fromEntries(profitable < 20 ? entries : entries.slice(0, profitable));
-      self?.postMessage({ action: "data", payload });
-      self?.postMessage({
-        action: "msg",
-        payload:
-          Object.values(prices).reduce((sum, p) => sum + Object.keys(p.data).length, 0) +
-          " rows processed out of ???",
-      });
-    });
+                if (Object.keys(result.outcomes).length > 1) {
+                  results[uniqueName] = result;
+                }
+              }
+
+              if (Object.keys(results).length === 0) return;
+
+              const items = Object.entries(results).sort(
+                ([, { profit: l }], [, { profit: r }]) => r - l,
+              );
+              const profitable = items.findIndex(([, { profit }]) => profit <= 0);
+              const payload = Object.fromEntries(
+                profitable < 20 ? items : items.slice(0, profitable),
+              );
+              self?.postMessage({ action: "data", payload });
+              self?.postMessage({
+                action: "msg",
+                payload:
+                  Object.values(prices).reduce((sum, p) => sum + Object.keys(p.data).length, 0) +
+                  " rows processed out of ???",
+              });
+            });
+          }),
+      ),
+    );
+    offSet += Math.max(1, Math.floor(batch.length * 99)) - 10;
   }
   self?.postMessage({ action: "msg", payload: null });
 };
