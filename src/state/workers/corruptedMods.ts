@@ -1,14 +1,46 @@
 import { ApolloClient, from, HttpLink, InMemoryCache } from "@apollo/client";
 import { RetryLink } from "@apollo/client/link/retry";
+import fetch from "apis/corsFetch";
 import { forageStore } from "apis/localForage";
 import { LocalForageWrapper, persistCache } from "apollo3-cache-persist";
 import modData from "data/mods.json";
 import { graphql } from "gql";
+import { merge } from "lodash";
 import { UniqueProfits } from "models/corruptions";
+import { SearchQuery } from "models/poe/Search";
 import { CorruptedMod, UniquePricing } from "models/poewatch/Unique";
 import { ModInfo, ModInputs } from "state/selectors/modInputs";
 
 const { uniques, mods, weights } = modData as ModInfo;
+
+const baseQuery = { status: { option: "onlineleague" } };
+function createQuery(
+  query?: SearchQuery,
+  { links, trade_stat }: { links?: number; trade_stat?: string[] } = {},
+) {
+  return (
+    query &&
+    merge(
+      {},
+      baseQuery,
+      query,
+      trade_stat
+        ? {
+            stats: [
+              { type: "count", value: { min: 1 }, filters: trade_stat.map((id) => ({ id })) },
+            ],
+          }
+        : {},
+      links
+        ? {
+            filters: {
+              socket_filters: { filters: { links: { min: links } } },
+            },
+          }
+        : {},
+    )
+  );
+}
 
 let cancel = new AbortController();
 const channel = new MessageChannel();
@@ -41,13 +73,15 @@ export const poeWatch = async (
   ).flatMap((v) => v);
   const requests: Promise<any>[] = [];
   const results: UniqueProfits = {};
+  const queries: Record<string, SearchQuery | undefined> = {};
   for (const item of pricing) {
-    const r = uniques[item.name.toLowerCase()]?.map(({ page_name, tags }) => {
+    const r = uniques[item.name.toLowerCase()]?.map(({ page_name, tags, query }) => {
       const uniqueName = page_name + (item.linkCount ? ` (${item.linkCount}-link)` : "");
       if (uniqueName in results) {
         console.warn("duplicate item", uniqueName);
       } else {
         results[uniqueName] = { cost: item.mean, profit: 0.25 * -item.mean, outcomes: {} };
+        queries[uniqueName] = createQuery(query, { links: item.linkCount });
       }
       return { tags, uniqueName };
     });
@@ -83,7 +117,12 @@ export const poeWatch = async (
                     } else {
                       const result = results[uniqueName];
                       result.profit = result.profit + ev;
-                      result.outcomes[m.stat.formatted] = { profit, chance, ev };
+                      result.outcomes[m.stat.formatted] = {
+                        profit,
+                        chance,
+                        ev,
+                        query: createQuery(queries[uniqueName], { trade_stat: m.stat.trade_stat }),
+                      };
                     }
                   }
                 } else if (
@@ -119,6 +158,7 @@ const query = graphql(`
         }
         valuation {
           value
+          validListingsLength
         }
       }
     }
@@ -138,6 +178,21 @@ export const poeStack = async (
   { league }: ModInputs,
   self?: Window & typeof globalThis,
 ): Promise<any> => {
+  let timeout: any = null;
+  let timestamp = self?.performance?.now();
+  const setData = (payload: UniqueProfits) => {
+    if (!self) return;
+    clearTimeout(timeout);
+    if (self.performance.now() - (timestamp || 0) > 3000) {
+      self.postMessage({ action: "data", payload });
+      timestamp = self.performance.now();
+    } else {
+      timeout = setTimeout(() => {
+        self.postMessage({ action: "data", payload });
+        timestamp = self.performance.now();
+      }, 3000);
+    }
+  };
   cancel.abort();
   cancel = new AbortController();
   const signal = cancel.signal;
@@ -148,12 +203,22 @@ export const poeStack = async (
       cache,
       storage: new LocalForageWrapper(localForage),
     });
-    const link = from([new RetryLink(), new HttpLink({ uri: "https://api.poestack.com/graphql" })]);
+    const link = from([
+      new RetryLink(),
+      new HttpLink({
+        uri: "https://api.poestack.com/graphql",
+        fetch,
+      }),
+    ]);
     client = new ApolloClient({ link, cache });
   }
   let done = false;
   let offSet = 0;
-  const prices = {} as Record<string, { tags: string; data: Record<string, number> }>;
+  const prices = {} as Record<
+    string,
+    { tags: string; data: Record<string, { value: number; listings: number }> }
+  >;
+  const queries: Record<string, SearchQuery | undefined> = {};
   while (league?.name && !done) {
     if (signal.aborted) {
       return;
@@ -205,15 +270,21 @@ export const poeStack = async (
                 const sixLink = Boolean(
                   e.itemGroup.properties?.find(({ key }) => key === "sixLink")?.value,
                 );
-                for (const { page_name, tags } of variants) {
+                for (const { page_name, tags, query } of variants) {
                   const uniqueName = page_name + (sixLink ? " (6-link)" : "");
                   prices[uniqueName] = prices[uniqueName] || { tags, data: {} };
-                  prices[uniqueName].data[mod] = e.valuation?.value || 0;
+                  prices[uniqueName].data[mod] = {
+                    value: e.valuation?.value || 0,
+                    listings: e.valuation?.validListingsLength,
+                  };
+                  if (!queries[uniqueName]) {
+                    queries[uniqueName] = createQuery(query, { links: sixLink ? 6 : undefined });
+                  }
                 }
               });
               const results: UniqueProfits = {};
               for (const [uniqueName, { tags, data }] of Object.entries(prices)) {
-                const cost = data["uncorrupted"];
+                const cost = data["uncorrupted"]?.value;
                 if (!cost) {
                   continue;
                 }
@@ -230,7 +301,7 @@ export const poeStack = async (
                     "Brick to rare": { chance: 0.25, profit: -cost, ev: profit },
                   },
                 };
-                for (const [placeholder, value] of Object.entries(data)) {
+                for (const [placeholder, { listings, value }] of Object.entries(data)) {
                   if (placeholder === "corrupted" || placeholder === "uncorrupted") continue;
                   const mod = mods[placeholder] || {};
                   for (const [id, m] of Object.entries(mod)) {
@@ -242,7 +313,13 @@ export const poeStack = async (
                       console.debug(value, cost, uniqueName, weight, id);
                     } else {
                       result.profit = result.profit + ev;
-                      result.outcomes[m.stat.formatted] = { profit, chance, ev };
+                      result.outcomes[m.stat.formatted] = {
+                        profit,
+                        chance,
+                        ev,
+                        listings,
+                        query: createQuery(queries[uniqueName], { trade_stat: m.stat.trade_stat }),
+                      };
                     }
                   }
                 }
@@ -258,10 +335,7 @@ export const poeStack = async (
                 ([, { profit: l }], [, { profit: r }]) => r - l,
               );
               const profitable = items.findIndex(([, { profit }]) => profit <= 0);
-              const payload = Object.fromEntries(
-                profitable < 20 ? items : items.slice(0, profitable),
-              );
-              self?.postMessage({ action: "data", payload });
+              setData(Object.fromEntries(profitable < 20 ? items : items.slice(0, profitable)));
               self?.postMessage({
                 action: "msg",
                 payload:

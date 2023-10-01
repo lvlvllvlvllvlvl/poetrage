@@ -13,7 +13,7 @@ import * as types from "./graphql";
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-  "\n  query GetUniques($search: LivePricingSummarySearch!) {\n    livePricingSummarySearch(search: $search) {\n      entries {\n        itemGroup {\n          key\n          properties\n        }\n        valuation {\n          value\n        }\n      }\n    }\n  }\n":
+  "\n  query GetUniques($search: LivePricingSummarySearch!) {\n    livePricingSummarySearch(search: $search) {\n      entries {\n        itemGroup {\n          key\n          properties\n        }\n        valuation {\n          value\n          validListingsLength\n        }\n      }\n    }\n  }\n":
     types.GetUniquesDocument,
 };
 
@@ -35,8 +35,8 @@ export function graphql(source: string): unknown;
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: "\n  query GetUniques($search: LivePricingSummarySearch!) {\n    livePricingSummarySearch(search: $search) {\n      entries {\n        itemGroup {\n          key\n          properties\n        }\n        valuation {\n          value\n        }\n      }\n    }\n  }\n",
-): (typeof documents)["\n  query GetUniques($search: LivePricingSummarySearch!) {\n    livePricingSummarySearch(search: $search) {\n      entries {\n        itemGroup {\n          key\n          properties\n        }\n        valuation {\n          value\n        }\n      }\n    }\n  }\n"];
+  source: "\n  query GetUniques($search: LivePricingSummarySearch!) {\n    livePricingSummarySearch(search: $search) {\n      entries {\n        itemGroup {\n          key\n          properties\n        }\n        valuation {\n          value\n          validListingsLength\n        }\n      }\n    }\n  }\n",
+): (typeof documents)["\n  query GetUniques($search: LivePricingSummarySearch!) {\n    livePricingSummarySearch(search: $search) {\n      entries {\n        itemGroup {\n          key\n          properties\n        }\n        valuation {\n          value\n          validListingsLength\n        }\n      }\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

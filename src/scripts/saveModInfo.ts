@@ -25,15 +25,42 @@ Promise.all([
       "https://lvlvllvlvllvlvl.github.io/RePoE/base_items.min.json",
     )
     .then((r) => r.data),
-]).then(([mods, uniques, translations, base_items]) => {
+  api
+    .get("https://www.pathofexile.com/api/trade/data/stats", {
+      headers: {
+        "User-Agent": "OAuth poetrage/1.0.0 (contact: https://github.com/lvlvllvlvllvlvl/poetrage)",
+      },
+    })
+    .then((r) => r.data),
+]).then(([mods, uniques, translations, base_items, trade]) => {
   try {
-    const stats: { [id: string]: Stat[] } = {};
+    const trans: { [id: string]: (Stat & { placeholder: string })[] } = {};
     for (const { ids, English } of translations) {
       for (const id of ids) {
-        if (!stats[id]) {
-          stats[id] = [];
+        if (!trans[id]) {
+          trans[id] = [];
         }
-        stats[id].push(...English);
+        trans[id].push(
+          ...English.map((translation) => ({
+            ...translation,
+            placeholder: translation.string.replaceAll(/\{(\d+)\}/g, (_, group) => {
+              const index = parseInt(group);
+              return translation.format[index];
+            }),
+          })),
+        );
+      }
+    }
+    const suffix = / \([^()]*\)$/;
+    const trade_stats: Record<string, string[]> = {};
+    for (const { id, text } of trade.result.find(({ id }: any) => id === "implicit")
+      .entries as Record<string, string>[]) {
+      trade_stats[text] = trade_stats[text] || [];
+      trade_stats[text].push(id);
+      if (text.match(suffix)) {
+        const stripped = text.replace(suffix, "");
+        trade_stats[stripped] = trade_stats[stripped] || [];
+        trade_stats[stripped].push(id);
       }
     }
 
@@ -59,14 +86,14 @@ Promise.all([
 
       results.uniques[name.toLowerCase()] = variants
         .filter((v) => !v.page_name.includes(":") && v.is_in_game === "1" && v.drop_enabled === "1")
-        .map(({ tags, page_name, base_item_id, base_item }) => {
+        .map(({ tags, name, page_name, base_item_id, base_item }) => {
           tags = tags.split(",").sort().join();
           let domain = base_item_id && base_items[base_item_id]?.domain;
           if (domain) {
             tagsets[domain] = tagsets[domain] || new Set();
             tagsets[domain].add(tags);
           }
-          return { page_name, tags };
+          return { page_name, tags, query: { name, type: base_item } };
         });
     }
 
@@ -85,34 +112,45 @@ Promise.all([
         results.weights[tags].sumWeight += weight;
         results.weights[tags].mods[mod.id] = weight;
 
-        if (!mod.stats.length || !stats[mod.stats[0].id]) {
-          console.warn("no stat for corrupted mod", mod);
+        if (!mod.stats.length) {
+          console.debug("no stats for corrupted mod", mod);
+          continue;
+        } else if (!trans[mod.stats[0].id]) {
+          console.debug("no translation for stat", mod.stats[0].id);
           continue;
         }
+        const trade_stat =
+          trans[mod.stats[0].id].map((t) => trade_stats[t.placeholder]).find((t) => t) || [];
+        if (!trade_stat) {
+          console.warn(
+            "no trade id found for stat",
+            mod.stats[0].id,
+            trans[mod.stats[0].id].map((t) => t.placeholder),
+          );
+        }
 
-        for (const stat of mod.stats.flatMap(({ id, min, max }) => stats[id])) {
-          if (stat.condition.find((c) => c.negated)) {
-            console.debug("negated stat", stat);
+        for (const translation of mod.stats.flatMap(({ id }) => trans[id])) {
+          if (translation.condition.find((c) => c.negated)) {
+            console.debug("negated stat", translation);
           }
 
           let valid = true;
-          const text = stat.string;
-          const placeholder = text.replaceAll(/\{(\d+)\}/g, (_, group) => {
+          const placeholder = translation.string.replaceAll(/\{(\d+)\}/g, (_, group) => {
             const index = parseInt(group);
-            return stat.format[index];
+            return translation.format[index];
           });
-          const formatted = text.replaceAll(/\{(\d+)\}/g, (_, group) => {
+          const formatted = translation.string.replaceAll(/\{(\d+)\}/g, (_, group) => {
             const index = parseInt(group);
             const value = mod.stats[index];
-            const format = stat.format[index];
+            const format = translation.format[index];
             if (!value) {
               return format;
             } else {
-              const handler = stat.index_handlers[index];
+              const handler = translation.index_handlers[index];
               if (handler.length > 1) {
                 console.debug("multiple index handlers", handler);
               }
-              const condition = stat.condition[index];
+              const condition = translation.condition[index];
               if (
                 condition &&
                 ((isNumber(condition.max) && value.max > condition.max) ||
@@ -139,7 +177,7 @@ Promise.all([
             stats,
             type,
             weight,
-            stat: { formatted },
+            stat: { formatted, trade_stat },
           };
           const k = placeholder.toLowerCase();
           results.mods[k] = results.mods[k] || {};

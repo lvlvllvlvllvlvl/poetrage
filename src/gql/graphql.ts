@@ -655,7 +655,11 @@ export type GetUniquesQuery = {
     entries: Array<{
       __typename?: "LivePricingSummaryEntry";
       itemGroup: { __typename?: "ItemGroup"; key: string; properties?: Array<any> | null };
-      valuation?: { __typename?: "LivePricingValuation"; value: number } | null;
+      valuation?: {
+        __typename?: "LivePricingValuation";
+        value: number;
+        validListingsLength: number;
+      } | null;
     }>;
   };
 };
@@ -715,7 +719,10 @@ export const GetUniquesDocument = {
                         name: { kind: "Name", value: "valuation" },
                         selectionSet: {
                           kind: "SelectionSet",
-                          selections: [{ kind: "Field", name: { kind: "Name", value: "value" } }],
+                          selections: [
+                            { kind: "Field", name: { kind: "Name", value: "value" } },
+                            { kind: "Field", name: { kind: "Name", value: "validListingsLength" } },
+                          ],
                         },
                       },
                     ],
