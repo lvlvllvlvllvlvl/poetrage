@@ -5,6 +5,7 @@ import { forageStore } from "apis/localForage";
 import { LocalForageWrapper, persistCache } from "apollo3-cache-persist";
 import modData from "data/mods.json";
 import { graphql } from "gql";
+import { LivePricingSummarySearch } from "gql/graphql";
 import { merge } from "lodash";
 import { UniqueProfits } from "models/corruptions";
 import { SearchQuery } from "models/poe/Search";
@@ -165,7 +166,7 @@ const query = graphql(`
   }
 `);
 
-const search = {
+const search: LivePricingSummarySearch = {
   league: "Ancestor",
   tag: "unique",
   limit: 100,
@@ -348,13 +349,14 @@ export const poeStack = async (
     );
     offSet += Math.max(1, Math.floor(batch.length * 99)) - 10;
   }
-  self?.postMessage({ action: "msg", payload: null });
+  await sleep();
+  self?.postMessage({ action: "msg", payload: "" });
 };
 
 self.onmessage = ({ data }: { data: ModInputs }) => {
-  if (data.source === "watch") {
-    poeWatch(data, self).catch(console.error);
-  } else {
-    poeStack(data, self).catch(console.error);
-  }
+  (data.source === "watch" ? poeWatch(data, self) : poeStack(data, self)).catch(async (e) => {
+    console.error(e);
+    await sleep();
+    self?.postMessage({ action: "msg", payload: "There was an error" });
+  });
 };

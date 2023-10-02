@@ -95,7 +95,7 @@ export function Uniques() {
           }}
         />
         <Box sx={{ pl: 2, flexGrow: 1 }}>
-          <Typography component="p" p={1}>
+          <Typography component="p" p={1} align="center">
             {progressMsg || "All currency costs accounted for in profit values"}
           </Typography>
         </Box>
