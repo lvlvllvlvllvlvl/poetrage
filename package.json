@@ -13,6 +13,7 @@
     "@graphql-codegen/typescript-resolvers": "^4.0.1",
     "@mui/icons-material": "^5.14.11",
     "@mui/material": "^5.14.11",
+    "@nerdwallet/apollo-cache-policies": "^3.0.2",
     "@reduxjs/toolkit": "^1.9.6",
     "@tanstack/react-table": "^8.10.3",
     "@testing-library/jest-dom": "^6.1.3",

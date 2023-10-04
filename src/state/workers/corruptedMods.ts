@@ -1,5 +1,6 @@
-import { ApolloClient, from, HttpLink, InMemoryCache } from "@apollo/client";
+import { ApolloClient, from, HttpLink } from "@apollo/client";
 import { RetryLink } from "@apollo/client/link/retry";
+import { InvalidationPolicyCache } from "@nerdwallet/apollo-cache-policies";
 import { LocalForageWrapper, persistCache } from "apollo3-cache-persist";
 import modData from "data/mods.json";
 import { graphql } from "gql";
@@ -198,7 +199,7 @@ export const poeStack = async (
   cancel = new AbortController();
   const signal = cancel.signal;
   if (!client) {
-    const cache = new InMemoryCache();
+    const cache = new InvalidationPolicyCache({ invalidationPolicies: { timeToLive: 60 * 1000 } });
     forageStore = localforage.createInstance({ name: "poetrage-corruptions", version: 1 });
     await persistCache({
       cache,
