@@ -30,11 +30,7 @@ startAppListening({
       );
 
       if (action.type === reset) {
-        console.debug("Cancel weight worker");
-        setUniqueData(undefined);
-        setUniqueProgressMsg("");
-        worker.terminate();
-        worker = new Worker();
+        worker.postMessage(null);
         return;
       }
 

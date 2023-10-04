@@ -1,11 +1,10 @@
 import { ApolloClient, from, HttpLink, InMemoryCache } from "@apollo/client";
 import { RetryLink } from "@apollo/client/link/retry";
-import fetch from "apis/corsFetch";
-import { forageStore } from "apis/localForage";
 import { LocalForageWrapper, persistCache } from "apollo3-cache-persist";
 import modData from "data/mods.json";
 import { graphql } from "gql";
 import { LivePricingSummarySearch } from "gql/graphql";
+import localforage from "localforage";
 import { merge } from "lodash";
 import { UniqueProfits } from "models/corruptions";
 import { SearchQuery } from "models/poe/Search";
@@ -148,7 +147,7 @@ export const poeWatch = async (
 };
 
 let client: ApolloClient<any> | null = null;
-let localForage: LocalForage | null = null;
+let forageStore: LocalForage | null = null;
 const query = graphql(`
   query GetUniques($search: LivePricingSummarySearch!) {
     livePricingSummarySearch(search: $search) {
@@ -195,14 +194,16 @@ export const poeStack = async (
     }
   };
   cancel.abort();
+  await sleep();
   cancel = new AbortController();
   const signal = cancel.signal;
   if (!client) {
-    localForage = await forageStore;
     const cache = new InMemoryCache();
+    forageStore = localforage.createInstance({ name: "poetrage-corruptions", version: 1 });
     await persistCache({
       cache,
-      storage: new LocalForageWrapper(localForage),
+      storage: new LocalForageWrapper(forageStore),
+      maxSize: false,
     });
     const link = from([
       new RetryLink(),
@@ -219,6 +220,23 @@ export const poeStack = async (
     string,
     { tags: string; data: Record<string, { value: number; listings: number }> }
   >;
+
+  for (const key of await localforage.keys()) {
+    if (key.startsWith("prices/")) {
+      const [, uniqueName, mod] = key.split("/");
+
+      prices[uniqueName] = { tags: "", data: {} };
+      if (!prices[uniqueName].data[mod]) {
+        const data = await forageStore?.getItem(key);
+        if (data && typeof data === "object" && "value" in data && "listings" in data) {
+          prices[uniqueName].data[mod] = prices[uniqueName].data[mod] || (data as any);
+        } else {
+          console.log("bad data", data);
+        }
+      }
+    }
+  }
+
   const queries: Record<string, SearchQuery | undefined> = {};
   while (league?.name && !done) {
     if (signal.aborted) {
@@ -242,7 +260,7 @@ export const poeStack = async (
             }
 
             setTimeout(() => {
-              data.livePricingSummarySearch.entries.forEach((e) => {
+              data.livePricingSummarySearch.entries.forEach(async (e) => {
                 if (
                   !e.valuation ||
                   e.itemGroup.properties?.find(
@@ -274,10 +292,13 @@ export const poeStack = async (
                 for (const { page_name, tags, query } of variants) {
                   const uniqueName = page_name + (sixLink ? " (6-link)" : "");
                   prices[uniqueName] = prices[uniqueName] || { tags, data: {} };
-                  prices[uniqueName].data[mod] = {
+                  prices[uniqueName].tags = tags;
+                  const data = {
                     value: e.valuation?.value || 0,
                     listings: e.valuation?.validListingsLength,
                   };
+                  forageStore?.setItem(`prices/${uniqueName}/${mod}`, data);
+                  prices[uniqueName].data[mod] = data;
                   if (!queries[uniqueName]) {
                     queries[uniqueName] = createQuery(query, { links: sixLink ? 6 : undefined });
                   }
@@ -337,26 +358,32 @@ export const poeStack = async (
               );
               const profitable = items.findIndex(([, { profit }]) => profit <= 0);
               setData(Object.fromEntries(profitable < 20 ? items : items.slice(0, profitable)));
-              self?.postMessage({
-                action: "msg",
-                payload:
-                  Object.values(prices).reduce((sum, p) => sum + Object.keys(p.data).length, 0) +
-                  " rows processed out of ???",
-              });
             });
           }),
       ),
     );
     offSet += Math.max(1, Math.floor(batch.length * 99)) - 10;
+    self?.postMessage({
+      action: "msg",
+      payload: offSet + " rows processed out of ???",
+    });
   }
   await sleep();
   self?.postMessage({ action: "msg", payload: "" });
 };
 
 self.onmessage = ({ data }: { data: ModInputs }) => {
-  (data.source === "watch" ? poeWatch(data, self) : poeStack(data, self)).catch(async (e) => {
-    console.error(e);
-    await sleep();
-    self?.postMessage({ action: "msg", payload: "There was an error" });
-  });
+  if (!data) {
+    console.debug("reset corruptions");
+    channel.port1.onmessage = null;
+    cancel.abort();
+    client?.resetStore();
+    localforage?.clear();
+  } else {
+    (data.source === "watch" ? poeWatch(data, self) : poeStack(data, self)).catch(async (e) => {
+      console.error(e);
+      await sleep();
+      self?.postMessage({ action: "msg", payload: "There was an error" });
+    });
+  }
 };
