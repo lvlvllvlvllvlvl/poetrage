@@ -222,18 +222,19 @@ export const poeStack = async (
     { tags: string; data: Record<string, { value: number; listings: number }> }
   >;
 
-  for (const key of await localforage.keys()) {
+  for (const key of await (forageStore?.keys() || [])) {
     if (key.startsWith("prices/")) {
       const [, uniqueName, mod] = key.split("/");
+      prices[uniqueName] = prices[uniqueName] || {
+        tags: await forageStore?.getItem("tags/" + uniqueName),
+        data: {},
+      };
 
-      prices[uniqueName] = { tags: "", data: {} };
-      if (!prices[uniqueName].data[mod]) {
-        const data = await forageStore?.getItem(key);
-        if (data && typeof data === "object" && "value" in data && "listings" in data) {
-          prices[uniqueName].data[mod] = prices[uniqueName].data[mod] || (data as any);
-        } else {
-          console.log("bad data", data);
-        }
+      const data = await forageStore?.getItem(key);
+      if (data && typeof data === "object" && "value" in data && "listings" in data) {
+        prices[uniqueName].data[mod] = data as any;
+      } else {
+        console.debug("bad data", data);
       }
     }
   }
@@ -248,7 +249,7 @@ export const poeStack = async (
         client!
           .query({
             query,
-            variables: { search: { ...search, league: league.name, offSet: offSet + i * 99 } },
+            variables: { search: { ...search, league: league.name, offSet: offSet + i * 95 } },
             context: {
               fetchOptions: {
                 signal,
@@ -298,6 +299,7 @@ export const poeStack = async (
                     value: e.valuation?.value || 0,
                     listings: e.valuation?.validListingsLength,
                   };
+                  forageStore?.setItem(`tags/${uniqueName}`, tags);
                   forageStore?.setItem(`prices/${uniqueName}/${mod}`, data);
                   prices[uniqueName].data[mod] = data;
                   if (!queries[uniqueName]) {
@@ -357,8 +359,7 @@ export const poeStack = async (
               const items = Object.entries(results).sort(
                 ([, { profit: l }], [, { profit: r }]) => r - l,
               );
-              const profitable = items.findIndex(([, { profit }]) => profit <= 0);
-              setData(Object.fromEntries(profitable < 20 ? items : items.slice(0, profitable)));
+              setData(Object.fromEntries(items));
             });
           }),
       ),
