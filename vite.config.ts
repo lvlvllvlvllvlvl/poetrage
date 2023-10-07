@@ -18,15 +18,12 @@ export default defineConfig({
       output: {
         manualChunks: (id) => {
           if (id.includes("node_modules") && id.endsWith(".js")) {
+            const segments = id.split("/");
+            const packageName = segments[segments.indexOf("node_modules") + 1];
             // For identifying large dependencies
-            // const segments = id.split("/");
-            // const debug = segments[segments.indexOf("node_modules") + 1];
-            // return debug || "vendor";
-            return (
-              ["axios", "lodash", "mui", "reactflow"].find((dep) =>
-                id.includes(dep),
-              ) || "vendor"
-            );
+            // return packageName || "vendor";
+            const match = (dep) => packageName.includes(dep);
+            return ["axios", "lodash", "mui", "reactflow", "redux"].find(match) || "vendor";
           } else if (id.includes("data")) {
             return id.substring(id.lastIndexOf("/") + 1, id.indexOf("."));
           }
