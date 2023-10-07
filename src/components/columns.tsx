@@ -289,8 +289,8 @@ export const getColumns = createSelector(
         accessorFn: ({ xpValue, Price }) => (xpValue ? (xpValue * fiveWay) / Price : 0),
         header: "5-way ROI",
         sortingFn: ((left, right) => {
-          const a: number = left.getValue("xpRatio");
-          const b: number = right.getValue("xpRatio");
+          const a: number = left.getValue("5wayRatio");
+          const b: number = right.getValue("5wayRatio");
           return a === b ? 0 : a === undefined ? -1 : b === undefined ? 1 : a - b;
         }) as SortingFn<GemDetails>,
         enableColumnFilter,
