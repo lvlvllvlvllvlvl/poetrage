@@ -6,7 +6,9 @@ export interface Weights {
   [gem: string]: { Type: GemType; weight: number }[];
 }
 export interface Stats {
-  [gem: string]: { [quality in QualityType]?: { id: string; stat?: string; value: number }[] };
+  [gem: string]: {
+    [quality in QualityType]?: { stat?: string; stats: { [id: string]: number } };
+  };
 }
 export interface XP {
   [gem: string]: { [level: number]: number };
@@ -44,12 +46,7 @@ export const getGemInfo = async () => {
           }
         }
       }
-      (qualityStats[name][quality_stat.set_name] =
-        qualityStats[name][quality_stat.set_name] || []).push({
-        id: quality_stat.id,
-        stat: quality_stat.stat,
-        value: quality_stat.value,
-      });
+      qualityStats[name][quality_stat.set_name] = quality_stat;
       if (!weights[name].find((w) => w.Type === quality_stat.set_name)) {
         weights[name].push({ Type: quality_stat.set_name, weight: quality_stat.weight });
         weights[altName].push({ Type: quality_stat.set_name, weight: quality_stat.weight });

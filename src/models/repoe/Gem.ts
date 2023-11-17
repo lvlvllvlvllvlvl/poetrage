@@ -893,12 +893,11 @@ export interface StatsItem {
   id?: string;
 }
 export interface QualityStatsItem {
-  id: string;
   set: number;
-  value: number;
   weight: number;
   set_name: QualityType;
   stat: string;
+  stats: { [id: string]: number };
 }
 export interface Reservations {
   mana_flat?: number;

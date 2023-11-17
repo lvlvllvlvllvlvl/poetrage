@@ -31,19 +31,27 @@ export type SimpleValue = [number];
 export type RangeValue = [number, number];
 export type Value = SimpleValue | RangeValue;
 
-export const formatStat = (stat: string, values: Value[]) =>
-  stat.replaceAll(
-    /\{(\d+)\/?(\w*)\}/g,
-    (match, index, quantifier) =>
-      (values[parseInt(index)] || values[0])?.map(getQuantifier(quantifier)).join(" to ") || "?",
+export const formatStat = (stat: string, values: { [id: string]: number[] }) =>
+  stat?.replaceAll(/\{([^\}]+)\/?(\w*)\}/g, (match, id, quantifier) =>
+    (values[id] || [0]).map(getQuantifier(quantifier)).join(" to "),
   );
 
-export const qualityStat = (gemInfo: GemInfo, gem: Gem) =>
-  gemInfo.qualityStats[gem.baseName]?.[gem.Type === "Awakened" ? "Superior" : gem.Type]
-    ?.map(({ id, stat, value }) => {
-      const v: Value = gem.Quality ? [(value * gem.Quality) / 1000] : [value / 1000, value / 50];
-      const values: Value[] =
-        gem.baseName === "Frostblink" && gem.Type === "Divergent" ? [[0], v] : [v];
-      return stat ? formatStat(stat, values) : id;
-    })
-    .join("\n") || "";
+export const qualityStat = (gemInfo: GemInfo, gem: Gem) => {
+  const quality =
+    gemInfo.qualityStats[gem.baseName]?.[gem.Type === "Awakened" ? "Superior" : gem.Type];
+  if (!quality || !quality.stat) {
+    return null;
+  }
+  let { stat, stats } = quality;
+  return formatStat(
+    stat,
+    Object.fromEntries(
+      Object.entries(stats).map(([id, value]) => {
+        const values: Value = gem.Quality
+          ? [(value * gem.Quality) / 1000]
+          : [value / 1000, value / 50];
+        return [id, values];
+      }),
+    ),
+  );
+};
