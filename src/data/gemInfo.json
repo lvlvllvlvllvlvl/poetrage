@@ -1,4439 +1,596 @@
 {
-  "weights": {
-    "Absolution": [{}],
-    "Absolution Support": [{}],
-    "Infernal Cry": [{}],
-    "Infernal Cry Support": [{}],
-    "Precision": [{}],
-    "Precision Support": [{}],
-    "Alchemist's Mark": [{}],
-    "Alchemist's Mark Support": [{}],
-    "Ambush": [{}],
-    "Ambush Support": [{}],
-    "Ancestral Warchief": [{}],
-    "Ancestral Warchief Support": [{}],
-    "Ancestral Blademaster": [],
-    "Ancestral Blademaster Support": [],
-    "Ancestral Cry": [{}],
-    "Ancestral Cry Support": [{}],
-    "Fist of War Support": [{}],
-    "Fist of War": [{}],
-    "Anger": [{}],
-    "Anger Support": [{}],
-    "Animate Guardian": [{}],
-    "Animate Guardian Support": [{}],
-    "Animate Weapon": [{}],
-    "Animate Weapon Support": [{}],
-    "Arc": [{}],
-    "Arc Support": [{}],
-    "Arcane Cloak": [{}],
-    "Arcane Cloak Support": [{}],
-    "Arctic Armour": [{}],
-    "Arctic Armour Support": [{}],
-    "Creeping Frost": [{}],
-    "Creeping Frost Support": [{}],
-    "Artillery Ballista": [{}],
-    "Artillery Ballista Support": [{}],
-    "Assassin's Mark": [{}],
-    "Assassin's Mark Support": [{}],
-    "Backstab": [],
-    "Backstab Support": [],
-    "Ball Lightning": [{}],
-    "Ball Lightning Support": [{}],
-    "Barrage": [{}],
-    "Barrage Support": [{}],
-    "Battlemage's Cry": [{}],
-    "Battlemage's Cry Support": [{}],
-    "Bear Trap": [{}],
-    "Bear Trap Support": [{}],
-    "Berserk": [{}],
-    "Berserk Support": [{}],
-    "Void Sphere": [{}],
-    "Void Sphere Support": [{}],
-    "Blade Blast": [{}],
-    "Blade Blast Support": [{}],
-    "Blade Trap": [{}],
-    "Blade Trap Support": [{}],
-    "Blade Vortex": [{}],
-    "Blade Vortex Support": [{}],
-    "Bladefall": [{}],
-    "Bladefall Support": [{}],
-    "Bladestorm": [{}],
-    "Bladestorm Support": [{}],
-    "Blast Rain": [{}],
-    "Blast Rain Support": [{}],
-    "Blight": [{}],
-    "Blight Support": [{}],
-    "Blink Arrow": [{}],
-    "Blink Arrow Support": [{}],
-    "[UNUSED] Blitz": [],
-    "[UNUSED] Blitz Support": [],
-    "Blood Offering": [],
-    "Blood Offering Support": [],
-    "Blood Rage": [{}],
-    "Blood Rage Support": [{}],
-    "Flesh and Stone": [{}],
-    "Flesh and Stone Support": [{}],
-    "Blood and Sand": [{}],
-    "Blood and Sand Support": [{}],
-    "Perforate": [{}],
-    "Perforate Support": [{}],
-    "[UNUSED] Blood Whirl": [],
-    "[UNUSED] Blood Whirl Support": [],
-    "Reap": [{}],
-    "Reap Support": [{}],
-    "War Banner": [{}],
-    "War Banner Support": [{}],
-    "[UNUSED] Bone Armour": [],
-    "[UNUSED] Bone Armour Support": [],
-    "Unearth": [{}],
-    "Unearth Support": [{}],
-    "Bone Offering": [{}],
-    "Bone Offering Support": [{}],
-    "Boneshatter": [{}],
-    "Boneshatter Support": [{}],
-    "Arcanist Brand": [{}],
-    "Arcanist Brand Support": [{}],
-    "Burning Arrow": [{}],
-    "Burning Arrow Support": [{}],
-    "[DNT] Call of the Wild": [],
-    "[DNT] Call of the Wild Support": [],
-    "Capture Monster": [],
-    "Capture Monster Support": [],
-    "Blinding Aura": [],
-    "Blinding Aura Support": [],
-    "Armageddon Brand": [{}],
-    "Armageddon Brand Support": [{}],
-    "Chain Hook": [{}],
-    "Chain Hook Support": [{}],
-    "Snipe": [{}],
-    "Snipe Support": [{}],
-    "Death Aura": [],
-    "Death Aura Support": [],
-    "Blade Flurry": [{}],
-    "Blade Flurry Support": [{}],
-    "Charged Dash": [{}],
-    "Charged Dash Support": [{}],
-    "Sigil of Power": [{}],
-    "Sigil of Power Support": [{}],
-    "Clarity": [{}],
-    "Clarity Support": [{}],
-    "Cleave": [{}],
-    "Cleave Support": [{}],
-    "Kinetic Blast": [{}],
-    "Kinetic Blast Support": [{}],
-    "Cobra Lash": [{}],
-    "Cobra Lash Support": [{}],
-    "[UNUSED] Coiling Assault": [],
-    "[UNUSED] Coiling Assault Support": [],
-    "Vaal Impurity of Ice": [{}],
-    "Vaal Impurity of Ice Support": [{}],
-    "Icicle Mine": [{}],
-    "Icicle Mine Support": [{}],
-    "Purity of Ice": [{}],
-    "Purity of Ice Support": [{}],
-    "Cold Snap": [{}],
-    "Cold Snap Support": [{}],
-    "...": [],
-    "... Support": [],
-    "Conductivity": [{}],
-    "Conductivity Support": [{}],
-    "Storm Brand": [{}],
-    "Storm Brand Support": [{}],
-    "Consecrated Path": [{}],
-    "Consecrated Path Support": [{}],
-    "Contagion": [{}],
-    "Contagion Support": [{}],
-    "Conversion Trap": [{}],
-    "Conversion Trap Support": [{}],
-    "Convocation": [{}],
-    "Convocation Support": [{}],
-    "Cremation": [{}],
-    "Cremation Support": [{}],
-    "Bodyswap": [{}],
-    "Bodyswap Support": [{}],
-    "Plague Bearer": [{}],
-    "Plague Bearer Support": [{}],
-    "Corrupting Fever": [{}],
-    "Corrupting Fever Support": [{}],
-    "Cyclone": [{}],
-    "Cyclone Support": [{}],
-    "Damage Infusion": [],
-    "Damage Infusion Support": [],
-    "Malevolence": [{}],
-    "Malevolence Support": [{}],
-    "Dark Pact": [{}],
-    "Dark Pact Support": [{}],
-    "Bane": [{}],
-    "Bane Support": [{}],
-    "Decoy Totem": [{}],
-    "Decoy Totem Support": [{}],
-    "Defiance Banner": [{}],
-    "Defiance Banner Support": [{}],
-    "Desecrate": [{}],
-    "Desecrate Support": [{}],
-    "Despair": [{}],
-    "Despair Support": [{}],
-    "Destructive Link": [{}],
-    "Destructive Link Support": [{}],
-    "Determination": [{}],
-    "Determination Support": [{}],
-    "Detonate Dead": [{}],
-    "Detonate Dead Support": [{}],
-    "Devouring Totem": [{}],
-    "Devouring Totem Support": [{}],
-    "Discharge": [{}],
-    "Discharge Support": [{}],
-    "Discipline": [{}],
-    "Discipline Support": [{}],
-    "Discorectangle Slam": [],
-    "Discorectangle Slam Support": [],
-    "Crackling Lance": [{}],
-    "Crackling Lance Support": [{}],
-    "Divine Ire": [{}],
-    "Divine Ire Support": [{}],
-    "Dominating Blow": [{}],
-    "Dominating Blow Support": [{}],
-    "Hexblast": [{}],
-    "Hexblast Support": [{}],
-    "Lacerate": [{}],
-    "Lacerate Support": [{}],
-    "Double Strike": [{}],
-    "Double Strike Support": [{}],
-    "Dual Strike": [{}],
-    "Dual Strike Support": [{}],
-    "Earthquake": [{}],
-    "Earthquake Support": [{}],
-    "Elemental Hit": [{}],
-    "Elemental Hit Support": [{}],
-    "Elemental Projectiles": [],
-    "Elemental Projectiles Support": [],
-    "Elemental Weakness": [{}],
-    "Elemental Weakness Support": [{}],
-    "Blazing Salvo": [{}],
-    "Blazing Salvo Support": [{}],
-    "Endurance Charge on Melee Stun Support": [{}],
-    "Endurance Charge on Melee Stun": [{}],
-    "Tectonic Slam": [{}],
-    "Tectonic Slam Support": [{}],
-    "Enduring Cry": [{}],
-    "Enduring Cry Support": [{}],
-    "Energy Blade": [{}],
-    "Energy Blade Support": [{}],
-    "Enfeeble": [{}],
-    "Enfeeble Support": [{}],
-    "Ensnaring Arrow": [{}],
-    "Ensnaring Arrow Support": [{}],
-    "Envy": [],
-    "Envy Support": [],
-    "Essence Drain": [{}],
-    "Essence Drain Support": [{}],
-    "Ethereal Knives": [{}],
-    "Ethereal Knives Support": [{}],
-    "Incinerate": [{}],
-    "Incinerate Support": [{}],
-    "Explosive Arrow": [{}],
-    "Explosive Arrow Support": [{}],
-    "Explosive Concoction": [{}],
-    "Explosive Concoction Support": [{}],
-    "Exsanguinate": [{}],
-    "Exsanguinate Support": [{}],
-    "Eye of Winter": [{}],
-    "Eye of Winter Support": [{}],
-    "Scorching Ray": [{}],
-    "Scorching Ray Support": [{}],
-    "Vaal Impurity of Fire": [{}],
-    "Vaal Impurity of Fire Support": [{}],
-    "Purity of Fire": [{}],
-    "Purity of Fire Support": [{}],
-    "Fire Trap": [{}],
-    "Fire Trap Support": [{}],
-    "Fire Weapon": [],
-    "Fire Weapon Support": [],
-    "Fireball": [{}],
-    "Fireball Support": [{}],
-    "Firestorm": [{}],
-    "Firestorm Support": [{}],
-    "Flame Wall": [{}],
-    "Flame Wall Support": [{}],
-    "Flame Dash": [{}],
-    "Flame Dash Support": [{}],
-    "Flame Link": [{}],
-    "Flame Link Support": [{}],
-    "Holy Flame Totem": [{}],
-    "Holy Flame Totem Support": [{}],
-    "Flame Surge": [{}],
-    "Flame Surge Support": [{}],
-    "Flameblast": [{}],
-    "Flameblast Support": [{}],
-    "Flamethrower Trap": [{}],
-    "Flamethrower Trap Support": [{}],
-    "Flammability": [{}],
-    "Flammability Support": [{}],
-    "Flesh Offering": [{}],
-    "Flesh Offering Support": [{}],
-    "Flicker Strike": [{}],
-    "Flicker Strike Support": [{}],
-    "Forbidden Rite": [{}],
-    "Forbidden Rite Support": [{}],
-    "Freezing Pulse": [{}],
-    "Freezing Pulse Support": [{}],
-    "Frenzy": [{}],
-    "Frenzy Support": [{}],
-    "Frost Blades": [{}],
-    "Frost Blades Support": [{}],
-    "Frostbolt": [{}],
-    "Frostbolt Support": [{}],
-    "Vortex": [{}],
-    "Vortex Support": [{}],
-    "Frost Bomb": [{}],
-    "Frost Bomb Support": [{}],
-    "Winter Orb": [{}],
-    "Winter Orb Support": [{}],
-    "Frost Shield": [{}],
-    "Frost Shield Support": [{}],
-    "Frost Wall": [{}],
-    "Frost Wall Support": [{}],
-    "Frostbite": [{}],
-    "Frostbite Support": [{}],
-    "Frozen Legion": [{}],
-    "Frozen Legion Support": [{}],
-    "Galvanic Field": [{}],
-    "Galvanic Field Support": [{}],
-    "Detonate Mines": [{}],
-    "Detonate Mines Support": [{}],
-    "General's Cry": [{}],
-    "General's Cry Support": [{}],
-    "Glacial Cascade": [{}],
-    "Glacial Cascade Support": [{}],
-    "Glacial Hammer": [{}],
-    "Glacial Hammer Support": [{}],
-    "Grace": [{}],
-    "Grace Support": [{}],
-    "Ground Slam": [{}],
-    "Ground Slam Support": [{}],
-    "Haste": [{}],
-    "Haste Support": [{}],
-    "Hatred": [{}],
-    "Hatred Support": [{}],
-    "Heavy Strike": [{}],
-    "Heavy Strike Support": [{}],
-    "Herald of Agony": [{}],
-    "Herald of Agony Support": [{}],
-    "Herald of Ash": [{}],
-    "Herald of Ash Support": [{}],
-    "Herald of Ice": [{}],
-    "Herald of Ice Support": [{}],
-    "Herald of Purity": [{}],
-    "Herald of Purity Support": [{}],
-    "Herald of Thunder": [{}],
-    "Herald of Thunder Support": [{}],
-    "Ice Crash": [{}],
-    "Ice Crash Support": [{}],
-    "Frostblink": [{}],
-    "Frostblink Support": [{}],
-    "Ice Nova": [{}],
-    "Ice Nova Support": [{}],
-    "Ice Shot": [{}],
-    "Ice Shot Support": [{}],
-    "Siphoning Trap": [{}],
-    "Siphoning Trap Support": [{}],
-    "Ice Spear": [{}],
-    "Ice Spear Support": [{}],
-    "Ice Trap": [{}],
-    "Ice Trap Support": [{}],
-    "Icefire": [],
-    "Icefire Support": [],
-    "Ignite": [],
-    "Ignite Support": [],
-    "Wintertide Brand": [{}],
-    "Wintertide Brand Support": [{}],
-    "Immortal Call": [{}],
-    "Immortal Call Support": [{}],
-    "Splitting Steel": [{}],
-    "Splitting Steel Support": [{}],
-    "Infernal Blow": [{}],
-    "Infernal Blow Support": [{}],
-    "Wildfire": [],
-    "Wildfire Support": [],
-    "Infernal Sweep": [],
-    "Infernal Sweep Support": [],
-    "Intimidating Cry": [{}],
-    "Intimidating Cry Support": [{}],
-    "Intuitive Link": [{}],
-    "Intuitive Link Support": [{}],
-    "Kinetic Bolt": [{}],
-    "Kinetic Bolt Support": [{}],
-    "Lancing Steel": [{}],
-    "Lancing Steel Support": [{}],
-    "Leap Slam": [{}],
-    "Leap Slam Support": [{}],
-    "Lightning Arrow": [{}],
-    "Lightning Arrow Support": [{}],
-    "Lightning Channel": [],
-    "Lightning Channel Support": [],
-    "Lightning Circle": [],
-    "Lightning Circle Support": [],
-    "Lightning Conduit": [{}],
-    "Lightning Conduit Support": [{}],
-    "Stormblast Mine": [{}],
-    "Stormblast Mine Support": [{}],
-    "Vaal Impurity of Lightning": [{}],
-    "Vaal Impurity of Lightning Support": [{}],
-    "Purity of Lightning": [{}],
-    "Purity of Lightning Support": [{}],
-    "Lightning Strike": [{}],
-    "Lightning Strike Support": [{}],
-    "Lightning Tendrils": [{}],
-    "Lightning Tendrils Support": [{}],
-    "Lightning Spire Trap": [{}],
-    "Lightning Spire Trap Support": [{}],
-    "Lightning Trap": [{}],
-    "Lightning Trap Support": [{}],
-    "Lightning Warp": [{}],
-    "Lightning Warp Support": [{}],
-    "Rolling Magma": [{}],
-    "Rolling Magma Support": [{}],
-    "Penance Brand": [{}],
-    "Penance Brand Support": [{}],
-    "Pestilent Strike": [{}],
-    "Pestilent Strike Support": [{}],
-    "Manabond": [{}],
-    "Manabond Support": [{}],
-    "Mirror Arrow": [{}],
-    "Mirror Arrow Support": [{}],
-    "Molten Shell": [{}],
-    "Molten Shell Support": [{}],
-    "Molten Strike": [{}],
-    "Molten Strike Support": [{}],
-    "Pyroclast Mine": [{}],
-    "Pyroclast Mine Support": [{}],
-    "New Blade Vortex": [],
-    "New Blade Vortex Support": [],
-    "Phase Run": [{}],
-    "Phase Run Support": [{}],
-    "NewPunishment": [],
-    "NewPunishment Support": [],
-    "Shield Charge": [{}],
-    "Shield Charge Support": [{}],
-    "New Shock Nova": [],
-    "New Shock Nova Support": [],
-    "Sunder": [{}],
-    "Sunder Support": [{}],
-    "Flammable Shot": [],
-    "Flammable Shot Support": [],
-    "Orb of Storms": [{}],
-    "Orb of Storms Support": [{}],
-    "Petrified Blood": [{}],
-    "Petrified Blood Support": [{}],
-    "Seismic Trap": [{}],
-    "Seismic Trap Support": [{}],
-    "Pride": [{}],
-    "Pride Support": [{}],
-    "Playtest Attack": [],
-    "Playtest Attack Support": [],
-    "Playtest Slam": [],
-    "Playtest Slam Support": [],
-    "Playtest Spell": [],
-    "Playtest Spell Support": [],
-    "Poacher's Mark": [{}],
-    "Poacher's Mark Support": [{}],
-    "Caustic Arrow": [{}],
-    "Caustic Arrow Support": [{}],
-    "Poisonous Concoction": [{}],
-    "Poisonous Concoction Support": [{}],
-    "Portal": [{}],
-    "Portal Support": [{}],
-    "Power Siphon": [{}],
-    "Power Siphon Support": [{}],
-    "[UNUSED] Projectile Portal": [],
-    "[UNUSED] Projectile Portal Support": [],
-    "Protective Link": [{}],
-    "Protective Link Support": [{}],
-    "Puncture": [{}],
-    "Puncture Support": [{}],
-    "Punishment": [{}],
-    "Punishment Support": [{}],
-    "Dread Banner": [{}],
-    "Dread Banner Support": [{}],
-    "Wave of Conviction": [{}],
-    "Wave of Conviction Support": [{}],
-    "Purity of Elements": [{}],
-    "Purity of Elements Support": [{}],
-    "[UNUSED] Quick Block": [],
-    "[UNUSED] Quick Block Support": [],
-    "Dash": [{}],
-    "Dash Support": [{}],
-    "Steelskin": [{}],
-    "Steelskin Support": [{}],
-    "Quickstep": [{}],
-    "Quickstep Support": [{}],
-    "Rage Vortex": [{}],
-    "Rage Vortex Support": [{}],
-    "Rain of Arrows": [{}],
-    "Rain of Arrows Support": [{}],
-    "Toxic Rain": [{}],
-    "Toxic Rain Support": [{}],
-    "Raise Spectre": [{}],
-    "Raise Spectre Support": [{}],
-    "Raise Zombie": [{}],
-    "Raise Zombie Support": [{}],
-    "Rallying Cry": [{}],
-    "Rallying Cry Support": [{}],
-    "Reave": [{}],
-    "Reave Support": [{}],
-    "Reckoning": [{}],
-    "Reckoning Support": [{}],
-    "Rejuvenation Totem": [{}],
-    "Rejuvenation Totem Support": [{}],
-    "Rending Steel": [],
-    "Rending Steel Support": [],
-    "[UNUSED] Replicate": [],
-    "[UNUSED] Replicate Support": [],
-    "Righteous Fire": [{}],
-    "Righteous Fire Support": [{}],
-    "Righteous Lightning": [],
-    "Righteous Lightning Support": [],
-    "Riposte": [{}],
-    "Riposte Support": [{}],
-    "Riptide": [],
-    "Riptide Support": [],
-    "Purifying Flame": [{}],
-    "Purifying Flame Support": [{}],
-    "Scourge Arrow": [{}],
-    "Scourge Arrow Support": [{}],
-    "Searing Bond": [{}],
-    "Searing Bond Support": [{}],
-    "Seismic Cry": [{}],
-    "Seismic Cry Support": [{}],
-    "[UNUSED] Serpent Strike": [],
-    "[UNUSED] Serpent Strike Support": [],
-    "Shadow Blades": [],
-    "Shadow Blades Support": [],
-    "Shattering Steel": [{}],
-    "Shattering Steel Support": [{}],
-    "Shield Crush": [{}],
-    "Shield Crush Support": [{}],
-    "Shock Nova": [{}],
-    "Shock Nova Support": [{}],
-    "Shockwave Totem": [{}],
-    "Shockwave Totem Support": [{}],
-    "Shrapnel Ballista": [{}],
-    "Shrapnel Ballista Support": [{}],
-    "Galvanic Arrow": [{}],
-    "Galvanic Arrow Support": [{}],
-    "Explosive Trap": [{}],
-    "Explosive Trap Support": [{}],
-    "Siege Ballista": [{}],
-    "Siege Ballista Support": [{}],
-    "Brand Recall": [{}],
-    "Brand Recall Support": [{}],
-    "Summon Skitterbots": [{}],
-    "Summon Skitterbots Support": [{}],
-    "[UNUSED] Slice And Dice": [],
-    "[UNUSED] Slice And Dice Support": [],
-    "Withering Step": [{}],
-    "Withering Step Support": [{}],
-    "Smite": [{}],
-    "Smite Support": [{}],
-    "Smoke Mine": [{}],
-    "Smoke Mine Support": [{}],
-    "Venom Gyre": [{}],
-    "Venom Gyre Support": [{}],
-    "Sniper's Mark": [{}],
-    "Sniper's Mark Support": [{}],
-    "Soul Link": [{}],
-    "Soul Link Support": [{}],
-    "Soulrend": [{}],
-    "Soulrend Support": [{}],
-    "Spark": [{}],
-    "Spark Support": [{}],
-    "Spectral Helix": [{}],
-    "Spectral Helix Support": [{}],
-    "Spectral Spinning Weapon": [],
-    "Spectral Spinning Weapon Support": [],
-    "Zealotry": [{}],
-    "Zealotry Support": [{}],
-    "Spellslinger": [{}],
-    "Spellslinger Support": [{}],
-    "Earthshatter": [{}],
-    "Earthshatter Support": [{}],
-    "Spirit Offering": [{}],
-    "Spirit Offering Support": [{}],
-    "Split Arrow": [{}],
-    "Split Arrow Support": [{}],
-    "Static Strike": [{}],
-    "Static Strike Support": [{}],
-    "Static Tether": [],
-    "Static Tether Support": [],
-    "Storm Burst": [{}],
-    "Storm Burst Support": [{}],
-    "Storm Call": [{}],
-    "Storm Call Support": [{}],
-    "Storm Rain": [{}],
-    "Storm Rain Support": [{}],
-    "Stormbind": [{}],
-    "Stormbind Support": [{}],
-    "Summon Carrion Golem": [{}],
-    "Summon Carrion Golem Support": [{}],
-    "Summon Chaos Golem": [{}],
-    "Summon Chaos Golem Support": [{}],
-    "Summon Flame Golem": [{}],
-    "Summon Flame Golem Support": [{}],
-    "Summon Ice Golem": [{}],
-    "Summon Ice Golem Support": [{}],
-    "Summon Lightning Golem": [{}],
-    "Summon Lightning Golem Support": [{}],
-    "Summon Raging Spirit": [{}],
-    "Summon Raging Spirit Support": [{}],
-    "Summon Reaper": [{}],
-    "Summon Reaper Support": [{}],
-    "Summon Holy Relic": [{}],
-    "Summon Holy Relic Support": [{}],
-    "Summon Stone Golem": [{}],
-    "Summon Stone Golem Support": [{}],
-    "Summon Skeletons": [{}],
-    "Summon Skeletons Support": [{}],
-    "Summon Skeletons Channelled": [],
-    "Summon Skeletons Channelled Support": [],
-    "Added Chaos Damage Support": [{}],
-    "Added Chaos Damage": [{}],
-    "Awakened Added Chaos Damage Support": [{}],
-    "Awakened Added Chaos Damage": [{}],
-    "Added Cold Damage Support": [{}],
-    "Added Cold Damage": [{}],
-    "Awakened Added Cold Damage Support": [{}],
-    "Awakened Added Cold Damage": [{}],
-    "Added Fire Damage Support": [{}],
-    "Added Fire Damage": [{}],
-    "Awakened Added Fire Damage Support": [{}],
-    "Awakened Added Fire Damage": [{}],
-    "Added Lightning Damage Support": [{}],
-    "Added Lightning Damage": [{}],
-    "Awakened Added Lightning Damage Support": [{}],
-    "Awakened Added Lightning Damage": [{}],
-    "Additional Accuracy Support": [{}],
-    "Additional Accuracy": [{}],
-    "Second Wind Support": [{}],
-    "Second Wind": [{}],
-    "Empower Support": [{}],
-    "Empower": [{}],
-    "Awakened Empower Support": [{}],
-    "Awakened Empower": [{}],
-    "Enhance Support": [{}],
-    "Enhance": [{}],
-    "Awakened Enhance Support": [{}],
-    "Awakened Enhance": [{}],
-    "Swift Assembly Support": [{}],
-    "Swift Assembly": [{}],
-    "Enlighten Support": [{}],
-    "Enlighten": [{}],
-    "Awakened Enlighten Support": [{}],
-    "Awakened Enlighten": [{}],
-    "Unbound Ailments Support": [{}],
-    "Unbound Ailments": [{}],
-    "Awakened Ancestral Call Support": [{}],
-    "Awakened Ancestral Call": [{}],
-    "Arcane Surge Support": [{}],
-    "Arcane Surge": [{}],
-    "Archmage Support": [{}],
-    "Archmage": [{}],
-    "Arrow Nova Support": [{}],
-    "Arrow Nova": [{}],
-    "Awakened Arrow Nova Support": [{}],
-    "Awakened Arrow Nova": [{}],
-    "Divine Blessing Support": [{}],
-    "Divine Blessing": [{}],
-    "Behead Support": [{}],
-    "Behead": [{}],
-    "Blasphemy Support": [{}],
-    "Blasphemy": [{}],
-    "Awakened Blasphemy Support": [{}],
-    "Awakened Blasphemy": [{}],
-    "Blind Support": [{}],
-    "Blind": [{}],
-    "Block Chance Reduction Support": [{}],
-    "Block Chance Reduction": [{}],
-    "Arrogance Support": [{}],
-    "Arrogance": [{}],
-    "Bloodlust Support": [{}],
-    "Bloodlust": [{}],
-    "Bloodthirst Support": [{}],
-    "Bloodthirst": [{}],
-    "Shockwave Support": [{}],
-    "Shockwave": [{}],
-    "Bonechill Support": [{}],
-    "Bonechill": [{}],
-    "Brutality Support": [{}],
-    "Brutality": [{}],
-    "Awakened Brutality Support": [{}],
-    "Awakened Brutality": [{}],
-    "Awakened Burning Damage Support": [{}],
-    "Awakened Burning Damage": [{}],
-    "Infernal Legion Support": [{}],
-    "Infernal Legion": [{}],
-    "WIP Support": [],
-    "WIP": [],
-    "Cast On Critical Strike Support": [{}],
-    "Cast On Critical Strike": [{}],
-    "Awakened Cast On Critical Strike Support": [{}],
-    "Awakened Cast On Critical Strike": [{}],
-    "Cast when Damage Taken Support": [{}],
-    "Cast when Damage Taken": [{}],
-    "Cast on Death Support": [{}],
-    "Cast on Death": [{}],
-    "Cast on Melee Kill Support": [{}],
-    "Cast on Melee Kill": [{}],
-    "Cast when Stunned Support": [{}],
-    "Cast when Stunned": [{}],
-    "Cast while Channelling Support": [{}],
-    "Cast while Channelling": [{}],
-    "Awakened Cast While Channelling Support": [{}],
-    "Awakened Cast While Channelling": [{}],
-    "Chain Support": [{}],
-    "Chain": [{}],
-    "Awakened Chain Support": [{}],
-    "Awakened Chain": [{}],
-    "Chance to Bleed Support": [{}],
-    "Chance to Bleed": [{}],
-    "Chance to Flee Support": [{}],
-    "Chance to Flee": [{}],
-    "Combustion Support": [{}],
-    "Combustion": [{}],
-    "Chance to Poison Support": [{}],
-    "Chance to Poison": [{}],
-    "Withering Touch Support": [{}],
-    "Withering Touch": [{}],
-    "Charged Mines Support": [{}],
-    "Charged Mines": [{}],
-    "Cluster Traps Support": [{}],
-    "Cluster Traps": [{}],
-    "Cold Penetration Support": [{}],
-    "Cold Penetration": [{}],
-    "Awakened Cold Penetration Support": [{}],
-    "Awakened Cold Penetration": [{}],
-    "Cold to Fire Support": [{}],
-    "Cold to Fire": [{}],
-    "Concentrated Effect Support": [{}],
-    "Concentrated Effect": [{}],
-    "[UNUSED] Conflagration Support": [{}],
-    "[UNUSED] Conflagration": [{}],
-    "Controlled Blaze Support": [{}],
-    "Controlled Blaze": [{}],
-    "Controlled Destruction Support": [{}],
-    "Controlled Destruction": [{}],
-    "Awakened Controlled Destruction Support": [{}],
-    "Awakened Controlled Destruction": [{}],
-    "Corrupting Cry Support": [{}],
-    "Corrupting Cry": [{}],
-    "Critical Strike Affliction Support": [{}],
-    "Critical Strike Affliction": [{}],
-    "Cruelty Support": [{}],
-    "Cruelty": [{}],
-    "Culling Strike Support": [{}],
-    "Culling Strike": [{}],
-    "Hextouch Support": [{}],
-    "Hextouch": [{}],
-    "Awakened Hextouch Support": [],
-    "Awakened Hextouch": [],
-    "Cursed Ground Support": [{}],
-    "Cursed Ground": [{}],
-    "Hypothermia Support": [{}],
-    "Hypothermia": [{}],
-    "Deadly Ailments Support": [{}],
-    "Deadly Ailments": [{}],
-    "Awakened Deadly Ailments Support": [{}],
-    "Awakened Deadly Ailments": [{}],
-    "Vile Toxins Support": [{}],
-    "Vile Toxins": [{}],
-    "Decay Support": [{}],
-    "Decay": [{}],
-    "Devour Support": [{}],
-    "Devour": [{}],
-    "Earthbreaker Support": [{}],
-    "Earthbreaker": [{}],
-    "Efficacy Support": [{}],
-    "Efficacy": [{}],
-    "Elemental Focus Support": [{}],
-    "Elemental Focus": [{}],
-    "Awakened Elemental Focus Support": [{}],
-    "Awakened Elemental Focus": [{}],
-    "Elemental Penetration Support": [{}],
-    "Elemental Penetration": [{}],
-    "Elemental Proliferation Support": [{}],
-    "Elemental Proliferation": [{}],
-    "Energy Leech Support": [{}],
-    "Energy Leech": [{}],
-    "Faster Attacks Support": [{}],
-    "Faster Attacks": [{}],
-    "Faster Casting Support": [{}],
-    "Faster Casting": [{}],
-    "Faster Projectiles Support": [{}],
-    "Faster Projectiles": [{}],
-    "Fire Penetration Support": [{}],
-    "Fire Penetration": [{}],
-    "Awakened Fire Penetration Support": [{}],
-    "Awakened Fire Penetration": [{}],
-    "Flamewood Support": [{}],
-    "Flamewood": [{}],
-    "Focused Ballista Support": [{}],
-    "Focused Ballista": [{}],
-    "Fork Support": [{}],
-    "Fork": [{}],
-    "Awakened Fork Support": [{}],
-    "Awakened Fork": [{}],
-    "Fortify Support": [{}],
-    "Fortify": [{}],
-    "Ice Bite Support": [{}],
-    "Ice Bite": [{}],
-    "Fresh Meat Support": [{}],
-    "Fresh Meat": [{}],
-    "Frigid Bond Support": [{}],
-    "Frigid Bond": [{}],
-    "Charged Traps Support": [{}],
-    "Charged Traps": [{}],
-    "Mirage Archer Support": [{}],
-    "Mirage Archer": [{}],
-    "Generosity Support": [{}],
-    "Generosity": [{}],
-    "Awakened Generosity Support": [{}],
-    "Awakened Generosity": [{}],
-    "Greater Multiple Projectiles Support": [{}],
-    "Greater Multiple Projectiles": [{}],
-    "Awakened Greater Multiple Projectiles Support": [{}],
-    "Awakened Greater Multiple Projectiles": [{}],
-    "Greater Volley Support": [{}],
-    "Greater Volley": [{}],
-    "Guardian's Blessing Support": [{}],
-    "Guardian's Blessing": [{}],
-    "Unleash Support": [{}],
-    "Unleash": [{}],
-    "[UNUSED] Handcast Rapid Fire": [],
-    "[UNUSED] Handcast Rapid Fire Support": [],
-    "Intensify Support": [{}],
-    "Intensify": [{}],
-    "Hex Bloom Support": [{}],
-    "Hex Bloom": [{}],
-    "Ignite Proliferation Support": [{}],
-    "Ignite Proliferation": [{}],
-    "Immolate Support": [{}],
-    "Immolate": [{}],
-    "Impale Support": [{}],
-    "Impale": [{}],
-    "Increased Area of Effect Support": [{}],
-    "Increased Area of Effect": [{}],
-    "Awakened Increased Area of Effect Support": [{}],
-    "Awakened Increased Area of Effect": [{}],
-    "Burning Damage Support": [{}],
-    "Burning Damage": [{}],
-    "Increased Critical Damage Support": [{}],
-    "Increased Critical Damage": [{}],
-    "Increased Critical Strikes Support": [{}],
-    "Increased Critical Strikes": [{}],
-    "Increased Duration Support": [{}],
-    "Increased Duration": [{}],
-    "Iron Grip Support": [{}],
-    "Iron Grip": [{}],
-    "Iron Will Support": [{}],
-    "Iron Will": [{}],
-    "Item Quantity Support": [{}],
-    "Item Quantity": [{}],
-    "Item Rarity Support": [{}],
-    "Item Rarity": [{}],
-    "Knockback Support": [{}],
-    "Knockback": [{}],
-    "Lesser Multiple Projectiles Support": [{}],
-    "Lesser Multiple Projectiles": [{}],
-    "Life Gain on Hit Support": [{}],
-    "Life Gain on Hit": [{}],
-    "Life Leech Support": [{}],
-    "Life Leech": [{}],
-    "Lifetap Support": [{}],
-    "Lifetap": [{}],
-    "Lightning Penetration Support": [{}],
-    "Lightning Penetration": [{}],
-    "Awakened Lightning Penetration Support": [{}],
-    "Awakened Lightning Penetration": [{}],
-    "Locus Mine Support": [{}],
-    "Locus Mine": [{}],
-    "Maim Support": [{}],
-    "Maim": [{}],
-    "Mana Leech Support": [{}],
-    "Mana Leech": [{}],
-    "Manaforged Arrows Support": [{}],
-    "Manaforged Arrows": [{}],
-    "Mark On Hit Support": [{}],
-    "Mark On Hit": [{}],
-    "Damage on Full Life Support": [{}],
-    "Damage on Full Life": [{}],
-    "Melee Physical Damage Support": [{}],
-    "Melee Physical Damage": [{}],
-    "Awakened Melee Physical Damage Support": [{}],
-    "Awakened Melee Physical Damage": [{}],
-    "Melee Splash Support": [{}],
-    "Melee Splash": [{}],
-    "Awakened Melee Splash Support": [{}],
-    "Awakened Melee Splash": [{}],
-    "Minefield Support": [{}],
-    "Minefield": [{}],
-    "Minion Damage Support": [{}],
-    "Minion Damage": [{}],
-    "Awakened Minion Damage Support": [{}],
-    "Awakened Minion Damage": [{}],
-    "Meat Shield Support": [{}],
-    "Meat Shield": [{}],
-    "Predator Support": [{}],
-    "Predator": [{}],
-    "Minion Life Support": [{}],
-    "Minion Life": [{}],
-    "Feeding Frenzy Support": [{}],
-    "Feeding Frenzy": [{}],
-    "Minion Speed Support": [{}],
-    "Minion Speed": [{}],
-    "Momentum Support": [{}],
-    "Momentum": [{}],
-    "Eternal Blessing Support": [{}],
-    "Eternal Blessing": [{}],
-    "Multiple Totems Support": [{}],
-    "Multiple Totems": [{}],
-    "Multiple Traps Support": [{}],
-    "Multiple Traps": [{}],
-    "Spell Echo Support": [{}],
-    "Spell Echo": [{}],
-    "Multistrike Support": [{}],
-    "Multistrike": [{}],
-    "Awakened Multistrike Support": [{}],
-    "Awakened Multistrike": [{}],
-    "Innervate Support": [{}],
-    "Innervate": [{}],
-    "Overcharge Support": [{}],
-    "Overcharge": [{}],
-    "Volley Support": [{}],
-    "Volley": [{}],
-    "Vicious Projectiles Support": [{}],
-    "Vicious Projectiles": [{}],
-    "Physical to Lightning Support": [{}],
-    "Physical to Lightning": [{}],
-    "Pierce Support": [{}],
-    "Pierce": [{}],
-    "Point Blank Support": [{}],
-    "Point Blank": [{}],
-    "Power Charge On Critical Support": [{}],
-    "Power Charge On Critical": [{}],
-    "Prismatic Burst Support": [{}],
-    "Prismatic Burst": [{}],
-    "Pinpoint Support": [{}],
-    "Pinpoint": [{}],
-    "Pulverise Support": [{}],
-    "Pulverise": [{}],
-    "Nightblade Support": [{}],
-    "Nightblade": [{}],
-    "Rage Support": [{}],
-    "Rage": [{}],
-    "Ballista Totem Support": [{}],
-    "Ballista Totem": [{}],
-    "Swiftbrand Support": [{}],
-    "Swiftbrand": [{}],
-    "Swift Affliction Support": [{}],
-    "Swift Affliction": [{}],
-    "Less Duration Support": [{}],
-    "Less Duration": [{}],
-    "Inspiration Support": [{}],
-    "Inspiration": [{}],
-    "Blastchain Mine Support": [{}],
-    "Blastchain Mine": [{}],
-    "High-Impact Mine Support": [{}],
-    "High-Impact Mine": [{}],
-    "Returning Projectiles Support": [{}],
-    "Returning Projectiles": [{}],
-    "Ruthless Support": [{}],
-    "Ruthless": [{}],
-    "Sacrifice Support": [{}],
-    "Sacrifice": [{}],
-    "Sadism Support": [{}],
-    "Sadism": [{}],
-    "Close Combat Support": [{}],
-    "Close Combat": [{}],
-    "Slower Projectiles Support": [{}],
-    "Slower Projectiles": [{}],
-    "Spell Cascade Support": [{}],
-    "Spell Cascade": [{}],
-    "Awakened Spell Cascade Support": [{}],
-    "Awakened Spell Cascade": [{}],
-    "Awakened Spell Echo Support": [{}],
-    "Awakened Spell Echo": [{}],
-    "Spell Totem Support": [{}],
-    "Spell Totem": [{}],
-    "Spellblade Support": [{}],
-    "Spellblade": [{}],
-    "Ancestral Call Support": [{}],
-    "Ancestral Call": [{}],
-    "Split Projectiles Support": [],
-    "Split Projectiles": [],
-    "Infused Channelling Support": [{}],
-    "Infused Channelling": [{}],
-    "Stun Support": [{}],
-    "Stun": [{}],
-    "Elemental Army Support": [{}],
-    "Elemental Army": [{}],
-    "Summon Phantasm Support": [{}],
-    "Summon Phantasm": [{}],
-    "Awakened Swift Affliction Support": [{}],
-    "Awakened Swift Affliction": [{}],
-    "Trap Support": [{}],
-    "Trap": [{}],
-    "Trap and Mine Damage Support": [{}],
-    "Trap and Mine Damage": [{}],
-    "Advanced Traps Support": [{}],
-    "Advanced Traps": [{}],
-    "Trauma Support": [{}],
-    "Trauma": [{}],
-    "Trinity Support": [{}],
-    "Trinity": [{}],
-    "Lesser Reduced Mana Cost Support": [],
-    "Lesser Reduced Mana Cost": [],
-    "Awakened Unbound Ailments Support": [{}],
-    "Awakened Unbound Ailments": [{}],
-    "Awakened Unleash Support": [{}],
-    "Awakened Unleash": [{}],
-    "Urgent Orders Support": [{}],
-    "Urgent Orders": [{}],
-    "Awakened Vicious Projectiles Support": [{}],
-    "Awakened Vicious Projectiles": [{}],
-    "Void Manipulation Support": [{}],
-    "Void Manipulation": [{}],
-    "Awakened Void Manipulation Support": [{}],
-    "Awakened Void Manipulation": [{}],
-    "Volatility Support": [{}],
-    "Volatility": [{}],
-    "Elemental Damage with Attacks Support": [{}],
-    "Elemental Damage with Attacks": [{}],
-    "Awakened Elemental Damage with Attacks Support": [{}],
-    "Awakened Elemental Damage with Attacks": [{}],
-    "Sweep": [{}],
-    "Sweep Support": [{}],
-    "Tempest Shield": [{}],
-    "Tempest Shield Support": [{}],
-    "Temporal Chains": [{}],
-    "Temporal Chains Support": [{}],
-    "Temporal Rift": [{}],
-    "Temporal Rift Support": [{}],
-    "Spectral Shield Throw": [{}],
-    "Spectral Shield Throw Support": [{}],
-    "Spectral Throw": [{}],
-    "Spectral Throw Support": [{}],
-    "Tornado": [{}],
-    "Tornado Support": [{}],
-    "Tornado Shot": [{}],
-    "Tornado Shot Support": [{}],
-    "Ancestral Protector": [{}],
-    "Ancestral Protector Support": [{}],
-    "Touch of God": [],
-    "Touch of God Support": [],
-    "Vaal Absolution": [{}],
-    "Vaal Absolution Support": [{}],
-    "Vaal Ancestral Warchief": [{}],
-    "Vaal Ancestral Warchief Support": [{}],
-    "Vaal Animate Weapon": [{}],
-    "Vaal Animate Weapon Support": [{}],
-    "Vaal Arc": [{}],
-    "Vaal Arc Support": [{}],
-    "Vaal Arctic Armour": [{}],
-    "Vaal Arctic Armour Support": [{}],
-    "Gluttony of Elements": [],
-    "Gluttony of Elements Support": [],
-    "Vaal Blade Vortex": [{}],
-    "Vaal Blade Vortex Support": [{}],
-    "Vaal Blight": [{}],
-    "Vaal Blight Support": [{}],
-    "Vaal Breach": [{}],
-    "Vaal Breach Support": [{}],
-    "Vaal Burning Arrow": [{}],
-    "Vaal Burning Arrow Support": [{}],
-    "Vaal Caustic Arrow": [{}],
-    "Vaal Caustic Arrow Support": [{}],
-    "Vaal Blade Flurry": [{}],
-    "Vaal Blade Flurry Support": [{}],
-    "Vaal Clarity": [{}],
-    "Vaal Clarity Support": [{}],
-    "Vaal Cleave": [{}],
-    "Vaal Cleave Support": [{}],
-    "Vaal Cold Snap": [{}],
-    "Vaal Cold Snap Support": [{}],
-    "Vaal Cyclone": [{}],
-    "Vaal Cyclone Support": [{}],
-    "Vaal Detonate Dead": [{}],
-    "Vaal Detonate Dead Support": [{}],
-    "Vaal Discipline": [{}],
-    "Vaal Discipline Support": [{}],
-    "Vaal Domination": [{}],
-    "Vaal Domination Support": [{}],
-    "Vaal Double Strike": [{}],
-    "Vaal Double Strike Support": [{}],
-    "Vaal Earthquake": [{}],
-    "Vaal Earthquake Support": [{}],
-    "Vaal FireTrap": [],
-    "Vaal FireTrap Support": [],
-    "Vaal Fireball": [{}],
-    "Vaal Fireball Support": [{}],
-    "Vaal Firestorm": [{}],
-    "Vaal Firestorm Support": [{}],
-    "Vaal Flameblast": [{}],
-    "Vaal Flameblast Support": [{}],
-    "Vaal Flesh Offering": [],
-    "Vaal Flesh Offering Support": [],
-    "Vaal Flicker Strike": [{}],
-    "Vaal Flicker Strike Support": [{}],
-    "Vaal Glacial Hammer": [{}],
-    "Vaal Glacial Hammer Support": [{}],
-    "Vaal Grace": [{}],
-    "Vaal Grace Support": [{}],
-    "Vaal Ground Slam": [{}],
-    "Vaal Ground Slam Support": [{}],
-    "Vaal Haste": [{}],
-    "Vaal Haste Support": [{}],
-    "Vaal Heavy Strike": [],
-    "Vaal Heavy Strike Support": [],
-    "Vaal Ice Nova": [{}],
-    "Vaal Ice Nova Support": [{}],
-    "Vaal Ice Shot": [{}],
-    "Vaal Ice Shot Support": [{}],
-    "Vaal Immortal Call": [{}],
-    "Vaal Immortal Call Support": [{}],
-    "Vaal Lightning Arrow": [{}],
-    "Vaal Lightning Arrow Support": [{}],
-    "Vaal Lightning Strike": [{}],
-    "Vaal Lightning Strike Support": [{}],
-    "Vaal Lightning Trap": [{}],
-    "Vaal Lightning Trap Support": [{}],
-    "Vaal Lightning Warp": [{}],
-    "Vaal Lightning Warp Support": [{}],
-    "Vaal Molten Shell": [{}],
-    "Vaal Molten Shell Support": [{}],
-    "Vaal Molten Strike": [{}],
-    "Vaal Molten Strike Support": [{}],
-    "Vaal Power Siphon": [{}],
-    "Vaal Power Siphon Support": [{}],
-    "Vaal Rain of Arrows": [{}],
-    "Vaal Rain of Arrows Support": [{}],
-    "Vaal Reap": [{}],
-    "Vaal Reap Support": [{}],
-    "Vaal Reave": [{}],
-    "Vaal Reave Support": [{}],
-    "Vaal Rejuvenation Totem": [{}],
-    "Vaal Rejuvenation Totem Support": [{}],
-    "Vaal Righteous Fire": [{}],
-    "Vaal Righteous Fire Support": [{}],
-    "Vaal Smite": [{}],
-    "Vaal Smite Support": [{}],
-    "Vaal Venom Gyre": [{}],
-    "Vaal Venom Gyre Support": [{}],
-    "Vaal Soul Harvesting": [],
-    "Vaal Soul Harvesting Support": [],
-    "Vaal Spark": [{}],
-    "Vaal Spark Support": [{}],
-    "Vaal Split Arrow": [{}],
-    "Vaal Split Arrow Support": [{}],
-    "Vaal Storm Call": [{}],
-    "Vaal Storm Call Support": [{}],
-    "Vaal Summon Skeletons": [{}],
-    "Vaal Summon Skeletons Support": [{}],
-    "Vaal Sweep": [],
-    "Vaal Sweep Support": [],
-    "Vaal Spectral Throw": [{}],
-    "Vaal Spectral Throw Support": [{}],
-    "Vaal Volcanic Fissure": [{}],
-    "Vaal Volcanic Fissure Support": [{}],
-    "Vampiric Link": [{}],
-    "Vampiric Link Support": [{}],
-    "Vengeance": [{}],
-    "Vengeance Support": [{}],
-    "Impending Doom Support": [{}],
-    "Impending Doom": [{}],
-    "Vigilant Strike": [{}],
-    "Vigilant Strike Support": [{}],
-    "Viper Strike": [{}],
-    "Viper Strike Support": [{}],
-    "Vitality": [{}],
-    "Vitality Support": [{}],
-    "Volatile Dead": [{}],
-    "Volatile Dead Support": [{}],
-    "Volcanic Fissure": [{}],
-    "Volcanic Fissure Support": [{}],
-    "Voltaxic Burst": [{}],
-    "Voltaxic Burst Support": [{}],
-    "Vortex Mine": [],
-    "Vortex Mine Support": [],
-    "Vulnerability": [{}],
-    "Vulnerability Support": [{}],
-    "Wand Teleport": [],
-    "Wand Teleport Support": [],
-    "Warlord's Mark": [{}],
-    "Warlord's Mark Support": [{}],
-    "Hydrosphere": [{}],
-    "Hydrosphere Support": [{}],
-    "Whirling Blades": [{}],
-    "Whirling Blades Support": [{}],
-    "Wild Strike": [{}],
-    "Wild Strike Support": [{}],
-    "Wither": [{}],
-    "Wither Support": [{}],
-    "Wrath": [{}],
-    "Wrath Support": [{}]
-  },
   "qualityStats": {
-    "Absolution": {
-      "undefined": {
-        "stat": "Minions have {minion_cooldown_recovery_+%}% increased Cooldown Recovery Rate",
-        "stats": { "minion_cooldown_recovery_+%": 2000 }
-      }
-    },
-    "Infernal Cry": {
-      "undefined": {
-        "stat": "{base_cooldown_speed_+%}% increased Cooldown Recovery Rate",
-        "stats": { "base_cooldown_speed_+%": 2000 }
-      }
-    },
-    "Precision": {
-      "undefined": {
-        "stat": "{base_skill_area_of_effect_+%}% increased Area of Effect",
-        "stats": { "base_skill_area_of_effect_+%": 2000 }
-      }
-    },
-    "Alchemist's Mark": {
-      "undefined": {
-        "stat": "{mark_skills_curse_effect_+%}% increased Effect of Mark",
-        "stats": { "mark_skills_curse_effect_+%": 500 }
-      }
-    },
-    "Ambush": {
-      "undefined": {
-        "stat": "Exerted Attacks have {ambush_additional_critical_strike_chance_permyriad/divide_by_one_hundred}% to Critical Strike Chance",
-        "stats": { "ambush_additional_critical_strike_chance_permyriad": 50000 }
-      }
-    },
-    "Ancestral Warchief": {
-      "undefined": {
-        "stat": "{ancestor_totem_parent_activation_range_+%}% increased Activation range",
-        "stats": { "ancestor_totem_parent_activation_range_+%": 1500 }
-      }
-    },
+    "Absolution": {},
+    "Infernal Cry": {},
+    "Precision": {},
+    "Alchemist's Mark": {},
+    "Ambush": {},
+    "Ancestral Warchief": {},
     "Ancestral Blademaster": {},
-    "Ancestral Cry": {
-      "undefined": {
-        "stat": "{base_cooldown_speed_+%}% increased Cooldown Recovery Rate",
-        "stats": { "base_cooldown_speed_+%": 2000 }
-      }
-    },
-    "Fist of War Support": {
-      "undefined": {
-        "stat": "Supported Skills have {base_skill_area_of_effect_+%}% increased Area of Effect",
-        "stats": { "base_skill_area_of_effect_+%": 500 }
-      }
-    },
-    "Anger": {
-      "undefined": {
-        "stat": "{base_skill_area_of_effect_+%}% increased Area of Effect",
-        "stats": { "base_skill_area_of_effect_+%": 2000 }
-      }
-    },
-    "Animate Guardian": {
-      "undefined": {
-        "stat": "{minion_movement_speed_+%}% increased Minion Movement Speed",
-        "stats": { "minion_movement_speed_+%": 2000 }
-      }
-    },
-    "Animate Weapon": {
-      "undefined": {
-        "stat": "{number_of_animated_weapons_allowed} to Maximum Animated Weapons",
-        "stats": { "number_of_animated_weapons_allowed": 100 }
-      }
-    },
-    "Arc": {
-      "undefined": {
-        "stat": "Chains {number_of_chains} Times",
-        "stats": { "number_of_chains": 50 }
-      }
-    },
-    "Arcane Cloak": {
-      "undefined": {
-        "stat": "{skill_buff_effect_+%}% increased Buff Effect",
-        "stats": { "skill_buff_effect_+%": 1000 }
-      }
-    },
-    "Arctic Armour": {
-      "undefined": {
-        "stat": "{skill_effect_duration_+%}% increased Skill Effect Duration",
-        "stats": { "skill_effect_duration_+%": 1000 }
-      }
-    },
-    "Creeping Frost": {
-      "undefined": {
-        "stat": "{active_skill_base_radius_+/locations_to_metres} metres to radius",
-        "stats": { "active_skill_base_radius_+": 100 }
-      }
-    },
-    "Artillery Ballista": {
-      "undefined": {
-        "stat": "Fires {base_number_of_arrows} Arrows",
-        "stats": { "base_number_of_arrows": 50 }
-      }
-    },
-    "Assassin's Mark": {
-      "undefined": {
-        "stat": "Cursed Enemies have a {grant_attacker_power_charge_when_hit_%_chance}% chance to grant a Power Charge when Hit",
-        "stats": { "grant_attacker_power_charge_when_hit_%_chance": 250 }
-      }
-    },
+    "Ancestral Cry": {},
+    "Fist of War Support": {},
+    "Anger": {},
+    "Animate Guardian": {},
+    "Animate Weapon": {},
+    "Arc": {},
+    "Arcane Cloak": {},
+    "Arctic Armour": {},
+    "Creeping Frost": {},
+    "Artillery Ballista": {},
+    "Assassin's Mark": {},
     "Backstab": {},
-    "Ball Lightning": {
-      "undefined": {
-        "stat": "{base_cooldown_speed_+%}% increased Cooldown Recovery Rate",
-        "stats": { "base_cooldown_speed_+%": 1000 }
-      }
-    },
-    "Barrage": {
-      "undefined": {
-        "stat": "Fires {base_number_of_projectiles} Projectiles",
-        "stats": { "base_number_of_projectiles": 50 }
-      }
-    },
-    "Battlemage's Cry": {
-      "undefined": {
-        "stat": "{base_cooldown_speed_+%}% increased Cooldown Recovery Rate",
-        "stats": { "base_cooldown_speed_+%": 2000 }
-      }
-    },
-    "Bear Trap": {
-      "undefined": {
-        "stat": "Base duration is {base_skill_effect_duration/milliseconds_to_seconds_2dp} seconds",
-        "stats": { "base_skill_effect_duration": 50000 }
-      }
-    },
-    "Berserk": {
-      "undefined": {
-        "stat": "{base_cooldown_speed_+%}% increased Cooldown Recovery Rate",
-        "stats": { "base_cooldown_speed_+%": 500 }
-      }
-    },
-    "Void Sphere": {
-      "undefined": {
-        "stat": "{base_cooldown_speed_+%}% increased Cooldown Recovery Rate",
-        "stats": { "base_cooldown_speed_+%": 1000 }
-      }
-    },
-    "Blade Blast": {
-      "undefined": {
-        "stat": "Base radius is {active_skill_base_area_of_effect_radius/locations_to_metres} metres",
-        "stats": { "active_skill_base_area_of_effect_radius": 150 }
-      }
-    },
-    "Blade Trap": {
-      "undefined": {
-        "stat": "{active_skill_bleeding_damage_+%_final}% more Damage with Bleeding",
-        "stats": { "active_skill_bleeding_damage_+%_final": 1000 }
-      }
-    },
-    "Blade Vortex": {
-      "undefined": {
-        "stat": "{blade_vortex_hit_rate_+%_per_blade}% increased Hit Rate for each blade",
-        "stats": { "blade_vortex_hit_rate_+%_per_blade": 250 }
-      }
-    },
-    "Bladefall": {
-      "undefined": {
-        "stat": "{impale_debuff_effect_+%}% increased Impale Effect",
-        "stats": { "impale_debuff_effect_+%": 2000 }
-      }
-    },
-    "Bladestorm": {
-      "undefined": {
-        "stat": "{bladestorm_maximum_number_of_storms_allowed} to Maximum number of Bladestorms at a time",
-        "stats": { "bladestorm_maximum_number_of_storms_allowed": 50 }
-      }
-    },
-    "Blast Rain": {
-      "undefined": {
-        "stat": "Fires {base_number_of_arrows} Arrows",
-        "stats": { "base_number_of_arrows": 50 }
-      }
-    },
-    "Blight": {
-      "undefined": {
-        "stat": "Base secondary duration is {base_secondary_skill_effect_duration/milliseconds_to_seconds_2dp} seconds",
-        "stats": { "base_secondary_skill_effect_duration": 50000 }
-      }
-    },
-    "Blink Arrow": {
-      "undefined": {
-        "stat": "{base_cooldown_speed_+%}% increased Cooldown Recovery Rate",
-        "stats": { "base_cooldown_speed_+%": 2000 }
-      }
-    },
+    "Ball Lightning": {},
+    "Barrage": {},
+    "Battlemage's Cry": {},
+    "Bear Trap": {},
+    "Berserk": {},
+    "Void Sphere": {},
+    "Blade Blast": {},
+    "Blade Trap": {},
+    "Blade Vortex": {},
+    "Bladefall": {},
+    "Bladestorm": {},
+    "Blast Rain": {},
+    "Blight": {},
+    "Blink Arrow": {},
     "[UNUSED] Blitz": {},
     "Blood Offering": {},
-    "Blood Rage": {
-      "undefined": {
-        "stat": "Grants {attack_speed_+%_granted_from_skill}% increased Attack Speed",
-        "stats": { "attack_speed_+%_granted_from_skill": 250 }
-      }
-    },
-    "Flesh and Stone": {
-      "undefined": {
-        "stat": "{base_cooldown_speed_+%}% increased Cooldown Recovery Rate",
-        "stats": { "base_cooldown_speed_+%": 500 }
-      }
-    },
-    "Blood and Sand": {
-      "undefined": {
-        "stat": "{base_cooldown_speed_+%}% increased Cooldown Recovery Rate",
-        "stats": { "base_cooldown_speed_+%": 500 }
-      }
-    },
-    "Perforate": {
-      "undefined": {
-        "stat": "Creates {blood_spears_base_number_of_spears} Spikes",
-        "stats": { "blood_spears_base_number_of_spears": 50 }
-      }
-    },
+    "Blood Rage": {},
+    "Flesh and Stone": {},
+    "Blood and Sand": {},
+    "Perforate": {},
     "[UNUSED] Blood Whirl": {},
-    "Reap": {
-      "undefined": {
-        "stat": "Deals {blood_scythe_damage_+%_final_per_charge}% more Damage per Blood Charge",
-        "stats": { "blood_scythe_damage_+%_final_per_charge": 250 }
-      }
-    },
-    "War Banner": {
-      "undefined": {
-        "stat": "{aura_effect_+%}% increased effect of Aura",
-        "stats": { "aura_effect_+%": 500 }
-      }
-    },
+    "Reap": {},
+    "War Banner": {},
     "[UNUSED] Bone Armour": {},
-    "Unearth": {
-      "undefined": {
-        "stat": "Corpses Spawned have {maximum_life_+%_for_corpses_you_create}% increased Maximum Life",
-        "stats": { "maximum_life_+%_for_corpses_you_create": 1500 }
-      }
-    },
-    "Bone Offering": {
-      "undefined": {
-        "stat": "{offering_spells_effect_+%}% increased Effect of Offering",
-        "stats": { "offering_spells_effect_+%": 500 }
-      }
-    },
-    "Boneshatter": {
-      "undefined": {
-        "stat": "Pulse has {trauma_strike_shockwave_area_of_effect_+%_per_100ms_stun_duration_up_to_400%}% increased Area of Effect per 0.1s of Stun Duration, up to 400%",
-        "stats": {
-          "trauma_strike_shockwave_area_of_effect_+%_per_100ms_stun_duration_up_to_400%": 250
-        }
-      }
-    },
-    "Arcanist Brand": {
-      "undefined": {
-        "stat": "{sigil_repeat_frequency_+%}% increased Activation frequency",
-        "stats": { "sigil_repeat_frequency_+%": 500 }
-      }
-    },
-    "Burning Arrow": {
-      "undefined": {
-        "stat": "{active_skill_ignite_damage_+%_final}% more Damage with Ignite",
-        "stats": { "active_skill_ignite_damage_+%_final": 1000 }
-      }
-    },
+    "Unearth": {},
+    "Bone Offering": {},
+    "Boneshatter": {},
+    "Arcanist Brand": {},
+    "Burning Arrow": {},
     "[DNT] Call of the Wild": {},
     "Capture Monster": {},
     "Blinding Aura": {},
-    "Armageddon Brand": {
-      "undefined": {
-        "stat": "Base radius is {active_skill_base_area_of_effect_radius/locations_to_metres} metres",
-        "stats": { "active_skill_base_area_of_effect_radius": 100 }
-      }
-    },
-    "Chain Hook": {
-      "undefined": {
-        "stat": "Gain {chain_strike_gain_x_rage_if_attack_hits} Rage if this Skill Hits any Enemies",
-        "stats": { "chain_strike_gain_x_rage_if_attack_hits": 50 }
-      }
-    },
-    "Snipe": {
-      "undefined": {
-        "stat": "{snipe_max_stacks} Maximum Stages",
-        "stats": { "snipe_max_stacks": 50 }
-      }
-    },
+    "Armageddon Brand": {},
+    "Chain Hook": {},
+    "Snipe": {},
     "Death Aura": {},
-    "Blade Flurry": {
-      "undefined": {
-        "stat": "{charged_attack_damage_per_stack_+%_final}% more Damage with Hits and Ailments for each stage",
-        "stats": { "charged_attack_damage_per_stack_+%_final": 250 }
-      }
-    },
-    "Charged Dash": {
-      "undefined": {
-        "stat": "Illusion moves at an additional {charged_dash_skill_inherent_movement_speed_+%_final}% of your Movement Speed",
-        "stats": { "charged_dash_skill_inherent_movement_speed_+%_final": 1000 }
-      }
-    },
-    "Sigil of Power": {
-      "undefined": {
-        "stat": "Enemies in Area deal +{circle_of_power_enemy_damage_+%_final_at_max_stages/negate}% less damage while at maximum Stages",
-        "stats": { "circle_of_power_enemy_damage_+%_final_at_max_stages": -200 }
-      }
-    },
-    "Clarity": {
-      "undefined": {
-        "stat": "{base_skill_area_of_effect_+%}% increased Area of Effect",
-        "stats": { "base_skill_area_of_effect_+%": 2000 }
-      }
-    },
-    "Cleave": {
-      "undefined": {
-        "stat": "+0.1 metres to radius per Nearby Enemy, up to a maximum of +1 metre",
-        "stats": { "cleave_+1_base_radius_per_nearby_enemy_up_to_10": 1000 }
-      }
-    },
-    "Kinetic Blast": {
-      "undefined": {
-        "stat": "Creates {cluster_burst_spawn_amount} explosions",
-        "stats": { "cluster_burst_spawn_amount": 50 }
-      }
-    },
-    "Cobra Lash": {
-      "undefined": {
-        "stat": "Chains {number_of_chains} Times",
-        "stats": { "number_of_chains": 100 }
-      }
-    },
+    "Blade Flurry": {},
+    "Charged Dash": {},
+    "Sigil of Power": {},
+    "Clarity": {},
+    "Cleave": {},
+    "Kinetic Blast": {},
+    "Cobra Lash": {},
     "[UNUSED] Coiling Assault": {},
-    "Vaal Impurity of Ice": {
-      "undefined": {
-        "stat": "{base_skill_area_of_effect_+%}% increased Area of Effect",
-        "stats": { "base_skill_area_of_effect_+%": 2000 }
-      }
-    },
-    "Icicle Mine": {
-      "undefined": {
-        "stat": "{aura_effect_+%}% increased effect of Aura",
-        "stats": { "aura_effect_+%": 1000 }
-      }
-    },
-    "Purity of Ice": {
-      "undefined": {
-        "stat": "You and nearby allies gain {base_cold_damage_resistance_%}% additional Cold Resistance",
-        "stats": { "base_cold_damage_resistance_%": 500 }
-      }
-    },
-    "Cold Snap": {
-      "undefined": {
-        "stat": "{active_skill_chill_effect_+%_final}% more Effect of Chill",
-        "stats": { "active_skill_chill_effect_+%_final": 1000 }
-      }
-    },
+    "Vaal Impurity of Ice": {},
+    "Icicle Mine": {},
+    "Purity of Ice": {},
+    "Cold Snap": {},
     "...": {},
-    "Conductivity": {
-      "undefined": {
-        "stat": "Shocks on Cursed enemies have {base_self_shock_duration_-%/negate}% increased Duration",
-        "stats": { "base_self_shock_duration_-%": -1000 }
-      }
-    },
-    "Storm Brand": {
-      "undefined": { "stat": "", "stats": { "conduit_sigil_number_of_beam_targets": 50 } }
-    },
-    "Consecrated Path": {
-      "undefined": {
-        "stat": "Deals up to {groundslam_damage_to_close_targets_+%_final}% more Damage with Hits to closer targets",
-        "stats": { "groundslam_damage_to_close_targets_+%_final": 500 }
-      }
-    },
-    "Contagion": {
-      "undefined": {
-        "stat": "Base radius is {active_skill_base_area_of_effect_radius/locations_to_metres} metres",
-        "stats": { "active_skill_base_area_of_effect_radius": 100 }
-      }
-    },
-    "Conversion Trap": {
-      "undefined": {
-        "stat": "Base duration is {base_skill_effect_duration/milliseconds_to_seconds_2dp} seconds",
-        "stats": { "base_skill_effect_duration": 200000 }
-      }
-    },
-    "Convocation": {
-      "undefined": {
-        "stat": "{skill_effect_duration_+%}% increased Skill Effect Duration\n{base_cooldown_speed_+%}% increased Cooldown Recovery Rate",
-        "stats": { "base_cooldown_speed_+%": 1000, "skill_effect_duration_+%": 1000 }
-      }
-    },
-    "Cremation": {
-      "undefined": {
-        "stat": "Fires Projectiles {cremation_fires_projectiles_faster_+%_final}% faster",
-        "stats": { "cremation_fires_projectiles_faster_+%_final": 500 }
-      }
-    },
-    "Bodyswap": {
-      "undefined": {
-        "stat": "Deals {spell_base_fire_damage_%_maximum_life}% of your maximum Life, as base Fire Damage",
-        "stats": { "spell_base_fire_damage_%_maximum_life": 200 }
-      }
-    },
-    "Plague Bearer": {
-      "undefined": {
-        "stat": "Plague Bearer deals Damage based on an additional {corrosive_shroud_%_of_stored_poison_damage_to_deal_per_second}% of Plague Value",
-        "stats": { "corrosive_shroud_%_of_stored_poison_damage_to_deal_per_second": 200 }
-      }
-    },
-    "Corrupting Fever": {
-      "undefined": {
-        "stat": "{skill_effect_duration_+%}% increased Skill Effect Duration",
-        "stats": { "skill_effect_duration_+%": 1000 }
-      }
-    },
-    "Cyclone": {
-      "undefined": {
-        "stat": "{cyclone_movement_speed_+%_final}% more Movement Speed",
-        "stats": { "cyclone_movement_speed_+%_final": 500 }
-      }
-    },
+    "Conductivity": {},
+    "Storm Brand": {},
+    "Consecrated Path": {},
+    "Contagion": {},
+    "Conversion Trap": {},
+    "Convocation": {},
+    "Cremation": {},
+    "Bodyswap": {},
+    "Plague Bearer": {},
+    "Corrupting Fever": {},
+    "Cyclone": {},
     "Damage Infusion": {},
-    "Malevolence": {
-      "undefined": {
-        "stat": "{base_skill_area_of_effect_+%}% increased Area of Effect",
-        "stats": { "base_skill_area_of_effect_+%": 2000 }
-      }
-    },
-    "Dark Pact": {
-      "undefined": {
-        "stat": "Sacrifices {skeletal_chains_aoe_%_health_dealt_as_chaos_damage}% of Skeleton's Life to deal that much Chaos Damage",
-        "stats": { "skeletal_chains_aoe_%_health_dealt_as_chaos_damage": 100 }
-      }
-    },
-    "Bane": {
-      "undefined": {
-        "stat": "Applied Curses have {display_linked_curse_effect_+%}% increased Effect",
-        "stats": { "display_linked_curse_effect_+%": 1000 }
-      }
-    },
-    "Decoy Totem": {
-      "undefined": {
-        "stat": "{totem_life_+%_final}% more Totem Life",
-        "stats": { "totem_life_+%_final": 1000 }
-      }
-    },
-    "Defiance Banner": {
-      "undefined": {
-        "stat": "{aura_effect_+%}% increased effect of Aura",
-        "stats": { "aura_effect_+%": 500 }
-      }
-    },
-    "Desecrate": {
-      "undefined": {
-        "stat": "{base_cast_speed_+%}% increased Cast Speed",
-        "stats": { "base_cast_speed_+%": 1000 }
-      }
-    },
-    "Despair": {
-      "undefined": {
-        "stat": "{curse_effect_+%}% increased Effect of Curse",
-        "stats": { "curse_effect_+%": 500 }
-      }
-    },
-    "Destructive Link": {
-      "undefined": {
-        "stat": "Base duration is {base_skill_effect_duration/milliseconds_to_seconds_2dp} seconds",
-        "stats": { "base_skill_effect_duration": 75000 }
-      }
-    },
-    "Determination": {
-      "undefined": {
-        "stat": "{base_skill_area_of_effect_+%}% increased Area of Effect",
-        "stats": { "base_skill_area_of_effect_+%": 2000 }
-      }
-    },
-    "Detonate Dead": {
-      "undefined": {
-        "stat": "Base radius is {active_skill_base_area_of_effect_radius/locations_to_metres} metres",
-        "stats": { "active_skill_base_area_of_effect_radius": 100 }
-      }
-    },
-    "Devouring Totem": {
-      "undefined": {
-        "stat": "{totem_life_+%_final}% more Totem Life",
-        "stats": { "totem_life_+%_final": 1000 }
-      }
-    },
-    "Discharge": {
-      "undefined": {
-        "stat": "{discharge_chance_not_to_consume_charges_%}% chance to deal Damage without removing Charges",
-        "stats": { "discharge_chance_not_to_consume_charges_%": 500 }
-      }
-    },
-    "Discipline": {
-      "undefined": {
-        "stat": "{base_skill_area_of_effect_+%}% increased Area of Effect",
-        "stats": { "base_skill_area_of_effect_+%": 2000 }
-      }
-    },
+    "Malevolence": {},
+    "Dark Pact": {},
+    "Bane": {},
+    "Decoy Totem": {},
+    "Defiance Banner": {},
+    "Desecrate": {},
+    "Despair": {},
+    "Destructive Link": {},
+    "Determination": {},
+    "Detonate Dead": {},
+    "Devouring Totem": {},
+    "Discharge": {},
+    "Discipline": {},
     "Discorectangle Slam": {},
-    "Crackling Lance": {
-      "undefined": {
-        "stat": "{shock_maximum_magnitude_+}% to Maximum Effect of Shock",
-        "stats": { "shock_maximum_magnitude_+": 500 }
-      }
-    },
-    "Divine Ire": {
-      "undefined": {
-        "stat": "{divine_tempest_beam_width_+%}% increased beam width",
-        "stats": { "divine_tempest_beam_width_+%": 1000 }
-      }
-    },
-    "Dominating Blow": {
-      "undefined": {
-        "stat": "Minions have {minion_cooldown_recovery_+%}% increased Cooldown Recovery Rate",
-        "stats": { "minion_cooldown_recovery_+%": 2000 }
-      }
-    },
-    "Hexblast": {
-      "undefined": {
-        "stat": "Base radius is {active_skill_base_area_of_effect_radius/locations_to_metres} metres",
-        "stats": { "active_skill_base_area_of_effect_radius": 100 }
-      }
-    },
-    "Lacerate": {
-      "undefined": {
-        "stat": "{active_skill_bleeding_damage_+%_final}% more Damage with Bleeding",
-        "stats": { "active_skill_bleeding_damage_+%_final": 2000 }
-      }
-    },
-    "Double Strike": {
-      "undefined": {
-        "stat": "{double_strike_attack_speed_+%_final_per_stage}% more Attack Speed for each Stage",
-        "stats": { "double_strike_attack_speed_+%_final_per_stage": 200 }
-      }
-    },
-    "Dual Strike": {
-      "undefined": {
-        "stat": "{dual_strike_damage_+%_final_against_enemies_on_full_life}% more Damage with Hits and Ailments against Enemies that are on Full Life",
-        "stats": { "dual_strike_damage_+%_final_against_enemies_on_full_life": 1500 }
-      }
-    },
-    "Earthquake": {
-      "undefined": {
-        "stat": "Aftershock deals {quake_slam_fully_charged_explosion_damage_+%_final}% more Damage with Hits and Ailments",
-        "stats": { "quake_slam_fully_charged_explosion_damage_+%_final": 1500 }
-      }
-    },
-    "Elemental Hit": {
-      "undefined": {
-        "stat": "{elemental_hit_damage_+%_final_per_enemy_elemental_ailment}% more Damage per Elemental Ailment on the Enemy",
-        "stats": { "elemental_hit_damage_+%_final_per_enemy_elemental_ailment": 250 }
-      }
-    },
+    "Crackling Lance": {},
+    "Divine Ire": {},
+    "Dominating Blow": {},
+    "Hexblast": {},
+    "Lacerate": {},
+    "Double Strike": {},
+    "Dual Strike": {},
+    "Earthquake": {},
+    "Elemental Hit": {},
     "Elemental Projectiles": {},
-    "Elemental Weakness": {
-      "undefined": {
-        "stat": "{self_elemental_status_duration_-%/negate}% increased Duration of Elemental Ailments on Cursed enemies",
-        "stats": { "self_elemental_status_duration_-%": -1000 }
-      }
-    },
-    "Blazing Salvo": {
-      "undefined": {
-        "stat": "{active_skill_base_radius_+/locations_to_metres} metres to radius",
-        "stats": { "active_skill_base_radius_+": 100 }
-      }
-    },
-    "Endurance Charge on Melee Stun Support": {
-      "undefined": {
-        "stat": "Supported Skills have {base_stun_duration_+%}% increased Stun Duration on Enemies",
-        "stats": { "base_stun_duration_+%": 1000 }
-      }
-    },
-    "Tectonic Slam": {
-      "undefined": {
-        "stat": "{tectonic_slam_side_crack_additional_chance_%}% Fissure branching chance",
-        "stats": { "tectonic_slam_side_crack_additional_chance_%": 1500 }
-      }
-    },
-    "Enduring Cry": {
-      "undefined": {
-        "stat": "{base_cooldown_speed_+%}% increased Cooldown Recovery Rate",
-        "stats": { "base_cooldown_speed_+%": 2000 }
-      }
-    },
-    "Energy Blade": {
-      "undefined": {
-        "stat": "Buff grants {storm_blade_energy_shield_+%_final}% more Maximum Energy Shield",
-        "stats": { "storm_blade_energy_shield_+%_final": 250 }
-      }
-    },
-    "Enfeeble": {
-      "undefined": {
-        "stat": "{base_curse_duration_+%}% increased Curse Duration",
-        "stats": { "base_curse_duration_+%": 1000 }
-      }
-    },
-    "Ensnaring Arrow": {
-      "undefined": {
-        "stat": "{skill_buff_effect_+%}% increased Buff Effect",
-        "stats": { "skill_buff_effect_+%": 1000 }
-      }
-    },
+    "Elemental Weakness": {},
+    "Blazing Salvo": {},
+    "Endurance Charge on Melee Stun Support": {},
+    "Tectonic Slam": {},
+    "Enduring Cry": {},
+    "Energy Blade": {},
+    "Enfeeble": {},
+    "Ensnaring Arrow": {},
     "Envy": {},
-    "Essence Drain": {
-      "undefined": {
-        "stat": "Regenerate {siphon_life_leech_from_damage_permyriad/divide_by_one_hundred_2dp}% of Debuff Damage as Life",
-        "stats": { "siphon_life_leech_from_damage_permyriad": 2500 }
-      }
-    },
-    "Ethereal Knives": {
-      "undefined": {
-        "stat": "Fires {base_number_of_projectiles} Projectiles",
-        "stats": { "base_number_of_projectiles": 150 }
-      }
-    },
-    "Incinerate": {
-      "undefined": {
-        "stat": "{expanding_fire_cone_maximum_number_of_stages} to maximum Stages",
-        "stats": { "expanding_fire_cone_maximum_number_of_stages": 100 }
-      }
-    },
-    "Explosive Arrow": {
-      "undefined": {
-        "stat": "{explosive_arrow_stack_limit} Maximum Explosive Arrows stuck in an Enemy",
-        "stats": { "explosive_arrow_stack_limit": 100 }
-      }
-    },
-    "Explosive Concoction": {
-      "undefined": {
-        "stat": "{flask_charges_used_+%/negate}% reduced Flask Charges used",
-        "stats": { "flask_charges_used_+%": -750 }
-      }
-    },
-    "Exsanguinate": {
-      "undefined": {
-        "stat": "Base duration is {base_skill_effect_duration/milliseconds_to_seconds_2dp} seconds",
-        "stats": { "base_skill_effect_duration": 75000 }
-      }
-    },
-    "Eye of Winter": {
-      "undefined": {
-        "stat": "Projectiles gain up to {freezing_pulse_damage_+%_final_at_long_range}% more Damage by the time they dissipate",
-        "stats": { "freezing_pulse_damage_+%_final_at_long_range": 750 }
-      }
-    },
-    "Scorching Ray": {
-      "undefined": {
-        "stat": "Additional Debuff stages add {fire_beam_additional_stack_damage_+%_final}% of Damage",
-        "stats": { "fire_beam_additional_stack_damage_+%_final": 500 }
-      }
-    },
-    "Vaal Impurity of Fire": {
-      "undefined": {
-        "stat": "{base_skill_area_of_effect_+%}% increased Area of Effect",
-        "stats": { "base_skill_area_of_effect_+%": 2000 }
-      }
-    },
-    "Purity of Fire": {
-      "undefined": {
-        "stat": "You and nearby allies gain {base_fire_damage_resistance_%}% additional Fire Resistance",
-        "stats": { "base_fire_damage_resistance_%": 500 }
-      }
-    },
-    "Fire Trap": {
-      "undefined": {
-        "stat": "{trap_trigger_radius_+%}% increased Trap Trigger Area of Effect",
-        "stats": { "trap_trigger_radius_+%": 4000 }
-      }
-    },
+    "Essence Drain": {},
+    "Ethereal Knives": {},
+    "Incinerate": {},
+    "Explosive Arrow": {},
+    "Explosive Concoction": {},
+    "Exsanguinate": {},
+    "Eye of Winter": {},
+    "Scorching Ray": {},
+    "Vaal Impurity of Fire": {},
+    "Purity of Fire": {},
+    "Fire Trap": {},
     "Fire Weapon": {},
-    "Fireball": {
-      "undefined": {
-        "stat": "Base radius is {active_skill_base_area_of_effect_radius/locations_to_metres} metres",
-        "stats": { "active_skill_base_area_of_effect_radius": 100 }
-      }
-    },
-    "Firestorm": {
-      "undefined": {
-        "stat": "Maximum {firestorm_max_number_of_storms} Firestorms at a time",
-        "stats": { "firestorm_max_number_of_storms": 100 }
-      }
-    },
-    "Flame Wall": {
-      "undefined": {
-        "stat": "{number_of_allowed_firewalls} Maximum Flame Walls at a time",
-        "stats": { "number_of_allowed_firewalls": 50 }
-      }
-    },
-    "Flame Dash": {
-      "undefined": {
-        "stat": "{skill_maximum_travel_distance_+%}% increased maximum travel distance",
-        "stats": { "skill_maximum_travel_distance_+%": 2000 }
-      }
-    },
-    "Flame Link": {
-      "undefined": {
-        "stat": "Base duration is {base_skill_effect_duration/milliseconds_to_seconds_2dp} seconds",
-        "stats": { "base_skill_effect_duration": 75000 }
-      }
-    },
-    "Holy Flame Totem": {
-      "undefined": {
-        "stat": "{base_projectile_speed_+%}% increased Projectile Speed",
-        "stats": { "base_projectile_speed_+%": 2000 }
-      }
-    },
-    "Flame Surge": {
-      "undefined": {
-        "stat": "{flame_whip_damage_+%_final_vs_burning_enemies}% more Damage with Hits against Burning enemies",
-        "stats": { "flame_whip_damage_+%_final_vs_burning_enemies": 1000 }
-      }
-    },
-    "Flameblast": {
-      "undefined": {
-        "stat": "{flameblast_maximum_stages} to maximum Stages",
-        "stats": { "flameblast_maximum_stages": 50 }
-      }
-    },
-    "Flamethrower Trap": {
-      "undefined": {
-        "stat": "{base_cooldown_speed_+%}% increased Cooldown Recovery Rate",
-        "stats": { "base_cooldown_speed_+%": 1000 }
-      }
-    },
-    "Flammability": {
-      "undefined": {
-        "stat": "Ignite on Cursed enemies has {base_self_ignite_duration_-%/negate}% increased Duration",
-        "stats": { "base_self_ignite_duration_-%": -1000 }
-      }
-    },
-    "Flesh Offering": {
-      "undefined": {
-        "stat": "{offering_spells_effect_+%}% increased Effect of Offering",
-        "stats": { "offering_spells_effect_+%": 500 }
-      }
-    },
-    "Flicker Strike": {
-      "undefined": {
-        "stat": "{add_frenzy_charge_on_skill_hit_%}% chance to gain a Frenzy Charge on Hit",
-        "stats": { "add_frenzy_charge_on_skill_hit_%": 500 }
-      }
-    },
-    "Forbidden Rite": {
-      "undefined": {
-        "stat": "Fires extra Projectiles at up to {soulfeast_number_of_secondary_projectiles} surrounding Enemies",
-        "stats": { "soulfeast_number_of_secondary_projectiles": 100 }
-      }
-    },
-    "Freezing Pulse": {
-      "undefined": {
-        "stat": "{base_projectile_speed_+%}% increased Projectile Speed",
-        "stats": { "base_projectile_speed_+%": 2000 }
-      }
-    },
-    "Frenzy": {
-      "undefined": {
-        "stat": "{frenzy_skill_attack_damage_+%_final_per_frenzy_charge}% more Attack Damage per Frenzy Charge\n{frenzy_skill_attack_speed_+%_final_per_frenzy_charge}% more Attack Speed per Frenzy Charge",
-        "stats": {
-          "frenzy_skill_attack_damage_+%_final_per_frenzy_charge": 100,
-          "frenzy_skill_attack_speed_+%_final_per_frenzy_charge": 100
-        }
-      }
-    },
-    "Frost Blades": {
-      "undefined": {
-        "stat": "Fires {base_number_of_projectiles} Projectiles",
-        "stats": { "base_number_of_projectiles": 100 }
-      }
-    },
-    "Frostbolt": {
-      "undefined": {
-        "stat": "{cold_damage_+%}% increased Cold Damage",
-        "stats": { "cold_damage_+%": 1000 }
-      }
-    },
-    "Vortex": {
-      "undefined": {
-        "stat": "{active_skill_base_radius_+/locations_to_metres} metres to radius",
-        "stats": { "active_skill_base_radius_+": 100 }
-      }
-    },
-    "Frost Bomb": {
-      "undefined": {
-        "stat": "Base duration is {base_skill_effect_duration/milliseconds_to_seconds_2dp} seconds",
-        "stats": { "base_skill_effect_duration": 25000 }
-      }
-    },
-    "Winter Orb": {
-      "undefined": {
-        "stat": "{frost_fury_max_number_of_stages} Maximum Stages",
-        "stats": { "frost_fury_max_number_of_stages": 100 }
-      }
-    },
-    "Frost Shield": {
-      "undefined": {
-        "stat": "{cold_ailment_effect_+%}% increased Effect of Cold Ailments",
-        "stats": { "cold_ailment_effect_+%": 1000 }
-      }
-    },
-    "Frost Wall": {
-      "undefined": {
-        "stat": "{base_cooldown_speed_+%}% increased Cooldown Recovery Rate",
-        "stats": { "base_cooldown_speed_+%": 2000 }
-      }
-    },
-    "Frostbite": {
-      "undefined": {
-        "stat": "Freezes on Cursed enemies have {base_self_freeze_duration_-%/negate}% increased Duration",
-        "stats": { "base_self_freeze_duration_-%": -1000 }
-      }
-    },
-    "Frozen Legion": {
-      "undefined": {
-        "stat": "{base_cooldown_speed_+%}% increased Cooldown Recovery Rate",
-        "stats": { "base_cooldown_speed_+%": 1000 }
-      }
-    },
-    "Galvanic Field": {
-      "undefined": {
-        "stat": "Aura grants {base_chance_to_shock_%_from_skill}% chance to Shock",
-        "stats": { "base_chance_to_shock_%_from_skill": 1000 }
-      }
-    },
-    "Detonate Mines": {
-      "undefined": {
-        "stat": "Mines have {mine_detonation_speed_+%}% increased Detonation Speed",
-        "stats": { "mine_detonation_speed_+%": 1000 }
-      }
-    },
-    "General's Cry": {
-      "undefined": {
-        "stat": "Maximum {maximum_number_of_spiritual_cry_warriors} Summoned Mirage Warriors",
-        "stats": { "maximum_number_of_spiritual_cry_warriors": 50 }
-      }
-    },
-    "Glacial Cascade": {
-      "undefined": {
-        "stat": "Final Burst Deals +{glacial_cascade_final_spike_damage_+%_final}% more Damage",
-        "stats": { "glacial_cascade_final_spike_damage_+%_final": 2500 }
-      }
-    },
-    "Glacial Hammer": {
-      "undefined": {
-        "stat": "Every third successive strike Freezes enemies as though dealing {glacial_hammer_third_hit_freeze_as_though_dealt_damage_+%}% more Damage",
-        "stats": { "glacial_hammer_third_hit_freeze_as_though_dealt_damage_+%": 5000 }
-      }
-    },
-    "Grace": {
-      "undefined": {
-        "stat": "{base_skill_area_of_effect_+%}% increased Area of Effect",
-        "stats": { "base_skill_area_of_effect_+%": 2000 }
-      }
-    },
-    "Ground Slam": {
-      "undefined": {
-        "stat": "Deals up to {groundslam_damage_to_close_targets_+%_final}% more Damage with Hits to closer targets",
-        "stats": { "groundslam_damage_to_close_targets_+%_final": 1000 }
-      }
-    },
-    "Haste": {
-      "undefined": {
-        "stat": "{base_skill_area_of_effect_+%}% increased Area of Effect",
-        "stats": { "base_skill_area_of_effect_+%": 2000 }
-      }
-    },
-    "Hatred": {
-      "undefined": {
-        "stat": "{base_skill_area_of_effect_+%}% increased Area of Effect",
-        "stats": { "base_skill_area_of_effect_+%": 2000 }
-      }
-    },
-    "Heavy Strike": {
-      "undefined": {
-        "stat": "{chance_to_deal_double_damage_%}% chance to deal Double Damage",
-        "stats": { "chance_to_deal_double_damage_%": 1000 }
-      }
-    },
-    "Herald of Agony": {
-      "undefined": {
-        "stat": "{maximum_virulence_stacks} to Maximum Virulence",
-        "stats": { "maximum_virulence_stacks": 250 }
-      }
-    },
-    "Herald of Ash": {
-      "undefined": {
-        "stat": "Base burning damage is an additional {herald_of_ash_burning_%_overkill_damage_per_minute/per_minute_to_per_second}% of Overkill Damage",
-        "stats": { "herald_of_ash_burning_%_overkill_damage_per_minute": 15000 }
-      }
-    },
-    "Herald of Ice": {
-      "undefined": {
-        "stat": "{active_skill_base_radius_+/locations_to_metres} metres to radius",
-        "stats": { "active_skill_base_radius_+": 100 }
-      }
-    },
-    "Herald of Purity": {
-      "undefined": {
-        "stat": "Minions have {minion_cooldown_recovery_+%}% increased Cooldown Recovery Rate",
-        "stats": { "minion_cooldown_recovery_+%": 2000 }
-      }
-    },
-    "Herald of Thunder": {
-      "undefined": {
-        "stat": "Storms Hit Enemies with {herald_of_thunder_bolt_frequency_+%}% increased Frequency",
-        "stats": { "herald_of_thunder_bolt_frequency_+%": 1000 }
-      }
-    },
-    "Ice Crash": {
-      "undefined": {
-        "stat": "Gain {physical_damage_%_to_add_as_cold}% of Physical Damage as Extra Cold Damage",
-        "stats": { "physical_damage_%_to_add_as_cold": 750 }
-      }
-    },
-    "Frostblink": {
-      "undefined": {
-        "stat": "{skill_maximum_travel_distance_+%}% increased maximum travel distance",
-        "stats": { "skill_maximum_travel_distance_+%": 500 }
-      }
-    },
-    "Ice Nova": {
-      "undefined": {
-        "stat": "Base radius is {active_skill_base_area_of_effect_radius/locations_to_metres} metres",
-        "stats": { "active_skill_base_area_of_effect_radius": 150 }
-      }
-    },
-    "Ice Shot": {
-      "undefined": {
-        "stat": "{skill_area_angle_+%}% increased Area of Effect angle",
-        "stats": { "skill_area_angle_+%": 3000 }
-      }
-    },
-    "Siphoning Trap": {
-      "undefined": { "stat": "", "stats": { "ice_siphon_trap_max_beam_targets": 200 } }
-    },
-    "Ice Spear": {
-      "undefined": {
-        "stat": "Second form has {ice_spear_second_form_critical_strike_multiplier_+}% to Critical Strike Multiplier",
-        "stats": { "ice_spear_second_form_critical_strike_multiplier_+": 2000 }
-      }
-    },
-    "Ice Trap": {
-      "undefined": {
-        "stat": "{trap_%_chance_to_trigger_twice}% Chance for Trap to Trigger an additional time",
-        "stats": { "trap_%_chance_to_trigger_twice": 750 }
-      }
-    },
+    "Fireball": {},
+    "Firestorm": {},
+    "Flame Wall": {},
+    "Flame Dash": {},
+    "Flame Link": {},
+    "Holy Flame Totem": {},
+    "Flame Surge": {},
+    "Flameblast": {},
+    "Flamethrower Trap": {},
+    "Flammability": {},
+    "Flesh Offering": {},
+    "Flicker Strike": {},
+    "Forbidden Rite": {},
+    "Freezing Pulse": {},
+    "Frenzy": {},
+    "Frost Blades": {},
+    "Frostbolt": {},
+    "Vortex": {},
+    "Frost Bomb": {},
+    "Winter Orb": {},
+    "Frost Shield": {},
+    "Frost Wall": {},
+    "Frostbite": {},
+    "Frozen Legion": {},
+    "Galvanic Field": {},
+    "Detonate Mines": {},
+    "General's Cry": {},
+    "Glacial Cascade": {},
+    "Glacial Hammer": {},
+    "Grace": {},
+    "Ground Slam": {},
+    "Haste": {},
+    "Hatred": {},
+    "Heavy Strike": {},
+    "Herald of Agony": {},
+    "Herald of Ash": {},
+    "Herald of Ice": {},
+    "Herald of Purity": {},
+    "Herald of Thunder": {},
+    "Ice Crash": {},
+    "Frostblink": {},
+    "Ice Nova": {},
+    "Ice Shot": {},
+    "Siphoning Trap": {},
+    "Ice Spear": {},
+    "Ice Trap": {},
     "Icefire": {},
     "Ignite": {},
-    "Wintertide Brand": {
-      "undefined": {
-        "stat": "Debuff deals {immolation_brand_burn_damage_+%_final_per_stage}% more Damage per Stage",
-        "stats": { "immolation_brand_burn_damage_+%_final_per_stage": 250 }
-      }
-    },
-    "Immortal Call": {
-      "undefined": {
-        "stat": "{base_cooldown_speed_+%}% increased Cooldown Recovery Rate",
-        "stats": { "base_cooldown_speed_+%": 1000 }
-      }
-    },
-    "Splitting Steel": {
-      "undefined": {
-        "stat": "{impale_debuff_effect_+%}% increased Impale Effect",
-        "stats": { "impale_debuff_effect_+%": 2000 }
-      }
-    },
-    "Infernal Blow": {
-      "undefined": {
-        "stat": "Debuff deals {infernal_blow_explosion_damage_%_of_total_per_stack}% of Damage per Charge",
-        "stats": { "infernal_blow_explosion_damage_%_of_total_per_stack": 500 }
-      }
-    },
+    "Wintertide Brand": {},
+    "Immortal Call": {},
+    "Splitting Steel": {},
+    "Infernal Blow": {},
     "Wildfire": {},
     "Infernal Sweep": {},
-    "Intimidating Cry": {
-      "undefined": {
-        "stat": "{base_cooldown_speed_+%}% increased Cooldown Recovery Rate",
-        "stats": { "base_cooldown_speed_+%": 2000 }
-      }
-    },
-    "Intuitive Link": {
-      "undefined": {
-        "stat": "Base duration is {base_skill_effect_duration/milliseconds_to_seconds_2dp} seconds",
-        "stats": { "base_skill_effect_duration": 75000 }
-      }
-    },
-    "Kinetic Bolt": {
-      "undefined": {
-        "stat": "Increases and Reductions to Spell Damage also apply to Attack Damage from this Skill at {active_skill_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value}% of their value",
-        "stats": {
-          "active_skill_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value": 2500
-        }
-      }
-    },
-    "Lancing Steel": {
-      "undefined": {
-        "stat": "Fires {base_number_of_projectiles} Projectiles",
-        "stats": { "base_number_of_projectiles": 50 }
-      }
-    },
-    "Leap Slam": {
-      "undefined": {
-        "stat": "{stun_duration_+%_vs_enemies_that_are_on_full_life}% increased Stun Duration against Enemies that are on Full Life",
-        "stats": { "stun_duration_+%_vs_enemies_that_are_on_full_life": 2000 }
-      }
-    },
-    "Lightning Arrow": {
-      "undefined": {
-        "stat": "Hits up to {lightning_arrow_maximum_number_of_extra_targets} additional enemies near the target",
-        "stats": { "lightning_arrow_maximum_number_of_extra_targets": 100 }
-      }
-    },
+    "Intimidating Cry": {},
+    "Intuitive Link": {},
+    "Kinetic Bolt": {},
+    "Lancing Steel": {},
+    "Leap Slam": {},
+    "Lightning Arrow": {},
     "Lightning Channel": {},
     "Lightning Circle": {},
-    "Lightning Conduit": {
-      "undefined": {
-        "stat": "{energy_release_damage_+%_final_per_5%_increased_damage_taken_from_shock_on_target}% more Damage with Hits per 5% Shock Effect on Enemy",
-        "stats": {
-          "energy_release_damage_+%_final_per_5%_increased_damage_taken_from_shock_on_target": 200
-        }
-      }
-    },
-    "Stormblast Mine": {
-      "undefined": {
-        "stat": "Each mine applies {lightning_explosion_mine_aura_damage_taken_+%}% increased Damage Taken to Enemies near it, up\nto a maximum of 150%",
-        "stats": { "lightning_explosion_mine_aura_damage_taken_+%": 50 }
-      }
-    },
-    "Vaal Impurity of Lightning": {
-      "undefined": {
-        "stat": "{base_skill_area_of_effect_+%}% increased Area of Effect",
-        "stats": { "base_skill_area_of_effect_+%": 2000 }
-      }
-    },
-    "Purity of Lightning": {
-      "undefined": {
-        "stat": "You and nearby allies gain {base_lightning_damage_resistance_%}% additional Lightning Resistance",
-        "stats": { "base_lightning_damage_resistance_%": 500 }
-      }
-    },
-    "Lightning Strike": {
-      "undefined": {
-        "stat": "Fires {base_number_of_projectiles} Projectiles",
-        "stats": { "base_number_of_projectiles": 50 }
-      }
-    },
-    "Lightning Tendrils": {
-      "undefined": {
-        "stat": "Base radius is {active_skill_base_area_of_effect_radius/locations_to_metres} metres",
-        "stats": { "active_skill_base_area_of_effect_radius": 100 }
-      }
-    },
-    "Lightning Spire Trap": {
-      "undefined": {
-        "stat": "Strikes {lightning_tower_trap_number_of_beams} Areas",
-        "stats": { "lightning_tower_trap_number_of_beams": 100 }
-      }
-    },
-    "Lightning Trap": {
-      "undefined": {
-        "stat": "{trap_%_chance_to_trigger_twice}% Chance for Trap to Trigger an additional time",
-        "stats": { "trap_%_chance_to_trigger_twice": 750 }
-      }
-    },
-    "Lightning Warp": {
-      "undefined": {
-        "stat": "{base_cast_speed_+%}% increased Cast Speed",
-        "stats": { "base_cast_speed_+%": 1000 }
-      }
-    },
-    "Rolling Magma": {
-      "undefined": {
-        "stat": "Chains {number_of_chains} Times",
-        "stats": { "number_of_chains": 100 }
-      }
-    },
-    "Penance Brand": {
-      "undefined": { "stat": "", "stats": { "sigil_attached_target_hit_damage_+%_final": 1000 } }
-    },
-    "Pestilent Strike": {
-      "undefined": {
-        "stat": "{active_skill_poison_duration_+%_final}% more Poison Duration",
-        "stats": { "active_skill_poison_duration_+%_final": 1000 }
-      }
-    },
-    "Manabond": {
-      "undefined": {
-        "stat": "Deals base Lightning Damage equal to {mana_void_gain_%_missing_unreserved_mana_as_base_lightning_damage}% of missing Unreserved Mana",
-        "stats": { "mana_void_gain_%_missing_unreserved_mana_as_base_lightning_damage": 500 }
-      }
-    },
-    "Mirror Arrow": {
-      "undefined": {
-        "stat": "{base_cooldown_speed_+%}% increased Cooldown Recovery Rate",
-        "stats": { "base_cooldown_speed_+%": 2000 }
-      }
-    },
-    "Molten Shell": {
-      "undefined": {
-        "stat": "{skill_effect_duration_+%}% increased Skill Effect Duration",
-        "stats": { "skill_effect_duration_+%": 1000 }
-      }
-    },
-    "Molten Strike": {
-      "undefined": {
-        "stat": "Projectiles deal {active_skill_hit_ailment_damage_with_projectile_+%_final}% more Damage with Hits and Ailments",
-        "stats": { "active_skill_hit_ailment_damage_with_projectile_+%_final": 500 }
-      }
-    },
-    "Pyroclast Mine": {
-      "undefined": {
-        "stat": "Fires {base_number_of_projectiles} Projectiles",
-        "stats": { "base_number_of_projectiles": 50 }
-      }
-    },
+    "Lightning Conduit": {},
+    "Stormblast Mine": {},
+    "Vaal Impurity of Lightning": {},
+    "Purity of Lightning": {},
+    "Lightning Strike": {},
+    "Lightning Tendrils": {},
+    "Lightning Spire Trap": {},
+    "Lightning Trap": {},
+    "Lightning Warp": {},
+    "Rolling Magma": {},
+    "Penance Brand": {},
+    "Pestilent Strike": {},
+    "Manabond": {},
+    "Mirror Arrow": {},
+    "Molten Shell": {},
+    "Molten Strike": {},
+    "Pyroclast Mine": {},
     "New Blade Vortex": {},
-    "Phase Run": {
-      "undefined": {
-        "stat": "{base_movement_velocity_+%}% increased Movement Speed",
-        "stats": { "base_movement_velocity_+%": 500 }
-      }
-    },
+    "Phase Run": {},
     "NewPunishment": {},
-    "Shield Charge": {
-      "undefined": {
-        "stat": "{base_movement_velocity_+%}% increased Movement Speed",
-        "stats": { "base_movement_velocity_+%": 1000 }
-      }
-    },
+    "Shield Charge": {},
     "New Shock Nova": {},
-    "Sunder": {
-      "undefined": {
-        "stat": "Wave gains {sunder_wave_radius_+_per_step/locations_to_metres} metres to radius with each Area in the Sequence",
-        "stats": { "sunder_wave_radius_+_per_step": 50 }
-      }
-    },
+    "Sunder": {},
     "Flammable Shot": {},
-    "Orb of Storms": {
-      "undefined": {
-        "stat": "Projectiles Split towards {projectile_number_to_split} targets",
-        "stats": { "projectile_number_to_split": 100 }
-      }
-    },
-    "Petrified Blood": {
-      "undefined": {
-        "stat": "{petrified_blood_%_prevented_life_loss_to_lose_over_time}% of Life loss prevented is lost over 4 seconds",
-        "stats": { "petrified_blood_%_prevented_life_loss_to_lose_over_time": -250 }
-      }
-    },
-    "Seismic Trap": {
-      "undefined": {
-        "stat": "Releases {phys_cascade_trap_number_of_cascades} waves",
-        "stats": { "phys_cascade_trap_number_of_cascades": 50 }
-      }
-    },
-    "Pride": {
-      "undefined": {
-        "stat": "{base_skill_area_of_effect_+%}% increased Area of Effect",
-        "stats": { "base_skill_area_of_effect_+%": 2000 }
-      }
-    },
+    "Orb of Storms": {},
+    "Petrified Blood": {},
+    "Seismic Trap": {},
+    "Pride": {},
     "Playtest Attack": {},
     "Playtest Slam": {},
     "Playtest Spell": {},
-    "Poacher's Mark": {
-      "undefined": {
-        "stat": "Cursed Enemies have a {grant_attacker_frenzy_charge_when_hit_%_chance}% chance to grant a Frenzy Charge when Hit",
-        "stats": { "grant_attacker_frenzy_charge_when_hit_%_chance": 250 }
-      }
-    },
-    "Caustic Arrow": {
-      "undefined": {
-        "stat": "{active_skill_base_radius_+/locations_to_metres} metres to radius",
-        "stats": { "active_skill_base_radius_+": 100 }
-      }
-    },
-    "Poisonous Concoction": {
-      "undefined": {
-        "stat": "{withered_on_hit_for_2_seconds_%_chance}% chance to inflict Withered for 2 seconds on Hit",
-        "stats": { "withered_on_hit_for_2_seconds_%_chance": 1000 }
-      }
-    },
-    "Portal": {
-      "undefined": {
-        "stat": "{base_cast_speed_+%}% increased Cast Speed",
-        "stats": { "base_cast_speed_+%": 3000 }
-      }
-    },
-    "Power Siphon": {
-      "undefined": {
-        "stat": "{critical_strike_multiplier_+_per_power_charge}% to Critical Strike Multiplier per Power Charge",
-        "stats": { "critical_strike_multiplier_+_per_power_charge": 500 }
-      }
-    },
+    "Poacher's Mark": {},
+    "Caustic Arrow": {},
+    "Poisonous Concoction": {},
+    "Portal": {},
+    "Power Siphon": {},
     "[UNUSED] Projectile Portal": {},
-    "Protective Link": {
-      "undefined": {
-        "stat": "Base duration is {base_skill_effect_duration/milliseconds_to_seconds_2dp} seconds",
-        "stats": { "base_skill_effect_duration": 75000 }
-      }
-    },
-    "Puncture": {
-      "undefined": {
-        "stat": "{active_skill_bleeding_damage_+%_final}% more Damage with Bleeding",
-        "stats": { "active_skill_bleeding_damage_+%_final": 1000 }
-      }
-    },
-    "Punishment": {
-      "undefined": {
-        "stat": "Cursed Enemies are Debilitated for {debilitate_self_for_x_milliseconds_on_hit/milliseconds_to_seconds_2dp} Seconds when they Hit",
-        "stats": { "debilitate_self_for_x_milliseconds_on_hit": 50000 }
-      }
-    },
-    "Dread Banner": {
-      "undefined": {
-        "stat": "{aura_effect_+%}% increased effect of Aura",
-        "stats": { "aura_effect_+%": 500 }
-      }
-    },
-    "Wave of Conviction": {
-      "undefined": {
-        "stat": "Damage Penetrates {base_penetrate_elemental_resistances_%}% of Enemy Elemental Resistances",
-        "stats": { "base_penetrate_elemental_resistances_%": 750 }
-      }
-    },
-    "Purity of Elements": {
-      "undefined": {
-        "stat": "You and nearby allies gain {base_resist_all_elements_%}% to all Elemental Resistances",
-        "stats": { "base_resist_all_elements_%": 250 }
-      }
-    },
+    "Protective Link": {},
+    "Puncture": {},
+    "Punishment": {},
+    "Dread Banner": {},
+    "Wave of Conviction": {},
+    "Purity of Elements": {},
     "[UNUSED] Quick Block": {},
-    "Dash": {
-      "undefined": {
-        "stat": "{base_cooldown_speed_+%}% increased Cooldown Recovery Rate",
-        "stats": { "base_cooldown_speed_+%": 500 }
-      }
-    },
-    "Steelskin": {
-      "undefined": {
-        "stat": "{base_cooldown_speed_+%}% increased Cooldown Recovery Rate",
-        "stats": { "base_cooldown_speed_+%": 500 }
-      }
-    },
-    "Quickstep": {
-      "undefined": {
-        "stat": "Quality has no effect",
-        "stats": { "gem_display_quality_has_no_effect": 1 }
-      }
-    },
-    "Rage Vortex": {
-      "undefined": {
-        "stat": "Sacrifices {rage_slash_sacrifice_rage_%}% of Rage when creating a Ragestorm",
-        "stats": { "rage_slash_sacrifice_rage_%": 250 }
-      }
-    },
-    "Rain of Arrows": {
-      "undefined": {
-        "stat": "Fires {base_number_of_arrows} Arrows",
-        "stats": { "base_number_of_arrows": 400 }
-      }
-    },
-    "Toxic Rain": {
-      "undefined": {
-        "stat": "Base duration is {base_skill_effect_duration/milliseconds_to_seconds_2dp} seconds",
-        "stats": { "base_skill_effect_duration": 5000 }
-      }
-    },
-    "Raise Spectre": {
-      "undefined": {
-        "stat": "Minions have {minion_elemental_resistance_%}% to all Elemental Resistances",
-        "stats": { "minion_elemental_resistance_%": 1000 }
-      }
-    },
-    "Raise Zombie": {
-      "undefined": {
-        "stat": "Minions have {minion_chance_to_deal_double_damage_%}% chance to deal Double Damage",
-        "stats": { "minion_chance_to_deal_double_damage_%": 750 }
-      }
-    },
-    "Rallying Cry": {
-      "undefined": {
-        "stat": "{base_cooldown_speed_+%}% increased Cooldown Recovery Rate",
-        "stats": { "base_cooldown_speed_+%": 2000 }
-      }
-    },
-    "Reave": {
-      "undefined": {
-        "stat": "+{reave_additional_max_stacks} to maximum Stages",
-        "stats": { "reave_additional_max_stacks": 100 }
-      }
-    },
-    "Reckoning": {
-      "undefined": {
-        "stat": "{base_cooldown_speed_+%}% increased Cooldown Recovery Rate",
-        "stats": { "base_cooldown_speed_+%": 2000 }
-      }
-    },
-    "Rejuvenation Totem": {
-      "undefined": {
-        "stat": "{totem_life_+%_final}% more Totem Life",
-        "stats": { "totem_life_+%_final": 1000 }
-      }
-    },
+    "Dash": {},
+    "Steelskin": {},
+    "Quickstep": {},
+    "Rage Vortex": {},
+    "Rain of Arrows": {},
+    "Toxic Rain": {},
+    "Raise Spectre": {},
+    "Raise Zombie": {},
+    "Rallying Cry": {},
+    "Reave": {},
+    "Reckoning": {},
+    "Rejuvenation Totem": {},
     "Rending Steel": {},
     "[UNUSED] Replicate": {},
-    "Righteous Fire": {
-      "undefined": {
-        "stat": "Base radius is {active_skill_base_area_of_effect_radius/locations_to_metres} metres",
-        "stats": { "active_skill_base_area_of_effect_radius": 150 }
-      }
-    },
+    "Righteous Fire": {},
     "Righteous Lightning": {},
-    "Riposte": {
-      "undefined": {
-        "stat": "{base_cooldown_speed_+%}% increased Cooldown Recovery Rate",
-        "stats": { "base_cooldown_speed_+%": 2000 }
-      }
-    },
+    "Riposte": {},
     "Riptide": {},
-    "Purifying Flame": {
-      "undefined": {
-        "stat": "{active_skill_base_radius_+/locations_to_metres} metres to radius\n{active_skill_ground_consecration_radius_+/locations_to_metres} metres to radius of Consecrated Ground",
-        "stats": {
-          "active_skill_base_radius_+": 100,
-          "active_skill_ground_consecration_radius_+": 150
-        }
-      }
-    },
-    "Scourge Arrow": {
-      "undefined": {
-        "stat": "Each Spore Pod fires {virulent_arrow_number_of_pod_projectiles} Thorn Arrows",
-        "stats": { "virulent_arrow_number_of_pod_projectiles": 50 }
-      }
-    },
-    "Searing Bond": {
-      "undefined": {
-        "stat": "{number_of_additional_totems_allowed} to maximum number of Summoned Totems",
-        "stats": { "number_of_additional_totems_allowed": 100 }
-      }
-    },
-    "Seismic Cry": {
-      "undefined": {
-        "stat": "{base_cooldown_speed_+%}% increased Cooldown Recovery Rate",
-        "stats": { "base_cooldown_speed_+%": 2000 }
-      }
-    },
+    "Purifying Flame": {},
+    "Scourge Arrow": {},
+    "Searing Bond": {},
+    "Seismic Cry": {},
     "[UNUSED] Serpent Strike": {},
     "Shadow Blades": {},
-    "Shattering Steel": {
-      "undefined": {
-        "stat": "{impale_debuff_effect_+%}% increased Impale Effect",
-        "stats": { "impale_debuff_effect_+%": 2000 }
-      }
-    },
-    "Shield Crush": {
-      "undefined": {
-        "stat": "Deals up to {shield_crush_damage_+%_final_from_distance}% more Damage with Hits to closer targets",
-        "stats": { "shield_crush_damage_+%_final_from_distance": 500 }
-      }
-    },
-    "Shock Nova": {
-      "undefined": {
-        "stat": "{shock_maximum_magnitude_+}% to Maximum Effect of Shock",
-        "stats": { "shock_maximum_magnitude_+": 500 }
-      }
-    },
-    "Shockwave Totem": {
-      "undefined": {
-        "stat": "{active_skill_base_radius_+/locations_to_metres} metres to radius",
-        "stats": { "active_skill_base_radius_+": 100 }
-      }
-    },
-    "Shrapnel Ballista": {
-      "undefined": {
-        "stat": "{base_projectile_speed_+%}% increased Projectile Speed",
-        "stats": { "base_projectile_speed_+%": 2000 }
-      }
-    },
-    "Galvanic Arrow": {
-      "undefined": {
-        "stat": "{base_projectile_speed_+%}% increased Projectile Speed",
-        "stats": { "base_projectile_speed_+%": 2000 }
-      }
-    },
-    "Explosive Trap": {
-      "undefined": {
-        "stat": "Base radius is {active_skill_base_area_of_effect_radius/locations_to_metres} metres",
-        "stats": { "active_skill_base_area_of_effect_radius": 150 }
-      }
-    },
-    "Siege Ballista": {
-      "undefined": {
-        "stat": "{attack_speed_+%_per_maximum_totem}% increased Attack Speed per maximum Totem",
-        "stats": { "attack_speed_+%_per_maximum_totem": 250 }
-      }
-    },
-    "Brand Recall": {
-      "undefined": {
-        "stat": "{base_cooldown_speed_+%}% increased Cooldown Recovery Rate",
-        "stats": { "base_cooldown_speed_+%": 1000 }
-      }
-    },
-    "Summon Skitterbots": {
-      "undefined": {
-        "stat": "{minion_movement_speed_+%}% increased Minion Movement Speed",
-        "stats": { "minion_movement_speed_+%": 2000 }
-      }
-    },
+    "Shattering Steel": {},
+    "Shield Crush": {},
+    "Shock Nova": {},
+    "Shockwave Totem": {},
+    "Shrapnel Ballista": {},
+    "Galvanic Arrow": {},
+    "Explosive Trap": {},
+    "Siege Ballista": {},
+    "Brand Recall": {},
+    "Summon Skitterbots": {},
     "[UNUSED] Slice And Dice": {},
-    "Withering Step": {
-      "undefined": {
-        "stat": "Inflicts {slither_wither_stacks} Withered Debuffs the first time each Enemy enters the Area",
-        "stats": { "slither_wither_stacks": 100 }
-      }
-    },
-    "Smite": {
-      "undefined": {
-        "stat": "{active_skill_area_damage_+%_final}% more Area Damage",
-        "stats": { "active_skill_area_damage_+%_final": 500 }
-      }
-    },
-    "Smoke Mine": {
-      "undefined": {
-        "stat": "Buff grants {base_movement_velocity_+%}% increased Movement Speed",
-        "stats": { "base_movement_velocity_+%": 1000 }
-      }
-    },
-    "Venom Gyre": {
-      "undefined": {
-        "stat": "Maximum {maximum_number_of_snapping_adder_projectiles} caught Projectiles",
-        "stats": { "maximum_number_of_snapping_adder_projectiles": 500 }
-      }
-    },
-    "Sniper's Mark": {
-      "undefined": {
-        "stat": "Cursed enemies take {projectile_damage_taken_+%}% increased Damage from Projectile Hits",
-        "stats": { "projectile_damage_taken_+%": 250 }
-      }
-    },
-    "Soul Link": {
-      "undefined": {
-        "stat": "Base duration is {base_skill_effect_duration/milliseconds_to_seconds_2dp} seconds",
-        "stats": { "base_skill_effect_duration": 75000 }
-      }
-    },
-    "Soulrend": {
-      "undefined": {
-        "stat": "Base duration is {base_skill_effect_duration/milliseconds_to_seconds_2dp} seconds",
-        "stats": { "base_skill_effect_duration": 10000 }
-      }
-    },
-    "Spark": {
-      "undefined": {
-        "stat": "Fires {base_number_of_projectiles} Projectiles",
-        "stats": { "base_number_of_projectiles": 100 }
-      }
-    },
-    "Spectral Helix": {
-      "undefined": {
-        "stat": "Projectiles that have Pierced deal {projectile_damage_+%_final_if_pierced_enemy}% more Damage",
-        "stats": { "projectile_damage_+%_final_if_pierced_enemy": 500 }
-      }
-    },
+    "Withering Step": {},
+    "Smite": {},
+    "Smoke Mine": {},
+    "Venom Gyre": {},
+    "Sniper's Mark": {},
+    "Soul Link": {},
+    "Soulrend": {},
+    "Spark": {},
+    "Spectral Helix": {},
     "Spectral Spinning Weapon": {},
-    "Zealotry": {
-      "undefined": {
-        "stat": "{base_skill_area_of_effect_+%}% increased Area of Effect",
-        "stats": { "base_skill_area_of_effect_+%": 2000 }
-      }
-    },
-    "Spellslinger": { "undefined": { "stat": "", "stats": { "dummy_stat_display_nothing": 0 } } },
-    "Earthshatter": {
-      "undefined": {
-        "stat": "Shattering Spikes deal {spike_slam_explosion_damage_+%_final}% more damage",
-        "stats": { "spike_slam_explosion_damage_+%_final": 1000 }
-      }
-    },
-    "Spirit Offering": {
-      "undefined": {
-        "stat": "{offering_spells_effect_+%}% increased Effect of Offering",
-        "stats": { "offering_spells_effect_+%": 500 }
-      }
-    },
-    "Split Arrow": {
-      "undefined": {
-        "stat": "Fires {base_number_of_arrows} Arrows",
-        "stats": { "base_number_of_arrows": 200 }
-      }
-    },
-    "Static Strike": {
-      "undefined": {
-        "stat": "{static_strike_zap_speed_+%}% increased Beam frequency",
-        "stats": { "static_strike_zap_speed_+%": 1000 }
-      }
-    },
+    "Zealotry": {},
+    "Spellslinger": {},
+    "Earthshatter": {},
+    "Spirit Offering": {},
+    "Split Arrow": {},
+    "Static Strike": {},
     "Static Tether": {},
-    "Storm Burst": {
-      "undefined": {
-        "stat": "Base duration is {base_skill_effect_duration/milliseconds_to_seconds_2dp} seconds",
-        "stats": { "base_skill_effect_duration": 20000 }
-      }
-    },
-    "Storm Call": {
-      "undefined": {
-        "stat": "{storm_call_chance_to_strike_on_cast_%}% chance for Lightning to Strike the Marker when Cast",
-        "stats": { "storm_call_chance_to_strike_on_cast_%": 750 }
-      }
-    },
-    "Storm Rain": {
-      "undefined": {
-        "stat": "Each Arrow can fire {storm_rain_pulse_count} Beams",
-        "stats": { "storm_rain_pulse_count": 100 }
-      }
-    },
-    "Stormbind": {
-      "undefined": {
-        "stat": "Runes have {rune_paint_area_of_effect_+%_final_per_rune_level}% more Area of Effect per Improvement",
-        "stats": { "rune_paint_area_of_effect_+%_final_per_rune_level": 500 }
-      }
-    },
-    "Summon Carrion Golem": {
-      "undefined": {
-        "stat": "Minions Regenerate {minion_life_regeneration_rate_per_minute_%/per_minute_to_per_second}% of Life per second",
-        "stats": { "minion_life_regeneration_rate_per_minute_%": 6000 }
-      }
-    },
-    "Summon Chaos Golem": {
-      "undefined": {
-        "stat": "Minions have {minions_have_%_chance_to_inflict_wither_on_hit}% chance to inflict Withered on Hit",
-        "stats": { "minions_have_%_chance_to_inflict_wither_on_hit": 1000 }
-      }
-    },
-    "Summon Flame Golem": {
-      "undefined": {
-        "stat": "{base_cooldown_speed_+%}% increased Cooldown Recovery Rate",
-        "stats": { "base_cooldown_speed_+%": 2000 }
-      }
-    },
-    "Summon Ice Golem": {
-      "undefined": {
-        "stat": "{base_cooldown_speed_+%}% increased Cooldown Recovery Rate",
-        "stats": { "base_cooldown_speed_+%": 2000 }
-      }
-    },
-    "Summon Lightning Golem": {
-      "undefined": {
-        "stat": "{golem_buff_effect_+%}% increased Buff Effect",
-        "stats": { "golem_buff_effect_+%": 1000 }
-      }
-    },
-    "Summon Raging Spirit": {
-      "undefined": {
-        "stat": "{summoned_raging_spirit_chance_to_spawn_additional_minion_%}% chance to summon an extra Minion",
-        "stats": { "summoned_raging_spirit_chance_to_spawn_additional_minion_%": 1500 }
-      }
-    },
-    "Summon Reaper": {
-      "undefined": {
-        "stat": "{bleed_on_hit_with_attacks_%}% chance to cause Bleeding",
-        "stats": { "bleed_on_hit_with_attacks_%": 1000 }
-      }
-    },
-    "Summon Holy Relic": {
-      "undefined": {
-        "stat": "{skill_buff_effect_+%}% increased Buff Effect",
-        "stats": { "skill_buff_effect_+%": 2000 }
-      }
-    },
-    "Summon Stone Golem": {
-      "undefined": {
-        "stat": "{golem_buff_effect_+%}% increased Buff Effect",
-        "stats": { "golem_buff_effect_+%": 1000 }
-      }
-    },
-    "Summon Skeletons": {
-      "undefined": {
-        "stat": "{base_number_of_skeletons_allowed} to Maximum Summoned Skeletons",
-        "stats": { "base_number_of_skeletons_allowed": 50 }
-      }
-    },
+    "Storm Burst": {},
+    "Storm Call": {},
+    "Storm Rain": {},
+    "Stormbind": {},
+    "Summon Carrion Golem": {},
+    "Summon Chaos Golem": {},
+    "Summon Flame Golem": {},
+    "Summon Ice Golem": {},
+    "Summon Lightning Golem": {},
+    "Summon Raging Spirit": {},
+    "Summon Reaper": {},
+    "Summon Holy Relic": {},
+    "Summon Stone Golem": {},
+    "Summon Skeletons": {},
     "Summon Skeletons Channelled": {},
-    "Added Chaos Damage Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {chaos_damage_+%}% increased Chaos Damage",
-        "stats": { "chaos_damage_+%": 500 }
-      }
-    },
-    "Awakened Added Chaos Damage Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {chaos_damage_+%}% increased Chaos Damage",
-        "stats": { "chaos_damage_+%": 500 }
-      }
-    },
-    "Added Cold Damage Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {cold_damage_+%}% increased Cold Damage",
-        "stats": { "cold_damage_+%": 500 }
-      }
-    },
-    "Awakened Added Cold Damage Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {cold_damage_+%}% increased Cold Damage",
-        "stats": { "cold_damage_+%": 500 }
-      }
-    },
-    "Added Fire Damage Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {fire_damage_+%}% increased Fire Damage",
-        "stats": { "fire_damage_+%": 500 }
-      }
-    },
-    "Awakened Added Fire Damage Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {fire_damage_+%}% increased Fire Damage",
-        "stats": { "fire_damage_+%": 500 }
-      }
-    },
-    "Added Lightning Damage Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {lightning_damage_+%}% increased Lightning Damage",
-        "stats": { "lightning_damage_+%": 500 }
-      }
-    },
-    "Awakened Added Lightning Damage Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {lightning_damage_+%}% increased Lightning Damage",
-        "stats": { "lightning_damage_+%": 500 }
-      }
-    },
-    "Additional Accuracy Support": {
-      "undefined": {
-        "stat": "Supported Skills have {accuracy_rating_+%}% increased Accuracy Rating",
-        "stats": { "accuracy_rating_+%": 1000 }
-      }
-    },
-    "Second Wind Support": {
-      "undefined": {
-        "stat": "Supported Skills have {base_cooldown_speed_+%}% increased Cooldown Recovery Rate",
-        "stats": { "base_cooldown_speed_+%": 250 }
-      }
-    },
-    "Empower Support": {
-      "undefined": {
-        "stat": "This Gem gains {local_gem_experience_gain_+%}% increased Experience",
-        "stats": { "local_gem_experience_gain_+%": 5000 }
-      }
-    },
-    "Awakened Empower Support": {
-      "undefined": {
-        "stat": "This Gem gains {local_gem_experience_gain_+%}% increased Experience",
-        "stats": { "local_gem_experience_gain_+%": 5000 }
-      }
-    },
-    "Enhance Support": {
-      "undefined": {
-        "stat": "This Gem gains {local_gem_experience_gain_+%}% increased Experience",
-        "stats": { "local_gem_experience_gain_+%": 5000 }
-      }
-    },
-    "Awakened Enhance Support": {
-      "undefined": {
-        "stat": "This Gem gains {local_gem_experience_gain_+%}% increased Experience",
-        "stats": { "local_gem_experience_gain_+%": 5000 }
-      }
-    },
-    "Swift Assembly Support": {
-      "undefined": {
-        "stat": "Supported Skills have {mine_laying_speed_+%}% increased Mine Throwing Speed\nSupported Skills have {trap_throwing_speed_+%}% increased Trap Throwing Speed",
-        "stats": { "mine_laying_speed_+%": 250, "trap_throwing_speed_+%": 250 }
-      }
-    },
-    "Enlighten Support": {
-      "undefined": {
-        "stat": "This Gem gains {local_gem_experience_gain_+%}% increased Experience",
-        "stats": { "local_gem_experience_gain_+%": 5000 }
-      }
-    },
-    "Awakened Enlighten Support": {
-      "undefined": {
-        "stat": "This Gem gains {local_gem_experience_gain_+%}% increased Experience",
-        "stats": { "local_gem_experience_gain_+%": 5000 }
-      }
-    },
-    "Unbound Ailments Support": {
-      "undefined": {
-        "stat": "{base_all_ailment_duration_+%}% increased Duration of Ailments inflicted with Supported Skills",
-        "stats": { "base_all_ailment_duration_+%": 500 }
-      }
-    },
-    "Awakened Ancestral Call Support": {
-      "undefined": {
-        "stat": "Extra Targets for Supported Skills can be found {extra_target_targeting_distance_+%}% further away",
-        "stats": { "extra_target_targeting_distance_+%": 750 }
-      }
-    },
-    "Arcane Surge Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {spell_damage_+%}% increased Spell Damage",
-        "stats": { "spell_damage_+%": 500 }
-      }
-    },
-    "Archmage Support": {
-      "undefined": {
-        "stat": "Supported Skills have {base_mana_cost_-%/negate}% increased Mana Cost",
-        "stats": { "base_mana_cost_-%": -500 }
-      }
-    },
-    "Arrow Nova Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {projectile_damage_+%}% increased Projectile Damage",
-        "stats": { "projectile_damage_+%": 500 }
-      }
-    },
-    "Awakened Arrow Nova Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {projectile_damage_+%}% increased Projectile Damage",
-        "stats": { "projectile_damage_+%": 500 }
-      }
-    },
-    "Divine Blessing Support": {
-      "undefined": {
-        "stat": "Supported Skills have {aura_effect_+%}% increased Aura effect",
-        "stats": { "aura_effect_+%": 250 }
-      }
-    },
-    "Barrage Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {projectile_damage_+%}% increased Projectile Damage",
-        "stats": { "projectile_damage_+%": 500 }
-      }
-    },
-    "Behead Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {damage_vs_enemies_on_low_life_+%}% increased Damage with Hits against Enemies that are on Low Life",
-        "stats": { "damage_vs_enemies_on_low_life_+%": 1000 }
-      }
-    },
-    "Blasphemy Support": {
-      "undefined": {
-        "stat": "{curse_area_of_effect_+%}% increased Area of Effect of Supported Curse Skills",
-        "stats": { "curse_area_of_effect_+%": 1000 }
-      }
-    },
-    "Awakened Blasphemy Support": {
-      "undefined": {
-        "stat": "{curse_area_of_effect_+%}% increased Area of Effect of Supported Curse Skills",
-        "stats": { "curse_area_of_effect_+%": 1000 }
-      }
-    },
-    "Blind Support": {
-      "undefined": {
-        "stat": "{blind_effect_+%}% increased Blind Effect",
-        "stats": { "blind_effect_+%": 500 }
-      }
-    },
-    "Block Chance Reduction Support": {
-      "undefined": {
-        "stat": "Supported Skills have {global_reduce_enemy_block_%}% reduced Enemy Block Chance",
-        "stats": { "global_reduce_enemy_block_%": 250 }
-      }
-    },
-    "Arrogance Support": {
-      "undefined": {
-        "stat": "Supported Skills have {aura_effect_+%}% increased Aura effect",
-        "stats": { "aura_effect_+%": 250 }
-      }
-    },
-    "Bloodlust Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {melee_damage_vs_bleeding_enemies_+%}% increased Melee Damage against Bleeding Enemies",
-        "stats": { "melee_damage_vs_bleeding_enemies_+%": 500 }
-      }
-    },
-    "Bloodthirst Support": {
-      "undefined": {
-        "stat": "Supported Skills Deal {damage_+%_when_on_low_life}% increased Damage while on Low Life",
-        "stats": { "damage_+%_when_on_low_life": 1000 }
-      }
-    },
-    "Shockwave Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {melee_damage_+%}% increased Melee Damage",
-        "stats": { "melee_damage_+%": 500 }
-      }
-    },
-    "Bonechill Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {cold_damage_+%}% increased Cold Damage",
-        "stats": { "cold_damage_+%": 500 }
-      }
-    },
-    "Brutality Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {physical_damage_+%}% increased Physical Damage",
-        "stats": { "physical_damage_+%": 500 }
-      }
-    },
-    "Awakened Brutality Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {physical_damage_+%}% increased Physical Damage",
-        "stats": { "physical_damage_+%": 500 }
-      }
-    },
-    "Awakened Burning Damage Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {burn_damage_+%}% increased Burning Damage",
-        "stats": { "burn_damage_+%": 500 }
-      }
-    },
-    "Infernal Legion Support": {
-      "undefined": {
-        "stat": "Minions from Supported Skills deal {minion_damage_+%}% increased Damage",
-        "stats": { "minion_damage_+%": 500 }
-      }
-    },
+    "Added Chaos Damage Support": {},
+    "Awakened Added Chaos Damage Support": {},
+    "Added Cold Damage Support": {},
+    "Awakened Added Cold Damage Support": {},
+    "Added Fire Damage Support": {},
+    "Awakened Added Fire Damage Support": {},
+    "Added Lightning Damage Support": {},
+    "Awakened Added Lightning Damage Support": {},
+    "Additional Accuracy Support": {},
+    "Second Wind Support": {},
+    "Empower Support": {},
+    "Awakened Empower Support": {},
+    "Enhance Support": {},
+    "Awakened Enhance Support": {},
+    "Swift Assembly Support": {},
+    "Enlighten Support": {},
+    "Awakened Enlighten Support": {},
+    "Unbound Ailments Support": {},
+    "Awakened Ancestral Call Support": {},
+    "Arcane Surge Support": {},
+    "Archmage Support": {},
+    "Arrow Nova Support": {},
+    "Awakened Arrow Nova Support": {},
+    "Divine Blessing Support": {},
+    "Barrage Support": {},
+    "Behead Support": {},
+    "Blasphemy Support": {},
+    "Awakened Blasphemy Support": {},
+    "Blind Support": {},
+    "Block Chance Reduction Support": {},
+    "Arrogance Support": {},
+    "Bloodlust Support": {},
+    "Bloodthirst Support": {},
+    "Shockwave Support": {},
+    "Bonechill Support": {},
+    "Brutality Support": {},
+    "Awakened Brutality Support": {},
+    "Awakened Burning Damage Support": {},
+    "Infernal Legion Support": {},
     "WIP Support": {},
-    "Cast On Critical Strike Support": {
-      "undefined": {
-        "stat": "Supported Skills have {attack_critical_strike_chance_+%}% increased Attack Critical Strike Chance",
-        "stats": { "attack_critical_strike_chance_+%": 1000 }
-      }
-    },
-    "Awakened Cast On Critical Strike Support": {
-      "undefined": {
-        "stat": "Supported Skills have {attack_critical_strike_chance_+%}% increased Attack Critical Strike Chance",
-        "stats": { "attack_critical_strike_chance_+%": 1000 }
-      }
-    },
-    "Cast when Damage Taken Support": {
-      "undefined": {
-        "stat": "Supported Skills require {cast_when_damage_taken_trigger_threshold_+%/negate}% reduced amount of Damage taken to Trigger",
-        "stats": { "cast_when_damage_taken_trigger_threshold_+%": -500 }
-      }
-    },
-    "Cast on Death Support": {
-      "undefined": {
-        "stat": "Supported Skills have {area_of_effect_+%_while_dead}% increased Area of Effect while Dead",
-        "stats": { "area_of_effect_+%_while_dead": 3000 }
-      }
-    },
-    "Cast on Melee Kill Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {attack_damage_+%}% increased Attack Damage",
-        "stats": { "attack_damage_+%": 500 }
-      }
-    },
-    "Cast when Stunned Support": {
-      "undefined": {
-        "stat": "{cast_on_stunned_%}% chance to Trigger Supported Spells when you are Stunned, or\nBlock a Stunning Hit",
-        "stats": { "cast_on_stunned_%": 1000 }
-      }
-    },
-    "Cast while Channelling Support": {
-      "undefined": {
-        "stat": "Supported Channelling Skills deal {channelled_skill_damage_+%}% increased Damage",
-        "stats": { "channelled_skill_damage_+%": 500 }
-      }
-    },
-    "Awakened Cast While Channelling Support": {
-      "undefined": {
-        "stat": "Supported Channelling Skills deal {channelled_skill_damage_+%}% increased Damage",
-        "stats": { "channelled_skill_damage_+%": 500 }
-      }
-    },
-    "Chain Support": {
-      "undefined": {
-        "stat": "Supported Skills have {chaining_range_+%}% increased Chaining range",
-        "stats": { "chaining_range_+%": 500 }
-      }
-    },
-    "Awakened Chain Support": {
-      "undefined": {
-        "stat": "Supported Skills have {chaining_range_+%}% increased Chaining range",
-        "stats": { "chaining_range_+%": 500 }
-      }
-    },
-    "Chance to Bleed Support": {
-      "undefined": {
-        "stat": "Supported Attacks deal {bleeding_damage_+%}% increased Damage with Bleeding",
-        "stats": { "bleeding_damage_+%": 500 }
-      }
-    },
-    "Chance to Flee Support": {
-      "undefined": {
-        "stat": "Supported Skills have {global_hit_causes_monster_flee_%}% chance to Cause Monsters to Flee",
-        "stats": { "global_hit_causes_monster_flee_%": 1000 }
-      }
-    },
-    "Combustion Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {fire_damage_+%}% increased Fire Damage",
-        "stats": { "fire_damage_+%": 500 }
-      }
-    },
-    "Chance to Poison Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {base_poison_damage_+%}% increased Damage with Poison",
-        "stats": { "base_poison_damage_+%": 500 }
-      }
-    },
-    "Withering Touch Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {chaos_damage_+%}% increased Chaos Damage",
-        "stats": { "chaos_damage_+%": 500 }
-      }
-    },
-    "Charged Mines Support": {
-      "undefined": {
-        "stat": "{mine_damage_+%}% increased Mine Damage",
-        "stats": { "mine_damage_+%": 500 }
-      }
-    },
-    "Cluster Traps Support": {
-      "undefined": {
-        "stat": "Supported Skills have {trap_trigger_radius_+%}% increased Trap Trigger Area of Effect",
-        "stats": { "trap_trigger_radius_+%": 1000 }
-      }
-    },
-    "Cold Penetration Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {cold_damage_+%}% increased Cold Damage",
-        "stats": { "cold_damage_+%": 500 }
-      }
-    },
-    "Awakened Cold Penetration Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {cold_damage_+%}% increased Cold Damage",
-        "stats": { "cold_damage_+%": 500 }
-      }
-    },
-    "Cold to Fire Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {cold_damage_+%}% increased Cold Damage",
-        "stats": { "cold_damage_+%": 500 }
-      }
-    },
-    "Concentrated Effect Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {area_damage_+%}% increased Area Damage",
-        "stats": { "area_damage_+%": 500 }
-      }
-    },
-    "[UNUSED] Conflagration Support": {
-      "undefined": {
-        "stat": "Supported Skills have {base_chance_to_ignite_%}% chance to Ignite",
-        "stats": { "base_chance_to_ignite_%": 500 }
-      }
-    },
-    "Controlled Blaze Support": {
-      "undefined": {
-        "stat": "Supported Skills have {base_chance_to_ignite_%}% chance to Ignite",
-        "stats": { "base_chance_to_ignite_%": 500 }
-      }
-    },
-    "Controlled Destruction Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {spell_damage_+%}% increased Spell Damage",
-        "stats": { "spell_damage_+%": 500 }
-      }
-    },
-    "Awakened Controlled Destruction Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {spell_damage_+%}% increased Spell Damage",
-        "stats": { "spell_damage_+%": 500 }
-      }
-    },
-    "Corrupting Cry Support": {
-      "undefined": {
-        "stat": "Supported Skills have {base_skill_area_of_effect_+%}% increased Area of Effect",
-        "stats": { "base_skill_area_of_effect_+%": 500 }
-      }
-    },
-    "Critical Strike Affliction Support": {
-      "undefined": {
-        "stat": "Supported Skills have {critical_ailment_dot_multiplier_+}% Damage over Time Multiplier for Ailments from Critical Strikes",
-        "stats": { "critical_ailment_dot_multiplier_+": 500 }
-      }
-    },
-    "Cruelty Support": {
-      "undefined": {
-        "stat": "{cruelty_effect_+%}% increased Effect of Cruelty granted by Supported Skills",
-        "stats": { "cruelty_effect_+%": 250 }
-      }
-    },
-    "Culling Strike Support": {
-      "undefined": {
-        "stat": "Recover {recover_%_maximum_life_on_cull}% of Life when Supported Skills Cull an Enemy",
-        "stats": { "recover_%_maximum_life_on_cull": 100 }
-      }
-    },
-    "Hextouch Support": {
-      "undefined": { "stat": "", "stats": { "dummy_stat_display_nothing": 0 } }
-    },
+    "Cast On Critical Strike Support": {},
+    "Awakened Cast On Critical Strike Support": {},
+    "Cast when Damage Taken Support": {},
+    "Cast on Death Support": {},
+    "Cast on Melee Kill Support": {},
+    "Cast when Stunned Support": {},
+    "Cast while Channelling Support": {},
+    "Awakened Cast While Channelling Support": {},
+    "Chain Support": {},
+    "Awakened Chain Support": {},
+    "Chance to Bleed Support": {},
+    "Chance to Flee Support": {},
+    "Combustion Support": {},
+    "Chance to Poison Support": {},
+    "Withering Touch Support": {},
+    "Charged Mines Support": {},
+    "Cluster Traps Support": {},
+    "Cold Penetration Support": {},
+    "Awakened Cold Penetration Support": {},
+    "Cold to Fire Support": {},
+    "Concentrated Effect Support": {},
+    "[UNUSED] Conflagration Support": {},
+    "Controlled Blaze Support": {},
+    "Controlled Destruction Support": {},
+    "Awakened Controlled Destruction Support": {},
+    "Corrupting Cry Support": {},
+    "Critical Strike Affliction Support": {},
+    "Cruelty Support": {},
+    "Culling Strike Support": {},
+    "Hextouch Support": {},
     "Awakened Hextouch Support": {},
-    "Cursed Ground Support": {
-      "undefined": {
-        "stat": "{curse_area_of_effect_+%}% increased Area of Effect of Supported Curse Skills",
-        "stats": { "curse_area_of_effect_+%": 500 }
-      }
-    },
-    "Hypothermia Support": {
-      "undefined": {
-        "stat": "Supported Skills have {additional_chance_to_freeze_chilled_enemies_%}% chance to Freeze Enemies which are Chilled",
-        "stats": { "additional_chance_to_freeze_chilled_enemies_%": 1000 }
-      }
-    },
-    "Deadly Ailments Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {damage_over_time_+%}% increased Damage over Time",
-        "stats": { "damage_over_time_+%": 500 }
-      }
-    },
-    "Awakened Deadly Ailments Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {damage_over_time_+%}% increased Damage over Time",
-        "stats": { "damage_over_time_+%": 500 }
-      }
-    },
-    "Vile Toxins Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {base_poison_damage_+%}% increased Damage with Poison",
-        "stats": { "base_poison_damage_+%": 500 }
-      }
-    },
-    "Decay Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {chaos_damage_+%}% increased Chaos Damage",
-        "stats": { "chaos_damage_+%": 500 }
-      }
-    },
-    "Devour Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {damage_+%_if_you_have_consumed_a_corpse_recently}% increased Damage if you have Consumed a corpse Recently",
-        "stats": { "damage_+%_if_you_have_consumed_a_corpse_recently": 4000 }
-      }
-    },
-    "Earthbreaker Support": {
-      "undefined": {
-        "stat": "{totem_damage_+%}% increased Totem Damage",
-        "stats": { "totem_damage_+%": 500 }
-      }
-    },
-    "Efficacy Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {damage_over_time_+%}% increased Damage over Time",
-        "stats": { "damage_over_time_+%": 500 }
-      }
-    },
-    "Elemental Focus Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {elemental_damage_+%}% increased Elemental Damage",
-        "stats": { "elemental_damage_+%": 500 }
-      }
-    },
-    "Awakened Elemental Focus Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {elemental_damage_+%}% increased Elemental Damage",
-        "stats": { "elemental_damage_+%": 500 }
-      }
-    },
-    "Elemental Penetration Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {elemental_damage_+%}% increased Elemental Damage",
-        "stats": { "elemental_damage_+%": 500 }
-      }
-    },
-    "Elemental Proliferation Support": {
-      "undefined": {
-        "stat": "{base_elemental_status_ailment_duration_+%}% increased Duration of Elemental Ailments on Enemies",
-        "stats": { "base_elemental_status_ailment_duration_+%": 500 }
-      }
-    },
-    "Energy Leech Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {damage_+%_while_es_leeching}% increased Damage while Leeching Energy Shield",
-        "stats": { "damage_+%_while_es_leeching": 500 }
-      }
-    },
-    "Faster Attacks Support": {
-      "undefined": {
-        "stat": "Supported Skills have {attack_speed_+%}% increased Attack Speed",
-        "stats": { "attack_speed_+%": 500 }
-      }
-    },
-    "Faster Casting Support": {
-      "undefined": {
-        "stat": "Supported Skills have {base_cast_speed_+%}% increased Cast Speed",
-        "stats": { "base_cast_speed_+%": 500 }
-      }
-    },
-    "Faster Projectiles Support": {
-      "undefined": {
-        "stat": "Supported Skills have {base_projectile_speed_+%}% increased Projectile Speed",
-        "stats": { "base_projectile_speed_+%": 500 }
-      }
-    },
-    "Fire Penetration Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {fire_damage_+%}% increased Fire Damage",
-        "stats": { "fire_damage_+%": 500 }
-      }
-    },
-    "Awakened Fire Penetration Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {fire_damage_+%}% increased Fire Damage",
-        "stats": { "fire_damage_+%": 500 }
-      }
-    },
-    "Flamewood Support": {
-      "undefined": {
-        "stat": "Supported Skills have {totem_life_+%}% increased Totem Life",
-        "stats": { "totem_life_+%": 500 }
-      }
-    },
-    "Focused Ballista Support": {
-      "undefined": {
-        "stat": "{totem_damage_+%}% increased Totem Damage",
-        "stats": { "totem_damage_+%": 500 }
-      }
-    },
-    "Fork Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {projectile_damage_+%}% increased Projectile Damage",
-        "stats": { "projectile_damage_+%": 500 }
-      }
-    },
-    "Awakened Fork Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {projectile_damage_+%}% increased Projectile Damage",
-        "stats": { "projectile_damage_+%": 500 }
-      }
-    },
-    "Fortify Support": {
-      "undefined": {
-        "stat": "Supported Skills have {fortify_duration_+%}% increased Fortification Duration",
-        "stats": { "fortify_duration_+%": 1000 }
-      }
-    },
-    "Ice Bite Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {damage_+%_per_frenzy_charge}% increased Damage per Frenzy Charge",
-        "stats": { "damage_+%_per_frenzy_charge": 100 }
-      }
-    },
-    "Fresh Meat Support": {
-      "undefined": {
-        "stat": "Minions from Supported Skills have {minion_critical_strike_chance_+%}% increased Critical Strike Chance",
-        "stats": { "minion_critical_strike_chance_+%": 1000 }
-      }
-    },
-    "Frigid Bond Support": {
-      "undefined": {
-        "stat": "Damage and Chill Linger for a Base Duration of {support_damaging_links_base_duration_ms/milliseconds_to_seconds_2dp_if_required} seconds",
-        "stats": { "support_damaging_links_base_duration_ms": 100000 }
-      }
-    },
-    "Charged Traps Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {trap_damage_+%}% increased Trap Damage",
-        "stats": { "trap_damage_+%": 500 }
-      }
-    },
-    "Mirage Archer Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {attack_damage_+%}% increased Attack Damage",
-        "stats": { "attack_damage_+%": 500 }
-      }
-    },
-    "Generosity Support": {
-      "undefined": {
-        "stat": "Supported Skills have {base_aura_area_of_effect_+%}% increased Aura Area of Effect",
-        "stats": { "base_aura_area_of_effect_+%": 2000 }
-      }
-    },
-    "Awakened Generosity Support": {
-      "undefined": {
-        "stat": "Supported Skills have {base_aura_area_of_effect_+%}% increased Aura Area of Effect",
-        "stats": { "base_aura_area_of_effect_+%": 2000 }
-      }
-    },
-    "Greater Multiple Projectiles Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {projectile_damage_+%}% increased Projectile Damage",
-        "stats": { "projectile_damage_+%": 500 }
-      }
-    },
-    "Awakened Greater Multiple Projectiles Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {projectile_damage_+%}% increased Projectile Damage",
-        "stats": { "projectile_damage_+%": 500 }
-      }
-    },
-    "Greater Volley Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {projectile_damage_+%}% increased Projectile Damage",
-        "stats": { "projectile_damage_+%": 1000 }
-      }
-    },
-    "Guardian's Blessing Support": {
-      "undefined": {
-        "stat": "Supported Skills have {aura_effect_+%}% increased Aura effect",
-        "stats": { "aura_effect_+%": 250 }
-      }
-    },
-    "Unleash Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {spell_damage_+%}% increased Spell Damage",
-        "stats": { "spell_damage_+%": 500 }
-      }
-    },
+    "Cursed Ground Support": {},
+    "Hypothermia Support": {},
+    "Deadly Ailments Support": {},
+    "Awakened Deadly Ailments Support": {},
+    "Vile Toxins Support": {},
+    "Decay Support": {},
+    "Devour Support": {},
+    "Earthbreaker Support": {},
+    "Efficacy Support": {},
+    "Elemental Focus Support": {},
+    "Awakened Elemental Focus Support": {},
+    "Elemental Penetration Support": {},
+    "Elemental Proliferation Support": {},
+    "Energy Leech Support": {},
+    "Faster Attacks Support": {},
+    "Faster Casting Support": {},
+    "Faster Projectiles Support": {},
+    "Fire Penetration Support": {},
+    "Awakened Fire Penetration Support": {},
+    "Flamewood Support": {},
+    "Focused Ballista Support": {},
+    "Fork Support": {},
+    "Awakened Fork Support": {},
+    "Fortify Support": {},
+    "Ice Bite Support": {},
+    "Fresh Meat Support": {},
+    "Frigid Bond Support": {},
+    "Charged Traps Support": {},
+    "Mirage Archer Support": {},
+    "Generosity Support": {},
+    "Awakened Generosity Support": {},
+    "Greater Multiple Projectiles Support": {},
+    "Awakened Greater Multiple Projectiles Support": {},
+    "Greater Volley Support": {},
+    "Guardian's Blessing Support": {},
+    "Unleash Support": {},
     "[UNUSED] Handcast Rapid Fire": {},
-    "Intensify Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {area_damage_+%}% increased Area Damage",
-        "stats": { "area_damage_+%": 500 }
-      }
-    },
-    "Hex Bloom Support": {
-      "undefined": {
-        "stat": "Supported Skills have {hex_transfer_on_death_range_+%}% increased Hex Transfer range",
-        "stats": { "hex_transfer_on_death_range_+%": 200 }
-      }
-    },
-    "Ignite Proliferation Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {fire_damage_+%}% increased Fire Damage",
-        "stats": { "fire_damage_+%": 500 }
-      }
-    },
-    "Immolate Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {fire_damage_+%}% increased Fire Damage",
-        "stats": { "fire_damage_+%": 500 }
-      }
-    },
-    "Impale Support": {
-      "undefined": {
-        "stat": "Supported Attacks have {impale_debuff_effect_+%}% increased Impale Effect",
-        "stats": { "impale_debuff_effect_+%": 500 }
-      }
-    },
-    "Increased Area of Effect Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {area_damage_+%}% increased Area Damage",
-        "stats": { "area_damage_+%": 500 }
-      }
-    },
-    "Awakened Increased Area of Effect Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {area_damage_+%}% increased Area Damage",
-        "stats": { "area_damage_+%": 500 }
-      }
-    },
-    "Burning Damage Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {burn_damage_+%}% increased Burning Damage",
-        "stats": { "burn_damage_+%": 500 }
-      }
-    },
-    "Increased Critical Damage Support": {
-      "undefined": {
-        "stat": "Supported Skills have {base_critical_strike_multiplier_+}% to Critical Strike Multiplier",
-        "stats": { "base_critical_strike_multiplier_+": 500 }
-      }
-    },
-    "Increased Critical Strikes Support": {
-      "undefined": {
-        "stat": "Supported Skills have {critical_strike_chance_+%}% increased Critical Strike Chance",
-        "stats": { "critical_strike_chance_+%": 1000 }
-      }
-    },
-    "Increased Duration Support": {
-      "undefined": {
-        "stat": "Supported Skills have {skill_effect_duration_+%}% increased Skill Effect Duration",
-        "stats": { "skill_effect_duration_+%": 500 }
-      }
-    },
-    "Iron Grip Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {projectile_damage_+%}% increased Projectile Damage",
-        "stats": { "projectile_damage_+%": 500 }
-      }
-    },
-    "Iron Will Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {spell_damage_+%}% increased Spell Damage",
-        "stats": { "spell_damage_+%": 500 }
-      }
-    },
-    "Item Quantity Support": {
-      "undefined": {
-        "stat": "{base_killed_monster_dropped_item_quantity_+%}% increased Quantity of Items Dropped by Enemies Slain from Supported Skills",
-        "stats": { "base_killed_monster_dropped_item_quantity_+%": 350 }
-      }
-    },
-    "Item Rarity Support": {
-      "undefined": {
-        "stat": "{base_killed_monster_dropped_item_rarity_+%}% increased Rarity of Items Dropped by Enemies Slain from Supported Skills",
-        "stats": { "base_killed_monster_dropped_item_rarity_+%": 500 }
-      }
-    },
-    "Knockback Support": {
-      "undefined": {
-        "stat": "Supported Skills have {base_global_chance_to_knockback_%}% chance to Knock Enemies Back on hit",
-        "stats": { "base_global_chance_to_knockback_%": 500 }
-      }
-    },
-    "Lesser Multiple Projectiles Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {projectile_damage_+%}% increased Projectile Damage",
-        "stats": { "projectile_damage_+%": 500 }
-      }
-    },
-    "Life Gain on Hit Support": {
-      "undefined": {
-        "stat": "{base_life_gain_per_target} Life gained per Enemy Hit with Supported Attacks",
-        "stats": { "base_life_gain_per_target": 500 }
-      }
-    },
-    "Life Leech Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {damage_+%_while_life_leeching}% increased Damage while Leeching Life",
-        "stats": { "damage_+%_while_life_leeching": 500 }
-      }
-    },
-    "Lifetap Support": {
-      "undefined": {
-        "stat": "Lifetap lasts {support_base_lifetap_buff_duration/milliseconds_to_seconds} seconds",
-        "stats": { "support_base_lifetap_buff_duration": 100000 }
-      }
-    },
-    "Lightning Penetration Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {lightning_damage_+%}% increased Lightning Damage",
-        "stats": { "lightning_damage_+%": 500 }
-      }
-    },
-    "Awakened Lightning Penetration Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {lightning_damage_+%}% increased Lightning Damage",
-        "stats": { "lightning_damage_+%": 500 }
-      }
-    },
-    "Locus Mine Support": {
-      "undefined": {
-        "stat": "Supported Skills have {mine_laying_speed_+%}% increased Mine Throwing Speed",
-        "stats": { "mine_laying_speed_+%": 500 }
-      }
-    },
-    "Maim Support": {
-      "undefined": {
-        "stat": "Supported Skills have {maim_effect_+%}% increased Effect of Maim",
-        "stats": { "maim_effect_+%": 1000 }
-      }
-    },
-    "Mana Leech Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {damage_+%_while_mana_leeching}% increased Damage while Leeching Mana",
-        "stats": { "damage_+%_while_mana_leeching": 500 }
-      }
-    },
-    "Manaforged Arrows Support": {
-      "undefined": {
-        "stat": "Supported Skills have {base_cooldown_speed_+%}% increased Cooldown Recovery Rate",
-        "stats": { "base_cooldown_speed_+%": 500 }
-      }
-    },
-    "Mark On Hit Support": {
-      "undefined": {
-        "stat": "{mark_skills_curse_effect_+%}% increased Effect of Marks from Supported Skills",
-        "stats": { "mark_skills_curse_effect_+%": 250 }
-      }
-    },
-    "Damage on Full Life Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {damage_+%}% increased Damage",
-        "stats": { "damage_+%": 500 }
-      }
-    },
-    "Melee Physical Damage Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {melee_physical_damage_+%}% increased Melee Physical Damage",
-        "stats": { "melee_physical_damage_+%": 500 }
-      }
-    },
-    "Awakened Melee Physical Damage Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {melee_physical_damage_+%}% increased Melee Physical Damage",
-        "stats": { "melee_physical_damage_+%": 500 }
-      }
-    },
-    "Melee Splash Support": {
-      "undefined": {
-        "stat": "Supported Skills have {base_skill_area_of_effect_+%}% increased Area of Effect",
-        "stats": { "base_skill_area_of_effect_+%": 500 }
-      }
-    },
-    "Awakened Melee Splash Support": {
-      "undefined": {
-        "stat": "Supported Skills have {base_skill_area_of_effect_+%}% increased Area of Effect",
-        "stats": { "base_skill_area_of_effect_+%": 500 }
-      }
-    },
-    "Minefield Support": {
-      "undefined": {
-        "stat": "Supported Skills have {mine_laying_speed_+%}% increased Mine Throwing Speed",
-        "stats": { "mine_laying_speed_+%": 250 }
-      }
-    },
-    "Minion Damage Support": {
-      "undefined": {
-        "stat": "Minions from Supported Skills deal {minion_damage_+%}% increased Damage",
-        "stats": { "minion_damage_+%": 500 }
-      }
-    },
-    "Awakened Minion Damage Support": {
-      "undefined": {
-        "stat": "Minions from Supported Skills deal {minion_damage_+%}% increased Damage",
-        "stats": { "minion_damage_+%": 500 }
-      }
-    },
-    "Meat Shield Support": {
-      "undefined": {
-        "stat": "Minions from Supported Skills take {support_minion_defensive_stance_minion_damage_taken_+%_final/negate}% less Damage",
-        "stats": { "support_minion_defensive_stance_minion_damage_taken_+%_final": -250 }
-      }
-    },
-    "Predator Support": {
-      "undefined": {
-        "stat": "Minions from Supported Skills deal {minion_damage_+%}% increased Damage",
-        "stats": { "minion_damage_+%": 500 }
-      }
-    },
-    "Minion Life Support": {
-      "undefined": {
-        "stat": "Supported Skills have {minion_maximum_life_+%}% increased Minion maximum Life",
-        "stats": { "minion_maximum_life_+%": 1000 }
-      }
-    },
-    "Feeding Frenzy Support": {
-      "undefined": {
-        "stat": "Supported Skills have {minion_movement_speed_+%}% increased Minion Movement Speed",
-        "stats": { "minion_movement_speed_+%": 500 }
-      }
-    },
-    "Minion Speed Support": {
-      "undefined": {
-        "stat": "Supported Skills have {minion_movement_speed_+%}% increased Minion Movement Speed",
-        "stats": { "minion_movement_speed_+%": 500 }
-      }
-    },
-    "Momentum Support": {
-      "undefined": {
-        "stat": "Swiftness lasts {support_momentum_base_buff_duration_ms/milliseconds_to_seconds_2dp} seconds",
-        "stats": { "support_momentum_base_buff_duration_ms": 25000 }
-      }
-    },
-    "Eternal Blessing Support": {
-      "undefined": {
-        "stat": "Supported Skills have {aura_effect_+%}% increased Aura effect",
-        "stats": { "aura_effect_+%": 250 }
-      }
-    },
-    "Multiple Totems Support": {
-      "undefined": {
-        "stat": "Supported Skills have {summon_totem_cast_speed_+%}% increased Totem Placement speed",
-        "stats": { "summon_totem_cast_speed_+%": 500 }
-      }
-    },
-    "Multiple Traps Support": {
-      "undefined": {
-        "stat": "Supported Skills have {trap_trigger_radius_+%}% increased Trap Trigger Area of Effect",
-        "stats": { "trap_trigger_radius_+%": 1000 }
-      }
-    },
-    "Spell Echo Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {spell_damage_+%}% increased Spell Damage",
-        "stats": { "spell_damage_+%": 500 }
-      }
-    },
-    "Multistrike Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {melee_damage_+%}% increased Melee Damage",
-        "stats": { "melee_damage_+%": 500 }
-      }
-    },
-    "Awakened Multistrike Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {melee_physical_damage_+%}% increased Melee Physical Damage",
-        "stats": { "melee_physical_damage_+%": 500 }
-      }
-    },
-    "Innervate Support": {
-      "undefined": {
-        "stat": "Innervation lasts {support_innervate_buff_base_duration_ms/milliseconds_to_seconds} seconds",
-        "stats": { "support_innervate_buff_base_duration_ms": 100000 }
-      }
-    },
-    "Overcharge Support": {
-      "undefined": {
-        "stat": "Supported Skills have {shock_duration_+%}% increased Shock Duration on Enemies",
-        "stats": { "shock_duration_+%": 1000 }
-      }
-    },
-    "Volley Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {projectile_damage_+%}% increased Projectile Damage",
-        "stats": { "projectile_damage_+%": 500 }
-      }
-    },
-    "Vicious Projectiles Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {physical_damage_+%}% increased Physical Damage",
-        "stats": { "physical_damage_+%": 500 }
-      }
-    },
-    "Physical to Lightning Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {physical_damage_+%}% increased Physical Damage",
-        "stats": { "physical_damage_+%": 500 }
-      }
-    },
-    "Pierce Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {projectile_damage_+%}% increased Projectile Damage",
-        "stats": { "projectile_damage_+%": 500 }
-      }
-    },
-    "Point Blank Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {projectile_damage_+%}% increased Projectile Damage",
-        "stats": { "projectile_damage_+%": 500 }
-      }
-    },
-    "Power Charge On Critical Support": {
-      "undefined": {
-        "stat": "Supported Skills have {add_power_charge_on_critical_strike_%}% chance to gain a Power Charge on Critical Strike",
-        "stats": { "add_power_charge_on_critical_strike_%": 500 }
-      }
-    },
-    "Prismatic Burst Support": {
-      "undefined": { "stat": "", "stats": { "dummy_stat_display_nothing": 0 } }
-    },
-    "Pinpoint Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {projectile_damage_+%}% increased Projectile Damage",
-        "stats": { "projectile_damage_+%": 500 }
-      }
-    },
-    "Pulverise Support": {
-      "undefined": {
-        "stat": "Supported Skills have {base_skill_area_of_effect_+%}% increased Area of Effect",
-        "stats": { "base_skill_area_of_effect_+%": 500 }
-      }
-    },
-    "Nightblade Support": {
-      "undefined": {
-        "stat": "Supported Skills have {critical_strike_chance_+%}% increased Critical Strike Chance",
-        "stats": { "critical_strike_chance_+%": 1000 }
-      }
-    },
-    "Rage Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {attack_damage_+%}% increased Attack Damage",
-        "stats": { "attack_damage_+%": 500 }
-      }
-    },
-    "Ballista Totem Support": {
-      "undefined": {
-        "stat": "Supported Skills have {summon_totem_cast_speed_+%}% increased Totem Placement speed",
-        "stats": { "summon_totem_cast_speed_+%": 500 }
-      }
-    },
-    "Swiftbrand Support": {
-      "undefined": {
-        "stat": "Supported Skills have {support_rapid_activation_brand_activation_rate_+%_final}% more Activation frequency",
-        "stats": { "support_rapid_activation_brand_activation_rate_+%_final": 250 }
-      }
-    },
-    "Swift Affliction Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {damage_over_time_+%}% increased Damage over Time",
-        "stats": { "damage_over_time_+%": 500 }
-      }
-    },
-    "Less Duration Support": {
-      "undefined": {
-        "stat": "Supported Skills have {support_reduced_duration_skill_effect_duration_+%_final/negate}% less Skill Effect Duration",
-        "stats": { "support_reduced_duration_skill_effect_duration_+%_final": -500 }
-      }
-    },
-    "Inspiration Support": {
-      "undefined": {
-        "stat": "Supported Skills have {base_mana_cost_-%}% reduced Mana Cost",
-        "stats": { "base_mana_cost_-%": 250 }
-      }
-    },
-    "Blastchain Mine Support": {
-      "undefined": {
-        "stat": "{mine_damage_+%}% increased Mine Damage",
-        "stats": { "mine_damage_+%": 500 }
-      }
-    },
-    "High-Impact Mine Support": {
-      "undefined": {
-        "stat": "{mine_damage_+%}% increased Mine Damage",
-        "stats": { "mine_damage_+%": 500 }
-      }
-    },
-    "Returning Projectiles Support": {
-      "undefined": {
-        "stat": "Supported Skills have {base_projectile_speed_+%}% increased Projectile Speed",
-        "stats": { "base_projectile_speed_+%": 500 }
-      }
-    },
-    "Ruthless Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {attack_damage_+%}% increased Attack Damage",
-        "stats": { "attack_damage_+%": 500 }
-      }
-    },
-    "Sacrifice Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {chaos_damage_+%}% increased Chaos Damage",
-        "stats": { "chaos_damage_+%": 500 }
-      }
-    },
-    "Sadism Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {damage_over_time_+%}% increased Damage over Time",
-        "stats": { "damage_over_time_+%": 500 }
-      }
-    },
-    "Close Combat Support": {
-      "undefined": {
-        "stat": "{close_combat_damage_to_close_range_+%}% increased Damage with Hits to Close Range Enemies",
-        "stats": { "close_combat_damage_to_close_range_+%": 500 }
-      }
-    },
-    "Slower Projectiles Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {projectile_damage_+%}% increased Projectile Damage",
-        "stats": { "projectile_damage_+%": 500 }
-      }
-    },
-    "Spell Cascade Support": {
-      "undefined": {
-        "stat": "Supported Skills have {base_skill_area_of_effect_+%}% increased Area of Effect",
-        "stats": { "base_skill_area_of_effect_+%": 500 }
-      }
-    },
-    "Awakened Spell Cascade Support": {
-      "undefined": {
-        "stat": "Supported Skills have {base_skill_area_of_effect_+%}% increased Area of Effect",
-        "stats": { "base_skill_area_of_effect_+%": 500 }
-      }
-    },
-    "Awakened Spell Echo Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {spell_damage_+%}% increased Spell Damage",
-        "stats": { "spell_damage_+%": 500 }
-      }
-    },
-    "Spell Totem Support": {
-      "undefined": {
-        "stat": "Supported Skills have {summon_totem_cast_speed_+%}% increased Totem Placement speed",
-        "stats": { "summon_totem_cast_speed_+%": 500 }
-      }
-    },
-    "Spellblade Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {spell_damage_+%}% increased Spell Damage",
-        "stats": { "spell_damage_+%": 500 }
-      }
-    },
-    "Ancestral Call Support": {
-      "undefined": {
-        "stat": "Extra Targets for Supported Skills can be found {extra_target_targeting_distance_+%}% further away",
-        "stats": { "extra_target_targeting_distance_+%": 750 }
-      }
-    },
+    "Intensify Support": {},
+    "Hex Bloom Support": {},
+    "Ignite Proliferation Support": {},
+    "Immolate Support": {},
+    "Impale Support": {},
+    "Increased Area of Effect Support": {},
+    "Awakened Increased Area of Effect Support": {},
+    "Burning Damage Support": {},
+    "Increased Critical Damage Support": {},
+    "Increased Critical Strikes Support": {},
+    "Increased Duration Support": {},
+    "Iron Grip Support": {},
+    "Iron Will Support": {},
+    "Item Quantity Support": {},
+    "Item Rarity Support": {},
+    "Knockback Support": {},
+    "Lesser Multiple Projectiles Support": {},
+    "Life Gain on Hit Support": {},
+    "Life Leech Support": {},
+    "Lifetap Support": {},
+    "Lightning Penetration Support": {},
+    "Awakened Lightning Penetration Support": {},
+    "Locus Mine Support": {},
+    "Maim Support": {},
+    "Mana Leech Support": {},
+    "Manaforged Arrows Support": {},
+    "Mark On Hit Support": {},
+    "Damage on Full Life Support": {},
+    "Melee Physical Damage Support": {},
+    "Awakened Melee Physical Damage Support": {},
+    "Melee Splash Support": {},
+    "Awakened Melee Splash Support": {},
+    "Minefield Support": {},
+    "Minion Damage Support": {},
+    "Awakened Minion Damage Support": {},
+    "Meat Shield Support": {},
+    "Predator Support": {},
+    "Minion Life Support": {},
+    "Feeding Frenzy Support": {},
+    "Minion Speed Support": {},
+    "Momentum Support": {},
+    "Eternal Blessing Support": {},
+    "Multiple Totems Support": {},
+    "Multiple Traps Support": {},
+    "Spell Echo Support": {},
+    "Multistrike Support": {},
+    "Awakened Multistrike Support": {},
+    "Innervate Support": {},
+    "Overcharge Support": {},
+    "Volley Support": {},
+    "Vicious Projectiles Support": {},
+    "Physical to Lightning Support": {},
+    "Pierce Support": {},
+    "Point Blank Support": {},
+    "Power Charge On Critical Support": {},
+    "Prismatic Burst Support": {},
+    "Pinpoint Support": {},
+    "Pulverise Support": {},
+    "Nightblade Support": {},
+    "Rage Support": {},
+    "Ballista Totem Support": {},
+    "Swiftbrand Support": {},
+    "Swift Affliction Support": {},
+    "Less Duration Support": {},
+    "Inspiration Support": {},
+    "Blastchain Mine Support": {},
+    "High-Impact Mine Support": {},
+    "Returning Projectiles Support": {},
+    "Ruthless Support": {},
+    "Sacrifice Support": {},
+    "Sadism Support": {},
+    "Close Combat Support": {},
+    "Slower Projectiles Support": {},
+    "Spell Cascade Support": {},
+    "Awakened Spell Cascade Support": {},
+    "Awakened Spell Echo Support": {},
+    "Spell Totem Support": {},
+    "Spellblade Support": {},
+    "Ancestral Call Support": {},
     "Split Projectiles Support": {},
-    "Infused Channelling Support": {
-      "undefined": {
-        "stat": "Gain Infusion after Channelling a Supported Skill for {support_storm_barrier_damage_buff_time_threshold_ms/milliseconds_to_seconds} seconds",
-        "stats": { "support_storm_barrier_damage_buff_time_threshold_ms": -20000 }
-      }
-    },
-    "Stun Support": {
-      "undefined": {
-        "stat": "Supported Skills have {chance_to_double_stun_duration_%}% chance to double Stun Duration",
-        "stats": { "chance_to_double_stun_duration_%": 500 }
-      }
-    },
-    "Elemental Army Support": {
-      "undefined": {
-        "stat": "Minions from Supported Skills have {minion_maximum_all_elemental_resistances_%}% to all maximum Elemental Resistances",
-        "stats": { "minion_maximum_all_elemental_resistances_%": 100 }
-      }
-    },
-    "Summon Phantasm Support": {
-      "undefined": {
-        "stat": "{chance_to_summon_support_ghost_on_killing_blow_%}% chance to Summon a Phantasm when Supported Skills, or Non-Phantasm Minions\nfrom Supported Skills, deal a Killing Blow",
-        "stats": { "chance_to_summon_support_ghost_on_killing_blow_%": 500 }
-      }
-    },
-    "Awakened Swift Affliction Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {damage_over_time_+%}% increased Damage over Time",
-        "stats": { "damage_over_time_+%": 500 }
-      }
-    },
-    "Trap Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {trap_damage_+%}% increased Trap Damage",
-        "stats": { "trap_damage_+%": 500 }
-      }
-    },
-    "Trap and Mine Damage Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {damage_+%}% increased Damage",
-        "stats": { "damage_+%": 500 }
-      }
-    },
-    "Advanced Traps Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {trap_damage_+%}% increased Trap Damage",
-        "stats": { "trap_damage_+%": 500 }
-      }
-    },
-    "Trauma Support": {
-      "undefined": {
-        "stat": "Supported Skills have {base_stun_threshold_reduction_+%}% reduced Enemy Stun Threshold",
-        "stats": { "base_stun_threshold_reduction_+%": 500 }
-      }
-    },
-    "Trinity Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {elemental_damage_+%}% increased Elemental Damage",
-        "stats": { "elemental_damage_+%": 500 }
-      }
-    },
+    "Infused Channelling Support": {},
+    "Stun Support": {},
+    "Elemental Army Support": {},
+    "Summon Phantasm Support": {},
+    "Awakened Swift Affliction Support": {},
+    "Trap Support": {},
+    "Trap and Mine Damage Support": {},
+    "Advanced Traps Support": {},
+    "Trauma Support": {},
+    "Trinity Support": {},
     "Lesser Reduced Mana Cost Support": {},
-    "Awakened Unbound Ailments Support": {
-      "undefined": {
-        "stat": "{base_all_ailment_duration_+%}% increased Duration of Ailments inflicted with Supported Skills",
-        "stats": { "base_all_ailment_duration_+%": 500 }
-      }
-    },
-    "Awakened Unleash Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {spell_damage_+%}% increased Spell Damage",
-        "stats": { "spell_damage_+%": 500 }
-      }
-    },
-    "Urgent Orders Support": {
-      "undefined": {
-        "stat": "Supported Skills have {warcry_speed_+%}% increased Warcry Speed",
-        "stats": { "warcry_speed_+%": 500 }
-      }
-    },
-    "Awakened Vicious Projectiles Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {physical_damage_+%}% increased Physical Damage",
-        "stats": { "physical_damage_+%": 500 }
-      }
-    },
-    "Void Manipulation Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {chaos_damage_+%}% increased Chaos Damage",
-        "stats": { "chaos_damage_+%": 500 }
-      }
-    },
-    "Awakened Void Manipulation Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {chaos_damage_+%}% increased Chaos Damage",
-        "stats": { "chaos_damage_+%": 500 }
-      }
-    },
-    "Volatility Support": {
-      "undefined": {
-        "stat": "Supported Skills deal {damage_+%}% increased Damage",
-        "stats": { "damage_+%": 500 }
-      }
-    },
-    "Elemental Damage with Attacks Support": {
-      "undefined": {
-        "stat": "{elemental_damage_with_attack_skills_+%}% increased Elemental Damage with Attack Skills",
-        "stats": { "elemental_damage_with_attack_skills_+%": 500 }
-      }
-    },
-    "Awakened Elemental Damage with Attacks Support": {
-      "undefined": {
-        "stat": "{elemental_damage_with_attack_skills_+%}% increased Elemental Damage with Attack Skills",
-        "stats": { "elemental_damage_with_attack_skills_+%": 500 }
-      }
-    },
-    "Sweep": {
-      "undefined": {
-        "stat": "{active_skill_base_radius_+/locations_to_metres} metres to radius",
-        "stats": { "active_skill_base_radius_+": 200 }
-      }
-    },
-    "Tempest Shield": {
-      "undefined": {
-        "stat": "{base_chance_to_shock_%}% chance to Shock enemies",
-        "stats": { "base_chance_to_shock_%": 2000 }
-      }
-    },
-    "Temporal Chains": {
-      "undefined": {
-        "stat": "{base_curse_duration_+%}% increased Curse Duration",
-        "stats": { "base_curse_duration_+%": 1000 }
-      }
-    },
-    "Temporal Rift": {
-      "undefined": {
-        "stat": "Buff causes Debuffs on you to expire {debuff_time_passed_+%}% faster",
-        "stats": { "debuff_time_passed_+%": 1000 }
-      }
-    },
-    "Spectral Shield Throw": {
-      "undefined": {
-        "stat": "Fires {number_of_additional_projectiles} additional Projectiles",
-        "stats": { "number_of_additional_projectiles": 100 }
-      }
-    },
-    "Spectral Throw": {
-      "undefined": {
-        "stat": "Projectiles that have Pierced deal {projectile_damage_+%_final_if_pierced_enemy}% more Damage",
-        "stats": { "projectile_damage_+%_final_if_pierced_enemy": 500 }
-      }
-    },
-    "Tornado": {
-      "undefined": {
-        "stat": "Tornado has {tornado_movement_speed_+%}% increased Movement Speed",
-        "stats": { "tornado_movement_speed_+%": 1000 }
-      }
-    },
-    "Tornado Shot": {
-      "undefined": {
-        "stat": "Fires {tornado_shot_num_of_secondary_projectiles} secondary Projectiles",
-        "stats": { "tornado_shot_num_of_secondary_projectiles": 50 }
-      }
-    },
-    "Ancestral Protector": {
-      "undefined": {
-        "stat": "{melee_range_+/locations_to_metres} metres to Melee Strike Range",
-        "stats": { "melee_range_+": 200 }
-      }
-    },
+    "Awakened Unbound Ailments Support": {},
+    "Awakened Unleash Support": {},
+    "Urgent Orders Support": {},
+    "Awakened Vicious Projectiles Support": {},
+    "Void Manipulation Support": {},
+    "Awakened Void Manipulation Support": {},
+    "Volatility Support": {},
+    "Elemental Damage with Attacks Support": {},
+    "Awakened Elemental Damage with Attacks Support": {},
+    "Sweep": {},
+    "Tempest Shield": {},
+    "Temporal Chains": {},
+    "Temporal Rift": {},
+    "Spectral Shield Throw": {},
+    "Spectral Throw": {},
+    "Tornado": {},
+    "Tornado Shot": {},
+    "Ancestral Protector": {},
     "Touch of God": {},
-    "Vaal Absolution": {
-      "undefined": {
-        "stat": "Minions have {minion_cooldown_recovery_+%}% increased Cooldown Recovery Rate",
-        "stats": { "minion_cooldown_recovery_+%": 2000 }
-      }
-    },
-    "Vaal Ancestral Warchief": {
-      "undefined": {
-        "stat": "{totem_damage_+%}% increased Totem Damage",
-        "stats": { "totem_damage_+%": 1000 }
-      }
-    },
-    "Vaal Animate Weapon": {
-      "undefined": {
-        "stat": "{number_of_animated_weapons_allowed} to maximum number of Animated Weapons",
-        "stats": { "number_of_animated_weapons_allowed": 100 }
-      }
-    },
-    "Vaal Arc": {
-      "undefined": {
-        "stat": "Chains {number_of_chains} Times",
-        "stats": { "number_of_chains": 50 }
-      }
-    },
-    "Vaal Arctic Armour": {
-      "undefined": {
-        "stat": "{skill_effect_duration_+%}% increased Skill Effect Duration",
-        "stats": { "skill_effect_duration_+%": 1000 }
-      }
-    },
+    "Vaal Absolution": {},
+    "Vaal Ancestral Warchief": {},
+    "Vaal Animate Weapon": {},
+    "Vaal Arc": {},
+    "Vaal Arctic Armour": {},
     "Gluttony of Elements": {},
-    "Vaal Blade Vortex": {
-      "undefined": {
-        "stat": "{blade_vortex_hit_rate_+%_per_blade}% increased Hit Rate for each blade",
-        "stats": { "blade_vortex_hit_rate_+%_per_blade": 250 }
-      }
-    },
-    "Vaal Blight": {
-      "undefined": {
-        "stat": "Base duration is {base_skill_effect_duration/milliseconds_to_seconds_2dp} seconds",
-        "stats": { "base_skill_effect_duration": 40000 }
-      }
-    },
-    "Vaal Breach": {
-      "undefined": {
-        "stat": "{base_cast_speed_+%}% increased Cast Speed",
-        "stats": { "base_cast_speed_+%": 3000 }
-      }
-    },
-    "Vaal Burning Arrow": {
-      "undefined": {
-        "stat": "{active_skill_ignite_damage_+%_final}% more Damage with Ignite",
-        "stats": { "active_skill_ignite_damage_+%_final": 1000 }
-      }
-    },
-    "Vaal Caustic Arrow": {
-      "undefined": {
-        "stat": "{active_skill_base_radius_+/locations_to_metres} metres to radius",
-        "stats": { "active_skill_base_radius_+": 100 }
-      }
-    },
-    "Vaal Blade Flurry": {
-      "undefined": {
-        "stat": "{charged_attack_damage_per_stack_+%_final}% more Damage with Hits and Ailments for each stage",
-        "stats": { "charged_attack_damage_per_stack_+%_final": 250 }
-      }
-    },
-    "Vaal Clarity": {
-      "undefined": {
-        "stat": "{base_skill_area_of_effect_+%}% increased Area of Effect",
-        "stats": { "base_skill_area_of_effect_+%": 2000 }
-      }
-    },
-    "Vaal Cleave": {
-      "undefined": {
-        "stat": "+0.1 metres to radius per Nearby Enemy, up to a maximum of +1 metre",
-        "stats": { "cleave_+1_base_radius_per_nearby_enemy_up_to_10": 1000 }
-      }
-    },
-    "Vaal Cold Snap": {
-      "undefined": {
-        "stat": "{active_skill_chill_effect_+%_final}% more Effect of Chill",
-        "stats": { "active_skill_chill_effect_+%_final": 1000 }
-      }
-    },
-    "Vaal Cyclone": {
-      "undefined": {
-        "stat": "{base_skill_area_of_effect_+%}% increased Area of Effect",
-        "stats": { "base_skill_area_of_effect_+%": 500 }
-      }
-    },
-    "Vaal Detonate Dead": {
-      "undefined": {
-        "stat": "{detonate_dead_%_chance_to_detonate_additional_corpse}% chance to detonate an additional corpse",
-        "stats": { "detonate_dead_%_chance_to_detonate_additional_corpse": 1500 }
-      }
-    },
-    "Vaal Discipline": {
-      "undefined": {
-        "stat": "{base_skill_area_of_effect_+%}% increased Area of Effect",
-        "stats": { "base_skill_area_of_effect_+%": 2000 }
-      }
-    },
-    "Vaal Domination": {
-      "undefined": {
-        "stat": "Minions have {minion_cooldown_recovery_+%}% increased Cooldown Recovery Rate",
-        "stats": { "minion_cooldown_recovery_+%": 2000 }
-      }
-    },
-    "Vaal Double Strike": {
-      "undefined": {
-        "stat": "{chance_to_deal_double_damage_%_vs_bleeding_enemies}% chance to deal Double Damage to Bleeding Enemies",
-        "stats": { "chance_to_deal_double_damage_%_vs_bleeding_enemies": 1000 }
-      }
-    },
-    "Vaal Earthquake": {
-      "undefined": {
-        "stat": "Aftershock deals {quake_slam_fully_charged_explosion_damage_+%_final}% more Damage with Hits and Ailments",
-        "stats": { "quake_slam_fully_charged_explosion_damage_+%_final": 1500 }
-      }
-    },
+    "Vaal Blade Vortex": {},
+    "Vaal Blight": {},
+    "Vaal Breach": {},
+    "Vaal Burning Arrow": {},
+    "Vaal Caustic Arrow": {},
+    "Vaal Blade Flurry": {},
+    "Vaal Clarity": {},
+    "Vaal Cleave": {},
+    "Vaal Cold Snap": {},
+    "Vaal Cyclone": {},
+    "Vaal Detonate Dead": {},
+    "Vaal Discipline": {},
+    "Vaal Domination": {},
+    "Vaal Double Strike": {},
+    "Vaal Earthquake": {},
     "Vaal FireTrap": {},
-    "Vaal Fireball": {
-      "undefined": {
-        "stat": "Base radius is {active_skill_base_area_of_effect_radius/locations_to_metres} metres",
-        "stats": { "active_skill_base_area_of_effect_radius": 100 }
-      }
-    },
-    "Vaal Firestorm": {
-      "undefined": {
-        "stat": "Base radius is {active_skill_base_area_of_effect_radius/locations_to_metres} metres",
-        "stats": { "active_skill_base_area_of_effect_radius": 100 }
-      }
-    },
-    "Vaal Flameblast": {
-      "undefined": { "stat": "{damage_+%}% increased Damage", "stats": { "damage_+%": 1000 } }
-    },
+    "Vaal Fireball": {},
+    "Vaal Firestorm": {},
+    "Vaal Flameblast": {},
     "Vaal Flesh Offering": {},
-    "Vaal Flicker Strike": {
-      "undefined": {
-        "stat": "{add_frenzy_charge_on_skill_hit_%}% chance to gain a Frenzy Charge on Hit",
-        "stats": { "add_frenzy_charge_on_skill_hit_%": 500 }
-      }
-    },
-    "Vaal Glacial Hammer": {
-      "undefined": {
-        "stat": "{cold_ailment_duration_+%}% increased Duration of Cold Ailments",
-        "stats": { "cold_ailment_duration_+%": 2000 }
-      }
-    },
-    "Vaal Grace": {
-      "undefined": {
-        "stat": "{base_skill_area_of_effect_+%}% increased Area of Effect",
-        "stats": { "base_skill_area_of_effect_+%": 2000 }
-      }
-    },
-    "Vaal Ground Slam": {
-      "undefined": {
-        "stat": "Deals up to {groundslam_damage_to_close_targets_+%_final}% more Damage with Hits to closer targets",
-        "stats": { "groundslam_damage_to_close_targets_+%_final": 1000 }
-      }
-    },
-    "Vaal Haste": {
-      "undefined": {
-        "stat": "{base_skill_area_of_effect_+%}% increased Area of Effect",
-        "stats": { "base_skill_area_of_effect_+%": 2000 }
-      }
-    },
+    "Vaal Flicker Strike": {},
+    "Vaal Glacial Hammer": {},
+    "Vaal Grace": {},
+    "Vaal Ground Slam": {},
+    "Vaal Haste": {},
     "Vaal Heavy Strike": {},
-    "Vaal Ice Nova": {
-      "undefined": {
-        "stat": "Base radius is {active_skill_base_area_of_effect_radius/locations_to_metres} metres",
-        "stats": { "active_skill_base_area_of_effect_radius": 150 }
-      }
-    },
-    "Vaal Ice Shot": {
-      "undefined": {
-        "stat": "{skill_area_angle_+%}% increased Area of Effect angle",
-        "stats": { "skill_area_angle_+%": 3000 }
-      }
-    },
-    "Vaal Immortal Call": {
-      "undefined": {
-        "stat": "{skill_effect_duration_+%}% increased Skill Effect Duration",
-        "stats": { "skill_effect_duration_+%": 1000 }
-      }
-    },
-    "Vaal Lightning Arrow": {
-      "undefined": {
-        "stat": "Hits up to {lightning_arrow_maximum_number_of_extra_targets} additional enemies near the target",
-        "stats": { "lightning_arrow_maximum_number_of_extra_targets": 100 }
-      }
-    },
-    "Vaal Lightning Strike": {
-      "undefined": {
-        "stat": "Fires {base_number_of_projectiles} Projectiles",
-        "stats": { "base_number_of_projectiles": 50 }
-      }
-    },
-    "Vaal Lightning Trap": {
-      "undefined": {
-        "stat": "Shocked Ground causes {shocked_ground_base_magnitude_override}% increased Damage taken",
-        "stats": { "shocked_ground_base_magnitude_override": 250 }
-      }
-    },
-    "Vaal Lightning Warp": {
-      "undefined": {
-        "stat": "{base_cast_speed_+%}% increased Cast Speed",
-        "stats": { "base_cast_speed_+%": 1000 }
-      }
-    },
-    "Vaal Molten Shell": {
-      "undefined": {
-        "stat": "{skill_effect_duration_+%}% increased Skill Effect Duration",
-        "stats": { "skill_effect_duration_+%": 1000 }
-      }
-    },
-    "Vaal Molten Strike": {
-      "undefined": {
-        "stat": "Projectiles deal {active_skill_hit_ailment_damage_with_projectile_+%_final}% more Damage with Hits and Ailments",
-        "stats": { "active_skill_hit_ailment_damage_with_projectile_+%_final": 500 }
-      }
-    },
-    "Vaal Power Siphon": {
-      "undefined": {
-        "stat": "{critical_strike_multiplier_+_per_power_charge}% to Critical Strike Multiplier per Power Charge",
-        "stats": { "critical_strike_multiplier_+_per_power_charge": 500 }
-      }
-    },
-    "Vaal Rain of Arrows": {
-      "undefined": {
-        "stat": "Fires {base_number_of_arrows} Arrows",
-        "stats": { "base_number_of_arrows": 200 }
-      }
-    },
-    "Vaal Reap": {
-      "undefined": {
-        "stat": "Deals {blood_scythe_damage_+%_final_per_charge}% more Damage per Blood Charge",
-        "stats": { "blood_scythe_damage_+%_final_per_charge": 250 }
-      }
-    },
-    "Vaal Reave": {
-      "undefined": {
-        "stat": "+{reave_additional_max_stacks} to maximum Stages",
-        "stats": { "reave_additional_max_stacks": 100 }
-      }
-    },
-    "Vaal Rejuvenation Totem": {
-      "undefined": {
-        "stat": "{totem_life_+%_final}% more Totem Life",
-        "stats": { "totem_life_+%_final": 1000 }
-      }
-    },
-    "Vaal Righteous Fire": {
-      "undefined": {
-        "stat": "Base radius is {active_skill_base_area_of_effect_radius/locations_to_metres} metres",
-        "stats": { "active_skill_base_area_of_effect_radius": 150 }
-      }
-    },
-    "Vaal Smite": {
-      "undefined": {
-        "stat": "{active_skill_area_damage_+%_final}% more Area Damage",
-        "stats": { "active_skill_area_damage_+%_final": 500 }
-      }
-    },
-    "Vaal Venom Gyre": {
-      "undefined": {
-        "stat": "{base_poison_duration_+%}% increased Poison Duration",
-        "stats": { "base_poison_duration_+%": 1000 }
-      }
-    },
+    "Vaal Ice Nova": {},
+    "Vaal Ice Shot": {},
+    "Vaal Immortal Call": {},
+    "Vaal Lightning Arrow": {},
+    "Vaal Lightning Strike": {},
+    "Vaal Lightning Trap": {},
+    "Vaal Lightning Warp": {},
+    "Vaal Molten Shell": {},
+    "Vaal Molten Strike": {},
+    "Vaal Power Siphon": {},
+    "Vaal Rain of Arrows": {},
+    "Vaal Reap": {},
+    "Vaal Reave": {},
+    "Vaal Rejuvenation Totem": {},
+    "Vaal Righteous Fire": {},
+    "Vaal Smite": {},
+    "Vaal Venom Gyre": {},
     "Vaal Soul Harvesting": {},
-    "Vaal Spark": {
-      "undefined": {
-        "stat": "Fires {base_number_of_projectiles} Projectiles",
-        "stats": { "base_number_of_projectiles": 100 }
-      }
-    },
-    "Vaal Split Arrow": {
-      "undefined": {
-        "stat": "Fires {base_number_of_arrows} Arrows",
-        "stats": { "base_number_of_arrows": 200 }
-      }
-    },
-    "Vaal Storm Call": {
-      "undefined": {
-        "stat": "{base_skill_area_of_effect_+%}% increased Area of Effect",
-        "stats": { "base_skill_area_of_effect_+%": 500 }
-      }
-    },
-    "Vaal Summon Skeletons": {
-      "undefined": {
-        "stat": "{base_number_of_skeletons_allowed} to Maximum Summoned Skeletons",
-        "stats": { "base_number_of_skeletons_allowed": 50 }
-      }
-    },
+    "Vaal Spark": {},
+    "Vaal Split Arrow": {},
+    "Vaal Storm Call": {},
+    "Vaal Summon Skeletons": {},
     "Vaal Sweep": {},
-    "Vaal Spectral Throw": {
-      "undefined": {
-        "stat": "Projectiles that have Pierced deal {projectile_damage_+%_final_if_pierced_enemy}% more Damage",
-        "stats": { "projectile_damage_+%_final_if_pierced_enemy": 500 }
-      }
-    },
-    "Vaal Volcanic Fissure": {
-      "undefined": {
-        "stat": "Fires {base_number_of_projectiles} Projectiles",
-        "stats": { "base_number_of_projectiles": 100 }
-      }
-    },
-    "Vampiric Link": {
-      "undefined": {
-        "stat": "Base duration is {base_skill_effect_duration/milliseconds_to_seconds_2dp} seconds",
-        "stats": { "base_skill_effect_duration": 75000 }
-      }
-    },
-    "Vengeance": {
-      "undefined": {
-        "stat": "{melee_counterattack_trigger_on_hit_%}% chance to Trigger this Skill when Hit",
-        "stats": { "melee_counterattack_trigger_on_hit_%": 1000 }
-      }
-    },
-    "Impending Doom Support": {
-      "undefined": { "stat": "", "stats": { "dummy_stat_display_nothing": 0 } }
-    },
-    "Vigilant Strike": {
-      "undefined": {
-        "stat": "{active_skill_attack_damage_+%_final_per_endurance_charge}% more Attack Damage per Endurance Charge",
-        "stats": { "active_skill_attack_damage_+%_final_per_endurance_charge": 200 }
-      }
-    },
-    "Viper Strike": {
-      "undefined": {
-        "stat": "Base duration is {base_skill_effect_duration/milliseconds_to_seconds_2dp} seconds",
-        "stats": { "base_skill_effect_duration": 50000 }
-      }
-    },
-    "Vitality": {
-      "undefined": {
-        "stat": "{base_skill_area_of_effect_+%}% increased Area of Effect",
-        "stats": { "base_skill_area_of_effect_+%": 2000 }
-      }
-    },
-    "Volatile Dead": {
-      "undefined": {
-        "stat": "{volatile_dead_core_movement_speed_+%}% increased Orb Movement Speed",
-        "stats": { "volatile_dead_core_movement_speed_+%": 2000 }
-      }
-    },
-    "Volcanic Fissure": {
-      "undefined": {
-        "stat": "Fires {base_number_of_projectiles} Projectiles",
-        "stats": { "base_number_of_projectiles": 100 }
-      }
-    },
-    "Voltaxic Burst": {
-      "undefined": {
-        "stat": "{voltaxic_burst_hit_and_ailment_damage_+%_final_per_stack}% more Damage with Hits and Ailments for each Cast of this Spell currently waiting",
-        "stats": { "voltaxic_burst_hit_and_ailment_damage_+%_final_per_stack": 50 }
-      }
-    },
+    "Vaal Spectral Throw": {},
+    "Vaal Volcanic Fissure": {},
+    "Vampiric Link": {},
+    "Vengeance": {},
+    "Impending Doom Support": {},
+    "Vigilant Strike": {},
+    "Viper Strike": {},
+    "Vitality": {},
+    "Volatile Dead": {},
+    "Volcanic Fissure": {},
+    "Voltaxic Burst": {},
     "Vortex Mine": {},
-    "Vulnerability": {
-      "undefined": {
-        "stat": "{self_bleed_duration_+%}% increased Duration of Bleeding on Cursed Enemies",
-        "stats": { "self_bleed_duration_+%": 1000 }
-      }
-    },
+    "Vulnerability": {},
     "Wand Teleport": {},
-    "Warlord's Mark": {
-      "undefined": {
-        "stat": "Cursed Enemies have a {grant_attacker_endurance_charge_when_hit_%_chance}% chance to grant an Endurance Charge when Hit",
-        "stats": { "grant_attacker_endurance_charge_when_hit_%_chance": 250 }
-      }
-    },
-    "Hydrosphere": {
-      "undefined": {
-        "stat": "{hydro_sphere_pulse_frequency_+%}% increased Pulse Frequency",
-        "stats": { "hydro_sphere_pulse_frequency_+%": 500 }
-      }
-    },
-    "Whirling Blades": {
-      "undefined": {
-        "stat": "{attack_speed_+%}% increased Attack Speed",
-        "stats": { "attack_speed_+%": 500 }
-      }
-    },
-    "Wild Strike": {
-      "undefined": {
-        "stat": "{chance_to_freeze_shock_ignite_%}% chance to Freeze, Shock and Ignite",
-        "stats": { "chance_to_freeze_shock_ignite_%": 1000 }
-      }
-    },
-    "Wither": {
-      "undefined": {
-        "stat": "{skill_effect_duration_+%}% increased Skill Effect Duration",
-        "stats": { "skill_effect_duration_+%": 1000 }
-      }
-    },
-    "Wrath": {
-      "undefined": {
-        "stat": "{base_skill_area_of_effect_+%}% increased Area of Effect",
-        "stats": { "base_skill_area_of_effect_+%": 2000 }
-      }
-    }
+    "Warlord's Mark": {},
+    "Hydrosphere": {},
+    "Whirling Blades": {},
+    "Wild Strike": {},
+    "Wither": {},
+    "Wrath": {}
   },
   "xp": {
     "Absolution": [
