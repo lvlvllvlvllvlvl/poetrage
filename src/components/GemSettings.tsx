@@ -12,7 +12,6 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Snackbar from "@mui/material/Snackbar";
 import TextField from "@mui/material/TextField";
-import { getCurrency } from "functions/getCurrency";
 import { Override } from "models/gems";
 import * as api from "state/api";
 import { actions, AppState, setters } from "state/app";
@@ -42,8 +41,6 @@ export const Settings = () => {
     setSanitize,
     setTemplePrice,
     setLowConfidence,
-    setPrimeRegrading,
-    setSecRegrading,
     setFilterMeta,
     setIncQual,
     setFiveWay,
@@ -63,8 +60,6 @@ export const Settings = () => {
   const sanitize = useAppSelector((state) => state.app.sanitize);
   const templePrice = useAppSelector((state) => state.app.templePrice);
   const lowConfidence = useAppSelector((state) => state.app.lowConfidence);
-  const primeRegrading = useAppSelector((state) => state.app.primeRegrading);
-  const secRegrading = useAppSelector((state) => state.app.secRegrading);
   const filterMeta = useAppSelector((state) => state.app.filterMeta);
   const incQual = useAppSelector((state) => state.app.incQual);
   const fiveWay = useAppSelector((state) => state.app.fiveWay);
@@ -154,36 +149,6 @@ export const Settings = () => {
                   "Checking temple prices..."
                 )}
               </p>
-
-              <TextField
-                type="number"
-                fullWidth
-                margin="normal"
-                label="Prime regrading lens price"
-                placeholder={Math.round(
-                  getCurrency("Prime Regrading Lens", currencyMap.value, 0),
-                ).toString()}
-                variant="outlined"
-                value={primeRegrading.value || ""}
-                onChange={({ target }) =>
-                  setPrimeRegrading(target.value ? parseInt(target.value) : 0)
-                }
-              />
-
-              <TextField
-                type="number"
-                fullWidth
-                margin="normal"
-                label="Secondary regrading lens price"
-                placeholder={Math.round(
-                  getCurrency("Secondary Regrading Lens", currencyMap.value, 0),
-                ).toString()}
-                variant="outlined"
-                value={secRegrading.value || ""}
-                onChange={({ target }) =>
-                  setSecRegrading(target.value ? parseInt(target.value) : 0)
-                }
-              />
 
               <FormControl fullWidth margin="normal">
                 <InputLabel>Include low confidence values</InputLabel>

@@ -1267,6 +1267,14 @@
           "name": "Brinerot Whalers",
           "type": "Trapper Boots"
         }
+      },
+      {
+        "page_name": "Brinerot Whalers",
+        "tags": "armour,boots,default,dex_int_armour",
+        "query": {
+          "name": "Brinerot Whalers",
+          "type": "Trapper Boots"
+        }
       }
     ],
     "briskwrap": [
@@ -2184,7 +2192,7 @@
         "tags": "default",
         "query": {
           "name": "Deadly End",
-          "type": "Ultimatum Aspect"
+          "type": "Vaal Aspect"
         }
       }
     ],
@@ -2858,16 +2866,7 @@
         }
       }
     ],
-    "endless misery": [
-      {
-        "page_name": "Endless Misery",
-        "tags": "default,intjewel,jewel,not_dex,not_for_sale,not_str",
-        "query": {
-          "name": "Endless Misery",
-          "type": "Cobalt Jewel"
-        }
-      }
-    ],
+    "endless misery": [],
     "energised armour": [
       {
         "page_name": "Energised Armour",
@@ -3366,7 +3365,7 @@
     "font of thunder": [
       {
         "page_name": "Font of Thunder",
-        "tags": "armour,default,dex_int_armour,dex_int_shield,shield",
+        "tags": "armour,default,dex_int_armour,dex_int_shield,shield,top_tier_base_item_type",
         "query": {
           "name": "Font of Thunder",
           "type": "Mirrored Spiked Shield"
@@ -3497,6 +3496,16 @@
         "query": {
           "name": "Galesight",
           "type": "Solaris Circlet"
+        }
+      }
+    ],
+    "gamblesprint": [
+      {
+        "page_name": "Gamblesprint",
+        "tags": "armour,boots,default,str_dex_armour,top_tier_base_item_type",
+        "query": {
+          "name": "Gamblesprint",
+          "type": "Hydrascale Boots"
         }
       }
     ],
@@ -4059,16 +4068,7 @@
         }
       }
     ],
-    "honoured alliance": [
-      {
-        "page_name": "Honoured Alliance",
-        "tags": "default,ring",
-        "query": {
-          "name": "Honoured Alliance",
-          "type": "Coral Ring"
-        }
-      }
-    ],
+    "honoured alliance": [],
     "honourhome": [
       {
         "page_name": "Honourhome",
@@ -4210,7 +4210,7 @@
         "tags": "default",
         "query": {
           "name": "Ignominious Fate",
-          "type": "Ultimatum Aspect"
+          "type": "Vaal Aspect"
         }
       }
     ],
@@ -4479,6 +4479,16 @@
       }
     ],
     "irresistable temptation": [],
+    "ixchel's temptation": [
+      {
+        "page_name": "Ixchel's Temptation",
+        "tags": "default,ring",
+        "query": {
+          "name": "Ixchel's Temptation",
+          "type": "Gold Ring"
+        }
+      }
+    ],
     "izaro's dilemma": [],
     "izaro's turmoil": [],
     "jack, the axe": [
@@ -5086,7 +5096,7 @@
     "magna eclipsis": [
       {
         "page_name": "Magna Eclipsis",
-        "tags": "armour,default,shield,str_armour,str_shield",
+        "tags": "armour,default,shield,str_armour,str_shield,top_tier_base_item_type",
         "query": {
           "name": "Magna Eclipsis",
           "type": "Pinnacle Tower Shield"
@@ -6151,6 +6161,16 @@
         }
       }
     ],
+    "pragmatism": [
+      {
+        "page_name": "Pragmatism",
+        "tags": "armour,body_armour,default,str_armour",
+        "query": {
+          "name": "Pragmatism",
+          "type": "Colosseum Plate"
+        }
+      }
+    ],
     "praxis": [
       {
         "page_name": "Praxis",
@@ -6719,7 +6739,7 @@
     "replica alpha's howl": [
       {
         "page_name": "Replica Alpha's Howl",
-        "tags": "armour,default,dex_armour,helmet",
+        "tags": "armour,default,dex_armour,helmet,top_tier_base_item_type",
         "query": {
           "name": "Replica Alpha's Howl",
           "type": "Sinner Tricorne"
@@ -6753,6 +6773,16 @@
         "query": {
           "name": "Replica Atziri's Foible",
           "type": "Paua Amulet"
+        }
+      }
+    ],
+    "replica badge of the brotherhood": [
+      {
+        "page_name": "Replica Badge of the Brotherhood",
+        "tags": "amulet,default",
+        "query": {
+          "name": "Replica Badge of the Brotherhood",
+          "type": "Turquoise Amulet"
         }
       }
     ],
@@ -6829,6 +6859,16 @@
         }
       }
     ],
+    "replica covenant": [
+      {
+        "page_name": "Replica Covenant",
+        "tags": "armour,body_armour,default,int_armour",
+        "query": {
+          "name": "Replica Covenant",
+          "type": "Spidersilk Robe"
+        }
+      }
+    ],
     "replica doedre's damning": [
       {
         "page_name": "Replica Doedre's Damning",
@@ -6902,7 +6942,7 @@
     "replica farrul's fur": [
       {
         "page_name": "Replica Farrul's Fur",
-        "tags": "armour,body_armour,default,str_dex_armour",
+        "tags": "armour,body_armour,default,str_dex_armour,top_tier_base_item_type",
         "query": {
           "name": "Replica Farrul's Fur",
           "type": "Triumphant Lamellar"
@@ -6934,7 +6974,7 @@
     "replica grip of the council": [
       {
         "page_name": "Replica Grip of the Council",
-        "tags": "armour,default,gloves,int_armour",
+        "tags": "armour,default,gloves,int_armour,top_tier_base_item_type",
         "query": {
           "name": "Replica Grip of the Council",
           "type": "Arcanist Gloves"
@@ -7005,7 +7045,7 @@
     "replica inya's epiphany": [
       {
         "page_name": "Replica Inya's Epiphany",
-        "tags": "armour,boots,default,int_armour",
+        "tags": "armour,boots,default,int_armour,top_tier_base_item_type",
         "query": {
           "name": "Replica Inya's Epiphany",
           "type": "Arcanist Slippers"
@@ -7035,7 +7075,7 @@
     "replica kaom's heart": [
       {
         "page_name": "Replica Kaom's Heart",
-        "tags": "armour,body_armour,default,str_armour",
+        "tags": "armour,body_armour,default,str_armour,top_tier_base_item_type",
         "query": {
           "name": "Replica Kaom's Heart",
           "type": "Glorious Plate"
@@ -7105,7 +7145,7 @@
     "replica loreweave": [
       {
         "page_name": "Replica Loreweave",
-        "tags": "armour,body_armour,default,str_int_armour",
+        "tags": "armour,body_armour,default,str_int_armour,top_tier_base_item_type",
         "query": {
           "name": "Replica Loreweave",
           "type": "Elegant Ringmail"
@@ -7266,7 +7306,7 @@
     "replica restless ward": [
       {
         "page_name": "Replica Restless Ward",
-        "tags": "armour,body_armour,default,dex_int_armour",
+        "tags": "armour,body_armour,default,dex_int_armour,top_tier_base_item_type",
         "query": {
           "name": "Replica Restless Ward",
           "type": "Carnal Armour"
@@ -7276,7 +7316,7 @@
     "replica rumi's concoction": [
       {
         "page_name": "Replica Rumi's Concoction",
-        "tags": "default,flask,not_for_sale,utility_flask",
+        "tags": "default,flask,utility_flask",
         "query": {
           "name": "Replica Rumi's Concoction",
           "type": "Granite Flask"
@@ -7286,7 +7326,7 @@
     "replica shroud of the lightless": [
       {
         "page_name": "Replica Shroud of the Lightless",
-        "tags": "armour,body_armour,default,dex_int_armour",
+        "tags": "armour,body_armour,default,dex_int_armour,top_tier_base_item_type",
         "query": {
           "name": "Replica Shroud of the Lightless",
           "type": "Carnal Armour"
@@ -7306,7 +7346,7 @@
     "replica sorrow of the divine": [
       {
         "page_name": "Replica Sorrow of the Divine",
-        "tags": "default,flask,not_for_sale,utility_flask",
+        "tags": "default,flask,utility_flask",
         "query": {
           "name": "Replica Sorrow of the Divine",
           "type": "Sulphur Flask"
@@ -8366,16 +8406,7 @@
         }
       }
     ],
-    "soul's wick": [
-      {
-        "page_name": "Soul's Wick",
-        "tags": "default,intjewel,jewel,not_dex,not_for_sale,not_str",
-        "query": {
-          "name": "Soul's Wick",
-          "type": "Cobalt Jewel"
-        }
-      }
-    ],
+    "soul's wick": [],
     "soulbound": [
       {
         "page_name": "Soulbound",
@@ -8429,16 +8460,7 @@
     "specialised": [],
     "spine of the first claimant": [],
     "spire of stone": [],
-    "spirit guards": [
-      {
-        "page_name": "Spirit Guards",
-        "tags": "default,dexjewel,jewel,not_for_sale,not_int,not_str",
-        "query": {
-          "name": "Spirit Guards",
-          "type": "Viridian Jewel"
-        }
-      }
-    ],
+    "spirit guards": [],
     "spirited response": [],
     "splinter of the moon": [],
     "split personality": [
@@ -10152,13 +10174,14 @@
       }
     ],
     "the torturer": [],
-    "the tower of ordeals": [
+    "the tower of ordeals": [],
+    "the trickster's smile": [
       {
-        "page_name": "The Tower of Ordeals",
-        "tags": "default,map,not_for_sale",
+        "page_name": "The Trickster's Smile",
+        "tags": "armour,default,helmet,str_dex_armour",
         "query": {
-          "name": "The Tower of Ordeals",
-          "type": "Engraved Ultimatum"
+          "name": "The Trickster's Smile",
+          "type": "Visored Sallet"
         }
       }
     ],
@@ -10181,6 +10204,16 @@
         "query": {
           "name": "The Unshattered Will",
           "type": "Archon Kite Shield"
+        }
+      }
+    ],
+    "the untouched soul": [
+      {
+        "page_name": "The Untouched Soul",
+        "tags": "amulet,default",
+        "query": {
+          "name": "The Untouched Soul",
+          "type": "Gold Amulet"
         }
       }
     ],
@@ -10987,7 +11020,7 @@
         "tags": "default",
         "query": {
           "name": "Victorious Fate",
-          "type": "Ultimatum Aspect"
+          "type": "Vaal Aspect"
         }
       }
     ],
@@ -11274,16 +11307,7 @@
         }
       }
     ],
-    "warrior's tale": [
-      {
-        "page_name": "Warrior's Tale",
-        "tags": "default,jewel,not_dex,not_for_sale,not_int,strjewel",
-        "query": {
-          "name": "Warrior's Tale",
-          "type": "Crimson Jewel"
-        }
-      }
-    ],
+    "warrior's tale": [],
     "watcher's eye": [
       {
         "page_name": "Watcher's Eye",
@@ -11375,7 +11399,7 @@
         "tags": "default",
         "query": {
           "name": "Will of Chaos",
-          "type": "Ultimatum Aspect"
+          "type": "Vaal Aspect"
         }
       }
     ],
@@ -14321,7 +14345,7 @@
         "V2SupportedByReducedManaCorrupted": 1000
       }
     },
-    "armour,default,dex_int_armour,dex_int_shield,shield": {
+    "armour,default,dex_int_armour,dex_int_shield,shield,top_tier_base_item_type": {
       "sumWeight": 21999,
       "mods": {
         "V2DeterminationSkillCorrupted__": 333,
@@ -14573,35 +14597,6 @@
         "V2SocketedWarcryGemCorrupted": 1000
       }
     },
-    "armour,default,dex_int_armour,dex_int_shield,shield,top_tier_base_item_type": {
-      "sumWeight": 21999,
-      "mods": {
-        "V2DeterminationSkillCorrupted__": 333,
-        "V2DisciplineSkillCorrupted": 333,
-        "V2GemLevelCorrupted": 1000,
-        "V2GraceSkillCorrupted": 333,
-        "V2IncreasedMaximumEnergyShieldCorrupted": 1000,
-        "V2IncreasedMaximumLifeCorrupted": 1000,
-        "V2LocalBlockChanceCorrupted": 1000,
-        "V2MaximumBlockCorruption": 1000,
-        "V2PhysicalDamageTakenAsChaosCorrupted_": 1000,
-        "V2PhysicalDamageTakenAsColdCorrupted": 1000,
-        "V2PhysicalDamageTakenAsFireCorrupted": 1000,
-        "V2PhysicalDamageTakenAsLightningCorrupted": 1000,
-        "V2ReducedDamageFromAreaOfEffectCorrupted": 1000,
-        "V2ReducedDamageFromProjectilesCorrupted": 1000,
-        "V2ReducedExtraDamageFromCriticalStrikesShieldCorrupted": 1000,
-        "V2SocketedAoEGemCorrupted": 1000,
-        "V2SocketedAuraGemCorrupted": 1000,
-        "V2SocketedCurseGemCorrupted": 1000,
-        "V2SocketedDurationGemCorrupted": 1000,
-        "V2SocketedMinionGemCorrupted": 1000,
-        "V2SocketedProjectileGemCorrupted_": 1000,
-        "V2SocketedTrapOrMineGemCorrupted": 1000,
-        "V2SocketedWarcryGemCorrupted": 1000,
-        "V2SpellBlockPercentageCorrupted": 1000
-      }
-    },
     "default,not_for_sale,ring": {
       "sumWeight": 29950,
       "mods": {
@@ -14665,6 +14660,35 @@
         "V2SupportedByLifeGainOnHitCorrupted": 1000,
         "V2SupportedByOnslaughtCorrupted": 1000,
         "V2SupportedByReducedManaCorrupted": 1000
+      }
+    },
+    "armour,default,dex_int_armour,dex_int_shield,shield": {
+      "sumWeight": 21999,
+      "mods": {
+        "V2DeterminationSkillCorrupted__": 333,
+        "V2DisciplineSkillCorrupted": 333,
+        "V2GemLevelCorrupted": 1000,
+        "V2GraceSkillCorrupted": 333,
+        "V2IncreasedMaximumEnergyShieldCorrupted": 1000,
+        "V2IncreasedMaximumLifeCorrupted": 1000,
+        "V2LocalBlockChanceCorrupted": 1000,
+        "V2MaximumBlockCorruption": 1000,
+        "V2PhysicalDamageTakenAsChaosCorrupted_": 1000,
+        "V2PhysicalDamageTakenAsColdCorrupted": 1000,
+        "V2PhysicalDamageTakenAsFireCorrupted": 1000,
+        "V2PhysicalDamageTakenAsLightningCorrupted": 1000,
+        "V2ReducedDamageFromAreaOfEffectCorrupted": 1000,
+        "V2ReducedDamageFromProjectilesCorrupted": 1000,
+        "V2ReducedExtraDamageFromCriticalStrikesShieldCorrupted": 1000,
+        "V2SocketedAoEGemCorrupted": 1000,
+        "V2SocketedAuraGemCorrupted": 1000,
+        "V2SocketedCurseGemCorrupted": 1000,
+        "V2SocketedDurationGemCorrupted": 1000,
+        "V2SocketedMinionGemCorrupted": 1000,
+        "V2SocketedProjectileGemCorrupted_": 1000,
+        "V2SocketedTrapOrMineGemCorrupted": 1000,
+        "V2SocketedWarcryGemCorrupted": 1000,
+        "V2SpellBlockPercentageCorrupted": 1000
       }
     },
     "default,not_for_sale,quiver": {
@@ -16731,7 +16755,7 @@
         "weight": 1000,
         "stat": {
           "formatted": "Adds (6-8) to (13-15) Cold Damage",
-          "trade_stat": ["implicit.stat_1037193709", "implicit.stat_2387423236"]
+          "trade_stat": ["implicit.stat_2387423236", "implicit.stat_1037193709"]
         }
       },
       "V2LocalAddedColdDamage1hCorrupted2": {
@@ -16775,7 +16799,7 @@
         "weight": 1000,
         "stat": {
           "formatted": "Adds (14-18) to (27-32) Cold Damage",
-          "trade_stat": ["implicit.stat_1037193709", "implicit.stat_2387423236"]
+          "trade_stat": ["implicit.stat_2387423236", "implicit.stat_1037193709"]
         }
       },
       "V2LocalAddedColdDamage1hCorrupted3_": {
@@ -16819,7 +16843,7 @@
         "weight": 250,
         "stat": {
           "formatted": "Adds (17-23) to (24-40) Cold Damage",
-          "trade_stat": ["implicit.stat_1037193709", "implicit.stat_2387423236"]
+          "trade_stat": ["implicit.stat_2387423236", "implicit.stat_1037193709"]
         }
       },
       "V2LocalAddedColdDamage2hCorrupted1": {
@@ -16855,7 +16879,7 @@
         "weight": 1000,
         "stat": {
           "formatted": "Adds (9-13) to (20-23) Cold Damage",
-          "trade_stat": ["implicit.stat_1037193709", "implicit.stat_2387423236"]
+          "trade_stat": ["implicit.stat_2387423236", "implicit.stat_1037193709"]
         }
       },
       "V2LocalAddedColdDamage2hCorrupted2": {
@@ -16891,7 +16915,7 @@
         "weight": 1000,
         "stat": {
           "formatted": "Adds (22-27) to (36-44) Cold Damage",
-          "trade_stat": ["implicit.stat_1037193709", "implicit.stat_2387423236"]
+          "trade_stat": ["implicit.stat_2387423236", "implicit.stat_1037193709"]
         }
       },
       "V2LocalAddedColdDamage2hCorrupted3_": {
@@ -16927,7 +16951,7 @@
         "weight": 250,
         "stat": {
           "formatted": "Adds (26-32) to (45-55) Cold Damage",
-          "trade_stat": ["implicit.stat_1037193709", "implicit.stat_2387423236"]
+          "trade_stat": ["implicit.stat_2387423236", "implicit.stat_1037193709"]
         }
       }
     },
@@ -21819,7 +21843,7 @@
         ],
         "stats": [
           {
-            "id": "base_number_of_additional_arrows",
+            "id": "number_of_additional_arrows",
             "max": 1,
             "min": 1
           }
@@ -21828,7 +21852,7 @@
         "weight": 200,
         "stat": {
           "formatted": "Bow Attacks fire an additional Arrow",
-          "trade_stat": ["implicit.stat_742529963"]
+          "trade_stat": ["implicit.stat_3885405204"]
         }
       }
     },
@@ -23342,7 +23366,7 @@
         "weight": 1000,
         "stat": {
           "formatted": "Damage Penetrates 1% Cold Resistance",
-          "trade_stat": ["implicit.stat_3417711605"]
+          "trade_stat": ["implicit.stat_3417711605", "implicit.stat_1211769158"]
         }
       },
       "V2ColdPenetrationJewelCorrupted": {
@@ -23369,7 +23393,7 @@
         "weight": 1000,
         "stat": {
           "formatted": "Damage Penetrates 1% Cold Resistance",
-          "trade_stat": ["implicit.stat_3417711605"]
+          "trade_stat": ["implicit.stat_3417711605", "implicit.stat_1211769158"]
         }
       }
     },
@@ -23446,7 +23470,7 @@
         "weight": 1000,
         "stat": {
           "formatted": "Damage Penetrates 1% Fire Resistance",
-          "trade_stat": ["implicit.stat_2653955271"]
+          "trade_stat": ["implicit.stat_2653955271", "implicit.stat_1123291426"]
         }
       },
       "V2FirePenetrationJewelCorrupted": {
@@ -23473,7 +23497,7 @@
         "weight": 1000,
         "stat": {
           "formatted": "Damage Penetrates 1% Fire Resistance",
-          "trade_stat": ["implicit.stat_2653955271"]
+          "trade_stat": ["implicit.stat_2653955271", "implicit.stat_1123291426"]
         }
       }
     },
@@ -23654,7 +23678,7 @@
         "weight": 1000,
         "stat": {
           "formatted": "Damage Penetrates 1% Lightning Resistance",
-          "trade_stat": ["implicit.stat_818778753"]
+          "trade_stat": ["implicit.stat_818778753", "implicit.stat_3301510262"]
         }
       },
       "V2LightningPenetrationJewelCorrupted__": {
@@ -23681,7 +23705,7 @@
         "weight": 1000,
         "stat": {
           "formatted": "Damage Penetrates 1% Lightning Resistance",
-          "trade_stat": ["implicit.stat_818778753"]
+          "trade_stat": ["implicit.stat_818778753", "implicit.stat_3301510262"]
         }
       }
     },

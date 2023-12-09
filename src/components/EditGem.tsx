@@ -1,11 +1,10 @@
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { GemInfo } from "apis/getGemInfo";
-import { GemDetails, GemType, normalize } from "models/gems";
+import { GemDetails, normalize } from "models/gems";
 
 export const EditGem = ({
   gem,
@@ -43,24 +42,6 @@ export const EditGem = ({
             target.value && onChange({ ...gem, Quality: parseInt(target.value) })
           }
         />
-        <TextField
-          select
-          label="Type"
-          variant="outlined"
-          value={awakened ? "Awakened" : gem.Type}
-          disabled={awakened}
-          sx={{ m: 1, width: "25ch" }}
-          onChange={({ target }) => onChange(normalize({ ...gem, Type: target.value as GemType }))}>
-          {awakened ? (
-            <MenuItem value="Awakened">Awakened</MenuItem>
-          ) : (
-            gemInfo?.weights[gem.baseName].map(({ Type }) => (
-              <MenuItem key={Type} value={Type}>
-                {Type}
-              </MenuItem>
-            ))
-          )}
-        </TextField>
         <TextField
           type="number"
           label="Price"

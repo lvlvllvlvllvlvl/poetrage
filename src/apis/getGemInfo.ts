@@ -46,11 +46,6 @@ export const getGemInfo = async () => {
           }
         }
       }
-      qualityStats[name][quality_stat.set_name] = quality_stat;
-      if (!weights[name].find((w) => w.Type === quality_stat.set_name)) {
-        weights[name].push({ Type: quality_stat.set_name, weight: quality_stat.weight });
-        weights[altName].push({ Type: quality_stat.set_name, weight: quality_stat.weight });
-      }
     });
     Object.entries(gem.per_level).forEach(([level, data]) => {
       if (Number.isInteger(data.experience)) {
@@ -59,5 +54,5 @@ export const getGemInfo = async () => {
       }
     });
   });
-  return { weights, qualityStats, xp, maxLevel, names: Array.from(names).sort() };
+  return { qualityStats, xp, maxLevel, names: Array.from(names).sort() };
 };

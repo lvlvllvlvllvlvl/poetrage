@@ -4,18 +4,14 @@ import { getCurrency } from "functions/getCurrency";
 import { memoize } from "lodash";
 import {
   altQualities,
-  ConversionData,
   copy,
   exceptional,
   exists,
   Gem,
   GemDetails,
   GemId,
-  GemType,
   getId,
   isGoodCorruption,
-  qualities,
-  qualityIndex,
 } from "models/gems";
 import { GraphChild, GraphNode, NodeMap } from "models/graphElements";
 import { GraphInputs } from "state/selectors/graphInputs";
@@ -37,8 +33,6 @@ export const buildGraph = async (
     data,
     currencyMap,
     allowLowConfidence,
-    primeRegrading,
-    secRegrading,
     incQual,
     templeCost,
     awakenedLevelCost,
@@ -74,11 +68,6 @@ export const buildGraph = async (
       map[getId(gem)] = gem;
     });
     const getGem = (gem: Gem) => map[getId(gem)] || gem;
-
-    const getLensForGem = ({ Name }: GemDetails) =>
-      Name.includes("Support")
-        ? secRegrading || getCurrency("Secondary Regrading Lens", currencyMap.value, 0)
-        : primeRegrading || getCurrency("Prime Regrading Lens", currencyMap.value, 0);
 
     const gcp = getCurrency("Gemcutter's Prism", currencyMap.value);
     const fn = (gem: GemDetails): GraphNode => {
@@ -217,10 +206,6 @@ export const buildGraph = async (
 
     await setData(graphData);
 
-    const getRegradeValue = (regrData: ConversionData[]) =>
-      regrData.reduce((sum, d) => sum + normalizedFn(d.gem).expectedValue * d.chance, 0) -
-      getLensForGem(regrData[0].gem);
-
     setProgressMsg("Calculating xp profit flowcharts");
     await setProgress(0);
     timeSlice = Date.now() + processingTime;
@@ -260,27 +245,9 @@ export const buildGraph = async (
 
             if (gcpCount && gem.Corrupted) return undefined as any;
             const gcpCost = gcpCount * gcp;
-            const regrValue = other.gem.regrData ? getRegradeValue(other.gem.regrData) : 0;
-            const regradeCost = regrValue <= other.expectedValue ? 0 : getLensForGem(gem);
-            const regradeOutcomes = regradeCost
-              ? other.gem.regrData?.map((child) => ({
-                  name: "Regrading lens",
-                  expectedCost: regradeCost,
-                  probability: child.chance,
-                  node: normalizedFn(child.gem),
-                }))
-              : undefined;
-            const xpValue = (regradeCost ? regrValue : other.expectedValue) - (gcpCost + vaalCost);
+            const xpValue = other.expectedValue - (gcpCost + vaalCost);
 
-            let children = getChildren(
-              other,
-              gem,
-              xpDiff,
-              vaalCost,
-              gcpCount,
-              gcpCost,
-              regradeOutcomes,
-            );
+            let children = getChildren(other, gem, xpDiff, vaalCost, gcpCount, gcpCost);
             return createNode(gem, xpValue, children, xpDiff);
           })
           .concat(
@@ -301,20 +268,9 @@ export const buildGraph = async (
                       million /
                       qualityMultiplier;
                     const vaalCost = other.gem.Vaal && !gem.Vaal ? 4 * (gem.Price + vaal) : 0;
-                    const regrValue = other.gem.regrData ? getRegradeValue(other.gem.regrData) : 0;
-                    const regradeCost = regrValue <= other.expectedValue ? 0 : getLensForGem(gem);
-                    const regradeOutcomes = regradeCost
-                      ? other.gem.regrData?.map((child) => ({
-                          name: "Regrading lens",
-                          expectedCost: regradeCost,
-                          probability: child.chance,
-                          node: normalizedFn(child.gem),
-                        }))
-                      : undefined;
-                    const xpValue =
-                      (regradeCost ? regrValue : other.expectedValue) - (gcp + vaalCost);
+                    const xpValue = other.expectedValue - (gcp + vaalCost);
 
-                    let children = getChildren(other, gem, xpDiff, vaalCost, 1, 0, regradeOutcomes);
+                    let children = getChildren(other, gem, xpDiff, vaalCost, 1, 0);
                     return createNode(gem, xpValue, children, xpDiff);
                   })
               : [],
@@ -324,90 +280,6 @@ export const buildGraph = async (
       }
     }
     await setXPData(xpData);
-
-    setProgressMsg("Calculating regrading lens loops");
-    await setProgress(0);
-    timeSlice = Date.now() + processingTime;
-
-    const cache = new memoize.Cache();
-
-    i = 0;
-    for (const node of Object.values(graphData).map((node) => ({ ...node })) as GraphNode[]) {
-      i++;
-      if (Date.now() > timeSlice) {
-        const p = (100 * i) / data.length;
-        await setProgress(p);
-        timeSlice = Date.now() + processingTime;
-      }
-      const gem = node.gem;
-      if (!gem.regrData) continue;
-
-      const lensPrice = getLensForGem(gem);
-      const value = getRegradeValue(gem.regrData);
-      if (value <= node.expectedValue) continue;
-
-      const weights = Object.fromEntries(
-        gemInfo.weights[gem.baseName].map(({ Type, weight }) => [Type, weight]),
-      );
-      const totalWeight = gemInfo.weights[gem.baseName].reduce(
-        (acc, { weight }) => acc + weight,
-        0,
-      );
-
-      const results: { [Type in GemType]?: GraphNode } = { [gem.Type]: node };
-      const children = gem.regrData.map(({ gem }) => gem).map(normalizedFn);
-      children.forEach((n) => {
-        results[n.gem.Type] = n;
-      });
-
-      const values = createMatrix(
-        results,
-        lensPrice,
-        weights,
-        totalWeight,
-        getRegradeValue,
-        (node) => node?.expectedValue || 0,
-      );
-      const costs = createMatrix(
-        results,
-        lensPrice,
-        weights,
-        totalWeight,
-        getRegradeValue,
-        (node) => 0,
-      );
-      const totalCosts = createMatrix(
-        results,
-        lensPrice,
-        weights,
-        totalWeight,
-        getRegradeValue,
-        (node) => -(node?.expectedCost || 0),
-      );
-      solve(values);
-      solve(costs);
-      solve(totalCosts);
-      const newEV = values[qualityIndex[gem.Type]][4];
-      const expectedCost = -costs[qualityIndex[gem.Type]][4];
-      if (node.expectedValue < newEV) {
-        node.expectedValue = newEV;
-        node.expectedCost = -totalCosts[qualityIndex[gem.Type]][4];
-        node.roi = newEV / (newEV - node.gem.Price);
-        node.children = children.map((child) => {
-          const retry = values[qualityIndex[child.gem.Type]][4] > child.expectedValue;
-          return {
-            name: "Regrading lens",
-            expectedCost,
-            probability: weights[child.gem.Type] / (totalWeight - weights[gem.Type]),
-            node: { ...child, children: retry ? [] : child.children },
-            references: retry ? "parent" : undefined,
-          };
-        });
-      }
-      cache.set(getId(gem), node);
-    }
-
-    memoizedFn.cache = cache;
 
     setProgressMsg("Calculating profit flowcharts including loops");
     await setProgress(0);
@@ -467,64 +339,6 @@ const createUnknown = (gem: GemDetails): GraphNode => ({
   children: [],
 });
 
-//For explanation of algorithm, see regrading-lens.md
-const solve = (mat: number[][]) => {
-  for (const [i, up] of Array.from({ length: 3 }, (_, n) => [n, true]).concat(
-    Array.from({ length: 3 }, (_, n) => [3 - n, false]),
-  ) as [number, boolean][]) {
-    for (const j of Array.from({ length: up ? 3 - i : i }, (_, n) =>
-      up ? i + 1 + n : i - 1 - n,
-    )) {
-      if (!mat[j][j] || !mat[j][i]) continue;
-      if (mat[i][i] && mat[i][i] !== 1) {
-        console.warn(`[${i}][${i}] value is ${mat[i][i]}`);
-      }
-
-      const multi = mat[j][i];
-      for (const k of Array(5).keys()) {
-        mat[j][k] -= mat[i][k] * multi;
-      }
-      if (!mat[j][j]) {
-        console.warn(`[${j}][${j}] value is ${mat[j][j]}`);
-        continue;
-      }
-
-      const div = mat[j][j];
-      if (div) {
-        for (const k of Array(5).keys()) {
-          mat[j][k] /= div;
-        }
-      }
-    }
-  }
-};
-
-const createMatrix = (
-  results: { [Type in GemType]?: GraphNode },
-  lensPrice: number,
-  weights: { [k: string]: number },
-  totalWeight: number,
-  calc: (regrData: ConversionData[]) => number,
-  value: (node?: GraphNode) => number,
-): number[][] => {
-  return qualities.map((row) =>
-    ([...qualities, "Value"] as const).map((col) => {
-      const node = results[row];
-      if (!node) {
-        return 0;
-      } else if (row === col) {
-        return 1;
-      } else if (node.expectedValue >= (node.gem.regrData ? calc(node.gem.regrData) : 0)) {
-        return col === "Value" ? value(node) : 0;
-      } else if (col === "Value") {
-        return -lensPrice;
-      } else {
-        return weights[row] && weights[col] ? -weights[col] / (totalWeight - weights[row]) : 0;
-      }
-    }),
-  );
-};
-
 self.onmessage = (e) => buildGraph(e.data, self);
 function getChildren(
   other: GraphNode,
@@ -533,11 +347,7 @@ function getChildren(
   vaalCost: number,
   gcpCount: number,
   gcpCost: number,
-  regrade?: GraphChild[],
 ) {
-  if (regrade) {
-    other = { ...other, children: regrade };
-  }
   let children: GraphChild[] = [
     { name: `${Math.round(xpDiff)} million xp`, node: other, probability: 1 },
   ];

@@ -1,5 +1,3 @@
-import { QualityType } from "models/gems";
-
 export interface Gem {
   active_skill: Active_skill;
   base_item: Base_item;
@@ -893,9 +891,6 @@ export interface StatsItem {
   id?: string;
 }
 export interface QualityStatsItem {
-  set: number;
-  weight: number;
-  set_name: QualityType;
   stat: string;
   stats: { [id: string]: number };
 }

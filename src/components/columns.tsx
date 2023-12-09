@@ -5,12 +5,7 @@ import { GemDetails, getRatios } from "models/gems";
 import numeral from "numeral";
 import { currencyMap } from "state/api";
 import { RootState as AppState } from "state/store";
-import {
-  awakenedLevelCost,
-  awakenedRerollCost,
-  regradeValue,
-  templeCost,
-} from "../state/selectors/costs";
+import { awakenedLevelCost, awakenedRerollCost, templeCost } from "../state/selectors/costs";
 import { AwakenedLevel } from "./cells/AwakenedLevel";
 import { AwakenedReroll } from "./cells/AwakenedReroll";
 import { GCP } from "./cells/GCP";
@@ -19,7 +14,6 @@ import { Listings } from "./cells/Listings";
 import { Meta } from "./cells/Meta";
 import { Name } from "./cells/Name";
 import { Pinned } from "./cells/Pinned";
-import { Regrade } from "./cells/Regrade";
 import { ROI } from "./cells/ROI";
 import { Temple } from "./cells/Temple";
 import { Type } from "./cells/Type";
@@ -36,7 +30,6 @@ export const getColumns = createSelector(
     templeCost,
     awakenedLevelCost,
     awakenedRerollCost,
-    regradeValue,
   ],
   (
     league,
@@ -47,7 +40,6 @@ export const getColumns = createSelector(
     costOfTemple,
     costOfAwakenedLevel,
     costOfAwakenedReroll,
-    getRegrValue,
   ): ColumnDef<GemDetails>[] => {
     return [
       {
@@ -144,23 +136,6 @@ export const getColumns = createSelector(
             original: { graph },
           },
         }) => <GraphCell graph={graph} />,
-      },
-      {
-        id: "regrValue",
-        accessorFn: getRegrValue,
-        sortingFn: (({ original: left }, { original: right }) => {
-          const a = getRegrValue(left);
-          const b = getRegrValue(right);
-          return a === b ? 0 : a === undefined ? -1 : b === undefined ? 1 : a - b;
-        }) as SortingFn<GemDetails>,
-        header: "Regrading lens",
-        enableColumnFilter,
-        filterFn: "inNumberRange",
-        meta: {
-          tooltip: "Average profit when applying a regrading lens to this gem",
-          filter: { isMin: true },
-        },
-        cell: ({ row: { original } }) => <Regrade gem={original} />,
       },
       {
         accessorKey: "vaalValue",

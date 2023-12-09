@@ -131,8 +131,6 @@ export type GemDetails = Gem & {
     gcpCount: number;
     gcpCost: number;
   })[];
-  regrValue?: number;
-  regrData?: ConversionData[];
   vaalValue?: number;
   vaalData?: ConversionData[];
   templeValue?: number;
@@ -165,23 +163,6 @@ export const getRatios = (
     [
       gem.gcpData?.length
         ? getRatio("GCP", gem.gcpData[0].gcpValue, gem.Price + gem.gcpData[0].gcpCost)
-        : undefined,
-      gem.regrValue !== undefined
-        ? getRatio(
-            "Regrading lens",
-            (gem.regrValue || 0) -
-              getCurrency(
-                gem.Name.includes("Support") ? "Secondary Regrading Lens" : "Prime Regrading Lens",
-                currencyMap,
-                0,
-              ),
-            gem.Price +
-              getCurrency(
-                gem.Name.includes("Support") ? "Secondary Regrading Lens" : "Prime Regrading Lens",
-                currencyMap,
-                0,
-              ),
-          )
         : undefined,
       gem.vaalValue !== undefined
         ? getRatio("Vaal orb", gem.vaalValue, gem.Price + getCurrency("Vaal Orb", currencyMap))
@@ -430,7 +411,7 @@ const expand = (gem: GemDetails, data: GemDetails[], processed: Set<string>) => 
       (gem) => getGemFromData(getId(gem), data, processed) || gem,
     ) as any;
   });
-  (["regrData", "vaalData", "templeData"] as const).forEach((prop) => {
+  (["vaalData", "templeData"] as const).forEach((prop) => {
     if (!result[prop]) return;
     result[prop] = result[prop]?.map((conversion) => {
       const id = getId(conversion.gem);

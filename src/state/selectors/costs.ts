@@ -1,7 +1,5 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { getCurrency } from "functions/getCurrency";
-import { GemDetails } from "models/gems";
-import { awakenedLevelAverage, awakenedRerollAverage, currencyMap, templeAverage } from "state/api";
+import { awakenedLevelAverage, awakenedRerollAverage, templeAverage } from "state/api";
 import { RootState } from "state/store";
 
 export const templeCost = createSelector(
@@ -22,17 +20,4 @@ export const awakenedRerollCost = createSelector(
     awakenedRerollPrice.debounced ||
     (awakenedRerollAverage.status === "done" && awakenedRerollAverage.value.price) ||
     250,
-);
-export const regradeValue = createSelector(
-  [
-    currencyMap,
-    ({ app }: RootState) => app.primeRegrading.debounced,
-    ({ app }: RootState) => app.secRegrading.debounced,
-  ],
-  (currencyMap, primeRegrading, secRegrading) =>
-    ({ regrValue, Name }: GemDetails) =>
-      (regrValue || 0) -
-      (Name.includes("Support")
-        ? secRegrading || getCurrency("Secondary Regrading Lens", currencyMap.value, 0)
-        : primeRegrading || getCurrency("Prime Regrading Lens", currencyMap.value, 0)),
 );

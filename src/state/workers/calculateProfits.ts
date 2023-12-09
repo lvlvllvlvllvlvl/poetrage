@@ -477,50 +477,6 @@ export const calculateProfits = async (
     }
 
     await setData(result);
-    setProgressMsg("Calculating regrading lens values");
-    await setProgress(0);
-    timeSlice = Date.now() + processingTime;
-    const missingQual = {} as { [baseName: string]: true };
-
-    i = 0;
-    i++;
-    for (const gem of result) {
-      if (Date.now() > timeSlice) {
-        const p = (100 * i) / result.length;
-        await setProgress(p);
-        timeSlice = Date.now() + processingTime;
-      }
-
-      if (!gem.Corrupted && gem.Type !== "Awakened" && gemInfo.weights[gem.baseName]) {
-        const weights = gemInfo.weights[gem.baseName].filter(({ Type }) => Type !== gem.Type);
-        const totalWeight = weights.reduce(
-          (sum, { Type, weight }) => (Type === gem.Type ? sum : sum + weight),
-          0,
-        );
-        if (!totalWeight) return;
-        gem.regrData = weights.map(({ Type, weight }) => ({
-          chance: weight / totalWeight,
-          outcomes: [Type],
-          gem: bestMatch(copy(gem, { Type }), gemMap[gem.baseName][Type], lowConfidence),
-        }));
-        gem.regrValue =
-          (gem.regrData?.reduce(
-            (sum, { gem: { Price }, chance }) => sum + (Price || 0) * chance,
-            0,
-          ) || 0) - gem.Price;
-      } else {
-        if (!gem.Corrupted && gem.Type !== "Awakened") {
-          missingQual[gem.baseName] = true;
-        }
-        gem.regrValue = 0;
-      }
-    }
-
-    for (const missing of Object.keys(missingQual).sort()) {
-      console.debug(`Missing alt quality data for ${missing}`);
-    }
-
-    await setData(result);
     setProgressMsg("Calculating vaal outcomes");
     await setProgress(0);
     timeSlice = Date.now() + processingTime;

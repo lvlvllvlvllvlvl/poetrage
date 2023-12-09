@@ -64,8 +64,6 @@ export const fields = {
   awakenedRerollPrice: debouncedProp(0),
   mavenExclusiveWeight: debouncedProp(90),
   mavenCrucibleWeight: debouncedProp(500),
-  primeRegrading: debouncedProp(0),
-  secRegrading: debouncedProp(0),
   filterMeta: debouncedProp(0.2),
   incQual: debouncedProp(30),
   fiveWay: debouncedProp(100),
