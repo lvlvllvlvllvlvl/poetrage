@@ -280,6 +280,16 @@
         }
       }
     ],
+    "ambition": [
+      {
+        "page_name": "Ambition",
+        "tags": "default",
+        "query": {
+          "name": "Ambition",
+          "type": "Vaal Aspect"
+        }
+      }
+    ],
     "ambu's charge": [
       {
         "page_name": "Ambu's Charge",
@@ -874,6 +884,16 @@
         }
       }
     ],
+    "beauty": [
+      {
+        "page_name": "Beauty",
+        "tags": "default",
+        "query": {
+          "name": "Beauty",
+          "type": "Vaal Aspect"
+        }
+      }
+    ],
     "belly of the beast": [
       {
         "page_name": "Belly of the Beast",
@@ -1260,14 +1280,6 @@
       }
     ],
     "brinerot whalers": [
-      {
-        "page_name": "Brinerot Whalers",
-        "tags": "armour,boots,default,dex_int_armour",
-        "query": {
-          "name": "Brinerot Whalers",
-          "type": "Trapper Boots"
-        }
-      },
       {
         "page_name": "Brinerot Whalers",
         "tags": "armour,boots,default,dex_int_armour",
@@ -1801,6 +1813,16 @@
     "contract: the slaver king": [],
     "contract: the twins": [],
     "controlled energy": [],
+    "cooperation": [
+      {
+        "page_name": "Cooperation",
+        "tags": "default",
+        "query": {
+          "name": "Cooperation",
+          "type": "Vaal Aspect"
+        }
+      }
+    ],
     "coralito's signature": [
       {
         "page_name": "Coralito's Signature",
@@ -2045,6 +2067,16 @@
         }
       }
     ],
+    "curiosity": [
+      {
+        "page_name": "Curiosity",
+        "tags": "default",
+        "query": {
+          "name": "Curiosity",
+          "type": "Vaal Aspect"
+        }
+      }
+    ],
     "curtain call": [
       {
         "page_name": "Curtain Call",
@@ -2186,16 +2218,6 @@
         }
       }
     ],
-    "deadly end": [
-      {
-        "page_name": "Deadly End",
-        "tags": "default",
-        "query": {
-          "name": "Deadly End",
-          "type": "Vaal Aspect"
-        }
-      }
-    ],
     "death rush": [
       {
         "page_name": "Death Rush",
@@ -2219,7 +2241,7 @@
     "death's door": [
       {
         "page_name": "Death's Door",
-        "tags": "armour,boots,default,str_int_armour",
+        "tags": "armour,boots,default,str_int_armour,top_tier_base_item_type",
         "query": {
           "name": "Death's Door",
           "type": "Crusader Boots"
@@ -2504,7 +2526,7 @@
     "doryani's delusion": [
       {
         "page_name": "Doryani's Delusion (Armour)",
-        "tags": "armour,boots,default,str_armour",
+        "tags": "armour,boots,default,str_armour,top_tier_base_item_type",
         "query": {
           "name": "Doryani's Delusion",
           "type": "Titan Greaves"
@@ -2512,7 +2534,7 @@
       },
       {
         "page_name": "Doryani's Delusion (Energy Shield)",
-        "tags": "armour,boots,default,int_armour",
+        "tags": "armour,boots,default,int_armour,top_tier_base_item_type",
         "query": {
           "name": "Doryani's Delusion",
           "type": "Sorcerer Boots"
@@ -3532,7 +3554,7 @@
     "garukhan's flight": [
       {
         "page_name": "Garukhan's Flight",
-        "tags": "armour,boots,default,dex_armour",
+        "tags": "armour,boots,default,dex_armour,top_tier_base_item_type",
         "query": {
           "name": "Garukhan's Flight",
           "type": "Stealth Boots"
@@ -4204,16 +4226,6 @@
         }
       }
     ],
-    "ignominious fate": [
-      {
-        "page_name": "Ignominious Fate",
-        "tags": "default",
-        "query": {
-          "name": "Ignominious Fate",
-          "type": "Vaal Aspect"
-        }
-      }
-    ],
     "ikiaho's promise": [
       {
         "page_name": "Ikiaho's Promise",
@@ -4595,7 +4607,7 @@
     "kaom's roots": [
       {
         "page_name": "Kaom's Roots",
-        "tags": "armour,boots,default,str_armour",
+        "tags": "armour,boots,default,str_armour,top_tier_base_item_type",
         "query": {
           "name": "Kaom's Roots",
           "type": "Titan Greaves"
@@ -5662,6 +5674,16 @@
         "query": {
           "name": "Nadir Mode",
           "type": "Cobalt Jewel"
+        }
+      }
+    ],
+    "nametaker": [
+      {
+        "page_name": "Nametaker",
+        "tags": "default,one_hand_weapon,onehand,sword,weapon",
+        "query": {
+          "name": "Nametaker",
+          "type": "Graceful Sword"
         }
       }
     ],
@@ -6961,6 +6983,16 @@
     ],
     "replica forbidden shako": [],
     "replica fragile bloom": [],
+    "replica fragility": [
+      {
+        "page_name": "Replica Fragility",
+        "tags": "default,jewel,not_dex,not_for_sale,not_int,strjewel",
+        "query": {
+          "name": "Replica Fragility",
+          "type": "Crimson Jewel"
+        }
+      }
+    ],
     "replica frostbreath": [
       {
         "page_name": "Replica Frostbreath",
@@ -7011,7 +7043,37 @@
         }
       }
     ],
+    "replica heatshiver": [
+      {
+        "page_name": "Replica Heatshiver",
+        "tags": "armour,default,dex_armour,helmet",
+        "query": {
+          "name": "Replica Heatshiver",
+          "type": "Leather Hood"
+        }
+      }
+    ],
+    "replica hinekora's sight": [
+      {
+        "page_name": "Replica Hinekora's Sight",
+        "tags": "amulet,default",
+        "query": {
+          "name": "Replica Hinekora's Sight",
+          "type": "Onyx Amulet"
+        }
+      }
+    ],
     "replica hotheaded": [],
+    "replica hyrri's ire": [
+      {
+        "page_name": "Replica Hyrri's Ire",
+        "tags": "armour,body_armour,default,dex_armour,top_tier_base_item_type",
+        "query": {
+          "name": "Replica Hyrri's Ire",
+          "type": "Zodiac Leather"
+        }
+      }
+    ],
     "replica hyrri's truth": [
       {
         "page_name": "Replica Hyrri's Truth",
@@ -7212,6 +7274,16 @@
         }
       }
     ],
+    "replica pacifism": [
+      {
+        "page_name": "Replica Pacifism",
+        "tags": "default,dexjewel,jewel,not_for_sale,not_int,not_str",
+        "query": {
+          "name": "Replica Pacifism",
+          "type": "Viridian Jewel"
+        }
+      }
+    ],
     "replica paradoxica": [
       {
         "page_name": "Replica Paradoxica",
@@ -7249,6 +7321,16 @@
         "query": {
           "name": "Replica Poorjoy's Asylum",
           "type": "Temple Map"
+        }
+      }
+    ],
+    "replica powerlessness": [
+      {
+        "page_name": "Replica Powerlessness",
+        "tags": "default,intjewel,jewel,not_dex,not_for_sale,not_str",
+        "query": {
+          "name": "Replica Powerlessness",
+          "type": "Cobalt Jewel"
         }
       }
     ],
@@ -7542,6 +7624,16 @@
         "query": {
           "name": "Replica Winterheart",
           "type": "Gold Amulet"
+        }
+      }
+    ],
+    "replica witchfire brew": [
+      {
+        "page_name": "Replica Witchfire Brew",
+        "tags": "default,flask,utility_flask",
+        "query": {
+          "name": "Replica Witchfire Brew",
+          "type": "Stibnite Flask"
         }
       }
     ],
@@ -8919,6 +9011,16 @@
     ],
     "territories unknown": [],
     "terror": [],
+    "that which was taken": [
+      {
+        "page_name": "That Which Was Taken",
+        "tags": "default,jewel,not_dex,not_for_sale,not_int,strjewel",
+        "query": {
+          "name": "That Which Was Taken",
+          "type": "Crimson Jewel"
+        }
+      }
+    ],
     "the admiral": [
       {
         "page_name": "The Admiral",
@@ -8926,6 +9028,16 @@
         "query": {
           "name": "The Admiral",
           "type": "Varnished Coat"
+        }
+      }
+    ],
+    "the adorned": [
+      {
+        "page_name": "The Adorned",
+        "tags": "default,jewel,not_dex,not_for_sale,not_int,strjewel",
+        "query": {
+          "name": "The Adorned",
+          "type": "Crimson Jewel"
         }
       }
     ],
@@ -9171,6 +9283,16 @@
       }
     ],
     "the builder": [],
+    "the burden of shadows": [
+      {
+        "page_name": "The Burden of Shadows",
+        "tags": "default,staff,two_hand_weapon,twohand,weapon",
+        "query": {
+          "name": "The Burden of Shadows",
+          "type": "Primordial Staff"
+        }
+      }
+    ],
     "the burden of truth": [
       {
         "page_name": "The Burden of Truth",
@@ -9367,7 +9489,7 @@
     "the eternity shroud": [
       {
         "page_name": "The Eternity Shroud",
-        "tags": "armour,body_armour,default,dex_int_armour",
+        "tags": "armour,body_armour,default,dex_int_armour,top_tier_base_item_type",
         "query": {
           "name": "The Eternity Shroud",
           "type": "Blood Raiment"
@@ -9392,6 +9514,16 @@
         "query": {
           "name": "The First Crest",
           "type": "Coffer Relic"
+        }
+      }
+    ],
+    "the flawed refuge": [
+      {
+        "page_name": "The Flawed Refuge",
+        "tags": "armour,default,shield,str_dex_armour,str_dex_shield",
+        "query": {
+          "name": "The Flawed Refuge",
+          "type": "Maple Round Shield"
         }
       }
     ],
@@ -10082,6 +10214,14 @@
     ],
     "the stormwall": [],
     "the supreme truth": [
+      {
+        "page_name": "The Supreme Truth",
+        "tags": "default,one_hand_weapon,onehand,sceptre,sceptre,weapon",
+        "query": {
+          "name": "The Supreme Truth",
+          "type": "Crystal Sceptre"
+        }
+      },
       {
         "page_name": "The Supreme Truth",
         "tags": "default,one_hand_weapon,onehand,sceptre,sceptre,weapon",
@@ -11014,16 +11154,6 @@
         }
       }
     ],
-    "victorious fate": [
-      {
-        "page_name": "Victorious Fate",
-        "tags": "default",
-        "query": {
-          "name": "Victorious Fate",
-          "type": "Vaal Aspect"
-        }
-      }
-    ],
     "violent dead": [],
     "viper's scales": [],
     "viridi's veil": [
@@ -11393,16 +11523,6 @@
       }
     ],
     "wildwrap": [],
-    "will of chaos": [
-      {
-        "page_name": "Will of Chaos",
-        "tags": "default",
-        "query": {
-          "name": "Will of Chaos",
-          "type": "Vaal Aspect"
-        }
-      }
-    ],
     "willclash": [
       {
         "page_name": "Willclash",
@@ -13951,6 +14071,33 @@
         "V2SocketedWarcryGemCorrupted": 1000
       }
     },
+    "armour,boots,default,str_int_armour,top_tier_base_item_type": {
+      "sumWeight": 20000,
+      "mods": {
+        "V2AddedArmourWhileStationaryCorrupted1": 1000,
+        "V2AddedArmourWhileStationaryCorrupted2": 1000,
+        "V2AddedArmourWhileStationaryCorrupted3": 500,
+        "V2AddedEvasionWhileMovingCorrupted1_": 1000,
+        "V2AddedEvasionWhileMovingCorrupted2": 1000,
+        "V2AddedEvasionWhileMovingCorrupted3": 500,
+        "V2ChanceToSpellDodgeCorrupted_": 1000,
+        "V2GemLevelCorrupted": 1000,
+        "V2HasteSkillCorrupted_": 500,
+        "V2IncreasedMaximumEnergyShieldCorrupted": 1000,
+        "V2IncreasedMaximumLifeCorrupted": 1000,
+        "V2MaximumEnduranceChargesCorruption": 1000,
+        "V2MovementVelocityCorrupted": 500,
+        "V2RegenerateLifePerSecondWhileMovingCorrupted_": 1000,
+        "V2SocketedAoEGemCorrupted": 1000,
+        "V2SocketedAuraGemCorrupted": 1000,
+        "V2SocketedCurseGemCorrupted": 1000,
+        "V2SocketedDurationGemCorrupted": 1000,
+        "V2SocketedMinionGemCorrupted": 1000,
+        "V2SocketedProjectileGemCorrupted_": 1000,
+        "V2SocketedTrapOrMineGemCorrupted": 1000,
+        "V2SocketedWarcryGemCorrupted": 1000
+      }
+    },
     "bow,default,ranged,two_hand_weapon,twohand,weapon": {
       "sumWeight": 24300,
       "mods": {
@@ -14071,6 +14218,33 @@
         "V2ReducedExtraDamageFromCriticalStrikesBodyCorrupted__": 1000,
         "V2ReducedFireDamageTakenCorrupted": 1000,
         "V2ReducedLightningDamageTakenCorrupted": 1000,
+        "V2SocketedAoEGemCorrupted": 1000,
+        "V2SocketedAuraGemCorrupted": 1000,
+        "V2SocketedCurseGemCorrupted": 1000,
+        "V2SocketedDurationGemCorrupted": 1000,
+        "V2SocketedMinionGemCorrupted": 1000,
+        "V2SocketedProjectileGemCorrupted_": 1000,
+        "V2SocketedTrapOrMineGemCorrupted": 1000,
+        "V2SocketedWarcryGemCorrupted": 1000
+      }
+    },
+    "armour,boots,default,int_armour,top_tier_base_item_type": {
+      "sumWeight": 20000,
+      "mods": {
+        "V2AddedArmourWhileStationaryCorrupted1": 1000,
+        "V2AddedArmourWhileStationaryCorrupted2": 1000,
+        "V2AddedArmourWhileStationaryCorrupted3": 500,
+        "V2AddedEvasionWhileMovingCorrupted1_": 1000,
+        "V2AddedEvasionWhileMovingCorrupted2": 1000,
+        "V2AddedEvasionWhileMovingCorrupted3": 500,
+        "V2ChanceToSpellDodgeCorrupted_": 1000,
+        "V2GemLevelCorrupted": 1000,
+        "V2HasteSkillCorrupted_": 500,
+        "V2IncreasedMaximumEnergyShieldCorrupted": 1000,
+        "V2IncreasedMaximumLifeCorrupted": 1000,
+        "V2MaximumEnduranceChargesCorruption": 1000,
+        "V2MovementVelocityCorrupted": 500,
+        "V2RegenerateLifePerSecondWhileMovingCorrupted_": 1000,
         "V2SocketedAoEGemCorrupted": 1000,
         "V2SocketedAuraGemCorrupted": 1000,
         "V2SocketedCurseGemCorrupted": 1000,
@@ -14374,33 +14548,6 @@
         "V2SpellBlockPercentageCorrupted": 1000
       }
     },
-    "armour,boots,default,str_int_armour,top_tier_base_item_type": {
-      "sumWeight": 20000,
-      "mods": {
-        "V2AddedArmourWhileStationaryCorrupted1": 1000,
-        "V2AddedArmourWhileStationaryCorrupted2": 1000,
-        "V2AddedArmourWhileStationaryCorrupted3": 500,
-        "V2AddedEvasionWhileMovingCorrupted1_": 1000,
-        "V2AddedEvasionWhileMovingCorrupted2": 1000,
-        "V2AddedEvasionWhileMovingCorrupted3": 500,
-        "V2ChanceToSpellDodgeCorrupted_": 1000,
-        "V2GemLevelCorrupted": 1000,
-        "V2HasteSkillCorrupted_": 500,
-        "V2IncreasedMaximumEnergyShieldCorrupted": 1000,
-        "V2IncreasedMaximumLifeCorrupted": 1000,
-        "V2MaximumEnduranceChargesCorruption": 1000,
-        "V2MovementVelocityCorrupted": 500,
-        "V2RegenerateLifePerSecondWhileMovingCorrupted_": 1000,
-        "V2SocketedAoEGemCorrupted": 1000,
-        "V2SocketedAuraGemCorrupted": 1000,
-        "V2SocketedCurseGemCorrupted": 1000,
-        "V2SocketedDurationGemCorrupted": 1000,
-        "V2SocketedMinionGemCorrupted": 1000,
-        "V2SocketedProjectileGemCorrupted_": 1000,
-        "V2SocketedTrapOrMineGemCorrupted": 1000,
-        "V2SocketedWarcryGemCorrupted": 1000
-      }
-    },
     "armour,default,dex_int_armour,helmet,top_tier_base_item_type": {
       "sumWeight": 23000,
       "mods": {
@@ -14544,33 +14691,6 @@
       }
     },
     "armour,atlas_base_type,boots,bootsatlasdexint,default,dex_int_armour,not_for_sale": {
-      "sumWeight": 20000,
-      "mods": {
-        "V2AddedArmourWhileStationaryCorrupted1": 1000,
-        "V2AddedArmourWhileStationaryCorrupted2": 1000,
-        "V2AddedArmourWhileStationaryCorrupted3": 500,
-        "V2AddedEvasionWhileMovingCorrupted1_": 1000,
-        "V2AddedEvasionWhileMovingCorrupted2": 1000,
-        "V2AddedEvasionWhileMovingCorrupted3": 500,
-        "V2ChanceToSpellDodgeCorrupted_": 1000,
-        "V2GemLevelCorrupted": 1000,
-        "V2HasteSkillCorrupted_": 500,
-        "V2IncreasedMaximumEnergyShieldCorrupted": 1000,
-        "V2IncreasedMaximumLifeCorrupted": 1000,
-        "V2MaximumEnduranceChargesCorruption": 1000,
-        "V2MovementVelocityCorrupted": 500,
-        "V2RegenerateLifePerSecondWhileMovingCorrupted_": 1000,
-        "V2SocketedAoEGemCorrupted": 1000,
-        "V2SocketedAuraGemCorrupted": 1000,
-        "V2SocketedCurseGemCorrupted": 1000,
-        "V2SocketedDurationGemCorrupted": 1000,
-        "V2SocketedMinionGemCorrupted": 1000,
-        "V2SocketedProjectileGemCorrupted_": 1000,
-        "V2SocketedTrapOrMineGemCorrupted": 1000,
-        "V2SocketedWarcryGemCorrupted": 1000
-      }
-    },
-    "armour,boots,default,int_armour,top_tier_base_item_type": {
       "sumWeight": 20000,
       "mods": {
         "V2AddedArmourWhileStationaryCorrupted1": 1000,
