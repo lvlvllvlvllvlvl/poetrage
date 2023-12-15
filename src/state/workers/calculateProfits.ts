@@ -528,7 +528,7 @@ export const calculateProfits = async (
         timeSlice = Date.now() + processingTime;
       }
 
-      if (!gem.Color || gem.Name.includes("Support")) {
+      if (!gem.Color || gem.Name.includes("Support") || (gem.Corrupted && !gem.discriminator)) {
         gem.transAnyValue = 0;
         continue;
       }
