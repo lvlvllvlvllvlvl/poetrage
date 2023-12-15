@@ -17,6 +17,7 @@ import { Pinned } from "./cells/Pinned";
 import { Quality } from "./cells/Quality";
 import { ROI } from "./cells/ROI";
 import { Temple } from "./cells/Temple";
+import { Trans } from "./cells/Trans";
 import { Vaal } from "./cells/Vaal";
 import { XP } from "./cells/XP";
 
@@ -228,6 +229,29 @@ export const getColumns = createSelector(
         cell: ({ row: { original } }) => <AwakenedReroll gem={original} />,
       },
       {
+        accessorKey: "transValue",
+        header: "Transfigure",
+        enableColumnFilter,
+        filterFn: "inNumberRange",
+        meta: {
+          tooltip: "Average profit for converting this gem to its transfigured version",
+          filter: { isMin: true },
+        },
+        cell: ({ row: { original } }) => <Trans gem={original} />,
+      },
+      {
+        accessorKey: "transAnyValue",
+        header: "Random Transfigure",
+        enableColumnFilter,
+        filterFn: "inNumberRange",
+        meta: {
+          tooltip:
+            "Average profit for exchanging this gem for a random transfigured gem of the same color",
+          filter: { isMin: true },
+        },
+        cell: (info) => (info.getValue() ? Math.round(info.getValue() as any) + "c" : "n/a"),
+      },
+      {
         accessorKey: "XP",
         header: "Stored XP",
         sortingFn: (({ original: { XP: a } }, { original: { XP: b } }) =>
@@ -243,7 +267,7 @@ export const getColumns = createSelector(
         sortUndefined: false,
         meta: {
           tooltip: "Amount of xp required to reach this gem level",
-          filter: { isMin: true },
+          filter: { isMin: true, isMax: true },
         },
         cell: (info) =>
           Number.isInteger(info.getValue())

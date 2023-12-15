@@ -350,7 +350,10 @@ export const calculateProfits = async (
             return { ...other, gcpCount, gcpCost, xpValue, xpDiff };
           })
           .concat(
-            !gem.Corrupted && gem.Quality < 20 && gemInfo.xp[gem.baseName][20]
+            !gem.Corrupted &&
+              gem.Quality < 20 &&
+              gem.Name.includes("Support") &&
+              gemInfo.xp[gem.baseName][20]
               ? possibles
                   .filter(
                     (other) =>
@@ -472,6 +475,84 @@ export const calculateProfits = async (
             0,
           ) || 0) - gem.Price;
       }
+    }
+
+    await setData(result);
+    setProgressMsg("Calculating Transfigure values");
+    await setProgress(0);
+    timeSlice = Date.now() + processingTime;
+
+    i = 0;
+    for (const gem of result) {
+      i++;
+      if (Date.now() > timeSlice) {
+        const p = (100 * i) / result.length;
+        await setProgress(p);
+        timeSlice = Date.now() + processingTime;
+      }
+
+      //Transfiguration
+      if (!gem.Corrupted && !gem.discriminator && gemInfo.transfigurations[gem.baseName]) {
+        const outcomes = Object.entries(gemInfo.transfigurations[gem.baseName]);
+        gem.transData = outcomes.map(([discriminator, Name]) => ({
+          chance: 1 / outcomes.length,
+          outcomes: [Name],
+          gem: bestMatch(
+            copy(gem, { Name, discriminator }),
+            gemMap[gem.baseName]?.[discriminator],
+            lowConfidence,
+          ),
+        }));
+        gem.transValue =
+          (gem.transData?.reduce(
+            (sum, { gem: { Price }, chance }) => sum + (Price || 0) * chance,
+            0,
+          ) || 0) - gem.Price;
+      } else {
+        gem.transValue = 0;
+      }
+    }
+
+    await setData(result);
+    setProgressMsg("Calculating Random Transfigure values");
+    await setProgress(0);
+    timeSlice = Date.now() + processingTime;
+
+    i = 0;
+    const randomTrans: Record<string, number> = {};
+    for (const gem of result) {
+      i++;
+      if (Date.now() > timeSlice) {
+        const p = (100 * i) / result.length;
+        await setProgress(p);
+        timeSlice = Date.now() + processingTime;
+      }
+
+      if (!gem.Color || gem.Name.includes("Support")) {
+        gem.transAnyValue = 0;
+        continue;
+      }
+
+      const tag = `${gem.variant}${gem.Color}`;
+      //Transfiguration by color
+      if (!(tag in randomTrans)) {
+        const outcomes = gemInfo.transByColor[gem.Color];
+        const data = outcomes.map((Name) => {
+          const { baseName, discriminator } = gemInfo.transfigureBases[Name];
+          return {
+            chance: 1 / outcomes.length,
+            outcomes: [Name],
+            gem: bestMatch(
+              copy(gem, { Name, baseName, discriminator }),
+              gemMap[baseName]?.[discriminator],
+              lowConfidence,
+            ),
+          };
+        });
+        randomTrans[tag] =
+          data.reduce((sum, { gem: { Price }, chance }) => sum + (Price || 0) * chance, 0) || 0;
+      }
+      gem.transAnyValue = randomTrans[tag] - gem.Price;
     }
 
     await setData(result);

@@ -60,6 +60,7 @@ export interface Gem {
   variant: string;
   Name: string;
   Level: number;
+  Color: "r" | "g" | "b" | "w";
   Quality: number;
   Corrupted: boolean;
   Vaal: boolean;
@@ -82,6 +83,7 @@ const GemFields: Required<Gem> = {
   variant: "string",
   Name: "string",
   Level: 0,
+  Color: "w",
   Quality: 0,
   Corrupted: false,
   Vaal: false,
@@ -130,6 +132,9 @@ export type GemDetails = Gem & {
   templeData?: ConversionData[];
   convertValue?: number;
   convertData?: ConversionData[];
+  transValue?: number;
+  transData?: ConversionData[];
+  transAnyValue?: number;
   graph?: GraphNode;
   xpGraph?: GraphNode;
 };
