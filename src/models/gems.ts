@@ -14,7 +14,6 @@ export const altQualities = ["Anomalous", "Divergent", "Phantasmal"] as const;
 export const qualities = ["Superior", ...altQualities] as const;
 export const qualityIndex = Object.fromEntries(qualities.map((q, i) => [q, i]));
 export const gemTypes = [...qualities, "Awakened"] as const;
-export const modifiers = ["Anomalous ", "Divergent ", "Phantasmal ", "Vaal "];
 export const exceptional = ["Enlighten", "Empower", "Enhance"];
 export type QualityType = (typeof qualities)[number];
 export type GemType = (typeof gemTypes)[number];
@@ -63,6 +62,7 @@ export const mavenCrucible = [
 export interface Gem {
   original: SkillGem | PoeWatchGem;
   baseName: string;
+  discriminator: string;
   variant: string;
   Name: string;
   Level: number;
@@ -85,6 +85,7 @@ export interface Gem {
 const GemFields: Required<Gem> = {
   original: {} as any,
   baseName: "string",
+  discriminator: "string",
   variant: "string",
   Name: "string",
   Level: 0,
@@ -388,9 +389,7 @@ export const getQuery = (
           },
         },
       },
-      type: altQualities.includes(gem.Type as any)
-        ? { option: type, discriminator: gem.Type.toLowerCase() }
-        : type,
+      type: gem.discriminator ? { option: type, discriminator: gem.discriminator } : type,
     },
     sort: { price: "asc" },
   };

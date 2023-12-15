@@ -1,15 +1,17 @@
 import { api } from "apis/axios";
-import { GemType } from "models/gems";
 import { Gem } from "models/repoe/Gem";
 
-export interface Weights {
-  [gem: string]: { Type: GemType; weight: number }[];
-}
 export interface Stats {
   [gem: string]: { stat?: string; stats: { [id: string]: number } };
 }
 export interface XP {
   [gem: string]: { [level: number]: number };
+}
+export interface Transfiguration {
+  [base: string]: { [discriminator: string]: string };
+}
+export interface TransfigBase {
+  [name: string]: { baseName: string; discriminator: string };
 }
 
 export type GemInfo = Awaited<ReturnType<typeof getGemInfo>>;
@@ -20,21 +22,23 @@ export const getGemInfo = async () => {
   const response = await api.get<{ [key: string]: Gem }>(
     "https://lvlvllvlvllvlvl.github.io/RePoE/gems.min.json",
   );
-  const weights: Weights = {};
   const qualityStats: Stats = {};
   const xp: XP = {};
-  const names = new Set<string>();
   const maxLevel: { [gem: string]: number } = {};
+  const transfigurations: Transfiguration = {};
+  const transfigureBases: TransfigBase = {};
   Object.values(response.data).forEach((gem) => {
     const name = gem.display_name || gem.base_item?.display_name;
     if (!name || !gem.base_item || gem.base_item.id.includes("Royale")) {
       return;
     }
-    names.add(name);
+    if (gem.discriminator) {
+      const baseName = gem.base_item.display_name;
+      transfigureBases[name] = { baseName, discriminator: gem.discriminator };
+      transfigurations[baseName] = transfigurations[baseName] || {};
+      transfigurations[baseName][gem.discriminator] = name;
+    }
     if (gem.base_item.max_level) maxLevel[name] = gem.base_item.max_level;
-    const altName = name.includes(" Support") ? name.replace(" Support", "") : name + " Support";
-    weights[name] = weights[name] || [];
-    weights[altName] = weights[altName] || [];
     qualityStats[name] = qualityStats[name] || gem.static.quality_stats.find(({ stat }) => stat);
     gem.static.quality_stats.forEach((quality_stat) => {
       if (quality_stat.stat) {
@@ -52,5 +56,5 @@ export const getGemInfo = async () => {
       }
     });
   });
-  return { qualityStats, xp, maxLevel, names: Array.from(names).sort() };
+  return { qualityStats, xp, maxLevel, transfigurations, transfigureBases };
 };

@@ -66,6 +66,16 @@ export const getColumns = createSelector(
         cell: (info) => (info.getValue() ? "✓" : "✗"),
       },
       {
+        id: "Trans",
+        accessorFn: ({ discriminator }: GemDetails) => Boolean(discriminator),
+        enableColumnFilter,
+        filterFn: "equals",
+        meta: {
+          filter: { isBool: true },
+        },
+        cell: (info) => (info.getValue() ? "✓" : "✗"),
+      },
+      {
         accessorKey: "Level",
         enableColumnFilter,
         filterFn: "inNumberRange",

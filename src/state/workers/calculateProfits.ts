@@ -19,7 +19,6 @@ import {
   isEqual,
   mavenCrucible,
   mavenExclusive,
-  modifiers,
   normalizeOutcomes,
   strictlyBetter,
   vaal,
@@ -95,7 +94,10 @@ export const calculateProfits = async (
               listingCount,
               sparkline,
             } = original;
-            const baseName = modifiers.reduce((name, mod) => name.replace(mod, ""), name);
+            let baseName = name.replace("Vaal ", "");
+            const transBase = gemInfo.transfigureBases[baseName];
+            const discriminator = transBase?.discriminator;
+            baseName = transBase?.baseName || baseName;
             const Vaal = name.includes("Vaal");
             const Type = getType(name);
 
@@ -130,6 +132,7 @@ export const calculateProfits = async (
               original,
               Name: name,
               baseName,
+              discriminator,
               variant,
               Level: gemLevel,
               XP: levels?.[gemLevel],
@@ -155,7 +158,10 @@ export const calculateProfits = async (
               lowConfidence,
             } = original;
             const chaosValue = original.min || original.mean;
-            const baseName = modifiers.reduce((name, mod) => name.replace(mod, ""), name);
+            let baseName = name.replace("Vaal ", "");
+            const transBase = gemInfo.transfigureBases[baseName];
+            const discriminator = transBase?.discriminator;
+            baseName = transBase?.baseName || baseName;
             const Vaal = name.includes("Vaal");
             const Type = getType(name);
             const Meta = getMeta(meta, Vaal, Type, name);
@@ -188,6 +194,7 @@ export const calculateProfits = async (
               original,
               Name: name,
               baseName,
+              discriminator,
               variant,
               Level: gemLevel,
               XP: levels?.[gemLevel],

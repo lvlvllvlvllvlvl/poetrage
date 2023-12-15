@@ -2,6 +2,7 @@ export interface Gem {
   active_skill: Active_skill;
   base_item?: Base_item;
   cast_time: number;
+  discriminator?: string;
   display_name?: string;
   is_support: boolean;
   per_level: Per_level;
