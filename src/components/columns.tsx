@@ -218,6 +218,7 @@ export const getColumns = createSelector(
       },
       {
         accessorKey: "XP",
+        header: "Stored XP",
         sortingFn: (({ original: { XP: a } }, { original: { XP: b } }) =>
           a === b
             ? 0
@@ -240,8 +241,8 @@ export const getColumns = createSelector(
       },
       {
         id: "5way",
-        accessorFn: ({ xpValue }) => (xpValue || 0) * fiveWay,
-        header: "5-ways",
+        accessorFn: ({ xpValue }) => (xpValue || 0) * (fiveWay || 100),
+        header: fiveWay ? "Per 5-way" : "100m XP",
         sortingFn: (({ original: { xpValue: a } }, { original: { xpValue: b } }) =>
           a === b
             ? 0
@@ -253,16 +254,15 @@ export const getColumns = createSelector(
         enableColumnFilter,
         filterFn: "inNumberRange",
         meta: {
-          tooltip:
-            "Profit from levelling this gem up, divided by estimated average gem xp earned in a 5-way",
+          tooltip: `Profit per ${fiveWay || 100} million XP added to this gem.`,
           filter: { isMin: true },
         },
         cell: ({ row: { original } }) => <XP gem={original} />,
       },
       {
         id: "5wayRatio",
-        accessorFn: ({ xpValue, Price }) => (xpValue ? (xpValue * fiveWay) / Price : 0),
-        header: "5-way ROI",
+        accessorFn: ({ xpValue, Price }) => (xpValue ? (xpValue * (fiveWay || 100)) / Price : 0),
+        header: "XP ROI",
         sortingFn: ((left, right) => {
           const a: number = left.getValue("5wayRatio");
           const b: number = right.getValue("5wayRatio");
@@ -271,8 +271,9 @@ export const getColumns = createSelector(
         enableColumnFilter,
         filterFn: "inNumberRange",
         meta: {
-          tooltip:
-            "Profit per 5-way, divided by the cost of the gem. 5-way price not accounted for",
+          tooltip: `Profit per ${
+            fiveWay ? "5-way" : "100 million XP"
+          }, divided by the cost of the gem.`,
           filter: { isMin: true, isFloat: true },
         },
         cell: (info) =>
@@ -303,7 +304,7 @@ export const getColumns = createSelector(
       {
         id: "xpRatio",
         accessorFn: ({ xpGraph }) => xpGraph?.roi,
-        header: "XP ROI",
+        header: "Level ROI",
         sortingFn: ((left, right) => {
           const a: number = left.getValue("xpRatio");
           const b: number = right.getValue("xpRatio");

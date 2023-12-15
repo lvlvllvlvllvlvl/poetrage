@@ -66,7 +66,7 @@ export const fields = {
   mavenCrucibleWeight: debouncedProp(500),
   filterMeta: debouncedProp(0.2),
   incQual: debouncedProp(30),
-  fiveWay: debouncedProp(100),
+  fiveWay: debouncedProp(0),
 };
 
 type Fields = typeof fields;
