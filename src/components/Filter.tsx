@@ -4,8 +4,11 @@ import FilterOffIcon from "@mui/icons-material/FilterAltOff";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
+import FormControl from "@mui/material/FormControl";
 import IconButton from "@mui/material/IconButton";
+import MenuItem from "@mui/material/MenuItem";
 import Popover from "@mui/material/Popover";
+import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import ToggleButton from "@mui/material/ToggleButton";
 import Tooltip from "@mui/material/Tooltip";
@@ -79,7 +82,7 @@ const FilterMenu = <T extends {}>({
   onClose: () => void;
 }) => {
   const key = column.id as Key;
-  const { isMin, isMax, isBool, isFloat, isText } = column.columnDef.meta?.filter || {};
+  const { isMin, isMax, isBool, isFloat, isText, options } = column.columnDef.meta?.filter || {};
   const canFilter = column.columnDef.meta?.filter && column.getCanFilter();
 
   const currentValue = column.getFilterValue();
@@ -101,6 +104,9 @@ const FilterMenu = <T extends {}>({
     isText &&
       column.setFilterValue(() => (!canFilter || !text.debounced ? undefined : text.debounced));
   }, [canFilter, text.debounced, column, isText]);
+  useEffect(() => {
+    options && column.setFilterValue(() => (!canFilter ? undefined : types));
+  }, [canFilter, types, column, options]);
 
   const [ref, setRef] = useState<HTMLInputElement>();
   useEffect(() => {
@@ -176,6 +182,38 @@ const FilterMenu = <T extends {}>({
         value={text.value || ""}
         onChange={({ target }) => text.set(target.value)}
       />
+    );
+  }
+  if (options) {
+    return (
+      <FormControl sx={{ width: 100 }}>
+        <Select
+          multiple
+          defaultOpen
+          displayEmpty
+          renderValue={(value) =>
+            value?.length ? (Array.isArray(value) ? value.join(", ") : value) : "All"
+          }
+          value={types || []}
+          onClose={onClose}
+          onChange={({ target: { value } }) =>
+            setTypes(
+              Array.isArray(value)
+                ? value.length === 0
+                  ? undefined
+                  : value
+                : value
+                ? [value]
+                : [],
+            )
+          }>
+          {options.map((name) => (
+            <MenuItem key={name} value={name}>
+              {name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
     );
   }
   return null;

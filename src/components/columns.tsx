@@ -57,6 +57,15 @@ export const getColumns = createSelector(
         cell: (info) => <Pinned gem={info.row.original} />,
       },
       {
+        accessorKey: "Color",
+        size: 80,
+        enableColumnFilter,
+        filterFn: "includes" as any,
+        meta: {
+          filter: { options: ["r", "g", "b", "w"] },
+        },
+      },
+      {
         accessorKey: "Corrupted",
         enableColumnFilter,
         filterFn: "equals",
@@ -66,7 +75,7 @@ export const getColumns = createSelector(
         cell: (info) => (info.getValue() ? "✓" : "✗"),
       },
       {
-        id: "Trans",
+        id: "Transfigured",
         accessorFn: ({ discriminator }: GemDetails) => Boolean(discriminator),
         enableColumnFilter,
         filterFn: "equals",
@@ -288,7 +297,7 @@ export const getColumns = createSelector(
         accessorFn: (gem: GemDetails) =>
           gem.xpGraph?.expectedValue
             ? Math.round(
-                ((gem.xpGraph.expectedValue - gem.xpGraph.gem.Price) * fiveWay) /
+                ((gem.xpGraph.expectedValue - gem.xpGraph.gem.Price) * (fiveWay || 100)) /
                   (gem.xpGraph.experience || 0),
               )
             : 0,

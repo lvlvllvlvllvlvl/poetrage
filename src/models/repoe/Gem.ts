@@ -1,5 +1,6 @@
 export interface Gem {
   active_skill: Active_skill;
+  color: "r" | "g" | "b" | "w";
   base_item?: Base_item;
   cast_time: number;
   discriminator?: string;

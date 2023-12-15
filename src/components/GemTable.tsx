@@ -173,6 +173,7 @@ export const GemTable = () => {
                               left: cell.column.getIsPinned() ? 0 : undefined,
                               zIndex: cell.column.getIsPinned() ? 1000 : undefined,
                               width: cell.column.getSize(),
+                              textAlign: "center",
                               backgroundColor: theme.palette.background.paper,
                               backgroundImage:
                                 "linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05))",

@@ -9,7 +9,7 @@ declare module "@tanstack/table-core" {
       isBool?: boolean;
       isFloat?: boolean;
       isText?: boolean;
-      isType?: boolean;
+      options?: string[];
       minDefault?: number;
     };
   }

@@ -47,9 +47,7 @@ const GemNode = ({ data: { node, isTarget, isSource } }: { data: GemNodeData }) 
             backgroundColor: theme.palette.background.paper,
           }}>
           <Typography sx={{ textAlign: "center" }}>
-            {node.gem.Level}/{node.gem.Quality} <Quality gem={node.gem} />
-            {node.gem.Vaal ? " Vaal " : " "}
-            {node.gem.baseName.replace("Awakened ", "")}
+            {node.gem.Level}/<Quality gem={node.gem} /> {node.gem.Name}
             {node.gem.Corrupted ? " (corrupted) " : " "}
             <GemIcons gem={node.gem} />
           </Typography>
@@ -266,12 +264,19 @@ export const GraphCell = ({ graph, xp }: { graph?: GraphNode; xp?: boolean }) =>
     <Button sx={{ textTransform: "none" }} onClick={() => setCurrentGraph(graph)}>
       {xp ? (
         <Tooltip
-          title={`${Math.round(
-            ((graph.expectedValue - graph.gem.Price) * fiveWay) / (graph.experience || 0),
-          )}c/5-way (${numeral((graph.experience || 0) / fiveWay).format("0[.][00]")} 5-ways)`}>
+          title={
+            fiveWay
+              ? `${Math.round(
+                  ((graph.expectedValue - graph.gem.Price) * fiveWay) / (graph.experience || 0),
+                )}c/5-way (${numeral((graph.experience || 0) / fiveWay).format("0[.][00]")} 5-ways)`
+              : `${Math.round(
+                  ((graph.expectedValue - graph.gem.Price) * 100) / (graph.experience || 0),
+                )}c/100m XP (${numeral((graph.experience || 0) * 1000000).format("0[.][00]a")} XP)`
+          }>
           <span>
             {Math.round(
-              ((graph.expectedValue - graph.gem.Price) * fiveWay) / (graph.experience || 0),
+              ((graph.expectedValue - graph.gem.Price) * (fiveWay || 100)) /
+                (graph.experience || 0),
             )}
             c
           </span>

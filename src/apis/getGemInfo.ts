@@ -27,6 +27,13 @@ export const getGemInfo = async () => {
   const maxLevel: { [gem: string]: number } = {};
   const transfigurations: Transfiguration = {};
   const transfigureBases: TransfigBase = {};
+  const color: { [gem: string]: "r" | "g" | "b" | "w" } = {};
+  const transByColor: { [color in "r" | "g" | "b" | "w"]: string[] } = {
+    r: [],
+    b: [],
+    g: [],
+    w: [],
+  };
   Object.values(response.data).forEach((gem) => {
     const name = gem.display_name || gem.base_item?.display_name;
     if (!name || !gem.base_item || gem.base_item.id.includes("Royale")) {
@@ -37,7 +44,9 @@ export const getGemInfo = async () => {
       transfigureBases[name] = { baseName, discriminator: gem.discriminator };
       transfigurations[baseName] = transfigurations[baseName] || {};
       transfigurations[baseName][gem.discriminator] = name;
+      transByColor[gem.color].push(name);
     }
+    color[name] = gem.color;
     if (gem.base_item.max_level) maxLevel[name] = gem.base_item.max_level;
     qualityStats[name] = qualityStats[name] || gem.static.quality_stats.find(({ stat }) => stat);
     gem.static.quality_stats.forEach((quality_stat) => {
@@ -56,5 +65,5 @@ export const getGemInfo = async () => {
       }
     });
   });
-  return { qualityStats, xp, maxLevel, transfigurations, transfigureBases };
+  return { qualityStats, xp, maxLevel, color, transfigurations, transfigureBases, transByColor };
 };
