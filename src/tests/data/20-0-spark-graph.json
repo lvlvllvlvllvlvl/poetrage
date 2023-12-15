@@ -6,7 +6,10 @@
       "chaosValue": 3,
       "gemLevel": 20,
       "listingCount": 290,
-      "sparkline": { "data": [0, 0, 0, 0, 0, 0, 0], "totalChange": 0 }
+      "sparkline": {
+        "data": [0, 0, 0, 0, 0, 0, 0],
+        "totalChange": 0
+      }
     },
     "Name": "Spark",
     "baseName": "Spark",
@@ -16,7 +19,6 @@
     "Quality": 0,
     "Corrupted": false,
     "Vaal": false,
-    "Type": "Superior",
     "Price": 3,
     "Meta": 2.1,
     "Listings": 290,
@@ -33,7 +35,10 @@
           "gemLevel": 20,
           "gemQuality": 20,
           "listingCount": 79,
-          "sparkline": { "data": [0, 0, 0, 0, 0, 0, 0], "totalChange": 0 }
+          "sparkline": {
+            "data": [0, 0, 0, 0, 0, 0, 0],
+            "totalChange": 0
+          }
         },
         "Name": "Spark",
         "baseName": "Spark",
@@ -43,7 +48,6 @@
         "Quality": 20,
         "Corrupted": false,
         "Vaal": false,
-        "Type": "Superior",
         "Price": 10,
         "Meta": 2.1,
         "Listings": 79,
@@ -71,14 +75,16 @@
             "gemLevel": 20,
             "corrupted": true,
             "listingCount": 172,
-            "sparkline": { "data": [0, 0, 0, 0, 0, 0, 0], "totalChange": 0 }
+            "sparkline": {
+              "data": [0, 0, 0, 0, 0, 0, 0],
+              "totalChange": 0
+            }
           },
           "baseName": "Spark",
           "variant": "20/0c",
           "Name": "Spark",
           "Level": 20,
           "Quality": 0,
-          "Type": "Superior",
           "Corrupted": true,
           "Vaal": false,
           "canVaal": true,
@@ -102,14 +108,16 @@
             "gemLevel": 20,
             "corrupted": true,
             "listingCount": 222,
-            "sparkline": { "data": [0, 0, 0, 0, 0, 0, 0], "totalChange": 0 }
+            "sparkline": {
+              "data": [0, 0, 0, 0, 0, 0, 0],
+              "totalChange": 0
+            }
           },
           "baseName": "Spark",
           "variant": "20/0c",
           "Name": "Vaal Spark",
           "Level": 20,
           "Quality": 0,
-          "Type": "Superior",
           "Corrupted": true,
           "Vaal": true,
           "canVaal": true,
@@ -133,14 +141,16 @@
             "gemLevel": 21,
             "corrupted": true,
             "listingCount": 545,
-            "sparkline": { "data": [0, 0, 0, 0, 0, 33.33, 26.67], "totalChange": 26.67 }
+            "sparkline": {
+              "data": [0, 0, 0, 0, 0, 33.33, 26.67],
+              "totalChange": 26.67
+            }
           },
           "baseName": "Spark",
           "variant": "21/0c",
           "Name": "Spark",
           "Level": 21,
           "Quality": 0,
-          "Type": "Superior",
           "Corrupted": true,
           "Vaal": false,
           "canVaal": true,
@@ -162,14 +172,16 @@
             "chaosValue": 3,
             "gemLevel": 20,
             "listingCount": 290,
-            "sparkline": { "data": [0, 0, 0, 0, 0, 0, 0], "totalChange": 0 }
+            "sparkline": {
+              "data": [0, 0, 0, 0, 0, 0, 0],
+              "totalChange": 0
+            }
           },
           "baseName": "Spark",
           "variant": "19/0c",
           "Name": "Spark",
           "Level": 19,
           "Quality": 0,
-          "Type": "Superior",
           "Corrupted": true,
           "Vaal": false,
           "canVaal": true,
@@ -194,14 +206,16 @@
             "gemQuality": 20,
             "corrupted": true,
             "listingCount": 315,
-            "sparkline": { "data": [0, 0, 0, 0, 0, 0, 0], "totalChange": 0 }
+            "sparkline": {
+              "data": [0, 0, 0, 0, 0, 0, 0],
+              "totalChange": 0
+            }
           },
           "baseName": "Spark",
           "variant": "20/20c",
           "Name": "Spark",
           "Level": 20,
           "Quality": 20,
-          "Type": "Superior",
           "Corrupted": true,
           "Vaal": false,
           "canVaal": true,
@@ -225,14 +239,16 @@
             "gemLevel": 20,
             "corrupted": true,
             "listingCount": 172,
-            "sparkline": { "data": [0, 0, 0, 0, 0, 0, 0], "totalChange": 0 }
+            "sparkline": {
+              "data": [0, 0, 0, 0, 0, 0, 0],
+              "totalChange": 0
+            }
           },
           "baseName": "Spark",
           "variant": "20/0c",
           "Name": "Spark",
           "Level": 20,
           "Quality": 0,
-          "Type": "Superior",
           "Corrupted": true,
           "Vaal": false,
           "canVaal": true,
@@ -256,14 +272,16 @@
             "gemLevel": 20,
             "corrupted": true,
             "listingCount": 172,
-            "sparkline": { "data": [0, 0, 0, 0, 0, 0, 0], "totalChange": 0 }
+            "sparkline": {
+              "data": [0, 0, 0, 0, 0, 0, 0],
+              "totalChange": 0
+            }
           },
           "baseName": "Spark",
           "variant": "20/0c",
           "Name": "Spark",
           "Level": 20,
           "Quality": 0,
-          "Type": "Superior",
           "Corrupted": true,
           "Vaal": false,
           "canVaal": true,
@@ -290,14 +308,16 @@
             "gemQuality": 20,
             "corrupted": true,
             "listingCount": 247,
-            "sparkline": { "data": [0, 0, 0, 0, 0, 0, 0], "totalChange": 0 }
+            "sparkline": {
+              "data": [0, 0, 0, 0, 0, 0, 0],
+              "totalChange": 0
+            }
           },
           "baseName": "Spark",
           "variant": "21/20c",
           "Name": "Spark",
           "Level": 21,
           "Quality": 20,
-          "Type": "Superior",
           "Corrupted": true,
           "Vaal": false,
           "canVaal": true,
@@ -320,14 +340,16 @@
             "gemLevel": 21,
             "corrupted": true,
             "listingCount": 545,
-            "sparkline": { "data": [0, 0, 0, 0, 0, 33.33, 26.67], "totalChange": 26.67 }
+            "sparkline": {
+              "data": [0, 0, 0, 0, 0, 33.33, 26.67],
+              "totalChange": 26.67
+            }
           },
           "baseName": "Spark",
           "variant": "21/0c",
           "Name": "Spark",
           "Level": 21,
           "Quality": 0,
-          "Type": "Superior",
           "Corrupted": true,
           "Vaal": false,
           "canVaal": true,
@@ -351,14 +373,16 @@
             "gemQuality": 20,
             "corrupted": true,
             "listingCount": 173,
-            "sparkline": { "data": [0, 0, 0, 40, 56, 60, 60], "totalChange": 60 }
+            "sparkline": {
+              "data": [0, 0, 0, 40, 56, 60, 60],
+              "totalChange": 60
+            }
           },
           "baseName": "Spark",
           "variant": "20/20c",
           "Name": "Vaal Spark",
           "Level": 20,
           "Quality": 20,
-          "Type": "Superior",
           "Corrupted": true,
           "Vaal": true,
           "canVaal": true,
@@ -382,14 +406,16 @@
             "gemLevel": 20,
             "corrupted": true,
             "listingCount": 222,
-            "sparkline": { "data": [0, 0, 0, 0, 0, 0, 0], "totalChange": 0 }
+            "sparkline": {
+              "data": [0, 0, 0, 0, 0, 0, 0],
+              "totalChange": 0
+            }
           },
           "baseName": "Spark",
           "variant": "20/0c",
           "Name": "Vaal Spark",
           "Level": 20,
           "Quality": 0,
-          "Type": "Superior",
           "Corrupted": true,
           "Vaal": true,
           "canVaal": true,
@@ -414,14 +440,16 @@
             "gemQuality": 20,
             "corrupted": true,
             "listingCount": 315,
-            "sparkline": { "data": [0, 0, 0, 0, 0, 0, 0], "totalChange": 0 }
+            "sparkline": {
+              "data": [0, 0, 0, 0, 0, 0, 0],
+              "totalChange": 0
+            }
           },
           "baseName": "Spark",
           "variant": "20/20c",
           "Name": "Spark",
           "Level": 20,
           "Quality": 20,
-          "Type": "Superior",
           "Corrupted": true,
           "Vaal": false,
           "canVaal": true,
@@ -445,14 +473,16 @@
             "gemLevel": 20,
             "corrupted": true,
             "listingCount": 172,
-            "sparkline": { "data": [0, 0, 0, 0, 0, 0, 0], "totalChange": 0 }
+            "sparkline": {
+              "data": [0, 0, 0, 0, 0, 0, 0],
+              "totalChange": 0
+            }
           },
           "baseName": "Spark",
           "variant": "20/0c",
           "Name": "Spark",
           "Level": 20,
           "Quality": 0,
-          "Type": "Superior",
           "Corrupted": true,
           "Vaal": false,
           "canVaal": true,
@@ -475,14 +505,16 @@
             "chaosValue": 3,
             "gemLevel": 20,
             "listingCount": 290,
-            "sparkline": { "data": [0, 0, 0, 0, 0, 0, 0], "totalChange": 0 }
+            "sparkline": {
+              "data": [0, 0, 0, 0, 0, 0, 0],
+              "totalChange": 0
+            }
           },
           "baseName": "Spark",
           "variant": "19/0c",
           "Name": "Vaal Spark",
           "Level": 19,
           "Quality": 0,
-          "Type": "Superior",
           "Corrupted": true,
           "Vaal": true,
           "canVaal": true,
@@ -505,14 +537,16 @@
             "chaosValue": 3,
             "gemLevel": 20,
             "listingCount": 290,
-            "sparkline": { "data": [0, 0, 0, 0, 0, 0, 0], "totalChange": 0 }
+            "sparkline": {
+              "data": [0, 0, 0, 0, 0, 0, 0],
+              "totalChange": 0
+            }
           },
           "baseName": "Spark",
           "variant": "19/1c",
           "Name": "Spark",
           "Level": 19,
           "Quality": 1,
-          "Type": "Superior",
           "Corrupted": true,
           "Vaal": false,
           "canVaal": true,
@@ -535,14 +569,16 @@
             "chaosValue": 3,
             "gemLevel": 20,
             "listingCount": 290,
-            "sparkline": { "data": [0, 0, 0, 0, 0, 0, 0], "totalChange": 0 }
+            "sparkline": {
+              "data": [0, 0, 0, 0, 0, 0, 0],
+              "totalChange": 0
+            }
           },
           "baseName": "Spark",
           "variant": "19/0c",
           "Name": "Spark",
           "Level": 19,
           "Quality": 0,
-          "Type": "Superior",
           "Corrupted": true,
           "Vaal": false,
           "canVaal": true,

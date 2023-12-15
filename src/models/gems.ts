@@ -10,13 +10,7 @@ export interface ConversionData {
   chance: number;
   outcomes: string[];
 }
-export const altQualities = ["Anomalous", "Divergent", "Phantasmal"] as const;
-export const qualities = ["Superior", ...altQualities] as const;
-export const qualityIndex = Object.fromEntries(qualities.map((q, i) => [q, i]));
-export const gemTypes = [...qualities, "Awakened"] as const;
 export const exceptional = ["Enlighten", "Empower", "Enhance"];
-export type QualityType = (typeof qualities)[number];
-export type GemType = (typeof gemTypes)[number];
 
 export const mavenExclusive = [
   "Awakened Ancestral Call Support",
@@ -67,7 +61,6 @@ export interface Gem {
   Name: string;
   Level: number;
   Quality: number;
-  Type: GemType;
   Corrupted: boolean;
   Vaal: boolean;
   canVaal?: boolean;
@@ -90,7 +83,6 @@ const GemFields: Required<Gem> = {
   Name: "string",
   Level: 0,
   Quality: 0,
-  Type: "Superior",
   Corrupted: false,
   Vaal: false,
   canVaal: false,
@@ -201,10 +193,7 @@ export const exists = (v: any) => v !== undefined;
 export const normalize = <T extends Gem>(gem: T): T => ({
   ...gem,
   Vaal: gem.Vaal && gem.Corrupted,
-  Name:
-    (altQualities.includes(gem.Type as any) ? gem.Type + " " : "") +
-    (gem.Vaal && gem.Corrupted ? "Vaal " : "") +
-    gem.baseName,
+  Name: gem.Vaal && gem.Corrupted && !gem.Name.startsWith("Vaal ") ? "Vaal " + gem.Name : gem.Name,
   variant: `${gem.Level}/${gem.Quality}${gem.Corrupted ? "c" : ""}`,
 });
 export const copy = <O extends {}>(base: Gem, overrides?: O): Gem & O =>
@@ -213,27 +202,15 @@ export const copy = <O extends {}>(base: Gem, overrides?: O): Gem & O =>
     ...(overrides || ({} as O)),
   });
 
-export const getType = (name: string) => {
-  for (const q of altQualities) {
-    if (name.includes(q)) return q;
-  }
-  if (name.includes("Awakened")) {
-    return "Awakened";
-  } else {
-    return "Superior";
-  }
-};
-
 export const betterOrEqual = (gem: Gem, other: Gem) => {
-  if (other.baseName !== gem.baseName || other.Type !== gem.Type) {
+  if (other.baseName !== gem.baseName || other.discriminator !== gem.discriminator) {
     console.debug("mismatched gem comparison", gem, other);
   }
   return (
     (gem.Vaal || !other.Vaal) &&
     (other.Corrupted || !gem.Corrupted) &&
     other.Level <= gem.Level &&
-    (other.Quality <= gem.Quality ||
-      (exceptional.find((e) => gem.Name.includes(e)) && !altQualities.includes(gem.Type as any)))
+    (other.Quality <= gem.Quality || exceptional.find((e) => gem.Name.includes(e)))
   );
 };
 
@@ -242,11 +219,7 @@ export const strictlyBetter = (gem: Gem, other: Gem) => {
 };
 
 export const isGoodCorruption = (gem: Gem) => {
-  if (
-    gem.Quality > 20 &&
-    exceptional.find((e) => gem.Name.includes(e)) &&
-    !altQualities.includes(gem.Type as any)
-  ) {
+  if (gem.Quality > 20 && exceptional.find((e) => gem.Name.includes(e))) {
     // 23-quality exceptional gems don't get this special treatment
     return false;
   }
@@ -278,7 +251,7 @@ export function bestMatch(gem: Gem, data: Gem[], allowLowConfidence: "none" | "a
 }
 
 export const compareGem = (a: Gem, b: Gem) => {
-  if (a.baseName !== b.baseName || a.Type !== b.Type) {
+  if (a.baseName !== b.baseName || a.discriminator !== b.discriminator) {
     console.debug("mismatched gem comparison", a, b);
   }
   if (a.Level !== b.Level) {
@@ -297,7 +270,7 @@ export const compareGem = (a: Gem, b: Gem) => {
 export const isEqual = (a: Gem, b: Gem) => {
   return (
     a.baseName === b.baseName &&
-    a.Type === b.Type &&
+    a.discriminator === b.discriminator &&
     a.Level === b.Level &&
     a.Quality === b.Quality &&
     a.Corrupted === b.Corrupted &&

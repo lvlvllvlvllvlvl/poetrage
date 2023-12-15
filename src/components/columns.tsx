@@ -14,9 +14,9 @@ import { Listings } from "./cells/Listings";
 import { Meta } from "./cells/Meta";
 import { Name } from "./cells/Name";
 import { Pinned } from "./cells/Pinned";
+import { Quality } from "./cells/Quality";
 import { ROI } from "./cells/ROI";
 import { Temple } from "./cells/Temple";
-import { Type } from "./cells/Type";
 import { Vaal } from "./cells/Vaal";
 import { XP } from "./cells/XP";
 
@@ -92,15 +92,7 @@ export const getColumns = createSelector(
         meta: {
           filter: { isMin: true, isMax: true },
         },
-      },
-      {
-        accessorKey: "Type",
-        enableColumnFilter,
-        filterFn: "includes" as any,
-        meta: {
-          filter: { isType: true },
-        },
-        cell: (info) => <Type gem={info.row.original} />,
+        cell: (info) => <Quality gem={info.row.original} />,
       },
       {
         accessorKey: "Price",

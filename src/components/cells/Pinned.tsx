@@ -25,11 +25,13 @@ export const Pinned = ({ gem, copy }: { gem: GemDetails; copy?: any }) => {
         <PushPinIcon />
       </ToggleButton>
       {devMode && (
-        <Tooltip title={JSON.stringify(gem.original)}>
+        <Tooltip title={id}>
           <IconButton
             sx={{ width: 18, height: 18 }}
             onClick={() =>
-              navigator.clipboard.writeText(JSON.stringify(copy ?? getGemFromData(id, data)))
+              navigator.clipboard.writeText(
+                JSON.stringify(copy ?? getGemFromData(id, data), undefined, 2),
+              )
             }>
             <CopyIcon />
           </IconButton>

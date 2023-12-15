@@ -4,7 +4,6 @@ import { filterOutliers, mean } from "functions/filterOutliers";
 import { getCurrency } from "functions/getCurrency";
 import { isNumber } from "lodash";
 import {
-  altQualities,
   bestMatch,
   betterOrEqual,
   compareGem,
@@ -14,8 +13,6 @@ import {
   exists,
   Gem,
   GemDetails,
-  GemType,
-  getType,
   isEqual,
   mavenCrucible,
   mavenExclusive,
@@ -99,13 +96,11 @@ export const calculateProfits = async (
             const discriminator = transBase?.discriminator;
             baseName = transBase?.baseName || baseName;
             const Vaal = name.includes("Vaal");
-            const Type = getType(name);
 
-            const Meta = getMeta(meta, Vaal, Type, name);
-            const key = Type === "Awakened" ? name : baseName;
-            const levels = gemInfo.xp[key];
+            const Meta = getMeta(meta, name);
+            const levels = gemInfo.xp[baseName];
             if (!levels) {
-              missingXP[key] = true;
+              missingXP[baseName] = true;
             }
             vaalGems[baseName] = vaalGems[baseName] || Vaal;
             let lowConfidence = !sparkline?.data?.length;
@@ -139,7 +134,6 @@ export const calculateProfits = async (
               Quality: gemQuality || 0,
               Corrupted: corrupted || false,
               Vaal,
-              Type,
               Price: Math.round(chaosValue || 0),
               Meta,
               Listings: listingCount,
@@ -163,14 +157,12 @@ export const calculateProfits = async (
             const discriminator = transBase?.discriminator;
             baseName = transBase?.baseName || baseName;
             const Vaal = name.includes("Vaal");
-            const Type = getType(name);
-            const Meta = getMeta(meta, Vaal, Type, name);
+            const Meta = getMeta(meta, name);
             const variant = `${gemLevel}/${gemQuality}${corrupted ? "c" : ""}`;
-            const key = Type === "Awakened" ? name : baseName;
-            const levels = gemInfo.xp[key];
+            const levels = gemInfo.xp[baseName];
 
             if (!levels) {
-              missingXP[key] = true;
+              missingXP[baseName] = true;
             }
             vaalGems[baseName] = vaalGems[baseName] || Vaal;
             if (!chaosValue) {
@@ -201,7 +193,6 @@ export const calculateProfits = async (
               Quality: gemQuality || 0,
               Corrupted: corrupted || false,
               Vaal,
-              Type,
               Price: Math.round(chaosValue || 0),
               Meta,
               Listings,
@@ -228,8 +219,9 @@ export const calculateProfits = async (
     result.forEach((gem) => {
       gem.canVaal = vaalGems[gem.baseName];
       if (!gemMap[gem.baseName]) gemMap[gem.baseName] = {};
-      if (!gemMap[gem.baseName][gem.Type]) gemMap[gem.baseName][gem.Type] = [];
-      gemMap[gem.baseName][gem.Type].push(copy(gem));
+      if (!gemMap[gem.baseName][gem.discriminator || ""])
+        gemMap[gem.baseName][gem.discriminator || ""] = [];
+      gemMap[gem.baseName][gem.discriminator || ""].push(copy(gem));
     });
 
     Object.values(gemMap).forEach((v) =>
@@ -241,7 +233,7 @@ export const calculateProfits = async (
     const toMark: Gem[] = [];
     //Mark gems that are priced higher than strictly better versions of the same gem as low confidence
     result.forEach((gem) => {
-      for (const other of gemMap[gem.baseName][gem.Type]) {
+      for (const other of gemMap[gem.baseName][gem.discriminator || ""]) {
         if (
           (sanitize === "yes" || (sanitize === "corrupted" && gem.Corrupted)) &&
           !gem.lowConfidence &&
@@ -267,8 +259,9 @@ export const calculateProfits = async (
     result.forEach((gem) => {
       gem.canVaal = vaalGems[gem.baseName];
       if (!gemMap[gem.baseName]) gemMap[gem.baseName] = {};
-      if (!gemMap[gem.baseName][gem.Type]) gemMap[gem.baseName][gem.Type] = [];
-      gemMap[gem.baseName][gem.Type].push(copy(gem));
+      if (!gemMap[gem.baseName][gem.discriminator || ""])
+        gemMap[gem.baseName][gem.discriminator || ""] = [];
+      gemMap[gem.baseName][gem.discriminator || ""].push(copy(gem));
     });
 
     Object.values(gemMap).forEach((v) =>
@@ -333,11 +326,10 @@ export const calculateProfits = async (
 
       //XP
       if (gem.XP !== undefined) {
-        const qualityMultiplier =
-          !altQualities.includes(gem.Type as any) && exceptional.find((e) => gem.Name.includes(e))
-            ? 1 + (gem.Quality + incQual) * 0.05
-            : 1;
-        const possibles = gemMap[gem.baseName][gem.Type].filter(
+        const qualityMultiplier = exceptional.find((e) => gem.Name.includes(e))
+          ? 1 + (gem.Quality + incQual) * 0.05
+          : 1;
+        const possibles = gemMap[gem.baseName][gem.discriminator || ""].filter(
           (other) =>
             (lowConfidence || !other.lowConfidence) &&
             other.Corrupted === gem.Corrupted &&
@@ -356,10 +348,7 @@ export const calculateProfits = async (
             return { ...other, gcpCount, gcpCost, xpValue, xpDiff };
           })
           .concat(
-            gem.Type === "Superior" &&
-              !gem.Corrupted &&
-              gem.Quality < 20 &&
-              gemInfo.xp[gem.baseName][20]
+            !gem.Corrupted && gem.Quality < 20 && gemInfo.xp[gem.baseName][20]
               ? possibles
                   .filter(
                     (other) =>
@@ -403,8 +392,8 @@ export const calculateProfits = async (
       }
 
       //Awakened Gem levels
-      if (gem.Type === "Awakened" && !gem.Corrupted) {
-        const possibles = gemMap[gem.baseName][gem.Type].filter(
+      if (gem.Name.includes("Awakened") && !gem.Corrupted) {
+        const possibles = gemMap[gem.baseName][gem.discriminator || ""].filter(
           (other) =>
             (lowConfidence || !other.lowConfidence) &&
             !other.Corrupted &&
@@ -442,7 +431,7 @@ export const calculateProfits = async (
 
       //Awakened Gem conversion
       if (
-        gem.Type === "Awakened" &&
+        gem.Name.includes("Awakened") &&
         !gem.Corrupted &&
         !exceptional.find((e) => gem.Name.includes(e))
       ) {
@@ -459,7 +448,7 @@ export const calculateProfits = async (
             outcomes: [Name],
             gem: bestMatch(
               copy(gem, { Name, baseName: Name }),
-              gemMap[Name]?.[gem.Type],
+              gemMap[Name]?.[gem.discriminator || ""],
               lowConfidence,
             ),
           }))
@@ -469,7 +458,7 @@ export const calculateProfits = async (
               outcomes: [Name],
               gem: bestMatch(
                 copy(gem, { Name, baseName: Name }),
-                gemMap[Name]?.[gem.Type],
+                gemMap[Name]?.[gem.discriminator || ""],
                 lowConfidence,
               ),
             })),
@@ -501,7 +490,7 @@ export const calculateProfits = async (
       if (!gem.Corrupted) {
         const vaalData = vaal(gem).map((v) => ({
           ...v,
-          gem: bestMatch(v.gem, gemMap[v.gem.baseName][v.gem.Type], lowConfidence),
+          gem: bestMatch(v.gem, gemMap[v.gem.baseName][v.gem.discriminator || ""], lowConfidence),
         }));
         gem.vaalValue =
           (vaalData?.reduce((sum, { gem, chance }) => sum + (gem?.Price || 0) * chance, 0) || 0) -
@@ -567,7 +556,7 @@ export const calculateProfits = async (
         templeData = templeData
           .map((v) => ({
             ...v,
-            gem: bestMatch(v.gem, gemMap[v.gem.baseName][v.gem.Type], lowConfidence),
+            gem: bestMatch(v.gem, gemMap[v.gem.baseName][v.gem.discriminator || ""], lowConfidence),
           }))
           .sort((a, b) => compareGem(a.gem, b.gem));
         gem.templeData = [];
@@ -621,18 +610,9 @@ export const calculateProfits = async (
 
 self.onmessage = ({ data }) => calculateProfits(data, self);
 
-function getMeta(
-  meta: ApiResult<{ [key: string]: number }>,
-  Vaal: boolean,
-  Type: GemType,
-  name: string,
-) {
+function getMeta(meta: ApiResult<{ [key: string]: number }>, name: string) {
   if (meta.status !== "done") {
     return 0;
-  } else if (Vaal && Type !== "Superior") {
-    return (
-      Math.min(meta.value[name.replace("Vaal ", "")], meta.value[name.replace(Type + " ", "")]) || 0
-    );
   } else {
     return meta.value[name] || 0;
   }

@@ -3,7 +3,6 @@ import info from "data/gemInfo.json";
 import { getCurrency } from "functions/getCurrency";
 import { memoize } from "lodash";
 import {
-  altQualities,
   copy,
   exceptional,
   exists,
@@ -63,8 +62,9 @@ export const buildGraph = async (
     const gemMap: { [key: string]: { [key: string]: Gem[] } } = {};
     data.forEach((gem) => {
       if (!gemMap[gem.baseName]) gemMap[gem.baseName] = {};
-      if (!gemMap[gem.baseName][gem.Type]) gemMap[gem.baseName][gem.Type] = [];
-      gemMap[gem.baseName][gem.Type].push(gem);
+      if (!gemMap[gem.baseName][gem.discriminator || ""])
+        gemMap[gem.baseName][gem.discriminator || ""] = [];
+      gemMap[gem.baseName][gem.discriminator || ""].push(gem);
       map[getId(gem)] = gem;
     });
     const getGem = (gem: Gem) => map[getId(gem)] || gem;
@@ -76,7 +76,7 @@ export const buildGraph = async (
           ? normalizedFn(copy(gem, { Quality: 20, Price: 0, lowConfidence: true, Listings: 0 }))
           : undefined;
       const levelResult =
-        !gem.Corrupted && gem.Type === "Awakened" && gem.Level < gem.maxLevel
+        !gem.Corrupted && gem.Name.includes("Awakened") && gem.Level < gem.maxLevel
           ? normalizedFn(
               copy(gem, { Level: gem.maxLevel, Price: 0, lowConfidence: true, Listings: 0 }),
             )
@@ -222,11 +222,10 @@ export const buildGraph = async (
       }
 
       if (gem.XP !== undefined) {
-        const qualityMultiplier =
-          !altQualities.includes(gem.Type as any) && exceptional.find((e) => gem.Name.includes(e))
-            ? 1 + (gem.Quality + incQual) * 0.05
-            : 1;
-        const possibles = gemMap[gem.baseName][gem.Type].filter(
+        const qualityMultiplier = exceptional.find((e) => gem.Name.includes(e))
+          ? 1 + (gem.Quality + incQual) * 0.05
+          : 1;
+        const possibles = gemMap[gem.baseName][gem.discriminator || ""].filter(
           (other) =>
             (allowLowConfidence === "all" || !other.lowConfidence) &&
             (!gem.Corrupted || (other.Corrupted && other.Vaal === gem.Vaal)) &&
@@ -251,10 +250,7 @@ export const buildGraph = async (
             return createNode(gem, xpValue, children, xpDiff);
           })
           .concat(
-            gem.Type === "Superior" &&
-              !gem.Corrupted &&
-              gem.Quality < 20 &&
-              gemInfo.xp[gem.baseName][20]
+            !gem.Corrupted && gem.Quality < 20 && gemInfo.xp[gem.baseName][20]
               ? possibles
                   .filter(
                     (other) =>

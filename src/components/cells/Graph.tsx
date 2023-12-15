@@ -23,7 +23,7 @@ import { setters } from "state/app";
 import { useAppDispatch, useAppSelector } from "state/store";
 import { Pinned } from "./Pinned";
 import { Price } from "./Price";
-import { Type } from "./Type";
+import { Quality } from "./Quality";
 
 interface GemNodeData {
   label?: string;
@@ -47,7 +47,7 @@ const GemNode = ({ data: { node, isTarget, isSource } }: { data: GemNodeData }) 
             backgroundColor: theme.palette.background.paper,
           }}>
           <Typography sx={{ textAlign: "center" }}>
-            {node.gem.Level}/{node.gem.Quality} <Type gem={node.gem} />
+            {node.gem.Level}/{node.gem.Quality} <Quality gem={node.gem} />
             {node.gem.Vaal ? " Vaal " : " "}
             {node.gem.baseName.replace("Awakened ", "")}
             {node.gem.Corrupted ? " (corrupted) " : " "}
