@@ -3469,7 +3469,7 @@
     "fractal thoughts": [
       {
         "page_name": "Fractal Thoughts",
-        "tags": "armour,default,dex_int_armour,helmet",
+        "tags": "armour,default,dex_int_armour,helmet,top_tier_base_item_type",
         "query": {
           "name": "Fractal Thoughts",
           "type": "Vaal Mask"
@@ -3801,7 +3801,7 @@
     "gravebind": [
       {
         "page_name": "Gravebind",
-        "tags": "armour,default,gloves,str_dex_armour",
+        "tags": "armour,default,gloves,str_dex_armour,top_tier_base_item_type",
         "query": {
           "name": "Gravebind",
           "type": "Hydrascale Gauntlets"
@@ -5474,7 +5474,7 @@
     "mercenary's lot": [
       {
         "page_name": "Mercenary's Lot",
-        "tags": "armour,default,dex_armour,gloves",
+        "tags": "armour,default,dex_armour,gloves,top_tier_base_item_type",
         "query": {
           "name": "Mercenary's Lot",
           "type": "Slink Gloves"
@@ -5791,7 +5791,7 @@
     "null and void": [
       {
         "page_name": "Null and Void",
-        "tags": "armour,default,gloves,str_int_armour",
+        "tags": "armour,default,gloves,str_int_armour,top_tier_base_item_type",
         "query": {
           "name": "Null and Void",
           "type": "Legion Gloves"
@@ -8542,7 +8542,7 @@
     "speaker's wreath": [
       {
         "page_name": "Speaker's Wreath",
-        "tags": "armour,default,helmet,str_int_armour",
+        "tags": "armour,default,helmet,str_int_armour,top_tier_base_item_type",
         "query": {
           "name": "Speaker's Wreath",
           "type": "Prophet Crown"
@@ -9245,7 +9245,7 @@
     "the brine crown": [
       {
         "page_name": "The Brine Crown",
-        "tags": "armour,default,helmet,str_int_armour",
+        "tags": "armour,default,helmet,str_int_armour,top_tier_base_item_type",
         "query": {
           "name": "The Brine Crown",
           "type": "Prophet Crown"
@@ -10221,14 +10221,6 @@
           "name": "The Supreme Truth",
           "type": "Crystal Sceptre"
         }
-      },
-      {
-        "page_name": "The Supreme Truth",
-        "tags": "default,one_hand_weapon,onehand,sceptre,sceptre,weapon",
-        "query": {
-          "name": "The Supreme Truth",
-          "type": "Crystal Sceptre"
-        }
       }
     ],
     "the surging thoughts": [
@@ -11064,7 +11056,7 @@
     "veruso's battering rams": [
       {
         "page_name": "Veruso's Battering Rams",
-        "tags": "armour,default,gloves,str_armour",
+        "tags": "armour,default,gloves,str_armour,top_tier_base_item_type",
         "query": {
           "name": "Veruso's Battering Rams",
           "type": "Titan Gauntlets"
@@ -11346,7 +11338,7 @@
     "voll's vision": [
       {
         "page_name": "Voll's Vision",
-        "tags": "armour,default,helmet,str_int_armour",
+        "tags": "armour,default,helmet,str_int_armour,top_tier_base_item_type",
         "query": {
           "name": "Voll's Vision",
           "type": "Praetor Crown"
@@ -14932,6 +14924,32 @@
       }
     },
     "armour,default,gloves,not_for_sale,ward_armour": {
+      "sumWeight": 21000,
+      "mods": {
+        "V2CurseOnHitDespair": 1000,
+        "V2CurseOnHitElementalWeaknessCorrupted": 1000,
+        "V2CurseOnHitEnfeeble": 1000,
+        "V2CurseOnHitTemporalChainsCurrupted": 1000,
+        "V2CurseOnHitVulnerabilityCorrupted": 1000,
+        "V2GemLevelCorrupted": 1000,
+        "V2IncreasedAtackCriticalStrikeCorruption": 1000,
+        "V2IncreasedAttackSpeedCorrupted": 1000,
+        "V2IncreasedCastSpeedCorrupted_": 1000,
+        "V2IncreasedMaximumEnergyShieldCorrupted": 1000,
+        "V2IncreasedMaximumLifeCorrupted": 1000,
+        "V2IncreasedSpellCriticalStrikeCorruption": 1000,
+        "V2MaxFrenzyChargesCorrupted": 1000,
+        "V2SocketedAoEGemCorrupted": 1000,
+        "V2SocketedAuraGemCorrupted": 1000,
+        "V2SocketedCurseGemCorrupted": 1000,
+        "V2SocketedDurationGemCorrupted": 1000,
+        "V2SocketedMinionGemCorrupted": 1000,
+        "V2SocketedProjectileGemCorrupted_": 1000,
+        "V2SocketedTrapOrMineGemCorrupted": 1000,
+        "V2SocketedWarcryGemCorrupted": 1000
+      }
+    },
+    "armour,default,dex_armour,gloves,top_tier_base_item_type": {
       "sumWeight": 21000,
       "mods": {
         "V2CurseOnHitDespair": 1000,
