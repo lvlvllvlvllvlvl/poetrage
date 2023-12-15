@@ -1,7 +1,8 @@
 export interface Gem {
   active_skill: Active_skill;
-  base_item: Base_item;
+  base_item?: Base_item;
   cast_time: number;
+  display_name?: string;
   is_support: boolean;
   per_level: Per_level;
   stat_translation_file: string;

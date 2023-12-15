@@ -32,13 +32,12 @@ export type RangeValue = [number, number];
 export type Value = SimpleValue | RangeValue;
 
 export const formatStat = (stat: string, values: { [id: string]: number[] }) =>
-  stat?.replaceAll(/\{([^\}]+)\/?(\w*)\}/g, (match, id, quantifier) =>
+  stat?.replaceAll(/\{([^\}/]+)\/?(\w*)\}/g, (match, id, quantifier) =>
     (values[id] || [0]).map(getQuantifier(quantifier)).join(" to "),
   );
 
 export const qualityStat = (gemInfo: GemInfo, gem: Gem) => {
-  const quality =
-    gemInfo.qualityStats[gem.baseName]?.[gem.Type === "Awakened" ? "Superior" : gem.Type];
+  const quality = gemInfo.qualityStats[gem.baseName];
   if (!quality || !quality.stat) {
     return null;
   }
@@ -48,8 +47,8 @@ export const qualityStat = (gemInfo: GemInfo, gem: Gem) => {
     Object.fromEntries(
       Object.entries(stats).map(([id, value]) => {
         const values: Value = gem.Quality
-          ? [(value * gem.Quality) / 1000]
-          : [value / 1000, value / 50];
+          ? [Math.floor((value * gem.Quality) / 1000)]
+          : [Math.floor(value / 1000), value / 50];
         return [id, values];
       }),
     ),
