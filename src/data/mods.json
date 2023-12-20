@@ -1309,6 +1309,14 @@
           "name": "Broken Faith",
           "type": "Archon Kite Shield"
         }
+      },
+      {
+        "page_name": "Broken Faith",
+        "tags": "armour,default,shield,str_int_armour,str_int_shield,top_tier_base_item_type",
+        "query": {
+          "name": "Broken Faith",
+          "type": "Archon Kite Shield"
+        }
       }
     ],
     "bronn's lithe": [
@@ -3427,7 +3435,7 @@
     "forbidden taste": [
       {
         "page_name": "Forbidden Taste",
-        "tags": "default,flask,not_for_sale,utility_flask",
+        "tags": "default,flask,utility_flask",
         "query": {
           "name": "Forbidden Taste",
           "type": "Quartz Flask"
@@ -15526,9 +15534,7 @@
   "mods": {
     "+# armour while stationary": {
       "V2AddedArmourWhileStationaryCorrupted1": {
-        "groups": [
-          "AddedArmourWhileStationary"
-        ],
+        "groups": ["AddedArmourWhileStationary"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -15551,15 +15557,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "+(35-60) Armour while stationary",
-          "trade_stat": [
-            "implicit.stat_2551779822"
-          ]
+          "trade_stat": ["implicit.stat_2551779822"]
         }
       },
       "V2AddedArmourWhileStationaryCorrupted2": {
-        "groups": [
-          "AddedArmourWhileStationary"
-        ],
+        "groups": ["AddedArmourWhileStationary"],
         "required_level": 31,
         "spawn_weights": [
           {
@@ -15582,15 +15584,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "+(61-138) Armour while stationary",
-          "trade_stat": [
-            "implicit.stat_2551779822"
-          ]
+          "trade_stat": ["implicit.stat_2551779822"]
         }
       },
       "V2AddedArmourWhileStationaryCorrupted3": {
-        "groups": [
-          "AddedArmourWhileStationary"
-        ],
+        "groups": ["AddedArmourWhileStationary"],
         "required_level": 75,
         "spawn_weights": [
           {
@@ -15613,17 +15611,13 @@
         "weight": 500,
         "stat": {
           "formatted": "+(139-322) Armour while stationary",
-          "trade_stat": [
-            "implicit.stat_2551779822"
-          ]
+          "trade_stat": ["implicit.stat_2551779822"]
         }
       }
     },
     "+# to global evasion rating while moving": {
       "V2AddedEvasionWhileMovingCorrupted1_": {
-        "groups": [
-          "AddedEvasionWhileMovingCorrupted"
-        ],
+        "groups": ["AddedEvasionWhileMovingCorrupted"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -15646,15 +15640,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "+(35-60) to Global Evasion Rating while moving",
-          "trade_stat": [
-            "implicit.stat_3825877290"
-          ]
+          "trade_stat": ["implicit.stat_3825877290"]
         }
       },
       "V2AddedEvasionWhileMovingCorrupted2": {
-        "groups": [
-          "AddedEvasionWhileMovingCorrupted"
-        ],
+        "groups": ["AddedEvasionWhileMovingCorrupted"],
         "required_level": 31,
         "spawn_weights": [
           {
@@ -15677,15 +15667,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "+(61-138) to Global Evasion Rating while moving",
-          "trade_stat": [
-            "implicit.stat_3825877290"
-          ]
+          "trade_stat": ["implicit.stat_3825877290"]
         }
       },
       "V2AddedEvasionWhileMovingCorrupted3": {
-        "groups": [
-          "AddedEvasionWhileMovingCorrupted"
-        ],
+        "groups": ["AddedEvasionWhileMovingCorrupted"],
         "required_level": 75,
         "spawn_weights": [
           {
@@ -15708,17 +15694,13 @@
         "weight": 500,
         "stat": {
           "formatted": "+(139-322) to Global Evasion Rating while moving",
-          "trade_stat": [
-            "implicit.stat_3825877290"
-          ]
+          "trade_stat": ["implicit.stat_3825877290"]
         }
       }
     },
     "+#% chance to suppress spell damage": {
       "V2ChanceToSpellDodgeCorrupted_": {
-        "groups": [
-          "ChanceToSuppressSpells"
-        ],
+        "groups": ["ChanceToSuppressSpells"],
         "required_level": 45,
         "spawn_weights": [
           {
@@ -15741,16 +15723,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "+(6-9)% chance to Suppress Spell Damage",
-          "trade_stat": [
-            "implicit.stat_3680664274",
-            "implicit.stat_492027537"
-          ]
+          "trade_stat": ["implicit.stat_3680664274", "implicit.stat_492027537"]
         }
       },
       "V2ChanceToSuppressSpells_": {
-        "groups": [
-          "ChanceToSuppressSpells"
-        ],
+        "groups": ["ChanceToSuppressSpells"],
         "required_level": 75,
         "spawn_weights": [
           {
@@ -15773,18 +15750,13 @@
         "weight": 200,
         "stat": {
           "formatted": "+(8-12)% chance to Suppress Spell Damage",
-          "trade_stat": [
-            "implicit.stat_3680664274",
-            "implicit.stat_492027537"
-          ]
+          "trade_stat": ["implicit.stat_3680664274", "implicit.stat_492027537"]
         }
       }
     },
     "+# to level of socketed gems": {
       "V2GemLevelCorrupted": {
-        "groups": [
-          "IncreaseSocketedGemLevel"
-        ],
+        "groups": ["IncreaseSocketedGemLevel"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -15819,17 +15791,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "+1 to Level of Socketed Gems",
-          "trade_stat": [
-            "implicit.stat_2843100721"
-          ]
+          "trade_stat": ["implicit.stat_2843100721"]
         }
       }
     },
     "grants level # haste skill": {
       "V2HasteSkillCorrupted_": {
-        "groups": [
-          "GrantedSkill"
-        ],
+        "groups": ["GrantedSkill"],
         "required_level": 56,
         "spawn_weights": [
           {
@@ -15852,17 +15820,13 @@
         "weight": 500,
         "stat": {
           "formatted": "Grants Level 21 Haste Skill",
-          "trade_stat": [
-            "implicit.stat_1188846263"
-          ]
+          "trade_stat": ["implicit.stat_1188846263"]
         }
       }
     },
     "#% increased maximum energy shield": {
       "V2IncreasedMaximumEnergyShieldCorrupted": {
-        "groups": [
-          "MaximumEnergyShieldPercent"
-        ],
+        "groups": ["MaximumEnergyShieldPercent"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -15885,15 +15849,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "(4-6)% increased maximum Energy Shield",
-          "trade_stat": [
-            "implicit.stat_2482852589"
-          ]
+          "trade_stat": ["implicit.stat_2482852589"]
         }
       },
       "V2IncreasedEnergyShieldCorrupted": {
-        "groups": [
-          "EnergyShieldPercent"
-        ],
+        "groups": ["EnergyShieldPercent"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -15916,17 +15876,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(8-10)% increased maximum Energy Shield",
-          "trade_stat": [
-            "implicit.stat_2482852589"
-          ]
+          "trade_stat": ["implicit.stat_2482852589"]
         }
       }
     },
     "#% increased maximum life": {
       "V2IncreasedMaximumLifeCorrupted": {
-        "groups": [
-          "MaximumLifeIncreasePercent"
-        ],
+        "groups": ["MaximumLifeIncreasePercent"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -15949,15 +15905,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "(4-6)% increased maximum Life",
-          "trade_stat": [
-            "implicit.stat_983749596"
-          ]
+          "trade_stat": ["implicit.stat_983749596"]
         }
       },
       "V2IncreasedLifeCorrupted": {
-        "groups": [
-          "MaximumLifeIncreasePercent"
-        ],
+        "groups": ["MaximumLifeIncreasePercent"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -15980,17 +15932,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(6-8)% increased maximum Life",
-          "trade_stat": [
-            "implicit.stat_983749596"
-          ]
+          "trade_stat": ["implicit.stat_983749596"]
         }
       }
     },
     "+# to maximum endurance charges": {
       "V2MaximumEnduranceChargesCorruption": {
-        "groups": [
-          "MaximumEnduranceCharges"
-        ],
+        "groups": ["MaximumEnduranceCharges"],
         "required_level": 60,
         "spawn_weights": [
           {
@@ -16013,17 +15961,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "+1 to Maximum Endurance Charges",
-          "trade_stat": [
-            "implicit.stat_1515657623"
-          ]
+          "trade_stat": ["implicit.stat_1515657623"]
         }
       }
     },
     "#% increased movement speed": {
       "V2MovementVelocityCorrupted": {
-        "groups": [
-          "MovementVelocity"
-        ],
+        "groups": ["MovementVelocity"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -16050,17 +15994,13 @@
         "weight": 500,
         "stat": {
           "formatted": "(8-10)% increased Movement Speed",
-          "trade_stat": [
-            "implicit.stat_2250533757"
-          ]
+          "trade_stat": ["implicit.stat_2250533757"]
         }
       }
     },
     "regenerate # life per second while moving": {
       "V2RegenerateLifePerSecondWhileMovingCorrupted_": {
-        "groups": [
-          "LifeRegenerationWhileMoving"
-        ],
+        "groups": ["LifeRegenerationWhileMoving"],
         "required_level": 60,
         "spawn_weights": [
           {
@@ -16083,17 +16023,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Regenerate 100 Life per second while moving",
-          "trade_stat": [
-            "implicit.stat_2841027131"
-          ]
+          "trade_stat": ["implicit.stat_2841027131"]
         }
       }
     },
     "+# to level of socketed aoe gems": {
       "V2SocketedAoEGemCorrupted": {
-        "groups": [
-          "IncreasedSocketedAoEGemLevel"
-        ],
+        "groups": ["IncreasedSocketedAoEGemLevel"],
         "required_level": 20,
         "spawn_weights": [
           {
@@ -16116,17 +16052,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "+2 to Level of Socketed AoE Gems",
-          "trade_stat": [
-            "implicit.stat_2551600084"
-          ]
+          "trade_stat": ["implicit.stat_2551600084"]
         }
       }
     },
     "+# to level of socketed aura gems": {
       "V2SocketedAuraGemCorrupted": {
-        "groups": [
-          "IncreaseSocketedAuraGemLevel"
-        ],
+        "groups": ["IncreaseSocketedAuraGemLevel"],
         "required_level": 20,
         "spawn_weights": [
           {
@@ -16149,17 +16081,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "+2 to Level of Socketed Aura Gems",
-          "trade_stat": [
-            "implicit.stat_2452998583"
-          ]
+          "trade_stat": ["implicit.stat_2452998583"]
         }
       }
     },
     "+# to level of socketed curse gems": {
       "V2SocketedCurseGemCorrupted": {
-        "groups": [
-          "IncreaseSocketedCurseGemLevel"
-        ],
+        "groups": ["IncreaseSocketedCurseGemLevel"],
         "required_level": 20,
         "spawn_weights": [
           {
@@ -16182,17 +16110,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "+2 to Level of Socketed Curse Gems",
-          "trade_stat": [
-            "implicit.stat_3691695237"
-          ]
+          "trade_stat": ["implicit.stat_3691695237"]
         }
       }
     },
     "+# to level of socketed duration gems": {
       "V2SocketedDurationGemCorrupted": {
-        "groups": [
-          "IncreaseSocketedDurationGemLevel"
-        ],
+        "groups": ["IncreaseSocketedDurationGemLevel"],
         "required_level": 20,
         "spawn_weights": [
           {
@@ -16215,17 +16139,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "+2 to Level of Socketed Duration Gems",
-          "trade_stat": [
-            "implicit.stat_2115168758"
-          ]
+          "trade_stat": ["implicit.stat_2115168758"]
         }
       }
     },
     "+# to level of socketed minion gems": {
       "V2SocketedMinionGemCorrupted": {
-        "groups": [
-          "IncreaseSpecificSocketedGemLevel"
-        ],
+        "groups": ["IncreaseSpecificSocketedGemLevel"],
         "required_level": 20,
         "spawn_weights": [
           {
@@ -16248,17 +16168,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "+2 to Level of Socketed Minion Gems",
-          "trade_stat": [
-            "implicit.stat_3604946673"
-          ]
+          "trade_stat": ["implicit.stat_3604946673"]
         }
       }
     },
     "+# to level of socketed projectile gems": {
       "V2SocketedProjectileGemCorrupted_": {
-        "groups": [
-          "IncreaseSocketedProjectileGemLevel"
-        ],
+        "groups": ["IncreaseSocketedProjectileGemLevel"],
         "required_level": 20,
         "spawn_weights": [
           {
@@ -16281,17 +16197,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "+2 to Level of Socketed Projectile Gems",
-          "trade_stat": [
-            "implicit.stat_2176571093"
-          ]
+          "trade_stat": ["implicit.stat_2176571093"]
         }
       }
     },
     "+# to level of socketed trap or mine gems": {
       "V2SocketedTrapOrMineGemCorrupted": {
-        "groups": [
-          "IncreasedSocketedTrapOrMineGemLevel"
-        ],
+        "groups": ["IncreasedSocketedTrapOrMineGemLevel"],
         "required_level": 20,
         "spawn_weights": [
           {
@@ -16314,17 +16226,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "+2 to Level of Socketed Trap or Mine Gems",
-          "trade_stat": [
-            "implicit.stat_150668988"
-          ]
+          "trade_stat": ["implicit.stat_150668988"]
         }
       }
     },
     "+# to level of socketed warcry gems": {
       "V2SocketedWarcryGemCorrupted": {
-        "groups": [
-          "LocalSocketedWarcryGemLevel"
-        ],
+        "groups": ["LocalSocketedWarcryGemLevel"],
         "required_level": 20,
         "spawn_weights": [
           {
@@ -16347,17 +16255,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "+2 to Level of Socketed Warcry Gems",
-          "trade_stat": [
-            "implicit.stat_1672793731"
-          ]
+          "trade_stat": ["implicit.stat_1672793731"]
         }
       }
     },
     "melee hits fortify": {
       "V2ChanceToGainFortifyOnMeleeHitCorrupted": {
-        "groups": [
-          "FortifyOnMeleeHit"
-        ],
+        "groups": ["FortifyOnMeleeHit"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -16400,17 +16304,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Melee Hits Fortify",
-          "trade_stat": [
-            "implicit.stat_1166417447"
-          ]
+          "trade_stat": ["implicit.stat_1166417447"]
         }
       }
     },
     "melee hits have #% chance to fortify": {
       "V2ChanceToGainFortifyOnMeleeHitCorrupted": {
-        "groups": [
-          "FortifyOnMeleeHit"
-        ],
+        "groups": ["FortifyOnMeleeHit"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -16453,17 +16353,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Melee Hits have (10-15)% chance to Fortify",
-          "trade_stat": [
-            "implicit.stat_1166417447"
-          ]
+          "trade_stat": ["implicit.stat_1166417447"]
         }
       }
     },
     "#% chance to gain onslaught for 4 seconds on kill": {
       "V2ChanceToGainOnslaughtOnKillCorrupted_": {
-        "groups": [
-          "ChanceToGainOnslaughtOnKill"
-        ],
+        "groups": ["ChanceToGainOnslaughtOnKill"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -16502,17 +16398,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(10-15)% chance to gain Onslaught for 4 seconds on Kill",
-          "trade_stat": [
-            "implicit.stat_3023957681"
-          ]
+          "trade_stat": ["implicit.stat_3023957681"]
         }
       }
     },
     "gain onslaught for 4 seconds on kill": {
       "V2ChanceToGainOnslaughtOnKillCorrupted_": {
-        "groups": [
-          "ChanceToGainOnslaughtOnKill"
-        ],
+        "groups": ["ChanceToGainOnslaughtOnKill"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -16551,17 +16443,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Gain Onslaught for 4 seconds on Kill",
-          "trade_stat": [
-            "implicit.stat_3023957681"
-          ]
+          "trade_stat": ["implicit.stat_3023957681"]
         }
       }
     },
     "#% chance to gain onslaught for # seconds on kill": {
       "V2ChanceToGainOnslaughtOnKillCorrupted_": {
-        "groups": [
-          "ChanceToGainOnslaughtOnKill"
-        ],
+        "groups": ["ChanceToGainOnslaughtOnKill"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -16600,17 +16488,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(10-15)% chance to gain Onslaught for # seconds on Kill",
-          "trade_stat": [
-            "implicit.stat_3023957681"
-          ]
+          "trade_stat": ["implicit.stat_3023957681"]
         }
       }
     },
     "gain onslaught for # seconds on kill": {
       "V2ChanceToGainOnslaughtOnKillCorrupted_": {
-        "groups": [
-          "ChanceToGainOnslaughtOnKill"
-        ],
+        "groups": ["ChanceToGainOnslaughtOnKill"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -16649,17 +16533,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Gain Onslaught for # seconds on Kill",
-          "trade_stat": [
-            "implicit.stat_3023957681"
-          ]
+          "trade_stat": ["implicit.stat_3023957681"]
         }
       }
     },
     "#% chance to gain a power charge on critical strike": {
       "V2ChanceToGainPowerChargeOnCritCorrupted": {
-        "groups": [
-          "PowerChargeOnCriticalStrikeChance"
-        ],
+        "groups": ["PowerChargeOnCriticalStrikeChance"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -16698,17 +16578,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(5-7)% chance to gain a Power Charge on Critical Strike",
-          "trade_stat": [
-            "implicit.stat_3814876985"
-          ]
+          "trade_stat": ["implicit.stat_3814876985"]
         }
       }
     },
     "gain a power charge on critical strike": {
       "V2ChanceToGainPowerChargeOnCritCorrupted": {
-        "groups": [
-          "PowerChargeOnCriticalStrikeChance"
-        ],
+        "groups": ["PowerChargeOnCriticalStrikeChance"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -16747,17 +16623,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Gain a Power Charge on Critical Strike",
-          "trade_stat": [
-            "implicit.stat_3814876985"
-          ]
+          "trade_stat": ["implicit.stat_3814876985"]
         }
       }
     },
     "damage penetrates #% elemental resistances": {
       "V2ElementalDamagePenetrationCorrupted": {
-        "groups": [
-          "ElementalPenetration"
-        ],
+        "groups": ["ElementalPenetration"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -16784,15 +16656,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "Damage Penetrates (8-10)% Elemental Resistances",
-          "trade_stat": [
-            "implicit.stat_2101383955"
-          ]
+          "trade_stat": ["implicit.stat_2101383955"]
         }
       },
       "V2ElementalPenetrationAbyssalJewelCorrupted_": {
-        "groups": [
-          "ElementalPenetration"
-        ],
+        "groups": ["ElementalPenetration"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -16811,15 +16679,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "Damage Penetrates 1% Elemental Resistances",
-          "trade_stat": [
-            "implicit.stat_2101383955"
-          ]
+          "trade_stat": ["implicit.stat_2101383955"]
         }
       },
       "V2ElementalPenetrationJewelCorrupted_": {
-        "groups": [
-          "ElementalPenetration"
-        ],
+        "groups": ["ElementalPenetration"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -16842,17 +16706,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Damage Penetrates 1% Elemental Resistances",
-          "trade_stat": [
-            "implicit.stat_2101383955"
-          ]
+          "trade_stat": ["implicit.stat_2101383955"]
         }
       }
     },
     "#% increased area of effect": {
       "V2IncreasedAreaOfEffect1hCorrupted": {
-        "groups": [
-          "AreaOfEffect"
-        ],
+        "groups": ["AreaOfEffect"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -16887,15 +16747,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "(15-20)% increased Area of Effect",
-          "trade_stat": [
-            "implicit.stat_280731498"
-          ]
+          "trade_stat": ["implicit.stat_280731498"]
         }
       },
       "V2IncreasedAreaOfEffect2hCorrupted_": {
-        "groups": [
-          "AreaOfEffect"
-        ],
+        "groups": ["AreaOfEffect"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -16922,15 +16778,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "(25-30)% increased Area of Effect",
-          "trade_stat": [
-            "implicit.stat_280731498"
-          ]
+          "trade_stat": ["implicit.stat_280731498"]
         }
       },
       "V2AdditionalAOERangeCorrupted": {
-        "groups": [
-          "AreaOfEffect"
-        ],
+        "groups": ["AreaOfEffect"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -16953,15 +16805,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "(8-10)% increased Area of Effect",
-          "trade_stat": [
-            "implicit.stat_280731498"
-          ]
+          "trade_stat": ["implicit.stat_280731498"]
         }
       },
       "V2IncreasedAreaOfEffectAbyssalJewelCorrupted": {
-        "groups": [
-          "AreaOfEffect"
-        ],
+        "groups": ["AreaOfEffect"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -16980,15 +16828,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "(4-5)% increased Area of Effect",
-          "trade_stat": [
-            "implicit.stat_280731498"
-          ]
+          "trade_stat": ["implicit.stat_280731498"]
         }
       },
       "V2IncreasedAreaOfEffectCorrupted": {
-        "groups": [
-          "AreaOfEffect"
-        ],
+        "groups": ["AreaOfEffect"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -17011,17 +16855,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(4-5)% increased Area of Effect",
-          "trade_stat": [
-            "implicit.stat_280731498"
-          ]
+          "trade_stat": ["implicit.stat_280731498"]
         }
       }
     },
     "adds # to # cold damage": {
       "V2LocalAddedColdDamage1hCorrupted1": {
-        "groups": [
-          "ColdDamage"
-        ],
+        "groups": ["ColdDamage"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -17061,16 +16901,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "Adds (6-8) to (13-15) Cold Damage",
-          "trade_stat": [
-            "implicit.stat_2387423236",
-            "implicit.stat_1037193709"
-          ]
+          "trade_stat": ["implicit.stat_2387423236", "implicit.stat_1037193709"]
         }
       },
       "V2LocalAddedColdDamage1hCorrupted2": {
-        "groups": [
-          "ColdDamage"
-        ],
+        "groups": ["ColdDamage"],
         "required_level": 31,
         "spawn_weights": [
           {
@@ -17110,16 +16945,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "Adds (14-18) to (27-32) Cold Damage",
-          "trade_stat": [
-            "implicit.stat_2387423236",
-            "implicit.stat_1037193709"
-          ]
+          "trade_stat": ["implicit.stat_2387423236", "implicit.stat_1037193709"]
         }
       },
       "V2LocalAddedColdDamage1hCorrupted3_": {
-        "groups": [
-          "ColdDamage"
-        ],
+        "groups": ["ColdDamage"],
         "required_level": 84,
         "spawn_weights": [
           {
@@ -17159,16 +16989,11 @@
         "weight": 250,
         "stat": {
           "formatted": "Adds (17-23) to (24-40) Cold Damage",
-          "trade_stat": [
-            "implicit.stat_2387423236",
-            "implicit.stat_1037193709"
-          ]
+          "trade_stat": ["implicit.stat_2387423236", "implicit.stat_1037193709"]
         }
       },
       "V2LocalAddedColdDamage2hCorrupted1": {
-        "groups": [
-          "ColdDamage"
-        ],
+        "groups": ["ColdDamage"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -17200,16 +17025,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "Adds (9-13) to (20-23) Cold Damage",
-          "trade_stat": [
-            "implicit.stat_2387423236",
-            "implicit.stat_1037193709"
-          ]
+          "trade_stat": ["implicit.stat_2387423236", "implicit.stat_1037193709"]
         }
       },
       "V2LocalAddedColdDamage2hCorrupted2": {
-        "groups": [
-          "ColdDamage"
-        ],
+        "groups": ["ColdDamage"],
         "required_level": 31,
         "spawn_weights": [
           {
@@ -17241,16 +17061,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "Adds (22-27) to (36-44) Cold Damage",
-          "trade_stat": [
-            "implicit.stat_2387423236",
-            "implicit.stat_1037193709"
-          ]
+          "trade_stat": ["implicit.stat_2387423236", "implicit.stat_1037193709"]
         }
       },
       "V2LocalAddedColdDamage2hCorrupted3_": {
-        "groups": [
-          "ColdDamage"
-        ],
+        "groups": ["ColdDamage"],
         "required_level": 84,
         "spawn_weights": [
           {
@@ -17282,18 +17097,13 @@
         "weight": 250,
         "stat": {
           "formatted": "Adds (26-32) to (45-55) Cold Damage",
-          "trade_stat": [
-            "implicit.stat_2387423236",
-            "implicit.stat_1037193709"
-          ]
+          "trade_stat": ["implicit.stat_2387423236", "implicit.stat_1037193709"]
         }
       }
     },
     "adds # to # fire damage": {
       "V2LocalAddedFireDamage1hCorrupted1": {
-        "groups": [
-          "FireDamage"
-        ],
+        "groups": ["FireDamage"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -17333,16 +17143,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "Adds (8-10) to (15-18) Fire Damage",
-          "trade_stat": [
-            "implicit.stat_709508406",
-            "implicit.stat_321077055"
-          ]
+          "trade_stat": ["implicit.stat_709508406", "implicit.stat_321077055"]
         }
       },
       "V2LocalAddedFireDamage1hCorrupted2": {
-        "groups": [
-          "FireDamage"
-        ],
+        "groups": ["FireDamage"],
         "required_level": 31,
         "spawn_weights": [
           {
@@ -17382,16 +17187,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "Adds (17-22) to (33-39) Fire Damage",
-          "trade_stat": [
-            "implicit.stat_709508406",
-            "implicit.stat_321077055"
-          ]
+          "trade_stat": ["implicit.stat_709508406", "implicit.stat_321077055"]
         }
       },
       "V2LocalAddedFireDamage1hCorrupted3": {
-        "groups": [
-          "FireDamage"
-        ],
+        "groups": ["FireDamage"],
         "required_level": 84,
         "spawn_weights": [
           {
@@ -17431,16 +17231,11 @@
         "weight": 250,
         "stat": {
           "formatted": "Adds (21-28) to (40-48) Fire Damage",
-          "trade_stat": [
-            "implicit.stat_709508406",
-            "implicit.stat_321077055"
-          ]
+          "trade_stat": ["implicit.stat_709508406", "implicit.stat_321077055"]
         }
       },
       "V2LocalAddedFireDamage2hCorrupted1": {
-        "groups": [
-          "FireDamage"
-        ],
+        "groups": ["FireDamage"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -17472,16 +17267,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "Adds (12-17) to (23-27) Fire Damage",
-          "trade_stat": [
-            "implicit.stat_709508406",
-            "implicit.stat_321077055"
-          ]
+          "trade_stat": ["implicit.stat_709508406", "implicit.stat_321077055"]
         }
       },
       "V2LocalAddedFireDamage2hCorrupted2": {
-        "groups": [
-          "FireDamage"
-        ],
+        "groups": ["FireDamage"],
         "required_level": 31,
         "spawn_weights": [
           {
@@ -17513,16 +17303,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "Adds (27-31) to (39-50) Fire Damage",
-          "trade_stat": [
-            "implicit.stat_709508406",
-            "implicit.stat_321077055"
-          ]
+          "trade_stat": ["implicit.stat_709508406", "implicit.stat_321077055"]
         }
       },
       "V2LocalAddedFireDamage2hCorrupted3": {
-        "groups": [
-          "FireDamage"
-        ],
+        "groups": ["FireDamage"],
         "required_level": 84,
         "spawn_weights": [
           {
@@ -17554,18 +17339,13 @@
         "weight": 250,
         "stat": {
           "formatted": "Adds (31-39) to (52-61) Fire Damage",
-          "trade_stat": [
-            "implicit.stat_709508406",
-            "implicit.stat_321077055"
-          ]
+          "trade_stat": ["implicit.stat_709508406", "implicit.stat_321077055"]
         }
       }
     },
     "adds # to # lightning damage": {
       "V2LocalAddedLightningDamage1hCorrupted1": {
-        "groups": [
-          "LightningDamage"
-        ],
+        "groups": ["LightningDamage"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -17605,16 +17385,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "Adds (1-2) to (27-28) Lightning Damage",
-          "trade_stat": [
-            "implicit.stat_3336890334",
-            "implicit.stat_1334060246"
-          ]
+          "trade_stat": ["implicit.stat_3336890334", "implicit.stat_1334060246"]
         }
       },
       "V2LocalAddedLightningDamage1hCorrupted2": {
-        "groups": [
-          "LightningDamage"
-        ],
+        "groups": ["LightningDamage"],
         "required_level": 31,
         "spawn_weights": [
           {
@@ -17654,16 +17429,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "Adds (2-5) to (58-61) Lightning Damage",
-          "trade_stat": [
-            "implicit.stat_3336890334",
-            "implicit.stat_1334060246"
-          ]
+          "trade_stat": ["implicit.stat_3336890334", "implicit.stat_1334060246"]
         }
       },
       "V2LocalAddedLightningDamage1hCorrupted3": {
-        "groups": [
-          "LightningDamage"
-        ],
+        "groups": ["LightningDamage"],
         "required_level": 84,
         "spawn_weights": [
           {
@@ -17703,16 +17473,11 @@
         "weight": 250,
         "stat": {
           "formatted": "Adds (2-6) to (72-76) Lightning Damage",
-          "trade_stat": [
-            "implicit.stat_3336890334",
-            "implicit.stat_1334060246"
-          ]
+          "trade_stat": ["implicit.stat_3336890334", "implicit.stat_1334060246"]
         }
       },
       "V2LocalAddedLightningDamage2hCorrupted1": {
-        "groups": [
-          "LightningDamage"
-        ],
+        "groups": ["LightningDamage"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -17744,16 +17509,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "Adds (2-3) to (35-39) Lightning Damage",
-          "trade_stat": [
-            "implicit.stat_3336890334",
-            "implicit.stat_1334060246"
-          ]
+          "trade_stat": ["implicit.stat_3336890334", "implicit.stat_1334060246"]
         }
       },
       "V2LocalAddedLightningDamage2hCorrupted2": {
-        "groups": [
-          "LightningDamage"
-        ],
+        "groups": ["LightningDamage"],
         "required_level": 31,
         "spawn_weights": [
           {
@@ -17785,16 +17545,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "Adds (3-7) to (73-84) Lightning Damage",
-          "trade_stat": [
-            "implicit.stat_3336890334",
-            "implicit.stat_1334060246"
-          ]
+          "trade_stat": ["implicit.stat_3336890334", "implicit.stat_1334060246"]
         }
       },
       "V2LocalAddedLightningDamage2hCorrupted3": {
-        "groups": [
-          "LightningDamage"
-        ],
+        "groups": ["LightningDamage"],
         "required_level": 84,
         "spawn_weights": [
           {
@@ -17826,18 +17581,13 @@
         "weight": 250,
         "stat": {
           "formatted": "Adds (5-9) to (103-107) Lightning Damage",
-          "trade_stat": [
-            "implicit.stat_3336890334",
-            "implicit.stat_1334060246"
-          ]
+          "trade_stat": ["implicit.stat_3336890334", "implicit.stat_1334060246"]
         }
       }
     },
     "adds # to # physical damage": {
       "V2LocalAddedPhysicalDamage1hCorrupted1": {
-        "groups": [
-          "PhysicalDamage"
-        ],
+        "groups": ["PhysicalDamage"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -17885,15 +17635,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "Adds 1 to 2 Physical Damage",
-          "trade_stat": [
-            "implicit.stat_1940865751"
-          ]
+          "trade_stat": ["implicit.stat_1940865751"]
         }
       },
       "V2LocalAddedPhysicalDamage1hCorrupted2": {
-        "groups": [
-          "PhysicalDamage"
-        ],
+        "groups": ["PhysicalDamage"],
         "required_level": 31,
         "spawn_weights": [
           {
@@ -17941,15 +17687,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "Adds (3-4) to (5-7) Physical Damage",
-          "trade_stat": [
-            "implicit.stat_1940865751"
-          ]
+          "trade_stat": ["implicit.stat_1940865751"]
         }
       },
       "V2LocalAddedPhysicalDamage1hCorrupted3": {
-        "groups": [
-          "PhysicalDamage"
-        ],
+        "groups": ["PhysicalDamage"],
         "required_level": 84,
         "spawn_weights": [
           {
@@ -17997,15 +17739,11 @@
         "weight": 250,
         "stat": {
           "formatted": "Adds (5-7) to (10-12) Physical Damage",
-          "trade_stat": [
-            "implicit.stat_1940865751"
-          ]
+          "trade_stat": ["implicit.stat_1940865751"]
         }
       },
       "V2LocalAddedPhysicalDamage2hCorrupted1": {
-        "groups": [
-          "PhysicalDamage"
-        ],
+        "groups": ["PhysicalDamage"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -18037,15 +17775,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "Adds 1 to (2-3) Physical Damage",
-          "trade_stat": [
-            "implicit.stat_1940865751"
-          ]
+          "trade_stat": ["implicit.stat_1940865751"]
         }
       },
       "V2LocalAddedPhysicalDamage2hCorrupted2__": {
-        "groups": [
-          "PhysicalDamage"
-        ],
+        "groups": ["PhysicalDamage"],
         "required_level": 31,
         "spawn_weights": [
           {
@@ -18077,15 +17811,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "Adds (4-5) to (6-8) Physical Damage",
-          "trade_stat": [
-            "implicit.stat_1940865751"
-          ]
+          "trade_stat": ["implicit.stat_1940865751"]
         }
       },
       "V2LocalAddedPhysicalDamage2hCorrupted3": {
-        "groups": [
-          "PhysicalDamage"
-        ],
+        "groups": ["PhysicalDamage"],
         "required_level": 84,
         "spawn_weights": [
           {
@@ -18117,17 +17847,13 @@
         "weight": 250,
         "stat": {
           "formatted": "Adds (8-9) to (11-13) Physical Damage",
-          "trade_stat": [
-            "implicit.stat_1940865751"
-          ]
+          "trade_stat": ["implicit.stat_1940865751"]
         }
       }
     },
     "#% increased attack speed": {
       "V2LocalIncreasedAttackSpeed1hCorrupted": {
-        "groups": [
-          "IncreasedAttackSpeed"
-        ],
+        "groups": ["IncreasedAttackSpeed"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -18154,16 +17880,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "(5-7)% increased Attack Speed",
-          "trade_stat": [
-            "implicit.stat_681332047",
-            "implicit.stat_210067635"
-          ]
+          "trade_stat": ["implicit.stat_681332047", "implicit.stat_210067635"]
         }
       },
       "V2LocalIncreasedAttackSpeedWandCorrupted_": {
-        "groups": [
-          "IncreasedAttackSpeed"
-        ],
+        "groups": ["IncreasedAttackSpeed"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -18186,16 +17907,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "(3-5)% increased Attack Speed",
-          "trade_stat": [
-            "implicit.stat_681332047",
-            "implicit.stat_210067635"
-          ]
+          "trade_stat": ["implicit.stat_681332047", "implicit.stat_210067635"]
         }
       },
       "V2IncreasedAttackSpeedCorrupted": {
-        "groups": [
-          "IncreasedAttackSpeed"
-        ],
+        "groups": ["IncreasedAttackSpeed"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -18222,16 +17938,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "(8-10)% increased Attack Speed",
-          "trade_stat": [
-            "implicit.stat_681332047",
-            "implicit.stat_210067635"
-          ]
+          "trade_stat": ["implicit.stat_681332047", "implicit.stat_210067635"]
         }
       },
       "V2LocalIncreasedAttackSpeed2hCorrupted_": {
-        "groups": [
-          "IncreasedAttackSpeed"
-        ],
+        "groups": ["IncreasedAttackSpeed"],
         "required_level": 70,
         "spawn_weights": [
           {
@@ -18258,16 +17969,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "(5-7)% increased Attack Speed",
-          "trade_stat": [
-            "implicit.stat_681332047",
-            "implicit.stat_210067635"
-          ]
+          "trade_stat": ["implicit.stat_681332047", "implicit.stat_210067635"]
         }
       },
       "V2AttackSpeedCorrupted": {
-        "groups": [
-          "IncreasedAttackSpeed"
-        ],
+        "groups": ["IncreasedAttackSpeed"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -18290,16 +17996,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "(8-10)% increased Attack Speed",
-          "trade_stat": [
-            "implicit.stat_681332047",
-            "implicit.stat_210067635"
-          ]
+          "trade_stat": ["implicit.stat_681332047", "implicit.stat_210067635"]
         }
       },
       "V2LocalIncreasedAttackSpeedBowCorrupted": {
-        "groups": [
-          "IncreasedAttackSpeed"
-        ],
+        "groups": ["IncreasedAttackSpeed"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -18322,18 +18023,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(3-5)% increased Attack Speed",
-          "trade_stat": [
-            "implicit.stat_681332047",
-            "implicit.stat_210067635"
-          ]
+          "trade_stat": ["implicit.stat_681332047", "implicit.stat_210067635"]
         }
       }
     },
     "#% increased critical strike chance": {
       "V2LocalIncreasedCriticalStrikeChance1hCorrupted1": {
-        "groups": [
-          "CriticalStrikeChanceIncrease"
-        ],
+        "groups": ["CriticalStrikeChanceIncrease"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -18364,15 +18060,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "(14-18)% increased Critical Strike Chance",
-          "trade_stat": [
-            "implicit.stat_2375316951"
-          ]
+          "trade_stat": ["implicit.stat_2375316951"]
         }
       },
       "V2LocalIncreasedCriticalStrikeChance2hCorrupted_": {
-        "groups": [
-          "CriticalStrikeChanceIncrease"
-        ],
+        "groups": ["CriticalStrikeChanceIncrease"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -18399,15 +18091,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "(14-18)% increased Critical Strike Chance",
-          "trade_stat": [
-            "implicit.stat_2375316951"
-          ]
+          "trade_stat": ["implicit.stat_2375316951"]
         }
       },
       "V2LocalIncreasedCriticalStrikeChance1hCorrupted2__": {
-        "groups": [
-          "CriticalStrikeChanceIncrease"
-        ],
+        "groups": ["CriticalStrikeChanceIncrease"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -18434,17 +18122,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(14-18)% increased Critical Strike Chance",
-          "trade_stat": [
-            "implicit.stat_2375316951"
-          ]
+          "trade_stat": ["implicit.stat_2375316951"]
         }
       }
     },
     "#% chance to gain unholy might for 3 seconds on kill": {
       "V2UnholyMightOnKillPercentChanceCorrupted": {
-        "groups": [
-          "UnholyMightOnKillPercentChance"
-        ],
+        "groups": ["UnholyMightOnKillPercentChance"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -18471,17 +18155,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(10-15)% chance to gain Unholy Might for 3 seconds on Kill",
-          "trade_stat": [
-            "implicit.stat_3562211447"
-          ]
+          "trade_stat": ["implicit.stat_3562211447"]
         }
       }
     },
     "gain unholy might for 3 seconds on kill": {
       "V2UnholyMightOnKillPercentChanceCorrupted": {
-        "groups": [
-          "UnholyMightOnKillPercentChance"
-        ],
+        "groups": ["UnholyMightOnKillPercentChance"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -18508,17 +18188,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Gain Unholy Might for 3 seconds on Kill",
-          "trade_stat": [
-            "implicit.stat_3562211447"
-          ]
+          "trade_stat": ["implicit.stat_3562211447"]
         }
       }
     },
     "curse enemies with despair on hit": {
       "V2CurseOnHitDespair": {
-        "groups": [
-          "CurseOnHitDespair"
-        ],
+        "groups": ["CurseOnHitDespair"],
         "required_level": 30,
         "spawn_weights": [
           {
@@ -18541,17 +18217,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Curse Enemies with Despair on Hit",
-          "trade_stat": [
-            "implicit.stat_2764915899"
-          ]
+          "trade_stat": ["implicit.stat_2764915899"]
         }
       }
     },
     "curse enemies with elemental weakness on hit": {
       "V2CurseOnHitElementalWeaknessCorrupted": {
-        "groups": [
-          "CurseOnHitLevelElementalWeakness"
-        ],
+        "groups": ["CurseOnHitLevelElementalWeakness"],
         "required_level": 30,
         "spawn_weights": [
           {
@@ -18574,17 +18246,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Curse Enemies with Elemental Weakness on Hit",
-          "trade_stat": [
-            "implicit.stat_2028847114"
-          ]
+          "trade_stat": ["implicit.stat_2028847114"]
         }
       }
     },
     "curse enemies with enfeeble on hit": {
       "V2CurseOnHitEnfeeble": {
-        "groups": [
-          "CurseOnHitEnfeeble"
-        ],
+        "groups": ["CurseOnHitEnfeeble"],
         "required_level": 30,
         "spawn_weights": [
           {
@@ -18607,17 +18275,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Curse Enemies with Enfeeble on Hit",
-          "trade_stat": [
-            "implicit.stat_1625819882"
-          ]
+          "trade_stat": ["implicit.stat_1625819882"]
         }
       }
     },
     "curse enemies with temporal chains on hit": {
       "V2CurseOnHitTemporalChainsCurrupted": {
-        "groups": [
-          "CurseOnHitLevelTemporalChains"
-        ],
+        "groups": ["CurseOnHitLevelTemporalChains"],
         "required_level": 30,
         "spawn_weights": [
           {
@@ -18640,17 +18304,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Curse Enemies with Temporal Chains on Hit",
-          "trade_stat": [
-            "implicit.stat_3433724931"
-          ]
+          "trade_stat": ["implicit.stat_3433724931"]
         }
       }
     },
     "curse enemies with vulnerability on hit": {
       "V2CurseOnHitVulnerabilityCorrupted": {
-        "groups": [
-          "CurseOnHitLevelVulnerability"
-        ],
+        "groups": ["CurseOnHitLevelVulnerability"],
         "required_level": 30,
         "spawn_weights": [
           {
@@ -18673,17 +18333,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Curse Enemies with Vulnerability on Hit",
-          "trade_stat": [
-            "implicit.stat_3967845372"
-          ]
+          "trade_stat": ["implicit.stat_3967845372"]
         }
       }
     },
     "attacks have +#% to critical strike chance": {
       "V2IncreasedAtackCriticalStrikeCorruption": {
-        "groups": [
-          "AdditionalCriticalStrikeChanceWithAttacks"
-        ],
+        "groups": ["AdditionalCriticalStrikeChanceWithAttacks"],
         "required_level": 60,
         "spawn_weights": [
           {
@@ -18706,17 +18362,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Attacks have +(0.5-0.8)% to Critical Strike Chance",
-          "trade_stat": [
-            "implicit.stat_2572042788"
-          ]
+          "trade_stat": ["implicit.stat_2572042788"]
         }
       }
     },
     "#% increased cast speed": {
       "V2IncreasedCastSpeedCorrupted_": {
-        "groups": [
-          "IncreasedCastSpeed"
-        ],
+        "groups": ["IncreasedCastSpeed"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -18743,15 +18395,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "(8-10)% increased Cast Speed",
-          "trade_stat": [
-            "implicit.stat_2891184298"
-          ]
+          "trade_stat": ["implicit.stat_2891184298"]
         }
       },
       "V2IncreasedCastSpeedCorrupted__": {
-        "groups": [
-          "IncreasedCastSpeed"
-        ],
+        "groups": ["IncreasedCastSpeed"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -18778,15 +18426,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "(12-15)% increased Cast Speed",
-          "trade_stat": [
-            "implicit.stat_2891184298"
-          ]
+          "trade_stat": ["implicit.stat_2891184298"]
         }
       },
       "V2CastSpeedCorrupted": {
-        "groups": [
-          "IncreasedCastSpeed"
-        ],
+        "groups": ["IncreasedCastSpeed"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -18809,17 +18453,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(10-20)% increased Cast Speed",
-          "trade_stat": [
-            "implicit.stat_2891184298"
-          ]
+          "trade_stat": ["implicit.stat_2891184298"]
         }
       }
     },
     "+#% to spell critical strike chance": {
       "V2IncreasedSpellCriticalStrikeCorruption": {
-        "groups": [
-          "AdditionalCriticalStrikeChanceWithSpells"
-        ],
+        "groups": ["AdditionalCriticalStrikeChanceWithSpells"],
         "required_level": 60,
         "spawn_weights": [
           {
@@ -18842,17 +18482,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "+(0.5-0.8)% to Spell Critical Strike Chance",
-          "trade_stat": [
-            "implicit.stat_791835907"
-          ]
+          "trade_stat": ["implicit.stat_791835907"]
         }
       }
     },
     "+# to maximum frenzy charges": {
       "V2MaxFrenzyChargesCorrupted": {
-        "groups": [
-          "MaximumFrenzyCharges"
-        ],
+        "groups": ["MaximumFrenzyCharges"],
         "required_level": 60,
         "spawn_weights": [
           {
@@ -18875,17 +18511,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "+1 to Maximum Frenzy Charges",
-          "trade_stat": [
-            "implicit.stat_4078695"
-          ]
+          "trade_stat": ["implicit.stat_4078695"]
         }
       }
     },
     "cannot be blinded": {
       "V2BlindImmunityCorrupted": {
-        "groups": [
-          "ImmunityToBlind"
-        ],
+        "groups": ["ImmunityToBlind"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -18908,17 +18540,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Cannot be Blinded",
-          "trade_stat": [
-            "implicit.stat_1436284579"
-          ]
+          "trade_stat": ["implicit.stat_1436284579"]
         }
       }
     },
     "#% of cold damage leeched as life": {
       "V2ColdDamageLifeLeechPermyriadCorrupted_": {
-        "groups": [
-          "ColdDamageLifeLeech"
-        ],
+        "groups": ["ColdDamageLifeLeech"],
         "required_level": 50,
         "spawn_weights": [
           {
@@ -18949,18 +18577,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "0.5% of Cold Damage Leeched as Life",
-          "trade_stat": [
-            "implicit.stat_3999401129",
-            "implicit.stat_2459451600"
-          ]
+          "trade_stat": ["implicit.stat_3999401129", "implicit.stat_2459451600"]
         }
       }
     },
     "#% of fire damage leeched as life": {
       "V2FireDamageLifeLeechPermyriadCorrupted_": {
-        "groups": [
-          "FireDamageLifeLeech"
-        ],
+        "groups": ["FireDamageLifeLeech"],
         "required_level": 50,
         "spawn_weights": [
           {
@@ -18991,18 +18614,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "0.5% of Fire Damage Leeched as Life",
-          "trade_stat": [
-            "implicit.stat_3848282610",
-            "implicit.stat_1743742391"
-          ]
+          "trade_stat": ["implicit.stat_3848282610", "implicit.stat_1743742391"]
         }
       }
     },
     "#% increased burning damage": {
       "V2IncreasedBurningDamageCorrupted": {
-        "groups": [
-          "BurnDamage"
-        ],
+        "groups": ["BurnDamage"],
         "required_level": 40,
         "spawn_weights": [
           {
@@ -19025,17 +18643,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(30-40)% increased Burning Damage",
-          "trade_stat": [
-            "implicit.stat_1175385867"
-          ]
+          "trade_stat": ["implicit.stat_1175385867"]
         }
       }
     },
     "#% increased effect of cold ailments": {
       "V2IncreasedChillEffectCorrupted": {
-        "groups": [
-          "ChillEffect"
-        ],
+        "groups": ["ChillEffect"],
         "required_level": 40,
         "spawn_weights": [
           {
@@ -19058,17 +18672,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(25-30)% increased Effect of Cold Ailments",
-          "trade_stat": [
-            "implicit.stat_1793818220"
-          ]
+          "trade_stat": ["implicit.stat_1793818220"]
         }
       }
     },
     "regenerate #% of life per second": {
       "V2IncreasedLifeRegenerationPerSecondCorrupted": {
-        "groups": [
-          "LifeRegenerationRatePercentage"
-        ],
+        "groups": ["LifeRegenerationRatePercentage"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -19091,17 +18701,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Regenerate (1.6-2)% of Life per second",
-          "trade_stat": [
-            "implicit.stat_836936635"
-          ]
+          "trade_stat": ["implicit.stat_836936635"]
         }
       }
     },
     "#% increased effect of shock": {
       "V2IncreasedShockEffectCorrupted_": {
-        "groups": [
-          "ShockEffect"
-        ],
+        "groups": ["ShockEffect"],
         "required_level": 40,
         "spawn_weights": [
           {
@@ -19124,17 +18730,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(25-30)% increased Effect of Shock",
-          "trade_stat": [
-            "implicit.stat_2527686725"
-          ]
+          "trade_stat": ["implicit.stat_2527686725"]
         }
       }
     },
     "+# to level of socketed cold gems": {
       "V2LevelOfSocketedColdGemsCorrupted": {
-        "groups": [
-          "IncreaseSocketedColdGemLevel"
-        ],
+        "groups": ["IncreaseSocketedColdGemLevel"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -19157,17 +18759,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "+2 to Level of Socketed Cold Gems",
-          "trade_stat": [
-            "implicit.stat_1645459191"
-          ]
+          "trade_stat": ["implicit.stat_1645459191"]
         }
       }
     },
     "+# to level of socketed fire gems": {
       "V2LevelOfSocketedFireGemsCorrupted": {
-        "groups": [
-          "IncreaseSocketedFireGemLevel"
-        ],
+        "groups": ["IncreaseSocketedFireGemLevel"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -19190,17 +18788,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "+2 to Level of Socketed Fire Gems",
-          "trade_stat": [
-            "implicit.stat_339179093"
-          ]
+          "trade_stat": ["implicit.stat_339179093"]
         }
       }
     },
     "+# to level of socketed lightning gems": {
       "V2LevelOfSocketedLightningGemsCorrupted": {
-        "groups": [
-          "IncreaseSocketedLightningGemLevel"
-        ],
+        "groups": ["IncreaseSocketedLightningGemLevel"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -19223,17 +18817,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "+2 to Level of Socketed Lightning Gems",
-          "trade_stat": [
-            "implicit.stat_4043416969"
-          ]
+          "trade_stat": ["implicit.stat_4043416969"]
         }
       }
     },
     "#% of lightning damage leeched as life": {
       "V2LightningDamageLifeLeechPermyriadCorrupted": {
-        "groups": [
-          "LightningDamageLifeLeech"
-        ],
+        "groups": ["LightningDamageLifeLeech"],
         "required_level": 50,
         "spawn_weights": [
           {
@@ -19264,18 +18854,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "0.5% of Lightning Damage Leeched as Life",
-          "trade_stat": [
-            "implicit.stat_80079005",
-            "implicit.stat_2696663331"
-          ]
+          "trade_stat": ["implicit.stat_80079005", "implicit.stat_2696663331"]
         }
       }
     },
     "+# to maximum power charges": {
       "V2MaxPowerChargesCorrupted": {
-        "groups": [
-          "IncreasedMaximumPowerCharges"
-        ],
+        "groups": ["IncreasedMaximumPowerCharges"],
         "required_level": 60,
         "spawn_weights": [
           {
@@ -19298,17 +18883,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "+1 to Maximum Power Charges",
-          "trade_stat": [
-            "implicit.stat_227523295"
-          ]
+          "trade_stat": ["implicit.stat_227523295"]
         }
       }
     },
     "socketed skill gems get a #% cost & reservation multiplier": {
       "V2SocketedSkillsManaMultiplierCorrupted__": {
-        "groups": [
-          "SocketedGemsHaveReducedManaCost"
-        ],
+        "groups": ["SocketedGemsHaveReducedManaCost"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -19331,17 +18912,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Socketed Skill Gems get a 90% Cost & Reservation Multiplier",
-          "trade_stat": [
-            "implicit.stat_2865550257"
-          ]
+          "trade_stat": ["implicit.stat_2865550257"]
         }
       }
     },
     "#% chance to cause bleeding on hit": {
       "V2ChanceToBleedOnHitAndIncreasedDamageToBleedingTargetsCorrupted_": {
-        "groups": [
-          "ChanceToBleedOnHitAndIncreasedDamageToBleedingTargets"
-        ],
+        "groups": ["ChanceToBleedOnHitAndIncreasedDamageToBleedingTargets"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -19369,17 +18946,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "20% chance to cause Bleeding on Hit",
-          "trade_stat": [
-            "implicit.stat_1519615863"
-          ]
+          "trade_stat": ["implicit.stat_1519615863"]
         }
       }
     },
     "#% increased attack damage against bleeding enemies": {
       "V2ChanceToBleedOnHitAndIncreasedDamageToBleedingTargetsCorrupted_": {
-        "groups": [
-          "ChanceToBleedOnHitAndIncreasedDamageToBleedingTargets"
-        ],
+        "groups": ["ChanceToBleedOnHitAndIncreasedDamageToBleedingTargets"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -19407,17 +18980,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "20% increased Attack Damage against Bleeding Enemies",
-          "trade_stat": [
-            "implicit.stat_1519615863"
-          ]
+          "trade_stat": ["implicit.stat_1519615863"]
         }
       }
     },
     "no physical damage": {
       "V2LocalIncreasedPhysicalDamageCorrupted1": {
-        "groups": [
-          "LocalPhysicalDamagePercent"
-        ],
+        "groups": ["LocalPhysicalDamagePercent"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -19452,15 +19021,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "No Physical Damage",
-          "trade_stat": [
-            "implicit.stat_1509134228"
-          ]
+          "trade_stat": ["implicit.stat_1509134228"]
         }
       },
       "V2LocalIncreasedPhysicalDamageCorrupted2": {
-        "groups": [
-          "LocalPhysicalDamagePercent"
-        ],
+        "groups": ["LocalPhysicalDamagePercent"],
         "required_level": 85,
         "spawn_weights": [
           {
@@ -19495,15 +19060,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "No Physical Damage",
-          "trade_stat": [
-            "implicit.stat_1509134228"
-          ]
+          "trade_stat": ["implicit.stat_1509134228"]
         }
       },
       "V2LocalIncreasedPhysicalDamageBowCorrupted1": {
-        "groups": [
-          "LocalPhysicalDamagePercent"
-        ],
+        "groups": ["LocalPhysicalDamagePercent"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -19526,15 +19087,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "No Physical Damage",
-          "trade_stat": [
-            "implicit.stat_1509134228"
-          ]
+          "trade_stat": ["implicit.stat_1509134228"]
         }
       },
       "V2LocalIncreasedPhysicalDamageBowCorrupted2": {
-        "groups": [
-          "LocalPhysicalDamagePercent"
-        ],
+        "groups": ["LocalPhysicalDamagePercent"],
         "required_level": 85,
         "spawn_weights": [
           {
@@ -19557,17 +19114,13 @@
         "weight": 100,
         "stat": {
           "formatted": "No Physical Damage",
-          "trade_stat": [
-            "implicit.stat_1509134228"
-          ]
+          "trade_stat": ["implicit.stat_1509134228"]
         }
       }
     },
     "#% increased physical damage": {
       "V2LocalIncreasedPhysicalDamageCorrupted1": {
-        "groups": [
-          "LocalPhysicalDamagePercent"
-        ],
+        "groups": ["LocalPhysicalDamagePercent"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -19602,15 +19155,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "(10-15)% increased Physical Damage",
-          "trade_stat": [
-            "implicit.stat_1509134228"
-          ]
+          "trade_stat": ["implicit.stat_1509134228"]
         }
       },
       "V2LocalIncreasedPhysicalDamageCorrupted2": {
-        "groups": [
-          "LocalPhysicalDamagePercent"
-        ],
+        "groups": ["LocalPhysicalDamagePercent"],
         "required_level": 85,
         "spawn_weights": [
           {
@@ -19645,15 +19194,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "(16-20)% increased Physical Damage",
-          "trade_stat": [
-            "implicit.stat_1509134228"
-          ]
+          "trade_stat": ["implicit.stat_1509134228"]
         }
       },
       "V2LocalIncreasedPhysicalDamageBowCorrupted1": {
-        "groups": [
-          "LocalPhysicalDamagePercent"
-        ],
+        "groups": ["LocalPhysicalDamagePercent"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -19676,15 +19221,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "(10-15)% increased Physical Damage",
-          "trade_stat": [
-            "implicit.stat_1509134228"
-          ]
+          "trade_stat": ["implicit.stat_1509134228"]
         }
       },
       "V2LocalIncreasedPhysicalDamageBowCorrupted2": {
-        "groups": [
-          "LocalPhysicalDamagePercent"
-        ],
+        "groups": ["LocalPhysicalDamagePercent"],
         "required_level": 85,
         "spawn_weights": [
           {
@@ -19707,17 +19248,13 @@
         "weight": 100,
         "stat": {
           "formatted": "(16-20)% increased Physical Damage",
-          "trade_stat": [
-            "implicit.stat_1509134228"
-          ]
+          "trade_stat": ["implicit.stat_1509134228"]
         }
       }
     },
     "#% chance to gain a frenzy charge on kill": {
       "V2ChanceToGainFrenzyChargeOnKillCorrupted": {
-        "groups": [
-          "FrenzyChargeOnKillChance"
-        ],
+        "groups": ["FrenzyChargeOnKillChance"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -19748,17 +19285,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(9-11)% chance to gain a Frenzy Charge on Kill",
-          "trade_stat": [
-            "implicit.stat_1826802197"
-          ]
+          "trade_stat": ["implicit.stat_1826802197"]
         }
       }
     },
     "gain a frenzy charge on kill": {
       "V2ChanceToGainFrenzyChargeOnKillCorrupted": {
-        "groups": [
-          "FrenzyChargeOnKillChance"
-        ],
+        "groups": ["FrenzyChargeOnKillChance"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -19789,17 +19322,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Gain a Frenzy Charge on Kill",
-          "trade_stat": [
-            "implicit.stat_1826802197"
-          ]
+          "trade_stat": ["implicit.stat_1826802197"]
         }
       }
     },
     "+#% chance to block attack damage while dual wielding": {
       "V2DualWieldBlockCorrupted": {
-        "groups": [
-          "BlockWhileDualWielding"
-        ],
+        "groups": ["BlockWhileDualWielding"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -19822,17 +19351,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "+(8-10)% Chance to Block Attack Damage while Dual Wielding",
-          "trade_stat": [
-            "implicit.stat_2166444903"
-          ]
+          "trade_stat": ["implicit.stat_2166444903"]
         }
       }
     },
     "+#% to global critical strike multiplier": {
       "V2GlobalCriticalStrikeMultiplierCorrupted": {
-        "groups": [
-          "CriticalStrikeMultiplier"
-        ],
+        "groups": ["CriticalStrikeMultiplier"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -19859,17 +19384,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "+(25-30)% to Global Critical Strike Multiplier",
-          "trade_stat": [
-            "implicit.stat_3556824919"
-          ]
+          "trade_stat": ["implicit.stat_3556824919"]
         }
       }
     },
     "grants level # determination skill": {
       "V2DeterminationSkillCorrupted__": {
-        "groups": [
-          "GrantedSkill"
-        ],
+        "groups": ["GrantedSkill"],
         "required_level": 56,
         "spawn_weights": [
           {
@@ -19892,17 +19413,13 @@
         "weight": 333,
         "stat": {
           "formatted": "Grants Level 23 Determination Skill",
-          "trade_stat": [
-            "implicit.stat_4265392510"
-          ]
+          "trade_stat": ["implicit.stat_4265392510"]
         }
       }
     },
     "grants level # discipline skill": {
       "V2DisciplineSkillCorrupted": {
-        "groups": [
-          "GrantedSkill"
-        ],
+        "groups": ["GrantedSkill"],
         "required_level": 56,
         "spawn_weights": [
           {
@@ -19925,17 +19442,13 @@
         "weight": 333,
         "stat": {
           "formatted": "Grants Level 23 Discipline Skill",
-          "trade_stat": [
-            "implicit.stat_2341269061"
-          ]
+          "trade_stat": ["implicit.stat_2341269061"]
         }
       }
     },
     "grants level # grace skill": {
       "V2GraceSkillCorrupted": {
-        "groups": [
-          "GrantedSkill"
-        ],
+        "groups": ["GrantedSkill"],
         "required_level": 56,
         "spawn_weights": [
           {
@@ -19958,17 +19471,13 @@
         "weight": 333,
         "stat": {
           "formatted": "Grants Level 23 Grace Skill",
-          "trade_stat": [
-            "implicit.stat_2867050084"
-          ]
+          "trade_stat": ["implicit.stat_2867050084"]
         }
       }
     },
     "+#% chance to block": {
       "V2LocalBlockChanceCorrupted": {
-        "groups": [
-          "IncreasedShieldBlockPercentage"
-        ],
+        "groups": ["IncreasedShieldBlockPercentage"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -19991,17 +19500,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "+(4-5)% Chance to Block",
-          "trade_stat": [
-            "implicit.stat_4253454700"
-          ]
+          "trade_stat": ["implicit.stat_4253454700"]
         }
       }
     },
     "+#% to maximum chance to block attack damage": {
       "V2MaximumBlockCorruption": {
-        "groups": [
-          "MaximumBlockChance"
-        ],
+        "groups": ["MaximumBlockChance"],
         "required_level": 60,
         "spawn_weights": [
           {
@@ -20024,17 +19529,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "+1% to maximum Chance to Block Attack Damage",
-          "trade_stat": [
-            "implicit.stat_4124805414"
-          ]
+          "trade_stat": ["implicit.stat_4124805414"]
         }
       }
     },
     "#% of physical damage from hits taken as chaos damage": {
       "V2PhysicalDamageTakenAsChaosCorrupted_": {
-        "groups": [
-          "PhysicalDamageTakenAsChaos"
-        ],
+        "groups": ["PhysicalDamageTakenAsChaos"],
         "required_level": 60,
         "spawn_weights": [
           {
@@ -20057,17 +19558,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(6-8)% of Physical Damage from Hits taken as Chaos Damage",
-          "trade_stat": [
-            "implicit.stat_4129825612"
-          ]
+          "trade_stat": ["implicit.stat_4129825612"]
         }
       }
     },
     "#% of physical damage from hits taken as cold damage": {
       "V2PhysicalDamageTakenAsColdCorrupted": {
-        "groups": [
-          "PhysicalDamageTakenAsElement"
-        ],
+        "groups": ["PhysicalDamageTakenAsElement"],
         "required_level": 60,
         "spawn_weights": [
           {
@@ -20090,17 +19587,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(6-8)% of Physical Damage from Hits taken as Cold Damage",
-          "trade_stat": [
-            "implicit.stat_1871056256"
-          ]
+          "trade_stat": ["implicit.stat_1871056256"]
         }
       }
     },
     "#% of physical damage from hits taken as fire damage": {
       "V2PhysicalDamageTakenAsFireCorrupted": {
-        "groups": [
-          "PhysicalDamageTakenAsElement"
-        ],
+        "groups": ["PhysicalDamageTakenAsElement"],
         "required_level": 60,
         "spawn_weights": [
           {
@@ -20123,17 +19616,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(6-8)% of Physical Damage from Hits taken as Fire Damage",
-          "trade_stat": [
-            "implicit.stat_3342989455"
-          ]
+          "trade_stat": ["implicit.stat_3342989455"]
         }
       }
     },
     "#% of physical damage from hits taken as lightning damage": {
       "V2PhysicalDamageTakenAsLightningCorrupted": {
-        "groups": [
-          "PhysicalDamageTakenAsElement"
-        ],
+        "groups": ["PhysicalDamageTakenAsElement"],
         "required_level": 60,
         "spawn_weights": [
           {
@@ -20156,17 +19645,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(6-8)% of Physical Damage from Hits taken as Lightning Damage",
-          "trade_stat": [
-            "implicit.stat_425242359"
-          ]
+          "trade_stat": ["implicit.stat_425242359"]
         }
       }
     },
     "#% reduced area damage taken from hits": {
       "V2ReducedDamageFromAreaOfEffectCorrupted": {
-        "groups": [
-          "ReducedDamageFromAreaOfEffect"
-        ],
+        "groups": ["ReducedDamageFromAreaOfEffect"],
         "required_level": 20,
         "spawn_weights": [
           {
@@ -20189,17 +19674,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(6-4)% reduced Area Damage taken from Hits",
-          "trade_stat": [
-            "implicit.stat_3001376862"
-          ]
+          "trade_stat": ["implicit.stat_3001376862"]
         }
       }
     },
     "#% reduced damage taken from projectile hits": {
       "V2ReducedDamageFromProjectilesCorrupted": {
-        "groups": [
-          "ProjectileDamageTaken"
-        ],
+        "groups": ["ProjectileDamageTaken"],
         "required_level": 20,
         "spawn_weights": [
           {
@@ -20222,17 +19703,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(6-4)% reduced Damage taken from Projectile Hits",
-          "trade_stat": [
-            "implicit.stat_1425651005"
-          ]
+          "trade_stat": ["implicit.stat_1425651005"]
         }
       }
     },
     "you take #% reduced extra damage from critical strikes": {
       "V2ReducedExtraDamageFromCriticalStrikesShieldCorrupted": {
-        "groups": [
-          "ReducedExtraDamageFromCrits"
-        ],
+        "groups": ["ReducedExtraDamageFromCrits"],
         "required_level": 20,
         "spawn_weights": [
           {
@@ -20255,15 +19732,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "You take (20-30)% reduced Extra Damage from Critical Strikes",
-          "trade_stat": [
-            "implicit.stat_3855016469"
-          ]
+          "trade_stat": ["implicit.stat_3855016469"]
         }
       },
       "V2ReducedExtraDamageFromCriticalStrikesBodyCorrupted__": {
-        "groups": [
-          "ReducedExtraDamageFromCrits"
-        ],
+        "groups": ["ReducedExtraDamageFromCrits"],
         "required_level": 20,
         "spawn_weights": [
           {
@@ -20286,17 +19759,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "You take 50% reduced Extra Damage from Critical Strikes",
-          "trade_stat": [
-            "implicit.stat_3855016469"
-          ]
+          "trade_stat": ["implicit.stat_3855016469"]
         }
       }
     },
     "#% chance to block spell damage": {
       "V2SpellBlockPercentageCorrupted": {
-        "groups": [
-          "SpellBlockPercentage"
-        ],
+        "groups": ["SpellBlockPercentage"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -20323,18 +19792,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(4-5)% Chance to Block Spell Damage",
-          "trade_stat": [
-            "implicit.stat_561307714",
-            "implicit.stat_2881111359"
-          ]
+          "trade_stat": ["implicit.stat_561307714", "implicit.stat_2881111359"]
         }
       }
     },
     "#% chance to gain an endurance charge when you stun an enemy": {
       "V2ChanceToGainEnduranceChargeOnStunCorrupted_": {
-        "groups": [
-          "GainEnduranceChargeOnStunChance"
-        ],
+        "groups": ["GainEnduranceChargeOnStunChance"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -20365,17 +19829,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(5-7)% chance to gain an Endurance Charge when you Stun an Enemy",
-          "trade_stat": [
-            "implicit.stat_1582887649"
-          ]
+          "trade_stat": ["implicit.stat_1582887649"]
         }
       }
     },
     "+# metres to weapon range": {
       "V2LocalMeleeWeaponRangeCorrupted": {
-        "groups": [
-          "MeleeWeaponAndUnarmedRange"
-        ],
+        "groups": ["MeleeWeaponAndUnarmedRange"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -20414,17 +19874,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "+(0.1-0.2) metres to Weapon Range",
-          "trade_stat": [
-            "implicit.stat_350598685"
-          ]
+          "trade_stat": ["implicit.stat_350598685"]
         }
       }
     },
     "socketed gems are supported by level # additional accuracy": {
       "V2SupportedByAccuracyCorrupted__": {
-        "groups": [
-          "SupportedByAccuracy"
-        ],
+        "groups": ["SupportedByAccuracy"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -20463,17 +19919,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Socketed Gems are supported by Level 10 Additional Accuracy",
-          "trade_stat": [
-            "implicit.stat_1567462963"
-          ]
+          "trade_stat": ["implicit.stat_1567462963"]
         }
       }
     },
     "socketed gems are supported by level # lifetap": {
       "V2SupportedByBloodmagicCorrupted": {
-        "groups": [
-          "SupportedByBloodMagic"
-        ],
+        "groups": ["SupportedByBloodMagic"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -20512,17 +19964,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Socketed Gems are Supported by Level 1 Lifetap",
-          "trade_stat": [
-            "implicit.stat_1079239905"
-          ]
+          "trade_stat": ["implicit.stat_1079239905"]
         }
       }
     },
     "socketed gems are supported by level # fortify": {
       "V2SupportedByFortifyCorrupted_": {
-        "groups": [
-          "SupportedByFortify"
-        ],
+        "groups": ["SupportedByFortify"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -20553,17 +20001,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Socketed Gems are Supported by Level 10 Fortify",
-          "trade_stat": [
-            "implicit.stat_107118693"
-          ]
+          "trade_stat": ["implicit.stat_107118693"]
         }
       }
     },
     "socketed gems are supported by level # life gain on hit": {
       "V2SupportedByLifeGainOnHitCorrupted": {
-        "groups": [
-          "SupportedByLifeGainOnHit"
-        ],
+        "groups": ["SupportedByLifeGainOnHit"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -20602,17 +20046,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Socketed Gems are Supported by Level 10 Life Gain On Hit",
-          "trade_stat": [
-            "implicit.stat_2032386732"
-          ]
+          "trade_stat": ["implicit.stat_2032386732"]
         }
       }
     },
     "socketed gems are supported by level # momentum": {
       "V2SupportedByOnslaughtCorrupted": {
-        "groups": [
-          "SupportedByOnslaught"
-        ],
+        "groups": ["SupportedByOnslaught"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -20639,17 +20079,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Socketed Gems are Supported by Level 10 Momentum",
-          "trade_stat": [
-            "implicit.stat_3237923082"
-          ]
+          "trade_stat": ["implicit.stat_3237923082"]
         }
       }
     },
     "socketed gems are supported by level # inspiration": {
       "V2SupportedByReducedManaCorrupted": {
-        "groups": [
-          "SupportedByReducedMana"
-        ],
+        "groups": ["SupportedByReducedMana"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -20684,17 +20120,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Socketed Gems are Supported by Level 10 Inspiration",
-          "trade_stat": [
-            "implicit.stat_1866911844"
-          ]
+          "trade_stat": ["implicit.stat_1866911844"]
         }
       }
     },
     "adds # to # cold damage to spells and attacks": {
       "V2AddedColdDamageCorrupted1": {
-        "groups": [
-          "AddedColdDamageToSpellsAndAttacks"
-        ],
+        "groups": ["AddedColdDamageToSpellsAndAttacks"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -20722,15 +20154,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "Adds (3-4) to (7-8) Cold Damage to Spells and Attacks",
-          "trade_stat": [
-            "implicit.stat_1662717006"
-          ]
+          "trade_stat": ["implicit.stat_1662717006"]
         }
       },
       "V2AddedColdDamageCorrupted2": {
-        "groups": [
-          "AddedColdDamageToSpellsAndAttacks"
-        ],
+        "groups": ["AddedColdDamageToSpellsAndAttacks"],
         "required_level": 31,
         "spawn_weights": [
           {
@@ -20758,15 +20186,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "Adds (6-9) to (13-16) Cold Damage to Spells and Attacks",
-          "trade_stat": [
-            "implicit.stat_1662717006"
-          ]
+          "trade_stat": ["implicit.stat_1662717006"]
         }
       },
       "V2AddedColdDamageCorrupted3": {
-        "groups": [
-          "AddedColdDamageToSpellsAndAttacks"
-        ],
+        "groups": ["AddedColdDamageToSpellsAndAttacks"],
         "required_level": 81,
         "spawn_weights": [
           {
@@ -20794,17 +20218,13 @@
         "weight": 250,
         "stat": {
           "formatted": "Adds (12-16) to (24-28) Cold Damage to Spells and Attacks",
-          "trade_stat": [
-            "implicit.stat_1662717006"
-          ]
+          "trade_stat": ["implicit.stat_1662717006"]
         }
       }
     },
     "adds # to # fire damage to spells and attacks": {
       "V2AddedFireDamageCorrupted1": {
-        "groups": [
-          "AddedFireDamageSpellsAndAttacks"
-        ],
+        "groups": ["AddedFireDamageSpellsAndAttacks"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -20832,15 +20252,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "Adds (3-5) to (7-8) Fire Damage to Spells and Attacks",
-          "trade_stat": [
-            "implicit.stat_3964634628"
-          ]
+          "trade_stat": ["implicit.stat_3964634628"]
         }
       },
       "V2AddedFireDamageCorrupted2": {
-        "groups": [
-          "AddedFireDamageSpellsAndAttacks"
-        ],
+        "groups": ["AddedFireDamageSpellsAndAttacks"],
         "required_level": 31,
         "spawn_weights": [
           {
@@ -20868,15 +20284,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "Adds (7-10) to (15-18) Fire Damage to Spells and Attacks",
-          "trade_stat": [
-            "implicit.stat_3964634628"
-          ]
+          "trade_stat": ["implicit.stat_3964634628"]
         }
       },
       "V2AddedFireDamageCorrupted3": {
-        "groups": [
-          "AddedFireDamageSpellsAndAttacks"
-        ],
+        "groups": ["AddedFireDamageSpellsAndAttacks"],
         "required_level": 82,
         "spawn_weights": [
           {
@@ -20904,17 +20316,13 @@
         "weight": 250,
         "stat": {
           "formatted": "Adds (13-18) to (28-33) Fire Damage to Spells and Attacks",
-          "trade_stat": [
-            "implicit.stat_3964634628"
-          ]
+          "trade_stat": ["implicit.stat_3964634628"]
         }
       }
     },
     "adds # to # lightning damage to spells and attacks": {
       "V2AddedLightningDamageCorrupted1": {
-        "groups": [
-          "AddedLightningDamageSpellsAndAttacks"
-        ],
+        "groups": ["AddedLightningDamageSpellsAndAttacks"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -20942,15 +20350,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "Adds 1 to (14-15) Lightning Damage to Spells and Attacks",
-          "trade_stat": [
-            "implicit.stat_2885144362"
-          ]
+          "trade_stat": ["implicit.stat_2885144362"]
         }
       },
       "V2AddedLightningDamageCorrupted2": {
-        "groups": [
-          "AddedLightningDamageSpellsAndAttacks"
-        ],
+        "groups": ["AddedLightningDamageSpellsAndAttacks"],
         "required_level": 31,
         "spawn_weights": [
           {
@@ -20978,15 +20382,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "Adds (1-2) to (27-28) Lightning Damage to Spells and Attacks",
-          "trade_stat": [
-            "implicit.stat_2885144362"
-          ]
+          "trade_stat": ["implicit.stat_2885144362"]
         }
       },
       "V2AddedLightningDamageCorrupted3": {
-        "groups": [
-          "AddedLightningDamageSpellsAndAttacks"
-        ],
+        "groups": ["AddedLightningDamageSpellsAndAttacks"],
         "required_level": 83,
         "spawn_weights": [
           {
@@ -21014,17 +20414,13 @@
         "weight": 250,
         "stat": {
           "formatted": "Adds (1-5) to (50-52) Lightning Damage to Spells and Attacks",
-          "trade_stat": [
-            "implicit.stat_2885144362"
-          ]
+          "trade_stat": ["implicit.stat_2885144362"]
         }
       }
     },
     "+#% to all elemental resistances": {
       "V2AllResistancesCorrupted": {
-        "groups": [
-          "AllResistancesCorrupted"
-        ],
+        "groups": ["AllResistancesCorrupted"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -21055,17 +20451,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "+(14-16)% to all Elemental Resistances",
-          "trade_stat": [
-            "implicit.stat_2901986750"
-          ]
+          "trade_stat": ["implicit.stat_2901986750"]
         }
       }
     },
     "grants level # anger skill": {
       "V2AngerSkillReducedCorrupted": {
-        "groups": [
-          "GrantedSkill"
-        ],
+        "groups": ["GrantedSkill"],
         "required_level": 56,
         "spawn_weights": [
           {
@@ -21088,17 +20480,13 @@
         "weight": 500,
         "stat": {
           "formatted": "Grants Level 21 Anger Skill",
-          "trade_stat": [
-            "implicit.stat_484879947"
-          ]
+          "trade_stat": ["implicit.stat_484879947"]
         }
       }
     },
     "cannot be ignited": {
       "V2AvoidIgniteCorrupted": {
-        "groups": [
-          "CannotBeIgnited"
-        ],
+        "groups": ["CannotBeIgnited"],
         "required_level": 40,
         "spawn_weights": [
           {
@@ -21121,17 +20509,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Cannot be Ignited",
-          "trade_stat": [
-            "implicit.stat_331731406"
-          ]
+          "trade_stat": ["implicit.stat_331731406"]
         }
       }
     },
     "cannot be poisoned": {
       "V2CannotBePoisonedCorrupted": {
-        "groups": [
-          "CannotBePoisoned"
-        ],
+        "groups": ["CannotBePoisoned"],
         "required_level": 40,
         "spawn_weights": [
           {
@@ -21154,17 +20538,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Cannot be Poisoned",
-          "trade_stat": [
-            "implicit.stat_3835551335"
-          ]
+          "trade_stat": ["implicit.stat_3835551335"]
         }
       }
     },
     "bleeding cannot be inflicted on you": {
       "V2CannotGainBleedingCorrupted_": {
-        "groups": [
-          "BleedingImmunity"
-        ],
+        "groups": ["BleedingImmunity"],
         "required_level": 60,
         "spawn_weights": [
           {
@@ -21187,17 +20567,13 @@
         "weight": 500,
         "stat": {
           "formatted": "Bleeding cannot be inflicted on you",
-          "trade_stat": [
-            "implicit.stat_1901158930"
-          ]
+          "trade_stat": ["implicit.stat_1901158930"]
         }
       }
     },
     "grants level # conductivity skill": {
       "V2ConductivitySkillCorrupted": {
-        "groups": [
-          "GrantedSkill"
-        ],
+        "groups": ["GrantedSkill"],
         "required_level": 56,
         "spawn_weights": [
           {
@@ -21220,17 +20596,13 @@
         "weight": 500,
         "stat": {
           "formatted": "Grants Level 23 Conductivity Skill",
-          "trade_stat": [
-            "implicit.stat_461472247"
-          ]
+          "trade_stat": ["implicit.stat_461472247"]
         }
       }
     },
     "grants level # despair skill": {
       "V2DespairSkillCorrupted": {
-        "groups": [
-          "GrantedSkill"
-        ],
+        "groups": ["GrantedSkill"],
         "required_level": 56,
         "spawn_weights": [
           {
@@ -21253,17 +20625,13 @@
         "weight": 500,
         "stat": {
           "formatted": "Grants Level 23 Despair Skill",
-          "trade_stat": [
-            "implicit.stat_2044547677"
-          ]
+          "trade_stat": ["implicit.stat_2044547677"]
         }
       }
     },
     "grants level # flammability skill": {
       "V2FlammabilitySkillCorrupted": {
-        "groups": [
-          "GrantedSkill"
-        ],
+        "groups": ["GrantedSkill"],
         "required_level": 56,
         "spawn_weights": [
           {
@@ -21286,17 +20654,13 @@
         "weight": 500,
         "stat": {
           "formatted": "Grants Level 23 Flammability Skill",
-          "trade_stat": [
-            "implicit.stat_2209668839"
-          ]
+          "trade_stat": ["implicit.stat_2209668839"]
         }
       }
     },
     "grants level # frostbite skill": {
       "V2FrostbiteSkillCorrupted": {
-        "groups": [
-          "GrantedSkill"
-        ],
+        "groups": ["GrantedSkill"],
         "required_level": 56,
         "spawn_weights": [
           {
@@ -21319,17 +20683,13 @@
         "weight": 500,
         "stat": {
           "formatted": "Grants Level 23 Frostbite Skill",
-          "trade_stat": [
-            "implicit.stat_1169502663"
-          ]
+          "trade_stat": ["implicit.stat_1169502663"]
         }
       }
     },
     "grants level # hatred skill": {
       "V2HatredSkillCorrupted": {
-        "groups": [
-          "GrantedSkill"
-        ],
+        "groups": ["GrantedSkill"],
         "required_level": 56,
         "spawn_weights": [
           {
@@ -21352,17 +20712,13 @@
         "weight": 500,
         "stat": {
           "formatted": "Grants Level 21 Hatred Skill",
-          "trade_stat": [
-            "implicit.stat_2429546158"
-          ]
+          "trade_stat": ["implicit.stat_2429546158"]
         }
       }
     },
     "anger has #% increased aura effect": {
       "V2IncreasedAuraEffectAngerCorrupted": {
-        "groups": [
-          "IncreasedAuraEffectAngerCorrupted"
-        ],
+        "groups": ["IncreasedAuraEffectAngerCorrupted"],
         "required_level": 45,
         "spawn_weights": [
           {
@@ -21393,17 +20749,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Anger has (15-20)% increased Aura Effect",
-          "trade_stat": [
-            "implicit.stat_1592278124"
-          ]
+          "trade_stat": ["implicit.stat_1592278124"]
         }
       }
     },
     "determination has #% increased aura effect": {
       "V2IncreasedAuraEffectDeterminationCorrupted": {
-        "groups": [
-          "IncreasedAuraEffectDeterminationCorrupted"
-        ],
+        "groups": ["IncreasedAuraEffectDeterminationCorrupted"],
         "required_level": 45,
         "spawn_weights": [
           {
@@ -21434,17 +20786,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Determination has (15-20)% increased Aura Effect",
-          "trade_stat": [
-            "implicit.stat_3653400807"
-          ]
+          "trade_stat": ["implicit.stat_3653400807"]
         }
       }
     },
     "discipline has #% increased aura effect": {
       "V2IncreasedAuraEffectDisciplineCorrupted": {
-        "groups": [
-          "IncreasedAuraEffectDisciplineCorrupted"
-        ],
+        "groups": ["IncreasedAuraEffectDisciplineCorrupted"],
         "required_level": 45,
         "spawn_weights": [
           {
@@ -21475,17 +20823,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Discipline has (15-20)% increased Aura Effect",
-          "trade_stat": [
-            "implicit.stat_788317702"
-          ]
+          "trade_stat": ["implicit.stat_788317702"]
         }
       }
     },
     "grace has #% increased aura effect": {
       "V2IncreasedAuraEffectGraceCorrupted": {
-        "groups": [
-          "IncreasedAuraEffectGraceCorrupted"
-        ],
+        "groups": ["IncreasedAuraEffectGraceCorrupted"],
         "required_level": 45,
         "spawn_weights": [
           {
@@ -21516,17 +20860,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Grace has (15-20)% increased Aura Effect",
-          "trade_stat": [
-            "implicit.stat_397427740"
-          ]
+          "trade_stat": ["implicit.stat_397427740"]
         }
       }
     },
     "hatred has #% increased aura effect": {
       "V2IncreasedAuraEffectHatredCorrupted": {
-        "groups": [
-          "IncreasedAuraEffectHatredCorrupted"
-        ],
+        "groups": ["IncreasedAuraEffectHatredCorrupted"],
         "required_level": 45,
         "spawn_weights": [
           {
@@ -21557,17 +20897,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Hatred has (15-20)% increased Aura Effect",
-          "trade_stat": [
-            "implicit.stat_3742945352"
-          ]
+          "trade_stat": ["implicit.stat_3742945352"]
         }
       }
     },
     "malevolence has #% increased aura effect": {
       "V2IncreasedAuraEffectMalevolenceCorrupted": {
-        "groups": [
-          "IncreasedAuraEffectMalevolenceCorrupted"
-        ],
+        "groups": ["IncreasedAuraEffectMalevolenceCorrupted"],
         "required_level": 45,
         "spawn_weights": [
           {
@@ -21598,17 +20934,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Malevolence has (15-20)% increased Aura Effect",
-          "trade_stat": [
-            "implicit.stat_4175197580"
-          ]
+          "trade_stat": ["implicit.stat_4175197580"]
         }
       }
     },
     "pride has #% increased aura effect": {
       "V2IncreasedAuraEffectPrideCorrupted": {
-        "groups": [
-          "IncreasedAuraEffectPrideCorrupted"
-        ],
+        "groups": ["IncreasedAuraEffectPrideCorrupted"],
         "required_level": 45,
         "spawn_weights": [
           {
@@ -21639,17 +20971,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Pride has (15-20)% increased Aura Effect",
-          "trade_stat": [
-            "implicit.stat_4247488219"
-          ]
+          "trade_stat": ["implicit.stat_4247488219"]
         }
       }
     },
     "wrath has #% increased aura effect": {
       "V2IncreasedAuraEffectWrathCorrupted": {
-        "groups": [
-          "IncreasedAuraEffectWrathCorrupted"
-        ],
+        "groups": ["IncreasedAuraEffectWrathCorrupted"],
         "required_level": 45,
         "spawn_weights": [
           {
@@ -21680,17 +21008,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Wrath has (15-20)% increased Aura Effect",
-          "trade_stat": [
-            "implicit.stat_2181791238"
-          ]
+          "trade_stat": ["implicit.stat_2181791238"]
         }
       }
     },
     "zealotry has #% increased aura effect": {
       "V2IncreasedAuraEffectZealotryCorrupted_": {
-        "groups": [
-          "IncreasedAuraEffectZealotryCorrupted"
-        ],
+        "groups": ["IncreasedAuraEffectZealotryCorrupted"],
         "required_level": 45,
         "spawn_weights": [
           {
@@ -21721,17 +21045,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Zealotry has (15-20)% increased Aura Effect",
-          "trade_stat": [
-            "implicit.stat_4096052153"
-          ]
+          "trade_stat": ["implicit.stat_4096052153"]
         }
       }
     },
     "#% increased dexterity": {
       "V2IncreasedDexterityStrengthCorrupted": {
-        "groups": [
-          "IncreasedAttributesCorrupted"
-        ],
+        "groups": ["IncreasedAttributesCorrupted"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -21767,15 +21087,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "(4-6)% increased Dexterity",
-          "trade_stat": [
-            "implicit.stat_4139681126"
-          ]
+          "trade_stat": ["implicit.stat_4139681126"]
         }
       },
       "V2IncreasedIntelligenceDexterityCorrupted": {
-        "groups": [
-          "IncreasedAttributesCorrupted"
-        ],
+        "groups": ["IncreasedAttributesCorrupted"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -21811,17 +21127,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(4-6)% increased Dexterity",
-          "trade_stat": [
-            "implicit.stat_656461285"
-          ]
+          "trade_stat": ["implicit.stat_656461285"]
         }
       }
     },
     "#% increased strength": {
       "V2IncreasedDexterityStrengthCorrupted": {
-        "groups": [
-          "IncreasedAttributesCorrupted"
-        ],
+        "groups": ["IncreasedAttributesCorrupted"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -21857,15 +21169,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "(4-6)% increased Strength",
-          "trade_stat": [
-            "implicit.stat_4139681126"
-          ]
+          "trade_stat": ["implicit.stat_4139681126"]
         }
       },
       "V2IncreasedStrengthIntelligenceCorrupted_": {
-        "groups": [
-          "IncreasedAttributesCorrupted"
-        ],
+        "groups": ["IncreasedAttributesCorrupted"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -21901,17 +21209,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(4-6)% increased Strength",
-          "trade_stat": [
-            "implicit.stat_734614379"
-          ]
+          "trade_stat": ["implicit.stat_734614379"]
         }
       }
     },
     "#% increased global physical damage": {
       "V2IncreasedGlobalPhysicalDamageCorrupted": {
-        "groups": [
-          "PhysicalDamagePercent"
-        ],
+        "groups": ["PhysicalDamagePercent"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -21934,17 +21238,13 @@
         "weight": 500,
         "stat": {
           "formatted": "(15-25)% increased Global Physical Damage",
-          "trade_stat": [
-            "implicit.stat_1310194496"
-          ]
+          "trade_stat": ["implicit.stat_1310194496"]
         }
       }
     },
     "#% increased intelligence": {
       "V2IncreasedIntelligenceDexterityCorrupted": {
-        "groups": [
-          "IncreasedAttributesCorrupted"
-        ],
+        "groups": ["IncreasedAttributesCorrupted"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -21980,15 +21280,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "(4-6)% increased Intelligence",
-          "trade_stat": [
-            "implicit.stat_656461285"
-          ]
+          "trade_stat": ["implicit.stat_656461285"]
         }
       },
       "V2IncreasedStrengthIntelligenceCorrupted_": {
-        "groups": [
-          "IncreasedAttributesCorrupted"
-        ],
+        "groups": ["IncreasedAttributesCorrupted"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -22024,17 +21320,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(4-6)% increased Intelligence",
-          "trade_stat": [
-            "implicit.stat_734614379"
-          ]
+          "trade_stat": ["implicit.stat_734614379"]
         }
       }
     },
     "#% increased quantity of items found": {
       "V2ItemQuantityCorrupted_": {
-        "groups": [
-          "IncreasedItemQuantity"
-        ],
+        "groups": ["IncreasedItemQuantity"],
         "required_level": 84,
         "spawn_weights": [
           {
@@ -22065,17 +21357,13 @@
         "weight": 200,
         "stat": {
           "formatted": "(3-5)% increased Quantity of Items found",
-          "trade_stat": [
-            "implicit.stat_884586851"
-          ]
+          "trade_stat": ["implicit.stat_884586851"]
         }
       }
     },
     "#% increased rarity of items found": {
       "V2ItemRarityCorrupted_": {
-        "groups": [
-          "IncreasedItemRarity"
-        ],
+        "groups": ["IncreasedItemRarity"],
         "required_level": 60,
         "spawn_weights": [
           {
@@ -22106,17 +21394,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(20-30)% increased Rarity of Items found",
-          "trade_stat": [
-            "implicit.stat_3917489142"
-          ]
+          "trade_stat": ["implicit.stat_3917489142"]
         }
       }
     },
     "gain # mana per enemy hit with attacks": {
       "V2ManaOnHitCorrupted": {
-        "groups": [
-          "ManaGainPerTarget"
-        ],
+        "groups": ["ManaGainPerTarget"],
         "required_level": 40,
         "spawn_weights": [
           {
@@ -22139,17 +21423,13 @@
         "weight": 500,
         "stat": {
           "formatted": "Gain (4-6) Mana per Enemy Hit with Attacks",
-          "trade_stat": [
-            "implicit.stat_820939409"
-          ]
+          "trade_stat": ["implicit.stat_820939409"]
         }
       }
     },
     "grants level # pride skill": {
       "V2PrideSkillCorrupted": {
-        "groups": [
-          "GrantedSkill"
-        ],
+        "groups": ["GrantedSkill"],
         "required_level": 56,
         "spawn_weights": [
           {
@@ -22172,17 +21452,13 @@
         "weight": 500,
         "stat": {
           "formatted": "Grants Level 21 Pride Skill",
-          "trade_stat": [
-            "implicit.stat_4184565463"
-          ]
+          "trade_stat": ["implicit.stat_4184565463"]
         }
       }
     },
     "grants level # wrath skill": {
       "V2WrathSkillCorrupted": {
-        "groups": [
-          "GrantedSkill"
-        ],
+        "groups": ["GrantedSkill"],
         "required_level": 45,
         "spawn_weights": [
           {
@@ -22205,17 +21481,13 @@
         "weight": 500,
         "stat": {
           "formatted": "Grants Level 21 Wrath Skill",
-          "trade_stat": [
-            "implicit.stat_2265307453"
-          ]
+          "trade_stat": ["implicit.stat_2265307453"]
         }
       }
     },
     "grants level # zealotry skill": {
       "V2ZealotrySkillCorrupted_": {
-        "groups": [
-          "GrantedSkill"
-        ],
+        "groups": ["GrantedSkill"],
         "required_level": 56,
         "spawn_weights": [
           {
@@ -22238,17 +21510,13 @@
         "weight": 500,
         "stat": {
           "formatted": "Grants Level 23 Zealotry Skill",
-          "trade_stat": [
-            "implicit.stat_3224664127"
-          ]
+          "trade_stat": ["implicit.stat_3224664127"]
         }
       }
     },
     "resolute technique": {
       "V2ResoluteTechniqueCorrupted": {
-        "groups": [
-          "Keystone"
-        ],
+        "groups": ["Keystone"],
         "required_level": 40,
         "spawn_weights": [
           {
@@ -22271,17 +21539,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Resolute Technique",
-          "trade_stat": [
-            "implicit.stat_3943945975"
-          ]
+          "trade_stat": ["implicit.stat_3943945975"]
         }
       }
     },
     "# to # added chaos damage with bow attacks": {
       "V2AddedChaosDamageToBowAttacksCorrupted1": {
-        "groups": [
-          "AddedChaosDamageToBowAttacksCorrupted"
-        ],
+        "groups": ["AddedChaosDamageToBowAttacksCorrupted"],
         "required_level": 81,
         "spawn_weights": [
           {
@@ -22309,17 +21573,13 @@
         "weight": 250,
         "stat": {
           "formatted": "(23-29) to (37-43) Added Chaos Damage with Bow Attacks",
-          "trade_stat": [
-            "implicit.stat_3478075311"
-          ]
+          "trade_stat": ["implicit.stat_3478075311"]
         }
       }
     },
     "# to # added cold damage with bow attacks": {
       "V2AddedColdDamageToBowAttacksCorrupted1__": {
-        "groups": [
-          "AddedColdDamageToBowAttacksCorrupted"
-        ],
+        "groups": ["AddedColdDamageToBowAttacksCorrupted"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -22347,15 +21607,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "(8-11) to (18-21) Added Cold Damage with Bow Attacks",
-          "trade_stat": [
-            "implicit.stat_215124030"
-          ]
+          "trade_stat": ["implicit.stat_215124030"]
         }
       },
       "V2AddedColdDamageToBowAttacksCorrupted2": {
-        "groups": [
-          "AddedColdDamageToBowAttacksCorrupted"
-        ],
+        "groups": ["AddedColdDamageToBowAttacksCorrupted"],
         "required_level": 31,
         "spawn_weights": [
           {
@@ -22383,15 +21639,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "(20-25) to (38-45) Added Cold Damage with Bow Attacks",
-          "trade_stat": [
-            "implicit.stat_215124030"
-          ]
+          "trade_stat": ["implicit.stat_215124030"]
         }
       },
       "V2AddedColdDamageToBowAttacksCorrupted3": {
-        "groups": [
-          "AddedColdDamageToBowAttacksCorrupted"
-        ],
+        "groups": ["AddedColdDamageToBowAttacksCorrupted"],
         "required_level": 75,
         "spawn_weights": [
           {
@@ -22419,17 +21671,13 @@
         "weight": 500,
         "stat": {
           "formatted": "(29-35) to (55-62) Added Cold Damage with Bow Attacks",
-          "trade_stat": [
-            "implicit.stat_215124030"
-          ]
+          "trade_stat": ["implicit.stat_215124030"]
         }
       }
     },
     "# to # added fire damage with bow attacks": {
       "V2AddedFireDamageToBowAttacksCorrupted1__": {
-        "groups": [
-          "AddedFireDamageToBowAttacksCorrupted"
-        ],
+        "groups": ["AddedFireDamageToBowAttacksCorrupted"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -22457,15 +21705,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "(11-14) to (21-25) Added Fire Damage with Bow Attacks",
-          "trade_stat": [
-            "implicit.stat_3120164895"
-          ]
+          "trade_stat": ["implicit.stat_3120164895"]
         }
       },
       "V2AddedFireDamageToBowAttacksCorrupted2": {
-        "groups": [
-          "AddedFireDamageToBowAttacksCorrupted"
-        ],
+        "groups": ["AddedFireDamageToBowAttacksCorrupted"],
         "required_level": 31,
         "spawn_weights": [
           {
@@ -22493,15 +21737,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "(24-31) to (46-55) Added Fire Damage with Bow Attacks",
-          "trade_stat": [
-            "implicit.stat_3120164895"
-          ]
+          "trade_stat": ["implicit.stat_3120164895"]
         }
       },
       "V2AddedFireDamageToBowAttacksCorrupted3": {
-        "groups": [
-          "AddedFireDamageToBowAttacksCorrupted"
-        ],
+        "groups": ["AddedFireDamageToBowAttacksCorrupted"],
         "required_level": 75,
         "spawn_weights": [
           {
@@ -22529,17 +21769,13 @@
         "weight": 500,
         "stat": {
           "formatted": "(29-39) to (59-69) Added Fire Damage with Bow Attacks",
-          "trade_stat": [
-            "implicit.stat_3120164895"
-          ]
+          "trade_stat": ["implicit.stat_3120164895"]
         }
       }
     },
     "# to # added lightning damage with bow attacks": {
       "V2AddedLightningDamageToBowAttacksCorrupted1_": {
-        "groups": [
-          "AddedLightningDamageToBowAttacksCorrupted"
-        ],
+        "groups": ["AddedLightningDamageToBowAttacksCorrupted"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -22567,15 +21803,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "(1-3) to (38-39) Added Lightning Damage with Bow Attacks",
-          "trade_stat": [
-            "implicit.stat_1040269876"
-          ]
+          "trade_stat": ["implicit.stat_1040269876"]
         }
       },
       "V2AddedLightningDamageToBowAttacksCorrupted2": {
-        "groups": [
-          "AddedLightningDamageToBowAttacksCorrupted"
-        ],
+        "groups": ["AddedLightningDamageToBowAttacksCorrupted"],
         "required_level": 31,
         "spawn_weights": [
           {
@@ -22603,15 +21835,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "(3-7) to (81-85) Added Lightning Damage with Bow Attacks",
-          "trade_stat": [
-            "implicit.stat_1040269876"
-          ]
+          "trade_stat": ["implicit.stat_1040269876"]
         }
       },
       "V2AddedLightningDamageToBowAttacksCorrupted3": {
-        "groups": [
-          "AddedLightningDamageToBowAttacksCorrupted"
-        ],
+        "groups": ["AddedLightningDamageToBowAttacksCorrupted"],
         "required_level": 75,
         "spawn_weights": [
           {
@@ -22639,17 +21867,13 @@
         "weight": 500,
         "stat": {
           "formatted": "(3-8) to (101-106) Added Lightning Damage with Bow Attacks",
-          "trade_stat": [
-            "implicit.stat_1040269876"
-          ]
+          "trade_stat": ["implicit.stat_1040269876"]
         }
       }
     },
     "# to # added physical damage with bow attacks": {
       "V2AddedPhysicalDamageToBowAttacksCorrupted1": {
-        "groups": [
-          "AddedPhysicalDamageToBowAttacksCorrupted"
-        ],
+        "groups": ["AddedPhysicalDamageToBowAttacksCorrupted"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -22677,15 +21901,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "(3-4) to (6-10) Added Physical Damage with Bow Attacks",
-          "trade_stat": [
-            "implicit.stat_1760576992"
-          ]
+          "trade_stat": ["implicit.stat_1760576992"]
         }
       },
       "V2AddedPhysicalDamageToBowAttacksCorrupted2___": {
-        "groups": [
-          "AddedPhysicalDamageToBowAttacksCorrupted"
-        ],
+        "groups": ["AddedPhysicalDamageToBowAttacksCorrupted"],
         "required_level": 31,
         "spawn_weights": [
           {
@@ -22713,15 +21933,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "(5-7) to (10-14) Added Physical Damage with Bow Attacks",
-          "trade_stat": [
-            "implicit.stat_1760576992"
-          ]
+          "trade_stat": ["implicit.stat_1760576992"]
         }
       },
       "V2AddedPhysicalDamageToBowAttacksCorrupted3": {
-        "groups": [
-          "AddedPhysicalDamageToBowAttacksCorrupted"
-        ],
+        "groups": ["AddedPhysicalDamageToBowAttacksCorrupted"],
         "required_level": 75,
         "spawn_weights": [
           {
@@ -22749,17 +21965,13 @@
         "weight": 500,
         "stat": {
           "formatted": "(9-12) to (16-19) Added Physical Damage with Bow Attacks",
-          "trade_stat": [
-            "implicit.stat_1760576992"
-          ]
+          "trade_stat": ["implicit.stat_1760576992"]
         }
       }
     },
     "bow attacks fire an additional arrow": {
       "V2AdditionalArrowsCorrupted": {
-        "groups": [
-          "AdditionalArrows"
-        ],
+        "groups": ["AdditionalArrows"],
         "required_level": 75,
         "spawn_weights": [
           {
@@ -22786,17 +21998,13 @@
         "weight": 200,
         "stat": {
           "formatted": "Bow Attacks fire an additional Arrow",
-          "trade_stat": [
-            "implicit.stat_3885405204"
-          ]
+          "trade_stat": ["implicit.stat_3885405204"]
         }
       }
     },
     "arrows chain +# times": {
       "V2AdditionalChainCorrupted": {
-        "groups": [
-          "Chain"
-        ],
+        "groups": ["Chain"],
         "required_level": 80,
         "spawn_weights": [
           {
@@ -22819,17 +22027,13 @@
         "weight": 200,
         "stat": {
           "formatted": "Arrows Chain +1 times",
-          "trade_stat": [
-            "implicit.stat_1001077145"
-          ]
+          "trade_stat": ["implicit.stat_1001077145"]
         }
       }
     },
     "projectiles deal #% increased damage with hits and ailments for each time they have chained": {
       "V2IncreasedProjectileDamageForEachChainCorrupted": {
-        "groups": [
-          "IncreasedProjectileDamageForEachChain"
-        ],
+        "groups": ["IncreasedProjectileDamageForEachChain"],
         "required_level": 40,
         "spawn_weights": [
           {
@@ -22852,17 +22056,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Projectiles deal (20-25)% increased Damage with Hits and Ailments for each time they have Chained",
-          "trade_stat": [
-            "implicit.stat_1923210508"
-          ]
+          "trade_stat": ["implicit.stat_1923210508"]
         }
       }
     },
     "projectiles deal #% increased damage with hits and ailments for each enemy pierced": {
       "V2IncreasedProjectileDamageForEachPierceCorrupted": {
-        "groups": [
-          "ProjectileDamagePerEnemyPierced"
-        ],
+        "groups": ["ProjectileDamagePerEnemyPierced"],
         "required_level": 40,
         "spawn_weights": [
           {
@@ -22885,17 +22085,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Projectiles deal (8-10)% increased Damage with Hits and Ailments for each Enemy Pierced",
-          "trade_stat": [
-            "implicit.stat_883169830"
-          ]
+          "trade_stat": ["implicit.stat_883169830"]
         }
       }
     },
     "gain #% of physical damage as extra cold damage": {
       "V2PhysicalDamageAddedAsColdCorrupted": {
-        "groups": [
-          "ColdDamageAsPortionOfDamage"
-        ],
+        "groups": ["ColdDamageAsPortionOfDamage"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -22918,17 +22114,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Gain (8-12)% of Physical Damage as Extra Cold Damage",
-          "trade_stat": [
-            "implicit.stat_979246511"
-          ]
+          "trade_stat": ["implicit.stat_979246511"]
         }
       }
     },
     "gain #% of physical damage as extra fire damage": {
       "V2PhysicalDamageAddedAsFireCorrupted": {
-        "groups": [
-          "FireDamageAsPortionOfDamage"
-        ],
+        "groups": ["FireDamageAsPortionOfDamage"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -22951,17 +22143,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Gain (8-12)% of Physical Damage as Extra Fire Damage",
-          "trade_stat": [
-            "implicit.stat_369494213"
-          ]
+          "trade_stat": ["implicit.stat_369494213"]
         }
       }
     },
     "gain #% of physical damage as extra lightning damage": {
       "V2PhysicalDamageAddedAsLightningCorrupted": {
-        "groups": [
-          "LightningDamageAsPortionOfDamage"
-        ],
+        "groups": ["LightningDamageAsPortionOfDamage"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -22984,17 +22172,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Gain (8-12)% of Physical Damage as Extra Lightning Damage",
-          "trade_stat": [
-            "implicit.stat_219391121"
-          ]
+          "trade_stat": ["implicit.stat_219391121"]
         }
       }
     },
     "point blank": {
       "V2PointBlankCorrupted": {
-        "groups": [
-          "Keystone"
-        ],
+        "groups": ["Keystone"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -23017,17 +22201,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Point Blank",
-          "trade_stat": [
-            "implicit.stat_2896346114"
-          ]
+          "trade_stat": ["implicit.stat_2896346114"]
         }
       }
     },
     "#% additional physical damage reduction while stationary": {
       "V2AdditionalPhysicalDamageReductionWhileStationaryCorrupted_": {
-        "groups": [
-          "PhysicalDamageReductionWhileNotMoving"
-        ],
+        "groups": ["PhysicalDamageReductionWhileNotMoving"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -23050,17 +22230,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(3-5)% additional Physical Damage Reduction while stationary",
-          "trade_stat": [
-            "implicit.stat_2181129193"
-          ]
+          "trade_stat": ["implicit.stat_2181129193"]
         }
       }
     },
     "#% increased damage": {
       "V2IncreasedDamageCorrupted_": {
-        "groups": [
-          "IncreasedDamage"
-        ],
+        "groups": ["IncreasedDamage"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -23083,15 +22259,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "(40-50)% increased Damage",
-          "trade_stat": [
-            "implicit.stat_2154246560"
-          ]
+          "trade_stat": ["implicit.stat_2154246560"]
         }
       },
       "V2IncreasedDamageAbyssJewelCorrupted_": {
-        "groups": [
-          "IncreasedDamage"
-        ],
+        "groups": ["IncreasedDamage"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -23110,15 +22282,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "(4-5)% increased Damage",
-          "trade_stat": [
-            "implicit.stat_2154246560"
-          ]
+          "trade_stat": ["implicit.stat_2154246560"]
         }
       },
       "V2IncreasedDamageJewelCorrupted___": {
-        "groups": [
-          "IncreasedDamage"
-        ],
+        "groups": ["IncreasedDamage"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -23141,17 +22309,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(4-5)% increased Damage",
-          "trade_stat": [
-            "implicit.stat_2154246560"
-          ]
+          "trade_stat": ["implicit.stat_2154246560"]
         }
       }
     },
     "+#% to all maximum resistances": {
       "V2MaximumResistanceCorrupted": {
-        "groups": [
-          "MaximumResistances"
-        ],
+        "groups": ["MaximumResistances"],
         "required_level": 80,
         "spawn_weights": [
           {
@@ -23178,17 +22342,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "+1% to all maximum Resistances",
-          "trade_stat": [
-            "implicit.stat_569299859"
-          ]
+          "trade_stat": ["implicit.stat_569299859"]
         }
       }
     },
     "#% reduced chaos damage taken": {
       "V2ReducedChaosDamageTakenCorrupted": {
-        "groups": [
-          "ChaosDamageTakenPercentage"
-        ],
+        "groups": ["ChaosDamageTakenPercentage"],
         "required_level": 45,
         "spawn_weights": [
           {
@@ -23211,17 +22371,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(6-4)% reduced Chaos Damage taken",
-          "trade_stat": [
-            "implicit.stat_2960683632"
-          ]
+          "trade_stat": ["implicit.stat_2960683632"]
         }
       }
     },
     "#% reduced cold damage taken": {
       "V2ReducedColdDamageTakenCorrupted": {
-        "groups": [
-          "ColdDamageTaken"
-        ],
+        "groups": ["ColdDamageTaken"],
         "required_level": 45,
         "spawn_weights": [
           {
@@ -23244,17 +22400,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(6-4)% reduced Cold Damage taken",
-          "trade_stat": [
-            "implicit.stat_3303114033"
-          ]
+          "trade_stat": ["implicit.stat_3303114033"]
         }
       }
     },
     "#% reduced fire damage taken": {
       "V2ReducedFireDamageTakenCorrupted": {
-        "groups": [
-          "FireDamageTaken"
-        ],
+        "groups": ["FireDamageTaken"],
         "required_level": 45,
         "spawn_weights": [
           {
@@ -23277,17 +22429,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(6-4)% reduced Fire Damage taken",
-          "trade_stat": [
-            "implicit.stat_3743301799"
-          ]
+          "trade_stat": ["implicit.stat_3743301799"]
         }
       }
     },
     "#% reduced lightning damage taken": {
       "V2ReducedLightningDamageTakenCorrupted": {
-        "groups": [
-          "LightningDamageTaken"
-        ],
+        "groups": ["LightningDamageTaken"],
         "required_level": 45,
         "spawn_weights": [
           {
@@ -23310,17 +22458,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(6-4)% reduced Lightning Damage taken",
-          "trade_stat": [
-            "implicit.stat_1276918229"
-          ]
+          "trade_stat": ["implicit.stat_1276918229"]
         }
       }
     },
     "#% increased damage over time": {
       "V2IncreasedDamageOverTimeCorrupted_": {
-        "groups": [
-          "DamageOverTime"
-        ],
+        "groups": ["DamageOverTime"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -23343,17 +22487,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(50-60)% increased Damage over Time",
-          "trade_stat": [
-            "implicit.stat_967627487"
-          ]
+          "trade_stat": ["implicit.stat_967627487"]
         }
       }
     },
     "#% increased spell damage": {
       "V2IncreasedSpellDamage1hCorrupted": {
-        "groups": [
-          "SpellDamage"
-        ],
+        "groups": ["SpellDamage"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -23376,17 +22516,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(50-60)% increased Spell Damage",
-          "trade_stat": [
-            "implicit.stat_2974417149"
-          ]
+          "trade_stat": ["implicit.stat_2974417149"]
         }
       }
     },
     "adds # to # chaos damage": {
       "V2LocalAddedChaosDamage1hCorrupted1": {
-        "groups": [
-          "LocalChaosDamage"
-        ],
+        "groups": ["LocalChaosDamage"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -23414,16 +22550,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "Adds (1-2) to (3-5) Chaos Damage",
-          "trade_stat": [
-            "implicit.stat_2223678961",
-            "implicit.stat_3531280422"
-          ]
+          "trade_stat": ["implicit.stat_2223678961", "implicit.stat_3531280422"]
         }
       },
       "V2LocalAddedChaosDamage1hCorrupted2": {
-        "groups": [
-          "LocalChaosDamage"
-        ],
+        "groups": ["LocalChaosDamage"],
         "required_level": 31,
         "spawn_weights": [
           {
@@ -23451,16 +22582,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "Adds (6-8) to (11-13) Chaos Damage",
-          "trade_stat": [
-            "implicit.stat_2223678961",
-            "implicit.stat_3531280422"
-          ]
+          "trade_stat": ["implicit.stat_2223678961", "implicit.stat_3531280422"]
         }
       },
       "V2LocalAddedChaosDamage1hCorrupted3": {
-        "groups": [
-          "LocalChaosDamage"
-        ],
+        "groups": ["LocalChaosDamage"],
         "required_level": 84,
         "spawn_weights": [
           {
@@ -23488,18 +22614,13 @@
         "weight": 250,
         "stat": {
           "formatted": "Adds (8-11) to (19-23) Chaos Damage",
-          "trade_stat": [
-            "implicit.stat_2223678961",
-            "implicit.stat_3531280422"
-          ]
+          "trade_stat": ["implicit.stat_2223678961", "implicit.stat_3531280422"]
         }
       }
     },
     "you can apply one fewer curse": {
       "V2AdditionalCurseCorrupted": {
-        "groups": [
-          "AdditionalCurseOnEnemies"
-        ],
+        "groups": ["AdditionalCurseOnEnemies"],
         "required_level": 60,
         "spawn_weights": [
           {
@@ -23522,17 +22643,13 @@
         "weight": 500,
         "stat": {
           "formatted": "You can apply one fewer Curse",
-          "trade_stat": [
-            "implicit.stat_30642521"
-          ]
+          "trade_stat": ["implicit.stat_30642521"]
         }
       }
     },
     "you can apply an additional curse": {
       "V2AdditionalCurseCorrupted": {
-        "groups": [
-          "AdditionalCurseOnEnemies"
-        ],
+        "groups": ["AdditionalCurseOnEnemies"],
         "required_level": 60,
         "spawn_weights": [
           {
@@ -23555,17 +22672,13 @@
         "weight": 500,
         "stat": {
           "formatted": "You can apply an additional Curse",
-          "trade_stat": [
-            "implicit.stat_30642521"
-          ]
+          "trade_stat": ["implicit.stat_30642521"]
         }
       }
     },
     "#% chance to block attack damage": {
       "V2BlockChanceCorrupted": {
-        "groups": [
-          "MonsterBlock"
-        ],
+        "groups": ["MonsterBlock"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -23588,17 +22701,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(4-5)% Chance to Block Attack Damage",
-          "trade_stat": [
-            "implicit.stat_2530372417"
-          ]
+          "trade_stat": ["implicit.stat_2530372417"]
         }
       }
     },
     "grants level # clarity skill": {
       "V2ClaritySkillReducedCorrupted_": {
-        "groups": [
-          "GrantedSkill"
-        ],
+        "groups": ["GrantedSkill"],
         "required_level": 56,
         "spawn_weights": [
           {
@@ -23621,17 +22730,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Grants Level 21 Clarity Skill",
-          "trade_stat": [
-            "implicit.stat_3511815065"
-          ]
+          "trade_stat": ["implicit.stat_3511815065"]
         }
       }
     },
     "grants level # malevolence skill": {
       "V2MalevolenceSkillCorrupted": {
-        "groups": [
-          "GrantedSkill"
-        ],
+        "groups": ["GrantedSkill"],
         "required_level": 56,
         "spawn_weights": [
           {
@@ -23654,17 +22759,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Grants Level 23 Malevolence Skill",
-          "trade_stat": [
-            "implicit.stat_2148556029"
-          ]
+          "trade_stat": ["implicit.stat_2148556029"]
         }
       }
     },
     "grants level # purity of ice skill": {
       "V2PurityOfColdSkillCorrupted___": {
-        "groups": [
-          "GrantedSkill"
-        ],
+        "groups": ["GrantedSkill"],
         "required_level": 56,
         "spawn_weights": [
           {
@@ -23687,17 +22788,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Grants Level 23 Purity of Ice Skill",
-          "trade_stat": [
-            "implicit.stat_4193390599"
-          ]
+          "trade_stat": ["implicit.stat_4193390599"]
         }
       }
     },
     "grants level # purity of fire skill": {
       "V2PurityOfFireSkillCorrupted": {
-        "groups": [
-          "GrantedSkill"
-        ],
+        "groups": ["GrantedSkill"],
         "required_level": 56,
         "spawn_weights": [
           {
@@ -23720,17 +22817,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Grants Level 23 Purity of Fire Skill",
-          "trade_stat": [
-            "implicit.stat_3970432307"
-          ]
+          "trade_stat": ["implicit.stat_3970432307"]
         }
       }
     },
     "grants level # purity of lightning skill": {
       "V2PurityOfLightningSkillCorrupted": {
-        "groups": [
-          "GrantedSkill"
-        ],
+        "groups": ["GrantedSkill"],
         "required_level": 56,
         "spawn_weights": [
           {
@@ -23753,17 +22846,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Grants Level 23 Purity of Lightning Skill",
-          "trade_stat": [
-            "implicit.stat_3822878124"
-          ]
+          "trade_stat": ["implicit.stat_3822878124"]
         }
       }
     },
     "grants level # purity of elements skill": {
       "V2PuritySkillCorrupted": {
-        "groups": [
-          "GrantedSkill"
-        ],
+        "groups": ["GrantedSkill"],
         "required_level": 56,
         "spawn_weights": [
           {
@@ -23786,17 +22875,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Grants Level 21 Purity of Elements Skill",
-          "trade_stat": [
-            "implicit.stat_105466375"
-          ]
+          "trade_stat": ["implicit.stat_105466375"]
         }
       }
     },
     "#% increased elemental damage with attack skills": {
       "V2WeaponElementalDamageCorrupted": {
-        "groups": [
-          "IncreasedWeaponElementalDamagePercent"
-        ],
+        "groups": ["IncreasedWeaponElementalDamagePercent"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -23819,17 +22904,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(20-24)% increased Elemental Damage with Attack Skills",
-          "trade_stat": [
-            "implicit.stat_387439868"
-          ]
+          "trade_stat": ["implicit.stat_387439868"]
         }
       }
     },
     "socketed gems are supported by level # blind": {
       "V2SupportedByBlindCorrupted": {
-        "groups": [
-          "SupportedByBlind"
-        ],
+        "groups": ["SupportedByBlind"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -23852,17 +22933,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Socketed Gems are supported by Level 10 Blind",
-          "trade_stat": [
-            "implicit.stat_2223640518"
-          ]
+          "trade_stat": ["implicit.stat_2223640518"]
         }
       }
     },
     "socketed gems are supported by level # faster projectiles": {
       "V2SupportedByFasterProjectilesCorrupted": {
-        "groups": [
-          "SupportedByProjectileSpeed"
-        ],
+        "groups": ["SupportedByProjectileSpeed"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -23885,17 +22962,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Socketed Gems are supported by Level 10 Faster Projectiles",
-          "trade_stat": [
-            "implicit.stat_99089516"
-          ]
+          "trade_stat": ["implicit.stat_99089516"]
         }
       }
     },
     "+#% to critical strike multiplier during any flask effect": {
       "V2AdditionalCriticalStrikeMultiplierUnderFlaskEffectCorrupted": {
-        "groups": [
-          "AdditionalCriticalStrikeMultiplierUnderFlaskEffect"
-        ],
+        "groups": ["AdditionalCriticalStrikeMultiplierUnderFlaskEffect"],
         "required_level": 60,
         "spawn_weights": [
           {
@@ -23918,17 +22991,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "+(20-25)% to Critical Strike Multiplier during any Flask Effect",
-          "trade_stat": [
-            "implicit.stat_240289863"
-          ]
+          "trade_stat": ["implicit.stat_240289863"]
         }
       }
     },
     "#% increased attack speed during any flask effect": {
       "V2IncreasedAttackSpeedUnderFlaskEffectCorrupted": {
-        "groups": [
-          "SpeedDuringFlaskEffect"
-        ],
+        "groups": ["SpeedDuringFlaskEffect"],
         "required_level": 60,
         "spawn_weights": [
           {
@@ -23951,17 +23020,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(8-12)% increased Attack Speed during any Flask Effect",
-          "trade_stat": [
-            "implicit.stat_1365052901"
-          ]
+          "trade_stat": ["implicit.stat_1365052901"]
         }
       }
     },
     "#% increased cast speed during any flask effect": {
       "V2IncreasedCastSpeedUnderFlaskEffectCorrupted": {
-        "groups": [
-          "SpeedDuringFlaskEffect"
-        ],
+        "groups": ["SpeedDuringFlaskEffect"],
         "required_level": 60,
         "spawn_weights": [
           {
@@ -23984,17 +23049,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(8-12)% increased Cast Speed during any Flask Effect",
-          "trade_stat": [
-            "implicit.stat_252194507"
-          ]
+          "trade_stat": ["implicit.stat_252194507"]
         }
       }
     },
     "#% increased critical strike chance during any flask effect": {
       "V2IncreasedCriticalStrikeUnderFlaskEffectCorrupted": {
-        "groups": [
-          "IncreasedCriticalStrikeUnderFlaskEffect"
-        ],
+        "groups": ["IncreasedCriticalStrikeUnderFlaskEffect"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -24017,17 +23078,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(35-40)% increased Critical Strike Chance during any Flask Effect",
-          "trade_stat": [
-            "implicit.stat_2898434123"
-          ]
+          "trade_stat": ["implicit.stat_2898434123"]
         }
       }
     },
     "#% increased skill effect duration": {
       "V2IncreasedDurationCorrupted": {
-        "groups": [
-          "SkillEffectDuration"
-        ],
+        "groups": ["SkillEffectDuration"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -24050,17 +23107,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(12-15)% increased Skill Effect Duration",
-          "trade_stat": [
-            "implicit.stat_3377888098"
-          ]
+          "trade_stat": ["implicit.stat_3377888098"]
         }
       }
     },
     "#% increased movement speed during any flask effect": {
       "V2IncreasedMovementVelocityUnderFlaskEffectCorrupted": {
-        "groups": [
-          "MovementSpeedDuringFlaskEffect"
-        ],
+        "groups": ["MovementSpeedDuringFlaskEffect"],
         "required_level": 60,
         "spawn_weights": [
           {
@@ -24083,17 +23136,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(8-12)% increased Movement Speed during any Flask Effect",
-          "trade_stat": [
-            "implicit.stat_304970526"
-          ]
+          "trade_stat": ["implicit.stat_304970526"]
         }
       }
     },
     "skills fire an additional projectile": {
       "V2AdditionalProjectilesCorrupted": {
-        "groups": [
-          "AdditionalProjectilesCorrupted"
-        ],
+        "groups": ["AdditionalProjectilesCorrupted"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -24116,17 +23165,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Skills fire an additional Projectile",
-          "trade_stat": [
-            "implicit.stat_74338099"
-          ]
+          "trade_stat": ["implicit.stat_74338099"]
         }
       }
     },
     "gain a frenzy charge after spending a total of 200 mana": {
       "V2GainFrenzyChargeAfterSpending200ManaCorrupted": {
-        "groups": [
-          "GainFrenzyChargeAfterSpending200Mana"
-        ],
+        "groups": ["GainFrenzyChargeAfterSpending200Mana"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -24149,17 +23194,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Gain a Frenzy Charge after Spending a total of 200 Mana",
-          "trade_stat": [
-            "implicit.stat_3868549606"
-          ]
+          "trade_stat": ["implicit.stat_3868549606"]
         }
       }
     },
     "gain # frenzy charges after spending a total of 200 mana": {
       "V2GainFrenzyChargeAfterSpending200ManaCorrupted": {
-        "groups": [
-          "GainFrenzyChargeAfterSpending200Mana"
-        ],
+        "groups": ["GainFrenzyChargeAfterSpending200Mana"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -24182,17 +23223,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Gain 1 Frenzy Charges after Spending a total of 200 Mana",
-          "trade_stat": [
-            "implicit.stat_3868549606"
-          ]
+          "trade_stat": ["implicit.stat_3868549606"]
         }
       }
     },
     "you can catch corrupted fish": {
       "V2CanCatchCorruptFishCorrupted": {
-        "groups": [
-          "Other"
-        ],
+        "groups": ["Other"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -24215,17 +23252,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "You can catch Corrupted Fish",
-          "trade_stat": [
-            "implicit.stat_2451060005"
-          ]
+          "trade_stat": ["implicit.stat_2451060005"]
         }
       }
     },
     "#% increased quantity of fish caught": {
       "V2FishingQuantityCorrupted": {
-        "groups": [
-          "FishingQuantity"
-        ],
+        "groups": ["FishingQuantity"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -24248,17 +23281,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(5-10)% increased Quantity of Fish Caught",
-          "trade_stat": [
-            "implicit.stat_3802667447"
-          ]
+          "trade_stat": ["implicit.stat_3802667447"]
         }
       }
     },
     "#% increased rarity of fish caught": {
       "V2FishingRarityCorrupted_": {
-        "groups": [
-          "FishingRarity"
-        ],
+        "groups": ["FishingRarity"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -24281,17 +23310,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(5-10)% increased Rarity of Fish Caught",
-          "trade_stat": [
-            "implicit.stat_3310914132"
-          ]
+          "trade_stat": ["implicit.stat_3310914132"]
         }
       }
     },
     "overwhelm #% physical damage reduction": {
       "V2ArmourPenetrationAbyssalJewelCorrupted": {
-        "groups": [
-          "ArmourPenetration"
-        ],
+        "groups": ["ArmourPenetration"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -24310,15 +23335,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "Overwhelm 2% Physical Damage Reduction",
-          "trade_stat": [
-            "implicit.stat_2495041954"
-          ]
+          "trade_stat": ["implicit.stat_2495041954"]
         }
       },
       "V2ArmourPenetrationJewelCorrupted": {
-        "groups": [
-          "ArmourPenetration"
-        ],
+        "groups": ["ArmourPenetration"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -24341,17 +23362,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Overwhelm 2% Physical Damage Reduction",
-          "trade_stat": [
-            "implicit.stat_2495041954"
-          ]
+          "trade_stat": ["implicit.stat_2495041954"]
         }
       }
     },
     "#% chance to avoid bleeding": {
       "V2AvoidBleedAbyssalJewelCorrupted_": {
-        "groups": [
-          "ChanceToAvoidBleeding"
-        ],
+        "groups": ["ChanceToAvoidBleeding"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -24370,17 +23387,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(20-25)% chance to Avoid Bleeding",
-          "trade_stat": [
-            "implicit.stat_1618589784"
-          ]
+          "trade_stat": ["implicit.stat_1618589784"]
         }
       }
     },
     "#% chance to avoid being ignited": {
       "V2AvoidIgniteAbyssalJewelCorrupted": {
-        "groups": [
-          "AvoidIgnite"
-        ],
+        "groups": ["AvoidIgnite"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -24399,17 +23412,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(20-25)% chance to Avoid being Ignited",
-          "trade_stat": [
-            "implicit.stat_1783006896"
-          ]
+          "trade_stat": ["implicit.stat_1783006896"]
         }
       }
     },
     "#% chance to avoid being poisoned": {
       "V2AvoidPoisonAbyssalJewelCorrupted": {
-        "groups": [
-          "ChanceToAvoidPoison"
-        ],
+        "groups": ["ChanceToAvoidPoison"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -24428,17 +23437,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(20-25)% chance to Avoid being Poisoned",
-          "trade_stat": [
-            "implicit.stat_4053951709"
-          ]
+          "trade_stat": ["implicit.stat_4053951709"]
         }
       }
     },
     "#% chance to avoid being shocked": {
       "V2AvoidShockAbyssalJewelCorrupted": {
-        "groups": [
-          "AvoidShock"
-        ],
+        "groups": ["AvoidShock"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -24457,17 +23462,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(20-25)% chance to Avoid being Shocked",
-          "trade_stat": [
-            "implicit.stat_1871765599"
-          ]
+          "trade_stat": ["implicit.stat_1871765599"]
         }
       }
     },
     "#% chance to avoid being stunned": {
       "V2AvoidStunAbyssalJewelCorrupted": {
-        "groups": [
-          "AvoidStun"
-        ],
+        "groups": ["AvoidStun"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -24486,17 +23487,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(20-25)% chance to Avoid being Stunned",
-          "trade_stat": [
-            "implicit.stat_4262448838"
-          ]
+          "trade_stat": ["implicit.stat_4262448838"]
         }
       }
     },
     "damage penetrates #% cold resistance": {
       "V2ColdPenetrationAbyssalJewelCorrupted": {
-        "groups": [
-          "ColdResistancePenetration"
-        ],
+        "groups": ["ColdResistancePenetration"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -24515,16 +23512,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "Damage Penetrates 1% Cold Resistance",
-          "trade_stat": [
-            "implicit.stat_3417711605",
-            "implicit.stat_1211769158"
-          ]
+          "trade_stat": ["implicit.stat_3417711605", "implicit.stat_1211769158"]
         }
       },
       "V2ColdPenetrationJewelCorrupted": {
-        "groups": [
-          "ColdResistancePenetration"
-        ],
+        "groups": ["ColdResistancePenetration"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -24547,18 +23539,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Damage Penetrates 1% Cold Resistance",
-          "trade_stat": [
-            "implicit.stat_3417711605",
-            "implicit.stat_1211769158"
-          ]
+          "trade_stat": ["implicit.stat_3417711605", "implicit.stat_1211769158"]
         }
       }
     },
     "corrupted blood cannot be inflicted on you": {
       "V2CorruptedBloodImmunityAbyssalJewelCorrupted": {
-        "groups": [
-          "CorruptedBloodImmunity"
-        ],
+        "groups": ["CorruptedBloodImmunity"],
         "required_level": 33,
         "spawn_weights": [
           {
@@ -24577,15 +23564,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "Corrupted Blood cannot be inflicted on you",
-          "trade_stat": [
-            "implicit.stat_1658498488"
-          ]
+          "trade_stat": ["implicit.stat_1658498488"]
         }
       },
       "V2CorruptedBloodImmunityCorrupted": {
-        "groups": [
-          "CorruptedBloodImmunity"
-        ],
+        "groups": ["CorruptedBloodImmunity"],
         "required_level": 33,
         "spawn_weights": [
           {
@@ -24608,17 +23591,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Corrupted Blood cannot be inflicted on you",
-          "trade_stat": [
-            "implicit.stat_1658498488"
-          ]
+          "trade_stat": ["implicit.stat_1658498488"]
         }
       }
     },
     "damage penetrates #% fire resistance": {
       "V2FirePenetrationAbyssalJewelCorrupted": {
-        "groups": [
-          "FireResistancePenetration"
-        ],
+        "groups": ["FireResistancePenetration"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -24637,16 +23616,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "Damage Penetrates 1% Fire Resistance",
-          "trade_stat": [
-            "implicit.stat_2653955271",
-            "implicit.stat_1123291426"
-          ]
+          "trade_stat": ["implicit.stat_2653955271", "implicit.stat_1123291426"]
         }
       },
       "V2FirePenetrationJewelCorrupted": {
-        "groups": [
-          "FireResistancePenetration"
-        ],
+        "groups": ["FireResistancePenetration"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -24669,18 +23643,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Damage Penetrates 1% Fire Resistance",
-          "trade_stat": [
-            "implicit.stat_2653955271",
-            "implicit.stat_1123291426"
-          ]
+          "trade_stat": ["implicit.stat_2653955271", "implicit.stat_1123291426"]
         }
       }
     },
     "you cannot be hindered": {
       "V2HinderImmunityAbyssalJewelCorrupted": {
-        "groups": [
-          "YouCannotBeHindered"
-        ],
+        "groups": ["YouCannotBeHindered"],
         "required_level": 40,
         "spawn_weights": [
           {
@@ -24699,15 +23668,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "You cannot be Hindered",
-          "trade_stat": [
-            "implicit.stat_721014846"
-          ]
+          "trade_stat": ["implicit.stat_721014846"]
         }
       },
       "V2HinderImmunityCorrupted": {
-        "groups": [
-          "YouCannotBeHindered"
-        ],
+        "groups": ["YouCannotBeHindered"],
         "required_level": 40,
         "spawn_weights": [
           {
@@ -24730,17 +23695,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "You cannot be Hindered",
-          "trade_stat": [
-            "implicit.stat_721014846"
-          ]
+          "trade_stat": ["implicit.stat_721014846"]
         }
       }
     },
     "#% increased effect of non-damaging ailments": {
       "V2IncreasedAilmentEffectOnEnemiesAbyssalJewelCorrupted": {
-        "groups": [
-          "IncreasedAilmentEffectOnEnemies"
-        ],
+        "groups": ["IncreasedAilmentEffectOnEnemies"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -24759,15 +23720,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "(5-7)% increased Effect of Non-Damaging Ailments",
-          "trade_stat": [
-            "implicit.stat_782230869"
-          ]
+          "trade_stat": ["implicit.stat_782230869"]
         }
       },
       "V2IncreasedAilmentEffectOnEnemiesCorrupted": {
-        "groups": [
-          "IncreasedAilmentEffectOnEnemies"
-        ],
+        "groups": ["IncreasedAilmentEffectOnEnemies"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -24790,17 +23747,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(5-7)% increased Effect of Non-Damaging Ailments",
-          "trade_stat": [
-            "implicit.stat_782230869"
-          ]
+          "trade_stat": ["implicit.stat_782230869"]
         }
       }
     },
     "#% increased global critical strike chance": {
       "V2IncreasedCriticalStrikeChanceAbyssalJewelCorrupted": {
-        "groups": [
-          "CriticalStrikeChanceIncrease"
-        ],
+        "groups": ["CriticalStrikeChanceIncrease"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -24819,15 +23772,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "(8-10)% increased Global Critical Strike Chance",
-          "trade_stat": [
-            "implicit.stat_587431675"
-          ]
+          "trade_stat": ["implicit.stat_587431675"]
         }
       },
       "V2IncreasedCriticalStrikeChanceCorrupted_": {
-        "groups": [
-          "CriticalStrikeChanceIncrease"
-        ],
+        "groups": ["CriticalStrikeChanceIncrease"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -24850,17 +23799,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(8-10)% increased Global Critical Strike Chance",
-          "trade_stat": [
-            "implicit.stat_587431675"
-          ]
+          "trade_stat": ["implicit.stat_587431675"]
         }
       }
     },
     "damage penetrates #% lightning resistance": {
       "V2LightningPenetrationAbyssalJewelCorrupted": {
-        "groups": [
-          "LightningResistancePenetration"
-        ],
+        "groups": ["LightningResistancePenetration"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -24879,16 +23824,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "Damage Penetrates 1% Lightning Resistance",
-          "trade_stat": [
-            "implicit.stat_818778753",
-            "implicit.stat_3301510262"
-          ]
+          "trade_stat": ["implicit.stat_818778753", "implicit.stat_3301510262"]
         }
       },
       "V2LightningPenetrationJewelCorrupted__": {
-        "groups": [
-          "LightningResistancePenetration"
-        ],
+        "groups": ["LightningResistancePenetration"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -24911,18 +23851,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Damage Penetrates 1% Lightning Resistance",
-          "trade_stat": [
-            "implicit.stat_818778753",
-            "implicit.stat_3301510262"
-          ]
+          "trade_stat": ["implicit.stat_818778753", "implicit.stat_3301510262"]
         }
       }
     },
     "you cannot be maimed": {
       "V2MaimImmunityCorrupted_": {
-        "groups": [
-          "AvoidMaimChance"
-        ],
+        "groups": ["AvoidMaimChance"],
         "required_level": 40,
         "spawn_weights": [
           {
@@ -24941,15 +23876,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "You cannot be Maimed",
-          "trade_stat": [
-            "implicit.stat_1126826428"
-          ]
+          "trade_stat": ["implicit.stat_1126826428"]
         }
       },
       "V2MaimImmunityCorrupted": {
-        "groups": [
-          "AvoidMaimChance"
-        ],
+        "groups": ["AvoidMaimChance"],
         "required_level": 40,
         "spawn_weights": [
           {
@@ -24972,17 +23903,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "You cannot be Maimed",
-          "trade_stat": [
-            "implicit.stat_1126826428"
-          ]
+          "trade_stat": ["implicit.stat_1126826428"]
         }
       }
     },
     "minions deal #% increased damage": {
       "V2MinionDamageCorrupted__": {
-        "groups": [
-          "MinionDamage"
-        ],
+        "groups": ["MinionDamage"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -25001,15 +23928,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "Minions deal (4-5)% increased Damage",
-          "trade_stat": [
-            "implicit.stat_1589917703"
-          ]
+          "trade_stat": ["implicit.stat_1589917703"]
         }
       },
       "V2MinionDamageCorrupted": {
-        "groups": [
-          "MinionDamage"
-        ],
+        "groups": ["MinionDamage"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -25032,17 +23955,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "Minions deal (4-5)% increased Damage",
-          "trade_stat": [
-            "implicit.stat_1589917703"
-          ]
+          "trade_stat": ["implicit.stat_1589917703"]
         }
       }
     },
     "#% increased reservation efficiency of skills": {
       "V2ReducedManaReservationCorruptedEfficiency_____": {
-        "groups": [
-          "ReducedManaReservationsCost"
-        ],
+        "groups": ["ReducedManaReservationsCost"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -25061,16 +23980,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "2% increased Reservation Efficiency of Skills",
-          "trade_stat": [
-            "implicit.stat_2587176568",
-            "implicit.stat_4202507508"
-          ]
+          "trade_stat": ["implicit.stat_2587176568", "implicit.stat_4202507508"]
         }
       },
       "V2ReducedManaReservationCorruptedEfficiency__": {
-        "groups": [
-          "ReducedManaReservationsCost"
-        ],
+        "groups": ["ReducedManaReservationsCost"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -25093,18 +24007,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "2% increased Reservation Efficiency of Skills",
-          "trade_stat": [
-            "implicit.stat_2587176568",
-            "implicit.stat_4202507508"
-          ]
+          "trade_stat": ["implicit.stat_2587176568", "implicit.stat_4202507508"]
         }
       }
     },
     "you cannot be cursed with silence": {
       "V2SilenceImmunityJewelCorrupted__": {
-        "groups": [
-          "PlayerCurseImmunity"
-        ],
+        "groups": ["PlayerCurseImmunity"],
         "required_level": 60,
         "spawn_weights": [
           {
@@ -25123,15 +24032,11 @@
         "weight": 1000,
         "stat": {
           "formatted": "You cannot be Cursed with Silence",
-          "trade_stat": [
-            "implicit.stat_1654414582"
-          ]
+          "trade_stat": ["implicit.stat_1654414582"]
         }
       },
       "V2SilenceImmunityJewelCorrupted": {
-        "groups": [
-          "PlayerCurseImmunity"
-        ],
+        "groups": ["PlayerCurseImmunity"],
         "required_level": 60,
         "spawn_weights": [
           {
@@ -25154,17 +24059,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "You cannot be Cursed with Silence",
-          "trade_stat": [
-            "implicit.stat_1654414582"
-          ]
+          "trade_stat": ["implicit.stat_1654414582"]
         }
       }
     },
     "#% reduced bleed duration on you": {
       "V2BleedDurationOnYouJewelCorrupted": {
-        "groups": [
-          "ReducedBleedDuration"
-        ],
+        "groups": ["ReducedBleedDuration"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -25187,17 +24088,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(25-20)% reduced Bleed Duration on you",
-          "trade_stat": [
-            "implicit.stat_1692879867"
-          ]
+          "trade_stat": ["implicit.stat_1692879867"]
         }
       }
     },
     "#% reduced effect of chill on you": {
       "V2ChillEffectOnYouJewelCorrupted": {
-        "groups": [
-          "ChillEffectivenessOnSelf"
-        ],
+        "groups": ["ChillEffectivenessOnSelf"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -25220,17 +24117,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(25-20)% reduced Effect of Chill on you",
-          "trade_stat": [
-            "implicit.stat_1478653032"
-          ]
+          "trade_stat": ["implicit.stat_1478653032"]
         }
       }
     },
     "#% reduced effect of curses on you": {
       "V2CurseEffectOnYouJewelCorrupted": {
-        "groups": [
-          "ReducedCurseEffect"
-        ],
+        "groups": ["ReducedCurseEffect"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -25253,17 +24146,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(25-20)% reduced Effect of Curses on you",
-          "trade_stat": [
-            "implicit.stat_3407849389"
-          ]
+          "trade_stat": ["implicit.stat_3407849389"]
         }
       }
     },
     "#% reduced ignite duration on you": {
       "V2IgniteDurationOnYouJewelCorrupted": {
-        "groups": [
-          "ReducedSelfIgniteDuration"
-        ],
+        "groups": ["ReducedSelfIgniteDuration"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -25286,17 +24175,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(20-25)% reduced Ignite Duration on you",
-          "trade_stat": [
-            "implicit.stat_986397080"
-          ]
+          "trade_stat": ["implicit.stat_986397080"]
         }
       }
     },
     "#% reduced poison duration on you": {
       "V2PoisonDurationOnYouJewelCorrupted": {
-        "groups": [
-          "ReducedPoisonDuration"
-        ],
+        "groups": ["ReducedPoisonDuration"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -25319,17 +24204,13 @@
         "weight": 1000,
         "stat": {
           "formatted": "(25-20)% reduced Poison Duration on you",
-          "trade_stat": [
-            "implicit.stat_3301100256"
-          ]
+          "trade_stat": ["implicit.stat_3301100256"]
         }
       }
     },
     "#% reduced effect of shock on you": {
       "V2ShockEffectOnYouJewelCorrupted": {
-        "groups": [
-          "ShockEffect"
-        ],
+        "groups": ["ShockEffect"],
         "required_level": 1,
         "spawn_weights": [
           {
@@ -25352,9 +24233,7 @@
         "weight": 1000,
         "stat": {
           "formatted": "(25-20)% reduced Effect of Shock on you",
-          "trade_stat": [
-            "implicit.stat_3801067695"
-          ]
+          "trade_stat": ["implicit.stat_3801067695"]
         }
       }
     }
