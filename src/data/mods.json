@@ -1057,7 +1057,7 @@
     "blasphemer's grasp": [
       {
         "page_name": "Blasphemer's Grasp",
-        "tags": "armour,default,dex_int_armour,gloves",
+        "tags": "armour,default,dex_int_armour,gloves,top_tier_base_item_type",
         "query": {
           "name": "Blasphemer's Grasp",
           "type": "Assassin's Mitts"
@@ -1191,7 +1191,7 @@
     "bottled faith": [
       {
         "page_name": "Bottled Faith",
-        "tags": "default,flask,not_for_sale,utility_flask",
+        "tags": "default,flask,utility_flask",
         "query": {
           "name": "Bottled Faith",
           "type": "Sulphur Flask"
@@ -1302,14 +1302,6 @@
     "brittle barrier": [],
     "broadstroke": [],
     "broken faith": [
-      {
-        "page_name": "Broken Faith",
-        "tags": "armour,default,shield,str_int_armour,str_int_shield,top_tier_base_item_type",
-        "query": {
-          "name": "Broken Faith",
-          "type": "Archon Kite Shield"
-        }
-      },
       {
         "page_name": "Broken Faith",
         "tags": "armour,default,shield,str_int_armour,str_int_shield,top_tier_base_item_type",
@@ -1655,7 +1647,7 @@
     "cinderswallow urn": [
       {
         "page_name": "Cinderswallow Urn",
-        "tags": "default,flask,not_for_sale,utility_flask",
+        "tags": "default,flask,utility_flask",
         "query": {
           "name": "Cinderswallow Urn",
           "type": "Silver Flask"
@@ -1834,7 +1826,7 @@
     "coralito's signature": [
       {
         "page_name": "Coralito's Signature",
-        "tags": "default,flask,not_for_sale,utility_flask",
+        "tags": "default,flask,utility_flask",
         "query": {
           "name": "Coralito's Signature",
           "type": "Diamond Flask"
@@ -2037,7 +2029,7 @@
     "crown of the inward eye": [
       {
         "page_name": "Crown of the Inward Eye",
-        "tags": "armour,default,helmet,str_int_armour",
+        "tags": "armour,default,helmet,str_int_armour,top_tier_base_item_type",
         "query": {
           "name": "Crown of the Inward Eye",
           "type": "Prophet Crown"
@@ -2717,7 +2709,7 @@
     "dying sun": [
       {
         "page_name": "Dying Sun",
-        "tags": "default,flask,not_for_sale,utility_flask",
+        "tags": "default,flask,utility_flask",
         "query": {
           "name": "Dying Sun",
           "type": "Ruby Flask"
@@ -4471,7 +4463,7 @@
     "invictus solaris": [
       {
         "page_name": "Invictus Solaris",
-        "tags": "armour,default,shield,str_int_armour,str_int_shield",
+        "tags": "armour,default,shield,str_int_armour,str_int_shield,top_tier_base_item_type",
         "query": {
           "name": "Invictus Solaris",
           "type": "Archon Kite Shield"
@@ -4975,7 +4967,7 @@
     "lion's roar": [
       {
         "page_name": "Lion's Roar",
-        "tags": "default,flask,not_for_sale,utility_flask",
+        "tags": "default,flask,utility_flask",
         "query": {
           "name": "Lion's Roar",
           "type": "Granite Flask"
@@ -6072,7 +6064,7 @@
     "perepiteia": [
       {
         "page_name": "Perepiteia (Synthesised)",
-        "tags": "armour,default,dex_int_armour,dex_int_shield,shield",
+        "tags": "armour,default,dex_int_armour,dex_int_shield,shield,top_tier_base_item_type",
         "query": {
           "name": "Perepiteia",
           "type": "Ezomyte Spiked Shield"
@@ -8268,7 +8260,7 @@
     "sin's rebirth": [
       {
         "page_name": "Sin's Rebirth",
-        "tags": "default,flask,not_for_sale,utility_flask",
+        "tags": "default,flask,utility_flask",
         "query": {
           "name": "Sin's Rebirth",
           "type": "Stibnite Flask"
@@ -8449,7 +8441,7 @@
     "soul catcher": [
       {
         "page_name": "Soul Catcher",
-        "tags": "default,flask,not_for_sale,utility_flask",
+        "tags": "default,flask,utility_flask",
         "query": {
           "name": "Soul Catcher",
           "type": "Quartz Flask"
@@ -8469,7 +8461,7 @@
     "soul ripper": [
       {
         "page_name": "Soul Ripper",
-        "tags": "default,flask,not_for_sale,utility_flask",
+        "tags": "default,flask,utility_flask",
         "query": {
           "name": "Soul Ripper",
           "type": "Quartz Flask"
@@ -8919,7 +8911,7 @@
     "taste of hate": [
       {
         "page_name": "Taste of Hate",
-        "tags": "default,flask,not_for_sale,utility_flask",
+        "tags": "default,flask,utility_flask",
         "query": {
           "name": "Taste of Hate",
           "type": "Sapphire Flask"
@@ -9792,7 +9784,7 @@
     "the immortal will": [
       {
         "page_name": "The Immortal Will",
-        "tags": "armour,default,shield,str_int_armour,str_int_shield",
+        "tags": "armour,default,shield,str_int_armour,str_int_shield,top_tier_base_item_type",
         "query": {
           "name": "The Immortal Will",
           "type": "Archon Kite Shield"
@@ -9908,7 +9900,7 @@
     "the overflowing chalice": [
       {
         "page_name": "The Overflowing Chalice",
-        "tags": "default,flask,not_for_sale,utility_flask",
+        "tags": "default,flask,utility_flask",
         "query": {
           "name": "The Overflowing Chalice",
           "type": "Sulphur Flask"
@@ -10340,7 +10332,7 @@
     "the unshattered will": [
       {
         "page_name": "The Unshattered Will",
-        "tags": "armour,default,shield,str_int_armour,str_int_shield",
+        "tags": "armour,default,shield,str_int_armour,str_int_shield,top_tier_base_item_type",
         "query": {
           "name": "The Unshattered Will",
           "type": "Archon Kite Shield"
@@ -10361,7 +10353,7 @@
     "the vertex": [
       {
         "page_name": "The Vertex",
-        "tags": "armour,default,dex_int_armour,helmet",
+        "tags": "armour,default,dex_int_armour,helmet,top_tier_base_item_type",
         "query": {
           "name": "The Vertex",
           "type": "Vaal Mask"
@@ -11074,7 +11066,7 @@
     "vessel of vinktar": [
       {
         "page_name": "Vessel of Vinktar (Added Lightning Damage to Attacks)",
-        "tags": "default,flask,not_for_sale,utility_flask",
+        "tags": "default,flask,utility_flask",
         "query": {
           "name": "Vessel of Vinktar",
           "type": "Topaz Flask"
@@ -11082,7 +11074,7 @@
       },
       {
         "page_name": "Vessel of Vinktar (Added Lightning Damage to Spells)",
-        "tags": "default,flask,not_for_sale,utility_flask",
+        "tags": "default,flask,utility_flask",
         "query": {
           "name": "Vessel of Vinktar",
           "type": "Topaz Flask"
@@ -11090,7 +11082,7 @@
       },
       {
         "page_name": "Vessel of Vinktar (Lightning Penetration)",
-        "tags": "default,flask,not_for_sale,utility_flask",
+        "tags": "default,flask,utility_flask",
         "query": {
           "name": "Vessel of Vinktar",
           "type": "Topaz Flask"
@@ -11098,7 +11090,7 @@
       },
       {
         "page_name": "Vessel of Vinktar (Physical Damage Converted to Lightning)",
-        "tags": "default,flask,not_for_sale,utility_flask",
+        "tags": "default,flask,utility_flask",
         "query": {
           "name": "Vessel of Vinktar",
           "type": "Topaz Flask"
@@ -11106,7 +11098,7 @@
       },
       {
         "page_name": "Vessel of Vinktar (Shock Effect and Proliferation)",
-        "tags": "default,flask,not_for_sale,utility_flask",
+        "tags": "default,flask,utility_flask",
         "query": {
           "name": "Vessel of Vinktar",
           "type": "Topaz Flask"
@@ -11159,7 +11151,7 @@
     "viridi's veil": [
       {
         "page_name": "Viridi's Veil",
-        "tags": "armour,default,helmet,str_int_armour",
+        "tags": "armour,default,helmet,str_int_armour,top_tier_base_item_type",
         "query": {
           "name": "Viridi's Veil",
           "type": "Praetor Crown"
@@ -11189,7 +11181,7 @@
     "vix lunaris": [
       {
         "page_name": "Vix Lunaris",
-        "tags": "armour,default,shield,str_dex_armour,str_dex_shield",
+        "tags": "armour,default,shield,str_dex_armour,str_dex_shield,top_tier_base_item_type",
         "query": {
           "name": "Vix Lunaris",
           "type": "Cardinal Round Shield"
@@ -13182,6 +13174,32 @@
         "V2SocketedWarcryGemCorrupted": 1000
       }
     },
+    "armour,default,dex_int_armour,gloves,top_tier_base_item_type": {
+      "sumWeight": 21000,
+      "mods": {
+        "V2CurseOnHitDespair": 1000,
+        "V2CurseOnHitElementalWeaknessCorrupted": 1000,
+        "V2CurseOnHitEnfeeble": 1000,
+        "V2CurseOnHitTemporalChainsCurrupted": 1000,
+        "V2CurseOnHitVulnerabilityCorrupted": 1000,
+        "V2GemLevelCorrupted": 1000,
+        "V2IncreasedAtackCriticalStrikeCorruption": 1000,
+        "V2IncreasedAttackSpeedCorrupted": 1000,
+        "V2IncreasedCastSpeedCorrupted_": 1000,
+        "V2IncreasedMaximumEnergyShieldCorrupted": 1000,
+        "V2IncreasedMaximumLifeCorrupted": 1000,
+        "V2IncreasedSpellCriticalStrikeCorruption": 1000,
+        "V2MaxFrenzyChargesCorrupted": 1000,
+        "V2SocketedAoEGemCorrupted": 1000,
+        "V2SocketedAuraGemCorrupted": 1000,
+        "V2SocketedCurseGemCorrupted": 1000,
+        "V2SocketedDurationGemCorrupted": 1000,
+        "V2SocketedMinionGemCorrupted": 1000,
+        "V2SocketedProjectileGemCorrupted_": 1000,
+        "V2SocketedTrapOrMineGemCorrupted": 1000,
+        "V2SocketedWarcryGemCorrupted": 1000
+      }
+    },
     "amulet,default,talisman": {
       "sumWeight": 29200,
       "mods": {
@@ -14384,32 +14402,6 @@
       }
     },
     "armour,default,gloves,str_armour": {
-      "sumWeight": 21000,
-      "mods": {
-        "V2CurseOnHitDespair": 1000,
-        "V2CurseOnHitElementalWeaknessCorrupted": 1000,
-        "V2CurseOnHitEnfeeble": 1000,
-        "V2CurseOnHitTemporalChainsCurrupted": 1000,
-        "V2CurseOnHitVulnerabilityCorrupted": 1000,
-        "V2GemLevelCorrupted": 1000,
-        "V2IncreasedAtackCriticalStrikeCorruption": 1000,
-        "V2IncreasedAttackSpeedCorrupted": 1000,
-        "V2IncreasedCastSpeedCorrupted_": 1000,
-        "V2IncreasedMaximumEnergyShieldCorrupted": 1000,
-        "V2IncreasedMaximumLifeCorrupted": 1000,
-        "V2IncreasedSpellCriticalStrikeCorruption": 1000,
-        "V2MaxFrenzyChargesCorrupted": 1000,
-        "V2SocketedAoEGemCorrupted": 1000,
-        "V2SocketedAuraGemCorrupted": 1000,
-        "V2SocketedCurseGemCorrupted": 1000,
-        "V2SocketedDurationGemCorrupted": 1000,
-        "V2SocketedMinionGemCorrupted": 1000,
-        "V2SocketedProjectileGemCorrupted_": 1000,
-        "V2SocketedTrapOrMineGemCorrupted": 1000,
-        "V2SocketedWarcryGemCorrupted": 1000
-      }
-    },
-    "armour,default,dex_int_armour,gloves,top_tier_base_item_type": {
       "sumWeight": 21000,
       "mods": {
         "V2CurseOnHitDespair": 1000,

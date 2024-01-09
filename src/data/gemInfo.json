@@ -1067,7 +1067,7 @@
       "stats": { "lightning_arrow_maximum_number_of_extra_targets": 100 }
     },
     "Lightning Arrow of Electrocution": {
-      "stat": "Arrows deal Damage final target {lightning_arrow_alt_additional_strikes} additional times after sticking in",
+      "stat": "Arrows Damage final target {lightning_arrow_alt_additional_strikes} additional times after sticking in",
       "stats": { "lightning_arrow_alt_additional_strikes": 50 }
     },
     "Lightning Conduit": {
