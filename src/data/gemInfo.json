@@ -2291,8 +2291,8 @@
       "stats": { "melee_damage_+%": 500 }
     },
     "Awakened Multistrike Support": {
-      "stat": "Supported Skills deal {melee_physical_damage_+%}% increased Melee Physical Damage",
-      "stats": { "melee_physical_damage_+%": 500 }
+      "stat": "Supported Skills deal {melee_damage_+%}% increased Melee Damage",
+      "stats": { "melee_damage_+%": 500 }
     },
     "Innervate Support": {
       "stat": "Innervation lasts {support_innervate_buff_base_duration_ms/milliseconds_to_seconds} seconds",

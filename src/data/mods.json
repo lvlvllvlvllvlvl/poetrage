@@ -16893,7 +16893,7 @@
         "weight": 1000,
         "stat": {
           "formatted": "Adds (6-8) to (13-15) Cold Damage",
-          "trade_stat": ["implicit.stat_2387423236", "implicit.stat_1037193709"]
+          "trade_stat": ["implicit.stat_1037193709", "implicit.stat_2387423236"]
         }
       },
       "V2LocalAddedColdDamage1hCorrupted2": {
@@ -16937,7 +16937,7 @@
         "weight": 1000,
         "stat": {
           "formatted": "Adds (14-18) to (27-32) Cold Damage",
-          "trade_stat": ["implicit.stat_2387423236", "implicit.stat_1037193709"]
+          "trade_stat": ["implicit.stat_1037193709", "implicit.stat_2387423236"]
         }
       },
       "V2LocalAddedColdDamage1hCorrupted3_": {
@@ -16981,7 +16981,7 @@
         "weight": 250,
         "stat": {
           "formatted": "Adds (17-23) to (24-40) Cold Damage",
-          "trade_stat": ["implicit.stat_2387423236", "implicit.stat_1037193709"]
+          "trade_stat": ["implicit.stat_1037193709", "implicit.stat_2387423236"]
         }
       },
       "V2LocalAddedColdDamage2hCorrupted1": {
@@ -17017,7 +17017,7 @@
         "weight": 1000,
         "stat": {
           "formatted": "Adds (9-13) to (20-23) Cold Damage",
-          "trade_stat": ["implicit.stat_2387423236", "implicit.stat_1037193709"]
+          "trade_stat": ["implicit.stat_1037193709", "implicit.stat_2387423236"]
         }
       },
       "V2LocalAddedColdDamage2hCorrupted2": {
@@ -17053,7 +17053,7 @@
         "weight": 1000,
         "stat": {
           "formatted": "Adds (22-27) to (36-44) Cold Damage",
-          "trade_stat": ["implicit.stat_2387423236", "implicit.stat_1037193709"]
+          "trade_stat": ["implicit.stat_1037193709", "implicit.stat_2387423236"]
         }
       },
       "V2LocalAddedColdDamage2hCorrupted3_": {
@@ -17089,7 +17089,7 @@
         "weight": 250,
         "stat": {
           "formatted": "Adds (26-32) to (45-55) Cold Damage",
-          "trade_stat": ["implicit.stat_2387423236", "implicit.stat_1037193709"]
+          "trade_stat": ["implicit.stat_1037193709", "implicit.stat_2387423236"]
         }
       }
     },
