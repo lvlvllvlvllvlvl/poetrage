@@ -1,0 +1,85 @@
+syntax = "proto3";
+
+message SearchResult {
+  uint32 total = 1;
+  repeated SearchResultDimension dimensions = 2;
+  repeated SearchResultIntegerDimension integer_dimensions = 3;
+  repeated SearchResultPerformance performance_points = 4;
+  repeated SearchResultValueList value_lists = 5;
+  repeated SearchResultDictionaryReference dictionaries = 6;
+  repeated SearchResultField fields = 7;
+  repeated SearchResultSection sections = 8;
+}
+
+message SearchResultField {
+  string id = 1;
+  string type = 2;
+  string name = 3;
+  repeated string value_list_ids = 4;
+  string sort_id = 5;
+  string integer_dimension_id = 6;
+  map<string, string> properties = 7;
+}
+
+message SearchResultSection {
+  string id = 1;
+  string type = 2;
+  string name = 3;
+  string dimension_id = 4;
+  map<string, string> properties = 5;
+}
+
+message SearchResultDictionaryReference {
+  string id = 1;
+  string hash = 2;
+}
+
+message SearchResultDimension {
+  string id = 1;
+  string dictionary_id = 2;
+  repeated SearchResultDimensionCount counts = 3;
+}
+
+message SearchResultDimensionCount {
+  uint32 key = 1;
+  uint32 count = 2;
+}
+
+message SearchResultIntegerDimension {
+  string id = 1;
+  uint32 min_value = 2;
+  uint32 max_value = 3;
+}
+
+message SearchResultPerformance {
+  string name = 1;
+  double ms = 2;
+}
+
+message SearchResultValueList {
+  string id = 1;
+  repeated SearchResultValue values = 2;
+}
+
+message SearchResultValue {
+  string str = 1;
+  uint32 number = 2;
+  repeated uint32 numbers = 3;
+  repeated string strs = 4;
+  bool boolean = 5;
+}
+
+message SearchResultDictionary {
+  string id = 1;
+  repeated string values = 2;
+  repeated SearchResultDictionaryProperty properties = 3;
+}
+
+message SearchResultDictionaryProperty {
+  string id = 1;
+  repeated string values = 2;
+}
+
+message NinjaSearchResult {
+  SearchResult result = 1;
+}

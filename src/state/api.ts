@@ -103,8 +103,10 @@ startAppListening({
   },
 });
 
-const metaSelector = createSelector([getLeague, getLadder], (league, ladder) =>
-  apiSlice.endpoints.meta.select(league?.indexed ? [league.name, ladder] : skipToken),
+const metaSelector = createSelector([getLeague, getLadder, leagues], (league, ladder, leagues) =>
+  apiSlice.endpoints.meta.select(
+    league?.indexed && leagues.status === "done" ? [league.name, ladder, leagues.value] : skipToken,
+  ),
 );
 export const meta = createSelector([(state) => metaSelector(state)(state)], toApiResult);
 startAppListening({
@@ -116,8 +118,9 @@ startAppListening({
   effect: async (action, listenerApi) => {
     const league = getLeague(listenerApi.getState());
     const ladder = getLadder(listenerApi.getState());
-    if (league?.indexed) {
-      listenerApi.dispatch(apiSlice.endpoints.meta.initiate([league.name, ladder]));
+    const list = leagues(listenerApi.getState());
+    if (league?.indexed && list.status === "done") {
+      listenerApi.dispatch(apiSlice.endpoints.meta.initiate([league.name, ladder, list.value]));
     }
   },
 });

@@ -1,17 +1,29 @@
 import { api } from "apis/axios";
-import { Builds } from "models/ninja/Builds";
+import { Leagues } from "models/ninja/Leagues";
+import { NinjaSearchResult, SearchResultDictionary } from "models/ninja/protobuf/ninja_pb";
 
-export const getMeta = async (league: string, type: "exp" | "depthsolo") => {
-  const response = await api.get<Builds>(
-    `https://poe.ninja/api/data/x/getbuildoverview?overview=${league
-      .toLowerCase()
-      .replaceAll(" ", "-")}&type=${type}&language=en`,
+export const getMeta = async (league: string, type: "exp" | "depthsolo", leagues: Leagues) => {
+  const { url, version } = leagues.snapshotVersions.find(
+    (v) => v.name === league && v.type === type,
+  )!;
+  const response = await api.get<ArrayBuffer>(
+    `https://poe.ninja/api/builds/search/${version}?overview=${url}&type=${type}&language=en`,
+    { responseType: "arraybuffer" },
   );
+  const data = NinjaSearchResult.fromBinary(new Uint8Array(response.data)).result!;
+  const allSkills = data.dimensions.find((d) => d.id === "allskills")!;
+  const hash = data.dictionaries.find((d) => d.id === allSkills.dictionaryId)!.hash;
+  const dictResp = await api.get<ArrayBuffer>(
+    `https://poe.ninja/api/builds/search/dictionary/${hash}`,
+    {
+      responseType: "arraybuffer",
+    },
+  );
+  const dict = SearchResultDictionary.fromBinary(new Uint8Array(dictResp.data))!;
 
   const result: { [key: string]: number } = {};
-  const total = response.data.accounts.length / 1000;
-  response.data.allSkills.forEach(({ name }, i) => {
-    result[name] = Math.round(response.data.allSkillUse[i.toString()].length / total) / 10;
+  allSkills.counts.forEach(({ key = 0, count }) => {
+    result[dict.values[key]] = (count * 100) / data.total;
   });
   return result;
 };
