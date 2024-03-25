@@ -1186,7 +1186,6 @@
         }
       }
     ],
-    "booby lady's gloves": [],
     "booming populace": [],
     "bottled faith": [
       {
@@ -5727,6 +5726,16 @@
         }
       }
     ],
+    "nevalius inheritance": [
+      {
+        "page_name": "Nevalius Inheritance",
+        "tags": "belt,default",
+        "query": {
+          "name": "Nevalius Inheritance",
+          "type": "Cloth Belt"
+        }
+      }
+    ],
     "ngamahu tiki": [],
     "ngamahu's flame": [
       {
@@ -6552,6 +6561,16 @@
         "query": {
           "name": "Rational Doctrine",
           "type": "Cobalt Jewel"
+        }
+      }
+    ],
+    "ravenous passion": [
+      {
+        "page_name": "Ravenous Passion",
+        "tags": "armour,default,helmet,str_int_armour",
+        "query": {
+          "name": "Ravenous Passion",
+          "type": "Zealot Helmet"
         }
       }
     ],
@@ -8702,7 +8721,7 @@
     ],
     "storm's gift": [
       {
-        "page_name": "Storm's Gift (Synthesised)",
+        "page_name": "Storm's Gift",
         "tags": "armour,default,dex_int_armour,gloves,top_tier_base_item_type",
         "query": {
           "name": "Storm's Gift",
@@ -9011,16 +9030,7 @@
     ],
     "territories unknown": [],
     "terror": [],
-    "that which was taken": [
-      {
-        "page_name": "That Which Was Taken",
-        "tags": "default,jewel,not_dex,not_for_sale,not_int,strjewel",
-        "query": {
-          "name": "That Which Was Taken",
-          "type": "Crimson Jewel"
-        }
-      }
-    ],
+    "that which was taken": [],
     "the admiral": [
       {
         "page_name": "The Admiral",
@@ -9304,6 +9314,16 @@
       }
     ],
     "the cauteriser": [],
+    "the celestial brace": [
+      {
+        "page_name": "The Celestial Brace",
+        "tags": "armour,default,gloves,str_armour",
+        "query": {
+          "name": "The Celestial Brace",
+          "type": "Goliath Gauntlets"
+        }
+      }
+    ],
     "the chains of castigation": [
       {
         "page_name": "The Chains of Castigation",
@@ -9928,6 +9948,16 @@
       }
     ],
     "the perandus manor": [],
+    "the perandus pact": [
+      {
+        "page_name": "The Perandus Pact",
+        "tags": "default,dexjewel,intjewel,jewel,not_for_sale,strjewel",
+        "query": {
+          "name": "The Perandus Pact",
+          "type": "Prismatic Jewel"
+        }
+      }
+    ],
     "the peregrine": [],
     "the perfect form": [
       {
@@ -10292,6 +10322,16 @@
         "query": {
           "name": "The Three Dragons",
           "type": "Golden Mask"
+        }
+      }
+    ],
+    "the tides of time": [
+      {
+        "page_name": "The Tides of Time",
+        "tags": "atlas_base_type,belt,beltatlas1,default,not_for_sale",
+        "query": {
+          "name": "The Tides of Time",
+          "type": "Vanguard Belt"
         }
       }
     ],
