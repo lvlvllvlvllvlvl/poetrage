@@ -3723,6 +3723,16 @@
         }
       }
     ],
+    "grace of the goddess": [
+      {
+        "page_name": "Grace of the Goddess",
+        "tags": "default,one_hand_weapon,onehand,ranged,top_tier_base_item_type,wand,weapon",
+        "query": {
+          "name": "Grace of the Goddess",
+          "type": "Prophecy Wand"
+        }
+      }
+    ],
     "grand spectrum": [
       {
         "page_name": "Grand Spectrum (Cobalt Jewel, crit chance)",
@@ -14644,6 +14654,32 @@
         "V2WeaponElementalDamageCorrupted": 1000
       }
     },
+    "default,one_hand_weapon,onehand,ranged,top_tier_base_item_type,wand,weapon": {
+      "sumWeight": 18000,
+      "mods": {
+        "V2ChanceToGainFortifyOnMeleeHitCorrupted": 1000,
+        "V2ChanceToGainOnslaughtOnKillCorrupted_": 1000,
+        "V2ChanceToGainPowerChargeOnCritCorrupted": 1000,
+        "V2ElementalDamagePenetrationCorrupted": 1000,
+        "V2IncreasedAreaOfEffect1hCorrupted": 1000,
+        "V2LocalAddedColdDamage1hCorrupted1": 1000,
+        "V2LocalAddedColdDamage1hCorrupted2": 1000,
+        "V2LocalAddedColdDamage1hCorrupted3_": 250,
+        "V2LocalAddedFireDamage1hCorrupted1": 1000,
+        "V2LocalAddedFireDamage1hCorrupted2": 1000,
+        "V2LocalAddedFireDamage1hCorrupted3": 250,
+        "V2LocalAddedLightningDamage1hCorrupted1": 1000,
+        "V2LocalAddedLightningDamage1hCorrupted2": 1000,
+        "V2LocalAddedLightningDamage1hCorrupted3": 250,
+        "V2LocalAddedPhysicalDamage1hCorrupted1": 1000,
+        "V2LocalAddedPhysicalDamage1hCorrupted2": 1000,
+        "V2LocalAddedPhysicalDamage1hCorrupted3": 250,
+        "V2LocalIncreasedAttackSpeed1hCorrupted": 1000,
+        "V2LocalIncreasedAttackSpeedWandCorrupted_": 1000,
+        "V2LocalIncreasedCriticalStrikeChance1hCorrupted1": 1000,
+        "V2UnholyMightOnKillPercentChanceCorrupted": 1000
+      }
+    },
     "armour,default,dex_armour,gloves": {
       "sumWeight": 21000,
       "mods": {
@@ -15102,32 +15138,6 @@
         "V2CastSpeedCorrupted": 1000,
         "V2FishingQuantityCorrupted": 1000,
         "V2FishingRarityCorrupted_": 1000
-      }
-    },
-    "default,one_hand_weapon,onehand,ranged,top_tier_base_item_type,wand,weapon": {
-      "sumWeight": 18000,
-      "mods": {
-        "V2ChanceToGainFortifyOnMeleeHitCorrupted": 1000,
-        "V2ChanceToGainOnslaughtOnKillCorrupted_": 1000,
-        "V2ChanceToGainPowerChargeOnCritCorrupted": 1000,
-        "V2ElementalDamagePenetrationCorrupted": 1000,
-        "V2IncreasedAreaOfEffect1hCorrupted": 1000,
-        "V2LocalAddedColdDamage1hCorrupted1": 1000,
-        "V2LocalAddedColdDamage1hCorrupted2": 1000,
-        "V2LocalAddedColdDamage1hCorrupted3_": 250,
-        "V2LocalAddedFireDamage1hCorrupted1": 1000,
-        "V2LocalAddedFireDamage1hCorrupted2": 1000,
-        "V2LocalAddedFireDamage1hCorrupted3": 250,
-        "V2LocalAddedLightningDamage1hCorrupted1": 1000,
-        "V2LocalAddedLightningDamage1hCorrupted2": 1000,
-        "V2LocalAddedLightningDamage1hCorrupted3": 250,
-        "V2LocalAddedPhysicalDamage1hCorrupted1": 1000,
-        "V2LocalAddedPhysicalDamage1hCorrupted2": 1000,
-        "V2LocalAddedPhysicalDamage1hCorrupted3": 250,
-        "V2LocalIncreasedAttackSpeed1hCorrupted": 1000,
-        "V2LocalIncreasedAttackSpeedWandCorrupted_": 1000,
-        "V2LocalIncreasedCriticalStrikeChance1hCorrupted1": 1000,
-        "V2UnholyMightOnKillPercentChanceCorrupted": 1000
       }
     },
     "amulet,default,not_for_sale": {
