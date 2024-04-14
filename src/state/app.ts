@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ColumnFiltersState, SortingState } from "@tanstack/react-table";
 import { memoize } from "lodash";
-import { UniqueProfits } from "models/corruptions";
 import { GemDetails, GemId, isEqual, Override } from "models/gems";
 import { GraphNode, NodeMap } from "models/graphElements";
 import { League } from "models/ninja/Leagues";
@@ -21,7 +20,7 @@ function debouncedProp<T>(value?: T) {
   return { type: "debounced", value: { value, debounced: value } };
 }
 
-export const tabs = ["gems", "corruptions"] as const;
+export const tabs = ["gems"] as const;
 
 export const fields = {
   tab: prop<(typeof tabs)[number]>(tabs[0]),
@@ -46,11 +45,8 @@ export const fields = {
   progressMsg: prop(""),
   graphProgress: prop(0),
   graphProgressMsg: prop(""),
-  uniqueProgress: prop(0),
-  uniqueProgressMsg: prop(""),
   vaalableGems: prop<{ [key: string]: boolean }>(),
   data: prop<GemDetails[]>([]),
-  uniqueData: prop<UniqueProfits>(),
   graphData: prop<NodeMap>({}),
   xpGraphData: prop<NodeMap>({}),
   currentGraph: prop<GraphNode>(),

@@ -16,7 +16,6 @@ import { cache } from "apis/axios";
 import { GraphDialog } from "components/cells/Graph";
 import { Settings } from "components/GemSettings";
 import { GemTable } from "components/GemTable";
-import { Uniques } from "components/Uniques";
 import { useEffect, useMemo, useReducer, useState } from "react";
 import GithubCorner from "react-github-corner";
 import { apiSlice } from "state/api";
@@ -135,7 +134,6 @@ function App() {
             <GemTable />
           </>
         )}
-        {tab === "corruptions" && <Uniques />}
       </Box>
     </ThemeProvider>
   );
