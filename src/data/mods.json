@@ -1653,6 +1653,16 @@
         }
       }
     ],
+    "circle of ambition": [
+      {
+        "page_name": "Circle of Ambition",
+        "tags": "default,ring",
+        "query": {
+          "name": "Circle of Ambition",
+          "type": "Prismatic Ring"
+        }
+      }
+    ],
     "circle of anguish": [
       {
         "page_name": "Circle of Anguish (Synthesised)",
@@ -2063,6 +2073,46 @@
         "query": {
           "name": "Crystallised Omniscience",
           "type": "Onyx Amulet"
+        }
+      }
+    ],
+    "curio of absorption": [
+      {
+        "page_name": "Curio of Absorption",
+        "tags": "default",
+        "query": {
+          "name": "Curio of Absorption",
+          "type": "Primordial Fragment"
+        }
+      }
+    ],
+    "curio of consumption": [
+      {
+        "page_name": "Curio of Consumption",
+        "tags": "default",
+        "query": {
+          "name": "Curio of Consumption",
+          "type": "Primordial Fragment"
+        }
+      }
+    ],
+    "curio of decay": [
+      {
+        "page_name": "Curio of Decay",
+        "tags": "default",
+        "query": {
+          "name": "Curio of Decay",
+          "type": "Primordial Fragment"
+        }
+      }
+    ],
+    "curio of potential": [
+      {
+        "page_name": "Curio of Potential",
+        "tags": "default",
+        "query": {
+          "name": "Curio of Potential",
+          "type": "Primordial Fragment"
         }
       }
     ],
@@ -3804,6 +3854,16 @@
         "query": {
           "name": "Grand Spectrum",
           "type": "Viridian Jewel"
+        }
+      }
+    ],
+    "grattus signet": [
+      {
+        "page_name": "Grattus Signet",
+        "tags": "default,ring",
+        "query": {
+          "name": "Grattus Signet",
+          "type": "Diamond Ring"
         }
       }
     ],
@@ -9103,6 +9163,16 @@
         }
       }
     ],
+    "the apostate": [
+      {
+        "page_name": "The Apostate",
+        "tags": "armour,body_armour,default,int_armour",
+        "query": {
+          "name": "The Apostate",
+          "type": "Cabalist Regalia"
+        }
+      }
+    ],
     "the arbiter": [],
     "the ascetic": [
       {
@@ -9444,6 +9514,16 @@
       }
     ],
     "the depraved": [],
+    "the devourer of minds": [
+      {
+        "page_name": "The Devourer of Minds",
+        "tags": "armour,default,helmet,str_dex_armour,top_tier_base_item_type",
+        "query": {
+          "name": "The Devourer of Minds",
+          "type": "Pig-Faced Bascinet"
+        }
+      }
+    ],
     "the devouring diadem": [
       {
         "page_name": "The Devouring Diadem",
@@ -9747,6 +9827,16 @@
         "query": {
           "name": "The Halcyon",
           "type": "Jade Amulet"
+        }
+      }
+    ],
+    "the hand of phrecia": [
+      {
+        "page_name": "The Hand of Phrecia",
+        "tags": "armour,default,gloves,str_int_armour",
+        "query": {
+          "name": "The Hand of Phrecia",
+          "type": "Mesh Gloves"
         }
       }
     ],
@@ -10295,6 +10385,16 @@
       }
     ],
     "the tempest": [],
+    "the tempest rising": [
+      {
+        "page_name": "The Tempest Rising",
+        "tags": "armour,boots,default,str_armour",
+        "query": {
+          "name": "The Tempest Rising",
+          "type": "Goliath Greaves"
+        }
+      }
+    ],
     "the tempest's binding": [
       {
         "page_name": "The Tempest's Binding",
@@ -10395,6 +10495,16 @@
         "tags": "amulet,default",
         "query": {
           "name": "The Untouched Soul",
+          "type": "Gold Amulet"
+        }
+      }
+    ],
+    "the utmost": [
+      {
+        "page_name": "The Utmost",
+        "tags": "amulet,default",
+        "query": {
+          "name": "The Utmost",
           "type": "Gold Amulet"
         }
       }
@@ -11100,6 +11210,16 @@
         "query": {
           "name": "Ventor's Gamble",
           "type": "Gold Ring"
+        }
+      }
+    ],
+    "veruso's ambition": [
+      {
+        "page_name": "Veruso's Ambition",
+        "tags": "armour,boots,default,dex_int_armour",
+        "query": {
+          "name": "Veruso's Ambition",
+          "type": "Shackled Boots"
         }
       }
     ],
@@ -23554,7 +23674,7 @@
         "weight": 1000,
         "stat": {
           "formatted": "Damage Penetrates 1% Cold Resistance",
-          "trade_stat": ["implicit.stat_3417711605", "implicit.stat_1211769158"]
+          "trade_stat": ["implicit.stat_3417711605"]
         }
       },
       "V2ColdPenetrationJewelCorrupted": {
@@ -23581,7 +23701,7 @@
         "weight": 1000,
         "stat": {
           "formatted": "Damage Penetrates 1% Cold Resistance",
-          "trade_stat": ["implicit.stat_3417711605", "implicit.stat_1211769158"]
+          "trade_stat": ["implicit.stat_3417711605"]
         }
       }
     },
@@ -23658,7 +23778,7 @@
         "weight": 1000,
         "stat": {
           "formatted": "Damage Penetrates 1% Fire Resistance",
-          "trade_stat": ["implicit.stat_2653955271", "implicit.stat_1123291426"]
+          "trade_stat": ["implicit.stat_2653955271"]
         }
       },
       "V2FirePenetrationJewelCorrupted": {
@@ -23685,7 +23805,7 @@
         "weight": 1000,
         "stat": {
           "formatted": "Damage Penetrates 1% Fire Resistance",
-          "trade_stat": ["implicit.stat_2653955271", "implicit.stat_1123291426"]
+          "trade_stat": ["implicit.stat_2653955271"]
         }
       }
     },
@@ -23866,7 +23986,7 @@
         "weight": 1000,
         "stat": {
           "formatted": "Damage Penetrates 1% Lightning Resistance",
-          "trade_stat": ["implicit.stat_818778753", "implicit.stat_3301510262"]
+          "trade_stat": ["implicit.stat_818778753"]
         }
       },
       "V2LightningPenetrationJewelCorrupted__": {
@@ -23893,7 +24013,7 @@
         "weight": 1000,
         "stat": {
           "formatted": "Damage Penetrates 1% Lightning Resistance",
-          "trade_stat": ["implicit.stat_818778753", "implicit.stat_3301510262"]
+          "trade_stat": ["implicit.stat_818778753"]
         }
       }
     },

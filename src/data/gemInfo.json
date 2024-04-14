@@ -87,6 +87,14 @@
       "stat": "Fires {base_number_of_arrows} Arrows",
       "stats": { "base_number_of_arrows": 50 }
     },
+    "Artillery Ballista of Cross Strafe": {
+      "stat": "Fires {base_number_of_arrows} Arrows",
+      "stats": { "base_number_of_arrows": 50 }
+    },
+    "Artillery Ballista of Focus Fire": {
+      "stat": "Fires {base_number_of_arrows} Arrows",
+      "stats": { "base_number_of_arrows": 50 }
+    },
     "Assassin's Mark": {
       "stat": "Cursed Enemies have a {grant_attacker_power_charge_when_hit_%_chance}% chance to grant a Power Charge when Hit",
       "stats": { "grant_attacker_power_charge_when_hit_%_chance": 250 }
@@ -249,7 +257,7 @@
     },
     "Unearth": {
       "stat": "Corpses Spawned have {maximum_life_+%_for_corpses_you_create}% increased Maximum Life",
-      "stats": { "maximum_life_+%_for_corpses_you_create": 1500 }
+      "stats": { "maximum_life_+%_for_corpses_you_create": 1000 }
     },
     "Bone Offering": {
       "stat": "{offering_spells_effect_+%}% increased Effect of Offering",
@@ -327,7 +335,11 @@
       "stats": { "chain_strike_gain_x_rage_if_attack_hits": 50 }
     },
     "Kinetic Blast": {
-      "stat": "Creates {cluster_burst_spawn_amount} explosions",
+      "stat": "Kinetic Blast creates {cluster_burst_spawn_amount} additional explosions",
+      "stats": { "cluster_burst_spawn_amount": 50 }
+    },
+    "Kinetic Blast of Clustering": {
+      "stat": "Kinetic Blast creates {cluster_burst_spawn_amount} additional explosions",
       "stats": { "cluster_burst_spawn_amount": 50 }
     },
     "Cobra Lash": {
@@ -592,6 +604,10 @@
       "stat": "{elemental_hit_damage_+%_final_per_enemy_elemental_ailment}% more Damage per Elemental Ailment on the Enemy",
       "stats": { "elemental_hit_damage_+%_final_per_enemy_elemental_ailment": 250 }
     },
+    "Elemental Hit of the Spectrum": {
+      "stat": "{elemental_hit_damage_+%_final_per_enemy_elemental_ailment}% more Damage per Elemental Ailment on the Enemy",
+      "stats": { "elemental_hit_damage_+%_final_per_enemy_elemental_ailment": 250 }
+    },
     "Elemental Weakness": {
       "stat": "{self_elemental_status_duration_-%/negate}% increased Duration of Elemental Ailments on Cursed enemies",
       "stats": { "self_elemental_status_duration_-%": -1000 }
@@ -656,6 +672,17 @@
       "stat": "{expanding_fire_cone_maximum_number_of_stages} to maximum Stages",
       "stats": { "expanding_fire_cone_maximum_number_of_stages": 100 }
     },
+    "Incinerate of Expanse": {
+      "stat": "Final wave deals {expanding_fire_cone_release_hit_damage_+%_final}% more Damage with Hits\nFinal wave deals {grant_expanding_fire_cone_release_ignite_damage_+%_final}% more Damage with Ignite",
+      "stats": {
+        "expanding_fire_cone_release_hit_damage_+%_final": 5000,
+        "grant_expanding_fire_cone_release_ignite_damage_+%_final": 2500
+      }
+    },
+    "Incinerate of Venting": {
+      "stat": "{expanding_fire_cone_maximum_number_of_stages} to maximum Stages",
+      "stats": { "expanding_fire_cone_maximum_number_of_stages": 100 }
+    },
     "Explosive Arrow": {
       "stat": "{explosive_arrow_stack_limit} Maximum Explosive Arrows stuck in an Enemy",
       "stats": { "explosive_arrow_stack_limit": 100 }
@@ -674,7 +701,7 @@
     },
     "Exsanguinate of Transmission": {
       "stat": "Base duration is {base_skill_effect_duration/milliseconds_to_seconds_2dp} seconds",
-      "stats": { "base_skill_effect_duration": 75000 }
+      "stats": { "base_skill_effect_duration": 100000 }
     },
     "Eye of Winter": {
       "stat": "Fires {eye_of_winter_base_explosion_shards} Shard Projectiles in a Spiral when Projectile ends",
@@ -980,7 +1007,11 @@
     },
     "Ice Shot": {
       "stat": "{skill_area_angle_+%}% increased Area of Effect angle",
-      "stats": { "skill_area_angle_+%": 3000 }
+      "stats": { "skill_area_angle_+%": 4000 }
+    },
+    "Ice Shot of Penetration": {
+      "stat": "{skill_area_angle_+%}% increased Area of Effect angle",
+      "stats": { "skill_area_angle_+%": 4000 }
     },
     "Siphoning Trap": {
       "stat": "Applies beams to the closest {ice_siphon_trap_max_beam_targets} Enemies",
@@ -1041,10 +1072,8 @@
       }
     },
     "Kinetic Bolt of Fragmentation": {
-      "stat": "Increases and Reductions to Spell Damage also apply to Attack Damage from this Skill at {active_skill_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value}% of their value",
-      "stats": {
-        "active_skill_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value": 2500
-      }
+      "stat": "Projectile changes direction {kinetic_wand_base_number_of_zig_zags} times",
+      "stats": { "kinetic_wand_base_number_of_zig_zags": 50 }
     },
     "Lancing Steel": {
       "stat": "Fires {base_number_of_projectiles} Projectiles",
@@ -1236,6 +1265,10 @@
       "stat": "{withered_on_hit_for_2_seconds_%_chance}% chance to inflict Withered for 2 seconds on Hit",
       "stats": { "withered_on_hit_for_2_seconds_%_chance": 1000 }
     },
+    "Poisonous Concoction of Bouncing": {
+      "stat": "{withered_on_hit_for_2_seconds_%_chance}% chance to inflict Withered for 2 seconds on Hit",
+      "stats": { "withered_on_hit_for_2_seconds_%_chance": 1000 }
+    },
     "Portal": {
       "stat": "{base_cast_speed_+%}% increased Cast Speed",
       "stats": { "base_cast_speed_+%": 3000 }
@@ -1408,8 +1441,8 @@
       "stats": { "shield_crush_damage_+%_final_from_distance": 500 }
     },
     "Shield Crush of the Chieftain": {
-      "stat": "Deals up to {shield_crush_damage_+%_final_from_distance}% more Damage with Hits to closer targets",
-      "stats": { "shield_crush_damage_+%_final_from_distance": 500 }
+      "stat": "Central wave has {shield_crush_helmet_enchantment_aoe_+%_final}% more Area of Effect",
+      "stats": { "shield_crush_helmet_enchantment_aoe_+%_final": 2000 }
     },
     "Shock Nova": {
       "stat": "{shock_maximum_magnitude_+}% to Maximum Effect of Shock",
@@ -1666,6 +1699,10 @@
       "stat": "{skill_buff_effect_+%}% increased Buff Effect",
       "stats": { "skill_buff_effect_+%": 2000 }
     },
+    "Summon Holy Relic of Conviction": {
+      "stat": "Minions have {minion_cooldown_recovery_+%}% increased Cooldown Recovery Rate",
+      "stats": { "minion_cooldown_recovery_+%": 1000 }
+    },
     "Summon Stone Golem": {
       "stat": "{golem_buff_effect_+%}% increased Buff Effect",
       "stats": { "golem_buff_effect_+%": 1000 }
@@ -1771,8 +1808,8 @@
       "stats": { "spell_damage_+%": 500 }
     },
     "Archmage Support": {
-      "stat": "Supported Skills have {base_mana_cost_-%/negate}% increased Mana Cost",
-      "stats": { "base_mana_cost_-%": -500 }
+      "stat": "Supported Skills deal {spell_damage_+%}% increased Spell Damage",
+      "stats": { "spell_damage_+%": 500 }
     },
     "Arrow Nova Support": {
       "stat": "Supported Skills deal {projectile_damage_+%}% increased Projectile Damage",
@@ -2378,6 +2415,10 @@
       "stat": "Supported Skills deal {attack_damage_+%}% increased Attack Damage",
       "stats": { "attack_damage_+%": 500 }
     },
+    "Sacred Wisps Support": {
+      "stat": "Supported Skills deal {attack_damage_+%}% increased Attack Damage",
+      "stats": { "attack_damage_+%": 500 }
+    },
     "Sacrifice Support": {
       "stat": "Supported Skills deal {chaos_damage_+%}% increased Chaos Damage",
       "stats": { "chaos_damage_+%": 500 }
@@ -2530,9 +2571,13 @@
       "stat": "Tornado has {tornado_movement_speed_+%}% increased Movement Speed",
       "stats": { "tornado_movement_speed_+%": 1000 }
     },
+    "Tornado of Elemental Turbulence": {
+      "stat": "Tornado has {tornado_movement_speed_+%}% increased Movement Speed",
+      "stats": { "tornado_movement_speed_+%": 2000 }
+    },
     "Tornado Shot": {
-      "stat": "Fires {tornado_shot_num_of_secondary_projectiles} secondary Projectiles",
-      "stats": { "tornado_shot_num_of_secondary_projectiles": 50 }
+      "stat": "{base_projectile_speed_+%}% increased Projectile Speed",
+      "stats": { "base_projectile_speed_+%": 2000 }
     },
     "Tornado Shot of Cloudburst": {
       "stat": "Fires {base_number_of_arrows} Arrows",
@@ -2654,7 +2699,7 @@
     },
     "Vaal Ice Shot": {
       "stat": "{skill_area_angle_+%}% increased Area of Effect angle",
-      "stats": { "skill_area_angle_+%": 3000 }
+      "stats": { "skill_area_angle_+%": 4000 }
     },
     "Vaal Immortal Call": {
       "stat": "{skill_effect_duration_+%}% increased Skill Effect Duration",
@@ -3351,6 +3396,52 @@
       128944843,
       340652931
     ],
+    "Artillery Ballista of Cross Strafe": [
+      null,
+      0,
+      199345,
+      485160,
+      886504,
+      1440883,
+      1918320,
+      2502106,
+      3212465,
+      4567976,
+      5706853,
+      7075086,
+      8713424,
+      10670072,
+      14325256,
+      17342583,
+      25102578,
+      40240771,
+      66324596,
+      128944843,
+      340652931
+    ],
+    "Artillery Ballista of Focus Fire": [
+      null,
+      0,
+      199345,
+      485160,
+      886504,
+      1440883,
+      1918320,
+      2502106,
+      3212465,
+      4567976,
+      5706853,
+      7075086,
+      8713424,
+      10670072,
+      14325256,
+      17342583,
+      25102578,
+      40240771,
+      66324596,
+      128944843,
+      340652931
+    ],
     "Assassin's Mark": [
       null,
       0,
@@ -3373,6 +3464,29 @@
       67017671,
       129889945,
       341913067
+    ],
+    "Automation": [
+      null,
+      0,
+      118383,
+      294199,
+      548260,
+      907350,
+      1405858,
+      2087915,
+      3009692,
+      4737571,
+      5876448,
+      7244681,
+      8883019,
+      10839667,
+      14494851,
+      17512178,
+      25306092,
+      40512123,
+      66697705,
+      129453628,
+      341331311
     ],
     "Backstab": [
       null,
@@ -4480,6 +4594,29 @@
       128944843,
       340652931
     ],
+    "Call to Arms": [
+      null,
+      0,
+      118383,
+      294199,
+      548260,
+      907350,
+      1405858,
+      2087915,
+      3009692,
+      4737571,
+      5876448,
+      7244681,
+      8883019,
+      10839667,
+      14494851,
+      17512178,
+      25306092,
+      40512123,
+      66697705,
+      129453628,
+      341331311
+    ],
     "Blinding Aura": [null, 0],
     "Armageddon Brand": [
       null,
@@ -4759,6 +4896,29 @@
       342051651
     ],
     "Kinetic Blast": [
+      null,
+      0,
+      199345,
+      485160,
+      886504,
+      1440883,
+      1918320,
+      2502106,
+      3212465,
+      4567976,
+      5706853,
+      7075086,
+      8713424,
+      10670072,
+      14325256,
+      17342583,
+      25102578,
+      40240771,
+      66324596,
+      128944843,
+      340652931
+    ],
+    "Kinetic Blast of Clustering": [
       null,
       0,
       199345,
@@ -6368,6 +6528,29 @@
       129958630,
       342004647
     ],
+    "Elemental Hit of the Spectrum": [
+      null,
+      0,
+      15249,
+      56766,
+      138749,
+      286717,
+      537274,
+      942360,
+      1390078,
+      2005396,
+      2840035,
+      4410795,
+      6044782,
+      8195812,
+      11008001,
+      16107361,
+      25508092,
+      40781458,
+      67068040,
+      129958630,
+      342004647
+    ],
     "Elemental Weakness": [
       null,
       0,
@@ -6715,6 +6898,52 @@
       342051651
     ],
     "Incinerate": [
+      null,
+      0,
+      15249,
+      56766,
+      138749,
+      286717,
+      537274,
+      942360,
+      1390078,
+      2005396,
+      2840035,
+      4410795,
+      6044782,
+      8195812,
+      11008001,
+      16107361,
+      25508092,
+      40781458,
+      67068040,
+      129958630,
+      342004647
+    ],
+    "Incinerate of Expanse": [
+      null,
+      0,
+      15249,
+      56766,
+      138749,
+      286717,
+      537274,
+      942360,
+      1390078,
+      2005396,
+      2840035,
+      4410795,
+      6044782,
+      8195812,
+      11008001,
+      16107361,
+      25508092,
+      40781458,
+      67068040,
+      129958630,
+      342004647
+    ],
+    "Incinerate of Venting": [
       null,
       0,
       15249,
@@ -8578,6 +8807,29 @@
       99970095,
       342051651
     ],
+    "Ice Shot of Penetration": [
+      null,
+      0,
+      70,
+      378,
+      1932,
+      8599,
+      34646,
+      84371,
+      180085,
+      349680,
+      633439,
+      1087435,
+      1790563,
+      2851786,
+      4917656,
+      7424766,
+      13223702,
+      28307621,
+      56100356,
+      99970095,
+      342051651
+    ],
     "Siphoning Trap": [
       null,
       0,
@@ -10216,6 +10468,29 @@
       342051651
     ],
     "Poisonous Concoction": [
+      null,
+      0,
+      15249,
+      56766,
+      138749,
+      286717,
+      537274,
+      942360,
+      1390078,
+      2005396,
+      2840035,
+      4410795,
+      6044782,
+      8195812,
+      11008001,
+      16107361,
+      25508092,
+      40781458,
+      67068040,
+      129958630,
+      342004647
+    ],
+    "Poisonous Concoction of Bouncing": [
       null,
       0,
       15249,
@@ -12795,6 +13070,29 @@
       340652931
     ],
     "Summon Holy Relic": [
+      null,
+      0,
+      841,
+      3940,
+      11373,
+      34268,
+      83993,
+      179707,
+      349302,
+      633061,
+      1087057,
+      1790185,
+      2851408,
+      4917278,
+      7424388,
+      9998119,
+      17609470,
+      31047378,
+      56099525,
+      99968961,
+      342050139
+    ],
+    "Summon Holy Relic of Conviction": [
       null,
       0,
       841,
@@ -16356,6 +16654,29 @@
       99970095,
       342051651
     ],
+    "Sacred Wisps Support": [
+      null,
+      0,
+      69833,
+      198382,
+      352935,
+      578309,
+      898981,
+      1346699,
+      1962017,
+      2796656,
+      4367416,
+      6001403,
+      8152433,
+      10964622,
+      14619806,
+      17637133,
+      25456038,
+      40712051,
+      66972606,
+      129828493,
+      341831131
+    ],
     "Sacrifice Support": [
       null,
       0,
@@ -17085,6 +17406,29 @@
       342051651
     ],
     "Tornado": [
+      null,
+      0,
+      252595,
+      566989,
+      955723,
+      1433160,
+      2016946,
+      2727305,
+      4082816,
+      5221693,
+      6589926,
+      8228264,
+      10184912,
+      13840096,
+      16857423,
+      20433655,
+      29598386,
+      47459814,
+      93492200,
+      180740239,
+      338712291
+    ],
+    "Tornado of Elemental Turbulence": [
       null,
       0,
       252595,
@@ -19020,7 +19364,10 @@
     "Arctic Armour": 20,
     "Creeping Frost": 20,
     "Artillery Ballista": 20,
+    "Artillery Ballista of Cross Strafe": 20,
+    "Artillery Ballista of Focus Fire": 20,
     "Assassin's Mark": 20,
+    "Automation": 20,
     "Backstab": 20,
     "Ball Lightning": 20,
     "Ball Lightning of Orbiting": 20,
@@ -19074,6 +19421,7 @@
     "Burning Arrow": 20,
     "Burning Arrow of Vigour": 20,
     "[DNT] Call of the Wild": 20,
+    "Call to Arms": 20,
     "Capture Monster": 1,
     "Blinding Aura": 1,
     "Armageddon Brand": 20,
@@ -19090,6 +19438,7 @@
     "Cleave": 20,
     "Cleave of Rage": 20,
     "Kinetic Blast": 20,
+    "Kinetic Blast of Clustering": 20,
     "Cobra Lash": 20,
     "[UNUSED] Coiling Assault": 1,
     "Vaal Impurity of Ice": 20,
@@ -19109,7 +19458,7 @@
     "Contagion of Subsiding": 20,
     "Contagion of Transference": 20,
     "Conversion Trap": 20,
-    "Convocation": 20,
+    "Convocation": 1,
     "Cremation": 20,
     "Cremation of Exhuming": 20,
     "Cremation of the Volcano": 20,
@@ -19160,6 +19509,7 @@
     "Earthquake": 20,
     "Earthquake of Amplification": 20,
     "Elemental Hit": 20,
+    "Elemental Hit of the Spectrum": 20,
     "Elemental Projectiles": 1,
     "Elemental Weakness": 20,
     "Blazing Salvo": 20,
@@ -19178,6 +19528,8 @@
     "Ethereal Knives of Lingering Blades": 20,
     "Ethereal Knives of the Massacre": 20,
     "Incinerate": 20,
+    "Incinerate of Expanse": 20,
+    "Incinerate of Venting": 20,
     "Explosive Arrow": 20,
     "Explosive Concoction": 20,
     "Explosive Concoction of Destruction": 20,
@@ -19259,6 +19611,7 @@
     "Ice Nova of Frostbolts": 20,
     "Ice Nova of Deep Freeze": 20,
     "Ice Shot": 20,
+    "Ice Shot of Penetration": 20,
     "Siphoning Trap": 20,
     "Ice Spear": 20,
     "Ice Spear of Splitting": 20,
@@ -19336,6 +19689,7 @@
     "Caustic Arrow": 20,
     "Caustic Arrow of Poison": 20,
     "Poisonous Concoction": 20,
+    "Poisonous Concoction of Bouncing": 20,
     "Portal": 1,
     "Power Siphon": 20,
     "Power Siphon of the Archmage": 20,
@@ -19454,6 +19808,7 @@
     "Summon Reaper of Revenants": 20,
     "Summon Reaper of Eviscerating": 20,
     "Summon Holy Relic": 20,
+    "Summon Holy Relic of Conviction": 20,
     "Summon Stone Golem": 20,
     "Summon Stone Golem of Hordes": 20,
     "Summon Stone Golem of Safeguarding": 20,
@@ -19638,6 +19993,7 @@
     "High-Impact Mine Support": 20,
     "Returning Projectiles Support": 20,
     "Ruthless Support": 20,
+    "Sacred Wisps Support": 20,
     "Sacrifice Support": 20,
     "Sadism Support": 20,
     "Close Combat Support": 20,
@@ -19678,6 +20034,7 @@
     "Spectral Throw": 20,
     "Spectral Throw of Materialising": 20,
     "Tornado": 20,
+    "Tornado of Elemental Turbulence": 20,
     "Tornado Shot": 20,
     "Tornado Shot of Cloudburst": 20,
     "Ancestral Protector": 20,
@@ -19787,7 +20144,10 @@
     "Arctic Armour": "g",
     "Creeping Frost": "b",
     "Artillery Ballista": "g",
+    "Artillery Ballista of Cross Strafe": "g",
+    "Artillery Ballista of Focus Fire": "g",
     "Assassin's Mark": "b",
+    "Automation": "b",
     "Backstab": "g",
     "Ball Lightning": "b",
     "Ball Lightning of Orbiting": "b",
@@ -19841,6 +20201,7 @@
     "Burning Arrow": "g",
     "Burning Arrow of Vigour": "g",
     "[DNT] Call of the Wild": "g",
+    "Call to Arms": "r",
     "Capture Monster": "w",
     "Blinding Aura": "w",
     "Armageddon Brand": "b",
@@ -19857,6 +20218,7 @@
     "Cleave": "r",
     "Cleave of Rage": "r",
     "Kinetic Blast": "b",
+    "Kinetic Blast of Clustering": "b",
     "Cobra Lash": "g",
     "[UNUSED] Coiling Assault": "g",
     "Vaal Impurity of Ice": "g",
@@ -19927,6 +20289,7 @@
     "Earthquake": "r",
     "Earthquake of Amplification": "r",
     "Elemental Hit": "g",
+    "Elemental Hit of the Spectrum": "g",
     "Elemental Projectiles": "b",
     "Elemental Weakness": "b",
     "Blazing Salvo": "b",
@@ -19945,6 +20308,8 @@
     "Ethereal Knives of Lingering Blades": "g",
     "Ethereal Knives of the Massacre": "g",
     "Incinerate": "b",
+    "Incinerate of Expanse": "b",
+    "Incinerate of Venting": "b",
     "Explosive Arrow": "g",
     "Explosive Concoction": "g",
     "Explosive Concoction of Destruction": "g",
@@ -20026,6 +20391,7 @@
     "Ice Nova of Frostbolts": "b",
     "Ice Nova of Deep Freeze": "b",
     "Ice Shot": "g",
+    "Ice Shot of Penetration": "g",
     "Siphoning Trap": "b",
     "Ice Spear": "b",
     "Ice Spear of Splitting": "b",
@@ -20103,6 +20469,7 @@
     "Caustic Arrow": "g",
     "Caustic Arrow of Poison": "g",
     "Poisonous Concoction": "g",
+    "Poisonous Concoction of Bouncing": "g",
     "Portal": "w",
     "Power Siphon": "b",
     "Power Siphon of the Archmage": "b",
@@ -20221,6 +20588,7 @@
     "Summon Reaper of Revenants": "b",
     "Summon Reaper of Eviscerating": "b",
     "Summon Holy Relic": "b",
+    "Summon Holy Relic of Conviction": "b",
     "Summon Stone Golem": "r",
     "Summon Stone Golem of Hordes": "r",
     "Summon Stone Golem of Safeguarding": "r",
@@ -20405,6 +20773,7 @@
     "High-Impact Mine Support": "b",
     "Returning Projectiles Support": "g",
     "Ruthless Support": "r",
+    "Sacred Wisps Support": "b",
     "Sacrifice Support": "b",
     "Sadism Support": "g",
     "Close Combat Support": "g",
@@ -20445,6 +20814,7 @@
     "Spectral Throw": "g",
     "Spectral Throw of Materialising": "g",
     "Tornado": "g",
+    "Tornado of Elemental Turbulence": "g",
     "Tornado Shot": "g",
     "Tornado Shot of Cloudburst": "g",
     "Ancestral Protector": "r",
@@ -20538,6 +20908,10 @@
       "alt_y": "Animate Weapon of Ranged Arms"
     },
     "Arc": { "alt_x": "Arc of Surging", "alt_y": "Arc of Oscillating" },
+    "Artillery Ballista": {
+      "alt_x": "Artillery Ballista of Cross Strafe",
+      "alt_y": "Artillery Ballista of Focus Fire"
+    },
     "Ball Lightning": {
       "alt_x": "Ball Lightning of Orbiting",
       "alt_y": "Ball Lightning of Static"
@@ -20567,6 +20941,7 @@
     },
     "Blade Flurry": { "alt_x": "Blade Flurry of Incision" },
     "Cleave": { "alt_x": "Cleave of Rage" },
+    "Kinetic Blast": { "alt_x": "Kinetic Blast of Clustering" },
     "Icicle Mine": { "alt_x": "Icicle Mine of Fanning", "alt_y": "Icicle Mine of Sabotage" },
     "Cold Snap": { "alt_x": "Cold Snap of Power" },
     "Storm Brand": { "alt_x": "Storm Brand of Indecision" },
@@ -20595,6 +20970,7 @@
     "Double Strike": { "alt_x": "Double Strike of Impaling", "alt_y": "Double Strike of Momentum" },
     "Dual Strike": { "alt_x": "Dual Strike of Ambidexterity" },
     "Earthquake": { "alt_x": "Earthquake of Amplification" },
+    "Elemental Hit": { "alt_x": "Elemental Hit of the Spectrum" },
     "Tectonic Slam": { "alt_x": "Tectonic Slam of Cataclysm" },
     "Essence Drain": {
       "alt_x": "Essence Drain of Desperation",
@@ -20604,6 +20980,7 @@
       "alt_x": "Ethereal Knives of Lingering Blades",
       "alt_y": "Ethereal Knives of the Massacre"
     },
+    "Incinerate": { "alt_x": "Incinerate of Expanse", "alt_y": "Incinerate of Venting" },
     "Explosive Concoction": { "alt_x": "Explosive Concoction of Destruction" },
     "Exsanguinate": { "alt_x": "Exsanguinate of Transmission" },
     "Eye of Winter": {
@@ -20631,6 +21008,7 @@
     "Ice Crash": { "alt_x": "Ice Crash of Cadence" },
     "Frostblink": { "alt_x": "Frostblink of Wintry Blast" },
     "Ice Nova": { "alt_x": "Ice Nova of Frostbolts", "alt_y": "Ice Nova of Deep Freeze" },
+    "Ice Shot": { "alt_x": "Ice Shot of Penetration" },
     "Ice Spear": { "alt_x": "Ice Spear of Splitting" },
     "Ice Trap": { "alt_x": "Ice Trap of Hollowness" },
     "Splitting Steel": { "alt_x": "Splitting Steel of Ammunition" },
@@ -20663,6 +21041,7 @@
     "Sunder": { "alt_x": "Sunder of Earthbreaking" },
     "Seismic Trap": { "alt_x": "Seismic Trap of Swells" },
     "Caustic Arrow": { "alt_x": "Caustic Arrow of Poison" },
+    "Poisonous Concoction": { "alt_x": "Poisonous Concoction of Bouncing" },
     "Power Siphon": { "alt_x": "Power Siphon of the Archmage" },
     "Rage Vortex": { "alt_x": "Rage Vortex of Berserking" },
     "Rain of Arrows": {
@@ -20714,6 +21093,7 @@
       "alt_x": "Summon Reaper of Revenants",
       "alt_y": "Summon Reaper of Eviscerating"
     },
+    "Summon Holy Relic": { "alt_x": "Summon Holy Relic of Conviction" },
     "Summon Stone Golem": {
       "alt_x": "Summon Stone Golem of Hordes",
       "alt_y": "Summon Stone Golem of Safeguarding"
@@ -20724,6 +21104,7 @@
     },
     "Spectral Shield Throw": { "alt_x": "Spectral Shield Throw of Shattering" },
     "Spectral Throw": { "alt_x": "Spectral Throw of Materialising" },
+    "Tornado": { "alt_y": "Tornado of Elemental Turbulence" },
     "Tornado Shot": { "alt_x": "Tornado Shot of Cloudburst" },
     "Viper Strike": { "alt_x": "Viper Strike of the Mamba" },
     "Volatile Dead": {
@@ -20740,6 +21121,14 @@
     "Animate Weapon of Ranged Arms": { "baseName": "Animate Weapon", "discriminator": "alt_y" },
     "Arc of Surging": { "baseName": "Arc", "discriminator": "alt_x" },
     "Arc of Oscillating": { "baseName": "Arc", "discriminator": "alt_y" },
+    "Artillery Ballista of Cross Strafe": {
+      "baseName": "Artillery Ballista",
+      "discriminator": "alt_x"
+    },
+    "Artillery Ballista of Focus Fire": {
+      "baseName": "Artillery Ballista",
+      "discriminator": "alt_y"
+    },
     "Ball Lightning of Orbiting": { "baseName": "Ball Lightning", "discriminator": "alt_x" },
     "Ball Lightning of Static": { "baseName": "Ball Lightning", "discriminator": "alt_y" },
     "Barrage of Volley Fire": { "baseName": "Barrage", "discriminator": "alt_x" },
@@ -20766,6 +21155,7 @@
     "Armageddon Brand of Recall": { "baseName": "Armageddon Brand", "discriminator": "alt_y" },
     "Blade Flurry of Incision": { "baseName": "Blade Flurry", "discriminator": "alt_x" },
     "Cleave of Rage": { "baseName": "Cleave", "discriminator": "alt_x" },
+    "Kinetic Blast of Clustering": { "baseName": "Kinetic Blast", "discriminator": "alt_x" },
     "Icicle Mine of Fanning": { "baseName": "Icicle Mine", "discriminator": "alt_x" },
     "Icicle Mine of Sabotage": { "baseName": "Icicle Mine", "discriminator": "alt_y" },
     "Cold Snap of Power": { "baseName": "Cold Snap", "discriminator": "alt_x" },
@@ -20797,6 +21187,7 @@
     "Double Strike of Momentum": { "baseName": "Double Strike", "discriminator": "alt_y" },
     "Dual Strike of Ambidexterity": { "baseName": "Dual Strike", "discriminator": "alt_x" },
     "Earthquake of Amplification": { "baseName": "Earthquake", "discriminator": "alt_x" },
+    "Elemental Hit of the Spectrum": { "baseName": "Elemental Hit", "discriminator": "alt_x" },
     "Tectonic Slam of Cataclysm": { "baseName": "Tectonic Slam", "discriminator": "alt_x" },
     "Essence Drain of Desperation": { "baseName": "Essence Drain", "discriminator": "alt_x" },
     "Essence Drain of Wickedness": { "baseName": "Essence Drain", "discriminator": "alt_y" },
@@ -20805,6 +21196,8 @@
       "discriminator": "alt_x"
     },
     "Ethereal Knives of the Massacre": { "baseName": "Ethereal Knives", "discriminator": "alt_y" },
+    "Incinerate of Expanse": { "baseName": "Incinerate", "discriminator": "alt_x" },
+    "Incinerate of Venting": { "baseName": "Incinerate", "discriminator": "alt_y" },
     "Explosive Concoction of Destruction": {
       "baseName": "Explosive Concoction",
       "discriminator": "alt_x"
@@ -20837,6 +21230,7 @@
     "Frostblink of Wintry Blast": { "baseName": "Frostblink", "discriminator": "alt_x" },
     "Ice Nova of Frostbolts": { "baseName": "Ice Nova", "discriminator": "alt_x" },
     "Ice Nova of Deep Freeze": { "baseName": "Ice Nova", "discriminator": "alt_y" },
+    "Ice Shot of Penetration": { "baseName": "Ice Shot", "discriminator": "alt_x" },
     "Ice Spear of Splitting": { "baseName": "Ice Spear", "discriminator": "alt_x" },
     "Ice Trap of Hollowness": { "baseName": "Ice Trap", "discriminator": "alt_x" },
     "Splitting Steel of Ammunition": { "baseName": "Splitting Steel", "discriminator": "alt_x" },
@@ -20876,6 +21270,10 @@
     "Sunder of Earthbreaking": { "baseName": "Sunder", "discriminator": "alt_x" },
     "Seismic Trap of Swells": { "baseName": "Seismic Trap", "discriminator": "alt_x" },
     "Caustic Arrow of Poison": { "baseName": "Caustic Arrow", "discriminator": "alt_x" },
+    "Poisonous Concoction of Bouncing": {
+      "baseName": "Poisonous Concoction",
+      "discriminator": "alt_x"
+    },
     "Power Siphon of the Archmage": { "baseName": "Power Siphon", "discriminator": "alt_x" },
     "Rage Vortex of Berserking": { "baseName": "Rage Vortex", "discriminator": "alt_x" },
     "Rain of Arrows of Artillery": { "baseName": "Rain of Arrows", "discriminator": "alt_x" },
@@ -20938,6 +21336,10 @@
     },
     "Summon Reaper of Revenants": { "baseName": "Summon Reaper", "discriminator": "alt_x" },
     "Summon Reaper of Eviscerating": { "baseName": "Summon Reaper", "discriminator": "alt_y" },
+    "Summon Holy Relic of Conviction": {
+      "baseName": "Summon Holy Relic",
+      "discriminator": "alt_x"
+    },
     "Summon Stone Golem of Hordes": { "baseName": "Summon Stone Golem", "discriminator": "alt_x" },
     "Summon Stone Golem of Safeguarding": {
       "baseName": "Summon Stone Golem",
@@ -20950,6 +21352,7 @@
       "discriminator": "alt_x"
     },
     "Spectral Throw of Materialising": { "baseName": "Spectral Throw", "discriminator": "alt_x" },
+    "Tornado of Elemental Turbulence": { "baseName": "Tornado", "discriminator": "alt_y" },
     "Tornado Shot of Cloudburst": { "baseName": "Tornado Shot", "discriminator": "alt_x" },
     "Viper Strike of the Mamba": { "baseName": "Viper Strike", "discriminator": "alt_x" },
     "Volatile Dead of Confinement": { "baseName": "Volatile Dead", "discriminator": "alt_x" },
@@ -21002,6 +21405,7 @@
       "Blight of Atrophy",
       "Armageddon Brand of Volatility",
       "Armageddon Brand of Recall",
+      "Kinetic Blast of Clustering",
       "Icicle Mine of Fanning",
       "Icicle Mine of Sabotage",
       "Cold Snap of Power",
@@ -21019,6 +21423,8 @@
       "Hexblast of Havoc",
       "Essence Drain of Desperation",
       "Essence Drain of Wickedness",
+      "Incinerate of Expanse",
+      "Incinerate of Venting",
       "Eye of Winter of Finality",
       "Eye of Winter of Transience",
       "Scorching Ray of Immolation",
@@ -21067,12 +21473,15 @@
       "Summon Raging Spirit of Enormity",
       "Summon Reaper of Revenants",
       "Summon Reaper of Eviscerating",
+      "Summon Holy Relic of Conviction",
       "Summon Skeletons of Archers",
       "Summon Skeletons of Mages"
     ],
     "g": [
       "Animate Weapon of Self Reflection",
       "Animate Weapon of Ranged Arms",
+      "Artillery Ballista of Cross Strafe",
+      "Artillery Ballista of Focus Fire",
       "Barrage of Volley Fire",
       "Bear Trap of Skewers",
       "Blade Blast of Unloading",
@@ -21096,6 +21505,7 @@
       "Double Strike of Impaling",
       "Double Strike of Momentum",
       "Dual Strike of Ambidexterity",
+      "Elemental Hit of the Spectrum",
       "Ethereal Knives of Lingering Blades",
       "Ethereal Knives of the Massacre",
       "Explosive Concoction of Destruction",
@@ -21103,6 +21513,7 @@
       "Flicker Strike of Power",
       "Frenzy of Onslaught",
       "Frost Blades of Katabasis",
+      "Ice Shot of Penetration",
       "Ice Trap of Hollowness",
       "Splitting Steel of Ammunition",
       "Lancing Steel of Spraying",
@@ -21112,6 +21523,7 @@
       "Mirror Arrow of Prismatic Clones",
       "Seismic Trap of Swells",
       "Caustic Arrow of Poison",
+      "Poisonous Concoction of Bouncing",
       "Rain of Arrows of Artillery",
       "Rain of Arrows of Saturation",
       "Toxic Rain of Sporeburst",
@@ -21132,6 +21544,7 @@
       "Summon Ice Golem of Shattering",
       "Spectral Shield Throw of Shattering",
       "Spectral Throw of Materialising",
+      "Tornado of Elemental Turbulence",
       "Tornado Shot of Cloudburst",
       "Viper Strike of the Mamba",
       "Volatile Dead of Confinement",
