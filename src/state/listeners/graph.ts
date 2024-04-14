@@ -26,9 +26,13 @@ startAppListening({
 
       console.debug("Starting graph worker");
 
-      const { setGraphData, setXpGraphData, setGraphProgress, setGraphProgressMsg } = setters(
-        listenerApi.dispatch as AppDispatch,
-      );
+      const {
+        setGraphData,
+        setXpGraphData,
+        setLabGraphData,
+        setGraphProgress,
+        setGraphProgressMsg,
+      } = setters(listenerApi.dispatch as AppDispatch);
 
       worker.postMessage(inputs);
       worker.onmessage = (e) => {
@@ -36,6 +40,8 @@ startAppListening({
           setGraphData(e.data.payload);
         } else if (e.data.action === "xpdata") {
           setXpGraphData(e.data.payload);
+        } else if (e.data.action === "labdata") {
+          setLabGraphData(e.data.payload);
         } else if (e.data.action === "progress") {
           setGraphProgress(e.data.payload);
         } else if (e.data.action === "msg") {

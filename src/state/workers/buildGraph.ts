@@ -44,9 +44,9 @@ export const buildGraph = async (
       await sleep();
       self?.postMessage({ action: "data", payload });
     };
-    const setXPData = async (payload: { [key: GemId]: GraphNode }) => {
+    const setXPData = async (payload: { [key: GemId]: GraphNode }, lab: boolean) => {
       await sleep();
-      self?.postMessage({ action: "xpdata", payload });
+      self?.postMessage({ action: lab ? "labdata" : "xpdata", payload });
     };
     let counter = 0;
     const setProgress = async (payload: number) => {
@@ -206,76 +206,81 @@ export const buildGraph = async (
 
     await setData(graphData);
 
-    setProgressMsg("Calculating xp profit flowcharts");
-    await setProgress(0);
-    timeSlice = Date.now() + processingTime;
+    for (const lab of [false, true]) {
+      setProgressMsg("Calculating xp profit flowcharts");
+      await setProgress(0);
+      timeSlice = Date.now() + processingTime;
 
-    const xpData: NodeMap = {};
-    const vaal = getCurrency("Vaal Orb", currencyMap.value);
-    i = 0;
-    for (const gem of data) {
-      i++;
-      if (Date.now() > timeSlice) {
-        const p = (100 * i) / data.length;
-        await setProgress(p);
-        timeSlice = Date.now() + processingTime;
+      const xpData: NodeMap = {};
+      const vaal = getCurrency("Vaal Orb", currencyMap.value);
+      i = 0;
+      for (const gem of data) {
+        i++;
+        if (Date.now() > timeSlice) {
+          const p = (100 * i) / data.length;
+          await setProgress(p);
+          timeSlice = Date.now() + processingTime;
+        }
+
+        if (gem.XP !== undefined && !(lab && gem.Corrupted)) {
+          const qualityMultiplier = exceptional.find((e) => gem.Name.includes(e))
+            ? 1 + (gem.Quality + incQual) * 0.05
+            : 1;
+          const possibles = gemMap[gem.baseName][gem.discriminator || ""].filter(
+            (other) =>
+              (allowLowConfidence === "all" || !other.lowConfidence) &&
+              (!gem.Corrupted || (other.Corrupted && other.Vaal === gem.Vaal)) &&
+              other.Quality <= 20 &&
+              other.Level <= gem.maxLevel &&
+              other.XP !== undefined &&
+              gemInfo.xp[gem.baseName][other.Level + 1] === undefined &&
+              (other.XP || 0) > (gem.XP || 0),
+          );
+          xpData[getId(gem)] = possibles
+            .map(normalizedFn)
+            .map((other) => {
+              const xpDiff = ((other.gem.XP || 0) - (gem.XP || 0)) / million / qualityMultiplier;
+              const gcpCount =
+                gem.Quality < other.gem.Quality ? other.gem.Quality - gem.Quality : 0;
+              const vaalCost = other.gem.Vaal && !gem.Vaal ? 4 * (gem.Price + vaal) : 0;
+
+              if (gcpCount && gem.Corrupted) return undefined as any;
+              const gcpCost = gcpCount * gcp;
+              const xpValue = other.expectedValue - (gcpCost + vaalCost);
+
+              let children = getChildren(other, gem, xpDiff, vaalCost, gcpCount, gcpCost);
+              return createNode(gem, xpValue, children, xpDiff);
+            })
+            .concat(
+              !gem.Corrupted && gem.Quality < 20 && gemInfo.xp[gem.baseName][20]
+                ? possibles
+                    .filter(
+                      (other) =>
+                        other.Quality === 20 &&
+                        (other.XP || 0) + (gemInfo.xp[gem.baseName][20] || 0) > (gem.XP || 0),
+                    )
+                    .map(normalizedFn)
+                    .map((other) => {
+                      const xpDiff =
+                        ((other.gem.XP || 0) +
+                          (gemInfo.xp[gem.baseName][20] || 0) -
+                          (gem.XP || 0)) /
+                        million /
+                        qualityMultiplier;
+                      const vaalCost = other.gem.Vaal && !gem.Vaal ? 4 * (gem.Price + vaal) : 0;
+                      const xpValue = other.expectedValue - (gcp + vaalCost);
+
+                      let children = getChildren(other, gem, xpDiff, vaalCost, 1, 0);
+                      return createNode(gem, xpValue, children, xpDiff);
+                    })
+                : [],
+            )
+            .filter(exists)
+            .sort((a, b) => b.xpValue - a.xpValue)[0];
+        }
       }
-
-      if (gem.XP !== undefined) {
-        const qualityMultiplier = exceptional.find((e) => gem.Name.includes(e))
-          ? 1 + (gem.Quality + incQual) * 0.05
-          : 1;
-        const possibles = gemMap[gem.baseName][gem.discriminator || ""].filter(
-          (other) =>
-            (allowLowConfidence === "all" || !other.lowConfidence) &&
-            (!gem.Corrupted || (other.Corrupted && other.Vaal === gem.Vaal)) &&
-            other.Quality <= 20 &&
-            other.Level <= gem.maxLevel &&
-            other.XP !== undefined &&
-            gemInfo.xp[gem.baseName][other.Level + 1] === undefined &&
-            (other.XP || 0) > (gem.XP || 0),
-        );
-        xpData[getId(gem)] = possibles
-          .map(normalizedFn)
-          .map((other) => {
-            const xpDiff = ((other.gem.XP || 0) - (gem.XP || 0)) / million / qualityMultiplier;
-            const gcpCount = gem.Quality < other.gem.Quality ? other.gem.Quality - gem.Quality : 0;
-            const vaalCost = other.gem.Vaal && !gem.Vaal ? 4 * (gem.Price + vaal) : 0;
-
-            if (gcpCount && gem.Corrupted) return undefined as any;
-            const gcpCost = gcpCount * gcp;
-            const xpValue = other.expectedValue - (gcpCost + vaalCost);
-
-            let children = getChildren(other, gem, xpDiff, vaalCost, gcpCount, gcpCost);
-            return createNode(gem, xpValue, children, xpDiff);
-          })
-          .concat(
-            !gem.Corrupted && gem.Quality < 20 && gemInfo.xp[gem.baseName][20]
-              ? possibles
-                  .filter(
-                    (other) =>
-                      other.Quality === 20 &&
-                      (other.XP || 0) + (gemInfo.xp[gem.baseName][20] || 0) > (gem.XP || 0),
-                  )
-                  .map(normalizedFn)
-                  .map((other) => {
-                    const xpDiff =
-                      ((other.gem.XP || 0) + (gemInfo.xp[gem.baseName][20] || 0) - (gem.XP || 0)) /
-                      million /
-                      qualityMultiplier;
-                    const vaalCost = other.gem.Vaal && !gem.Vaal ? 4 * (gem.Price + vaal) : 0;
-                    const xpValue = other.expectedValue - (gcp + vaalCost);
-
-                    let children = getChildren(other, gem, xpDiff, vaalCost, 1, 0);
-                    return createNode(gem, xpValue, children, xpDiff);
-                  })
-              : [],
-          )
-          .filter(exists)
-          .sort((a, b) => b.xpValue - a.xpValue)[0];
-      }
+      await setXPData(xpData, lab);
     }
-    await setXPData(xpData);
 
     setProgressMsg("Calculating profit flowcharts including loops");
     await setProgress(0);

@@ -127,7 +127,21 @@ function App() {
             <Box sx={{ minWidth: 64 }} />
           </Toolbar>
         </AppBar>
-        {tab === "gems" && (
+        {tab === "gem flipping" && (
+          <>
+            <Settings />
+            <GraphDialog />
+            <GemTable />
+          </>
+        )}
+        {tab === "gem xp" && (
+          <>
+            <Settings />
+            <GraphDialog />
+            <GemTable />
+          </>
+        )}
+        {tab === "lab" && (
           <>
             <Settings />
             <GraphDialog />

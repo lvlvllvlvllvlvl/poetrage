@@ -137,6 +137,7 @@ export type GemDetails = Gem & {
   transAnyValue?: number;
   graph?: GraphNode;
   xpGraph?: GraphNode;
+  labGraph?: GraphNode;
 };
 
 export type Override =

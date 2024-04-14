@@ -20,7 +20,7 @@ function debouncedProp<T>(value?: T) {
   return { type: "debounced", value: { value, debounced: value } };
 }
 
-export const tabs = ["gems"] as const;
+export const tabs = ["gem flipping", "gem xp", "lab"] as const;
 
 export const fields = {
   tab: prop<(typeof tabs)[number]>(tabs[0]),
@@ -49,6 +49,7 @@ export const fields = {
   data: prop<GemDetails[]>([]),
   graphData: prop<NodeMap>({}),
   xpGraphData: prop<NodeMap>({}),
+  labGraphData: prop<NodeMap>({}),
   currentGraph: prop<GraphNode>(),
   load: prop(0),
   devMode: prop(import.meta.env.VITE_GIT_COMMIT === "local"),

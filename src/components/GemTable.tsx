@@ -213,9 +213,13 @@ export const GemTable = () => {
             <LinearProgress title={graphProgressMsg} variant="determinate" value={graphProgress} />
           </Box>
         ) : (
-          <Box>
-            fetching data... gem prices: {gems.error || gems.status}, currency:{" "}
-            {currencyMap.error || currencyMap.status}, builds: {meta.error || meta.status}
+          <Box sx={{ pl: 2, flexGrow: 1 }}>
+            <Typography component="p" p={1}>
+              fetching data... gem prices: {gems.error || gems.status}, currency:{" "}
+              {currencyMap.error || currencyMap.status}, builds: {meta.error || meta.status}
+            </Typography>
+            <LinearProgress variant="indeterminate" />
+            <LinearProgress variant="indeterminate" />
           </Box>
         )}
         <Typography p={1}>

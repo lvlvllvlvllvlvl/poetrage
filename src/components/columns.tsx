@@ -4,6 +4,7 @@ import { Price } from "components/cells/Price";
 import { GemDetails, getRatios } from "models/gems";
 import numeral from "numeral";
 import { currencyMap } from "state/api";
+import { tabs } from "state/app";
 import { RootState as AppState } from "state/store";
 import { awakenedLevelCost, awakenedRerollCost, templeCost } from "../state/selectors/costs";
 import { AwakenedLevel } from "./cells/AwakenedLevel";
@@ -27,6 +28,7 @@ export const getColumns = createSelector(
     ({ app }: AppState) => app.fiveWay.debounced,
     ({ app }: AppState) => app.enableColumnFilter,
     ({ app }: AppState) => app.devMode,
+    ({ app }: AppState) => app.tab,
     currencyMap,
     templeCost,
     awakenedLevelCost,
@@ -37,11 +39,12 @@ export const getColumns = createSelector(
     fiveWay,
     enableColumnFilter,
     devMode,
+    tab,
     currencyMap,
     costOfTemple,
     costOfAwakenedLevel,
     costOfAwakenedReroll,
-  ): ColumnDef<GemDetails>[] => {
+  ) => {
     return [
       {
         accessorKey: "Name",
@@ -117,6 +120,7 @@ export const getColumns = createSelector(
       {
         id: "ratio",
         header: "ROI",
+        tabs: ["gem flipping"],
         enableColumnFilter,
         filterFn: "inNumberRange",
         meta: {
@@ -137,6 +141,7 @@ export const getColumns = createSelector(
       {
         id: "Profit",
         header: "Flowchart",
+        tabs: ["gem flipping"],
         accessorFn: (gem: GemDetails) => (gem.graph ? gem.graph.expectedValue - gem.Price : 0),
         enableColumnFilter,
         filterFn: "inNumberRange",
@@ -152,6 +157,7 @@ export const getColumns = createSelector(
       {
         accessorKey: "vaalValue",
         header: "Vaal",
+        tabs: ["gem flipping"],
         enableColumnFilter,
         filterFn: "inNumberRange",
         meta: {
@@ -164,6 +170,7 @@ export const getColumns = createSelector(
         id: "templeValue",
         accessorFn: ({ templeValue }) => templeValue && templeValue - costOfTemple,
         header: "Temple",
+        tabs: ["gem flipping"],
         enableColumnFilter,
         filterFn: "inNumberRange",
         meta: {
@@ -175,6 +182,7 @@ export const getColumns = createSelector(
       {
         accessorKey: "gcpValue",
         header: "GCP",
+        tabs: ["gem flipping"],
         enableColumnFilter,
         filterFn: "inNumberRange",
         meta: {
@@ -190,6 +198,7 @@ export const getColumns = createSelector(
         id: "levelValue",
         accessorFn: ({ levelValue }) => (levelValue || 0) - costOfAwakenedLevel,
         header: "Wild Brambleback",
+        tabs: ["gem flipping"],
         sortingFn: (({ original: { levelValue: a } }, { original: { levelValue: b } }) =>
           a === b
             ? 0
@@ -210,6 +219,7 @@ export const getColumns = createSelector(
         id: "convertValue",
         accessorFn: ({ convertValue }) => convertValue && convertValue - costOfAwakenedReroll,
         header: "Vivid Watcher",
+        tabs: ["gem flipping"],
         sortingFn: (({ original: { convertValue: a } }, { original: { convertValue: b } }) =>
           a === b
             ? 0
@@ -231,6 +241,7 @@ export const getColumns = createSelector(
       {
         accessorKey: "transValue",
         header: "Transfigure",
+        tabs: ["lab"],
         enableColumnFilter,
         filterFn: "inNumberRange",
         meta: {
@@ -242,6 +253,7 @@ export const getColumns = createSelector(
       {
         accessorKey: "transAnyValue",
         header: "Random Transfigure",
+        tabs: ["lab"],
         enableColumnFilter,
         filterFn: "inNumberRange",
         meta: {
@@ -254,6 +266,7 @@ export const getColumns = createSelector(
       {
         accessorKey: "XP",
         header: "Stored XP",
+        tabs: ["gem xp"],
         sortingFn: (({ original: { XP: a } }, { original: { XP: b } }) =>
           a === b
             ? 0
@@ -278,6 +291,7 @@ export const getColumns = createSelector(
         id: "5way",
         accessorFn: ({ xpValue }) => (xpValue || 0) * (fiveWay || 100),
         header: fiveWay ? "Per 5-way" : "100m XP",
+        tabs: ["lab", "gem xp"],
         sortingFn: (({ original: { xpValue: a } }, { original: { xpValue: b } }) =>
           a === b
             ? 0
@@ -298,6 +312,7 @@ export const getColumns = createSelector(
         id: "5wayRatio",
         accessorFn: ({ xpValue, Price }) => (xpValue ? (xpValue * (fiveWay || 100)) / Price : 0),
         header: "XP ROI",
+        tabs: ["lab", "gem xp"],
         sortingFn: ((left, right) => {
           const a: number = left.getValue("5wayRatio");
           const b: number = right.getValue("5wayRatio");
@@ -318,13 +333,18 @@ export const getColumns = createSelector(
       },
       {
         id: "Levelling",
-        accessorFn: (gem: GemDetails) =>
-          gem.xpGraph?.expectedValue
-            ? Math.round(
-                ((gem.xpGraph.expectedValue - gem.xpGraph.gem.Price) * (fiveWay || 100)) /
-                  (gem.xpGraph.experience || 0),
-              )
-            : 0,
+        tabs: ["lab", "gem xp"],
+        accessorFn: (gem: GemDetails) => {
+          const graph = tab === "lab" ? gem.labGraph : gem.xpGraph;
+          if (graph?.expectedValue) {
+            return Math.round(
+              ((graph.expectedValue - graph.gem.Price) * (fiveWay || 100)) /
+                (graph.experience || 0),
+            );
+          } else {
+            return 0;
+          }
+        },
         enableColumnFilter,
         filterFn: "inNumberRange",
         meta: {
@@ -332,14 +352,15 @@ export const getColumns = createSelector(
         },
         cell: ({
           row: {
-            original: { xpGraph },
+            original: { xpGraph, labGraph },
           },
-        }) => <GraphCell xp graph={xpGraph} />,
+        }) => <GraphCell xp graph={tab === "lab" ? labGraph : xpGraph} />,
       },
       {
         id: "xpRatio",
-        accessorFn: ({ xpGraph }) => xpGraph?.roi,
+        accessorFn: ({ xpGraph, labGraph }) => (tab === "lab" ? labGraph : xpGraph)?.roi,
         header: "Level ROI",
+        tabs: ["lab", "gem xp"],
         sortingFn: ((left, right) => {
           const a: number = left.getValue("xpRatio");
           const b: number = right.getValue("xpRatio");
@@ -388,6 +409,8 @@ export const getColumns = createSelector(
         },
         cell: (info) => (info.getValue() ? "✓" : "✗"),
       },
-    ];
+    ].filter(({ tabs }) => !tabs || tabs.includes(tab)) as (ColumnDef<GemDetails> & {
+      tabs?: (typeof tabs)[number][];
+    })[];
   },
 );
