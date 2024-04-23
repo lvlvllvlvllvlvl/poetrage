@@ -492,7 +492,7 @@ export const calculateProfits = async (
       }
 
       //Transfiguration
-      if (!gem.Corrupted && !gem.discriminator && gemInfo.transfigurations[gem.baseName]) {
+      if (!gem.discriminator && gemInfo.transfigurations[gem.baseName]) {
         const outcomes = Object.entries(gemInfo.transfigurations[gem.baseName]);
         gem.transData = outcomes.map(([discriminator, Name]) => ({
           chance: 1 / outcomes.length,
