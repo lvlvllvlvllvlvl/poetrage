@@ -19,6 +19,7 @@ import { Quality } from "./cells/Quality";
 import { ROI } from "./cells/ROI";
 import { Temple } from "./cells/Temple";
 import { Trans } from "./cells/Trans";
+import { TransAny } from "./cells/TransAny";
 import { Vaal } from "./cells/Vaal";
 import { XP } from "./cells/XP";
 
@@ -254,6 +255,7 @@ export const getColumns = createSelector(
         accessorKey: "transAnyValue",
         header: "Random Transfigure",
         tabs: ["lab"],
+        sortUndefined: false,
         enableColumnFilter,
         filterFn: "inNumberRange",
         meta: {
@@ -261,7 +263,7 @@ export const getColumns = createSelector(
             "Average profit for exchanging this gem for a random transfigured gem of the same color",
           filter: { isMin: true },
         },
-        cell: (info) => (info.getValue() ? Math.round(info.getValue() as any) + "c" : "n/a"),
+        cell: ({ row: { original } }) => <TransAny gem={original} />,
       },
       {
         accessorKey: "XP",

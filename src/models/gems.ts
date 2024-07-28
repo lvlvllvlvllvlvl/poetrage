@@ -135,6 +135,7 @@ export type GemDetails = Gem & {
   transValue?: number;
   transData?: ConversionData[];
   transAnyValue?: number;
+  transAnyData?: ConversionData[];
   graph?: GraphNode;
   xpGraph?: GraphNode;
   labGraph?: GraphNode;
@@ -237,7 +238,11 @@ export const isGoodCorruption = (gem: Gem) => {
   return isGood;
 };
 
-export function bestMatch(gem: Gem, data: Gem[], allowLowConfidence: "none" | "all" | "corrupted") {
+export function bestMatch(
+  gem: Gem,
+  data: Gem[],
+  allowLowConfidence: "none" | "all" | "corrupted",
+): Gem {
   const found = data?.find((other) => betterOrEqual(gem, other));
   if (!found) {
     return copy(gem, { Price: 0, lowConfidence: true, Listings: 0 });

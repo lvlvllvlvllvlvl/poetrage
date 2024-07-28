@@ -137,7 +137,8 @@
       }
     ],
     "transValue": -3,
-    "transAnyValue": -3,
+    "transAnyValue": 0,
+    "transAnyData": [],
     "vaalValue": -1.3975000000000015,
     "vaalData": [
       {

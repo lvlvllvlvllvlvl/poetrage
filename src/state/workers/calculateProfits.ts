@@ -1,5 +1,6 @@
 import { GemInfo } from "apis/getGemInfo";
 import info from "data/gemInfo.json";
+import permutations from "data/permutations.json";
 import { filterOutliers, mean } from "functions/filterOutliers";
 import { getCurrency } from "functions/getCurrency";
 import { isNumber } from "lodash";
@@ -519,7 +520,6 @@ export const calculateProfits = async (
     timeSlice = Date.now() + processingTime;
 
     i = 0;
-    const randomTrans: Record<string, number> = {};
     for (const gem of result) {
       i++;
       if (Date.now() > timeSlice) {
@@ -535,24 +535,34 @@ export const calculateProfits = async (
 
       const tag = `${gem.variant}${gem.Color}`;
       //Transfiguration by color
-      if (!(tag in randomTrans)) {
-        const outcomes = gemInfo.transByColor[gem.Color];
-        const data = outcomes.map((Name) => {
-          const { baseName, discriminator } = gemInfo.transfigureBases[Name];
+      const outcomes = gemInfo.transByColor[gem.Color];
+      let permutation = permutations[outcomes.length];
+      if (!permutation?.total || !permutation.counts) {
+        console.warn("no permutation data for count", outcomes.length);
+        continue;
+      }
+      const gems = outcomes.map((Name) => {
+        const { baseName, discriminator } = gemInfo.transfigureBases[Name];
+        return bestMatch(
+          copy(gem, { Name, baseName, discriminator }),
+          gemMap[baseName]?.[discriminator],
+          lowConfidence,
+        );
+      });
+      gems.sort((l, r) => (r.Price || 0) - (l.Price || 0));
+      let sum = 0;
+      const data = gems
+        .filter(({ Price }) => Price > gem.Price)
+        .map((other, i) => {
+          sum = sum + (other.Price - gem.Price) * permutation.counts![i];
           return {
-            chance: 1 / outcomes.length,
-            outcomes: [Name],
-            gem: bestMatch(
-              copy(gem, { Name, baseName, discriminator }),
-              gemMap[baseName]?.[discriminator],
-              lowConfidence,
-            ),
+            chance: permutation.counts![i] / permutation.total!,
+            outcomes: [other.Name],
+            gem: other,
           };
         });
-        randomTrans[tag] =
-          data.reduce((sum, { gem: { Price }, chance }) => sum + (Price || 0) * chance, 0) || 0;
-      }
-      gem.transAnyValue = randomTrans[tag] - gem.Price;
+      gem.transAnyValue = sum / permutation.total!;
+      gem.transAnyData = data;
     }
 
     await setData(result);
