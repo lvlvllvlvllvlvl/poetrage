@@ -65,8 +65,8 @@
       "stats": { "cleave_+1_base_radius_per_nearby_enemy_up_to_10": 1000 }
     },
     "Cleave of Rage": {
-      "stat": "Gain {chain_strike_gain_x_rage_if_attack_hits} Rage if this Skill Hits any Enemies",
-      "stats": { "chain_strike_gain_x_rage_if_attack_hits": 50 }
+      "stat": "Gain {gain_x_rage_on_attack_hit} Rage on Attack Hit",
+      "stats": { "gain_x_rage_on_attack_hit": 50 }
     },
     "Shield Charge": {
       "stat": "{base_movement_velocity_+%}% increased Movement Speed",
@@ -105,11 +105,11 @@
       "stats": { "active_skill_bleeding_damage_+%_final": 2000 }
     },
     "Elemental Hit": {
-      "stat": "{elemental_hit_damage_+%_final_per_enemy_elemental_ailment}% more Damage per Elemental Ailment on the Enemy",
+      "stat": "{elemental_hit_damage_+%_final_per_enemy_elemental_ailment}% more Damage for each type of Elemental Ailment on the Enemy",
       "stats": { "elemental_hit_damage_+%_final_per_enemy_elemental_ailment": 250 }
     },
     "Elemental Hit of the Spectrum": {
-      "stat": "{elemental_hit_damage_+%_final_per_enemy_elemental_ailment}% more Damage per Elemental Ailment on the Enemy",
+      "stat": "{elemental_hit_damage_+%_final_per_enemy_elemental_ailment}% more Damage for each type of Elemental Ailment on the Enemy",
       "stats": { "elemental_hit_damage_+%_final_per_enemy_elemental_ailment": 250 }
     },
     "Immortal Call": {
@@ -287,8 +287,8 @@
       "stats": { "base_cast_speed_+%": 3000 }
     },
     "Inspiration Support": {
-      "stat": "Supported Skills have {base_mana_cost_-%}% reduced Mana Cost",
-      "stats": { "base_mana_cost_-%": 250 }
+      "stat": "Supported Skills have {support_inspiration_mana_cost_+%_final/negate}% less Mana Cost",
+      "stats": { "support_inspiration_mana_cost_+%_final": -250 }
     },
     "Increased Critical Strikes Support": {
       "stat": "Supported Skills have {critical_strike_chance_+%}% increased Critical Strike Chance",
@@ -528,9 +528,9 @@
       "stat": "Minions from Supported Skills deal {minion_damage_+%}% increased Damage",
       "stats": { "minion_damage_+%": 500 }
     },
-    "Increased Duration Support": {
-      "stat": "Supported Skills have {skill_effect_duration_+%}% increased Skill Effect Duration",
-      "stats": { "skill_effect_duration_+%": 500 }
+    "More Duration Support": {
+      "stat": "Supported Skills have {support_more_duration_skill_effect_duration_+%_final}% more Skill Effect Duration",
+      "stats": { "support_more_duration_skill_effect_duration_+%_final": 500 }
     },
     "Cold to Fire Support": {
       "stat": "Supported Skills deal {cold_damage_+%}% increased Cold Damage",
@@ -609,6 +609,10 @@
       "stats": { "critical_strike_multiplier_+_per_power_charge": 500 }
     },
     "Puncture": {
+      "stat": "{active_skill_bleeding_damage_+%_final}% more Damage with Bleeding",
+      "stats": { "active_skill_bleeding_damage_+%_final": 1000 }
+    },
+    "Puncture of Shanking": {
       "stat": "{active_skill_bleeding_damage_+%_final}% more Damage with Bleeding",
       "stats": { "active_skill_bleeding_damage_+%_final": 1000 }
     },
@@ -1266,13 +1270,17 @@
       "stat": "{base_cooldown_speed_+%}% increased Cooldown Recovery Rate",
       "stats": { "base_cooldown_speed_+%": 2000 }
     },
-    "Riposte": {
+    "Glacial Shield Swipe": {
       "stat": "{base_cooldown_speed_+%}% increased Cooldown Recovery Rate",
-      "stats": { "base_cooldown_speed_+%": 2000 }
+      "stats": { "base_cooldown_speed_+%": 1000 }
     },
-    "Reckoning": {
+    "Swordstorm": {
       "stat": "{base_cooldown_speed_+%}% increased Cooldown Recovery Rate",
-      "stats": { "base_cooldown_speed_+%": 2000 }
+      "stats": { "base_cooldown_speed_+%": 1000 }
+    },
+    "Eviscerate": {
+      "stat": "{base_cooldown_speed_+%}% increased Cooldown Recovery Rate",
+      "stats": { "base_cooldown_speed_+%": 1000 }
     },
     "Static Strike": {
       "stat": "{static_strike_zap_speed_+%}% increased Beam frequency",
@@ -1282,9 +1290,17 @@
       "stat": "Supported Skills deal {physical_damage_+%}% increased Physical Damage",
       "stats": { "physical_damage_+%": 500 }
     },
-    "Vengeance": {
-      "stat": "{melee_counterattack_trigger_on_hit_%}% chance to Trigger this Skill when Hit",
-      "stats": { "melee_counterattack_trigger_on_hit_%": 1000 }
+    "Crushing Fist": {
+      "stat": "{base_cooldown_speed_+%}% increased Cooldown Recovery Rate",
+      "stats": { "base_cooldown_speed_+%": 1000 }
+    },
+    "Divine Retribution": {
+      "stat": "{base_cooldown_speed_+%}% increased Cooldown Recovery Rate",
+      "stats": { "base_cooldown_speed_+%": 1000 }
+    },
+    "Vengeful Cry": {
+      "stat": "{base_cooldown_speed_+%}% increased Cooldown Recovery Rate",
+      "stats": { "base_cooldown_speed_+%": 2000 }
     },
     "Summon Chaos Golem": {
       "stat": "{golem_buff_effect_+%}% increased Buff Effect",
@@ -1571,8 +1587,8 @@
       "stats": { "sunder_wave_max_steps": 100 }
     },
     "Frostbolt": {
-      "stat": "{cold_damage_+%}% increased Cold Damage",
-      "stats": { "cold_damage_+%": 1000 }
+      "stat": "Projectiles that have Pierced deal {projectile_damage_+%_final_if_pierced_enemy}% more Damage",
+      "stats": { "projectile_damage_+%_final_if_pierced_enemy": 1000 }
     },
     "Vortex": {
       "stat": "{active_skill_base_radius_+/locations_to_metres} metres to radius",
@@ -1695,8 +1711,8 @@
       "stats": { "endurance_charge_slam_damage_+%_final_per_endurance_charge_consumed": 250 }
     },
     "Infused Channelling Support": {
-      "stat": "Gain Infusion after Channelling a Supported Skill for {support_storm_barrier_damage_buff_time_threshold_ms/milliseconds_to_seconds} seconds",
-      "stats": { "support_storm_barrier_damage_buff_time_threshold_ms": -20000 }
+      "stat": "While Channelling a Supported Skill, take {support_storm_barrier_damage_taken_when_hit_+%_final_while_channelling/negate}% less Damage from Hits",
+      "stats": { "support_storm_barrier_damage_taken_when_hit_+%_final_while_channelling": -100 }
     },
     "Volley Support": {
       "stat": "Supported Skills deal {projectile_damage_+%}% increased Projectile Damage",
@@ -1719,8 +1735,8 @@
       "stats": { "attack_damage_+%": 500 }
     },
     "Vulnerability": {
-      "stat": "{self_bleed_duration_+%}% increased Duration of Bleeding on Cursed Enemies",
-      "stats": { "self_bleed_duration_+%": 1000 }
+      "stat": "Attack Hits against Cursed Enemies have {enemy_aggravate_bleeding_on_attack_hit_chance_%_against_self}% chance to Aggravate Bleeding",
+      "stats": { "enemy_aggravate_bleeding_on_attack_hit_chance_%_against_self": 500 }
     },
     "Explosive Trap": {
       "stat": "Causes {shrapnel_trap_number_of_secondary_explosions} smaller explosions",
@@ -1854,12 +1870,12 @@
       "stats": { "conduit_sigil_number_of_beam_targets": 50 }
     },
     "War Banner": {
-      "stat": "{aura_effect_+%}% increased effect of Aura",
-      "stats": { "aura_effect_+%": 500 }
+      "stat": "Base duration is {base_skill_effect_duration/milliseconds_to_seconds_2dp} seconds",
+      "stats": { "base_skill_effect_duration": 100000 }
     },
     "Dread Banner": {
-      "stat": "{aura_effect_+%}% increased effect of Aura",
-      "stats": { "aura_effect_+%": 500 }
+      "stat": "Base duration is {base_skill_effect_duration/milliseconds_to_seconds_2dp} seconds",
+      "stats": { "base_skill_effect_duration": 100000 }
     },
     "Shattering Steel": {
       "stat": "{impale_debuff_effect_+%}% increased Impale Effect",
@@ -1993,8 +2009,8 @@
       "stats": { "blood_spears_base_number_of_spears": 50 }
     },
     "Chain Hook": {
-      "stat": "Gain {chain_strike_gain_x_rage_if_attack_hits} Rage if this Skill Hits any Enemies",
-      "stats": { "chain_strike_gain_x_rage_if_attack_hits": 50 }
+      "stat": "Gain {gain_x_rage_on_attack_hit} Rage on Attack Hit",
+      "stats": { "gain_x_rage_on_attack_hit": 50 }
     },
     "Close Combat Support": {
       "stat": "{close_combat_damage_to_close_range_+%}% increased Damage with Hits to Close Range Enemies",
@@ -2483,8 +2499,8 @@
       "stats": { "support_base_lifetap_buff_duration": 100000 }
     },
     "Defiance Banner": {
-      "stat": "{aura_effect_+%}% increased effect of Aura",
-      "stats": { "aura_effect_+%": 500 }
+      "stat": "Base duration is {base_skill_effect_duration/milliseconds_to_seconds_2dp} seconds",
+      "stats": { "base_skill_effect_duration": 100000 }
     },
     "Voltaxic Burst": {
       "stat": "{voltaxic_burst_hit_and_ailment_damage_+%_final_per_stack}% more Damage with Hits and Ailments for each Cast of this Spell currently waiting",
@@ -2593,8 +2609,8 @@
       "stats": { "trauma_strike_damage_+%_final_per_trauma": 50 }
     },
     "Boneshatter of Complex Trauma": {
-      "stat": "{trauma_strike_damage_+%_final_per_trauma}% more Damage per Trauma",
-      "stats": { "trauma_strike_damage_+%_final_per_trauma": 250 }
+      "stat": "{trauma_strike_damage_+%_final_per_trauma_capped}% more Damage per Trauma, up to 200%",
+      "stats": { "trauma_strike_damage_+%_final_per_trauma_capped": 250 }
     },
     "Boneshatter of Carnage": {
       "stat": "Pulse has {trauma_strike_shockwave_area_of_effect_+%_per_100ms_stun_duration_up_to_400%}% increased Area of Effect per 0.1s of Stun Duration, up to 400%",
@@ -2864,6 +2880,18 @@
     "Sacred Wisps Support": {
       "stat": "Supported Skills deal {attack_damage_+%}% increased Attack Damage",
       "stats": { "attack_damage_+%": 500 }
+    },
+    "Overexertion Support": {
+      "stat": "Supported Attacks deal {empowered_attack_damage_+%}% increased Damage if Exerted",
+      "stats": { "empowered_attack_damage_+%": 1000 }
+    },
+    "Expert Retaliation Support": {
+      "stat": "Supported Skills have {support_expert_retaliation_cooldown_speed_+%_final}% more Cooldown Recovery Rate",
+      "stats": { "support_expert_retaliation_cooldown_speed_+%_final": 500 }
+    },
+    "Rupture Support": {
+      "stat": "Supported Skills have {critical_strike_chance_+%}% increased Critical Strike Chance",
+      "stats": { "critical_strike_chance_+%": 1000 }
     }
   },
   "xp": {
@@ -3376,25 +3404,25 @@
     "Shield Charge": [
       null,
       0,
-      9569,
-      37758,
-      96904,
-      208096,
-      401896,
-      722176,
-      1081266,
-      1579774,
-      2261831,
-      3183608,
-      4911487,
-      6703256,
-      9056935,
-      12127847,
-      21223313,
-      37263203,
-      67080320,
-      129975376,
-      342026975
+      841,
+      3940,
+      11373,
+      34268,
+      83993,
+      179707,
+      349302,
+      633061,
+      1087057,
+      1790185,
+      2851408,
+      4917278,
+      7424388,
+      9998119,
+      17609470,
+      31047378,
+      56099525,
+      99968961,
+      342050139
     ],
     "Enduring Cry": [
       null,
@@ -6089,7 +6117,7 @@
       99961281,
       342039899
     ],
-    "Increased Duration Support": [
+    "More Duration Support": [
       null,
       0,
       285815,
@@ -6437,48 +6465,48 @@
     "Molten Shell": [
       null,
       0,
-      841,
-      3940,
-      11373,
-      34268,
-      83993,
-      179707,
-      349302,
-      633061,
-      1087057,
-      1790185,
-      2851408,
-      4917278,
-      7424388,
-      9998119,
-      17609470,
-      31047378,
-      56099525,
-      99968961,
-      342050139
+      49725,
+      145439,
+      315034,
+      514379,
+      800194,
+      1201538,
+      1755917,
+      2510966,
+      3527499,
+      5426101,
+      7390120,
+      9963851,
+      14640290,
+      17657617,
+      25480618,
+      40744826,
+      67017671,
+      129889945,
+      341913067
     ],
     "Vaal Molten Shell": [
       null,
       0,
-      841,
-      3940,
-      11373,
-      34268,
-      83993,
-      179707,
-      349302,
-      633061,
-      1087057,
-      1790185,
-      2851408,
-      4917278,
-      7424388,
-      9998119,
-      17609470,
-      31047378,
-      56099525,
-      99968961,
-      342050139
+      49725,
+      145439,
+      315034,
+      514379,
+      800194,
+      1201538,
+      1755917,
+      2510966,
+      3527499,
+      5426101,
+      7390120,
+      9963851,
+      14640290,
+      17657617,
+      25480618,
+      40744826,
+      67017671,
+      129889945,
+      341913067
     ],
     "Power Siphon": [
       null,
@@ -6550,6 +6578,29 @@
       342004647
     ],
     "Puncture": [
+      null,
+      0,
+      841,
+      3940,
+      11373,
+      34268,
+      83993,
+      179707,
+      349302,
+      633061,
+      1087057,
+      1790185,
+      2851408,
+      4917278,
+      7424388,
+      9998119,
+      17609470,
+      31047378,
+      56099525,
+      99968961,
+      342050139
+    ],
+    "Puncture of Shanking": [
       null,
       0,
       841,
@@ -10464,51 +10515,74 @@
       129975376,
       342026975
     ],
-    "Riposte": [
+    "Glacial Shield Swipe": [
       null,
       0,
-      841,
-      3940,
-      11373,
-      34268,
-      83993,
-      179707,
-      349302,
-      633061,
-      1087057,
-      1790185,
-      2851408,
-      4917278,
-      7424388,
-      9998119,
-      17609470,
-      31047378,
-      56099525,
-      99968961,
-      342050139
+      49725,
+      145439,
+      315034,
+      514379,
+      800194,
+      1201538,
+      1755917,
+      2510966,
+      3527499,
+      5426101,
+      7390120,
+      9963851,
+      14640290,
+      17657617,
+      25480618,
+      40744826,
+      67017671,
+      129889945,
+      341913067
     ],
-    "Reckoning": [
+    "Swordstorm": [
       null,
       0,
-      841,
-      3940,
-      11373,
-      34268,
-      83993,
-      179707,
-      349302,
-      633061,
-      1087057,
-      1790185,
-      2851408,
-      4917278,
-      7424388,
-      9998119,
-      17609470,
-      31047378,
-      56099525,
-      99968961,
-      342050139
+      49725,
+      145439,
+      315034,
+      514379,
+      800194,
+      1201538,
+      1755917,
+      2510966,
+      3527499,
+      5426101,
+      7390120,
+      9963851,
+      14640290,
+      17657617,
+      25480618,
+      40744826,
+      67017671,
+      129889945,
+      341913067
+    ],
+    "Eviscerate": [
+      null,
+      0,
+      49725,
+      145439,
+      315034,
+      514379,
+      800194,
+      1201538,
+      1755917,
+      2510966,
+      3527499,
+      5426101,
+      7390120,
+      9963851,
+      14640290,
+      17657617,
+      25480618,
+      40744826,
+      67017671,
+      129889945,
+      341913067
     ],
     "Static Strike": [
       null,
@@ -10556,7 +10630,53 @@
       129828493,
       341831131
     ],
-    "Vengeance": [
+    "Crushing Fist": [
+      null,
+      0,
+      841,
+      3940,
+      11373,
+      34268,
+      83993,
+      179707,
+      349302,
+      633061,
+      1087057,
+      1790185,
+      2851408,
+      4917278,
+      7424388,
+      9998119,
+      17609470,
+      31047378,
+      56099525,
+      99968961,
+      342050139
+    ],
+    "Divine Retribution": [
+      null,
+      0,
+      49725,
+      145439,
+      315034,
+      514379,
+      800194,
+      1201538,
+      1755917,
+      2510966,
+      3527499,
+      5426101,
+      7390120,
+      9963851,
+      14640290,
+      17657617,
+      25480618,
+      40744826,
+      67017671,
+      129889945,
+      341913067
+    ],
+    "Vengeful Cry": [
       null,
       0,
       118383,
@@ -19290,7 +19410,7 @@
       129453628,
       341331311
     ],
-    "Call to Arms": [
+    "Autoexertion": [
       null,
       0,
       118383,
@@ -19335,6 +19455,75 @@
       66972606,
       129828493,
       341831131
+    ],
+    "Overexertion Support": [
+      null,
+      0,
+      388734,
+      866171,
+      1449957,
+      2160316,
+      3515827,
+      4654704,
+      6022937,
+      7661275,
+      9617923,
+      13273107,
+      16290434,
+      19866666,
+      24098333,
+      26493411,
+      34914474,
+      51074457,
+      92244824,
+      179039272,
+      336444335
+    ],
+    "Expert Retaliation Support": [
+      null,
+      0,
+      285815,
+      538410,
+      852804,
+      1241538,
+      1718975,
+      2302761,
+      3013120,
+      4368631,
+      5507508,
+      6875741,
+      8514079,
+      10470727,
+      14125911,
+      17143238,
+      24863364,
+      39921819,
+      65886037,
+      128346808,
+      339855551
+    ],
+    "Rupture Support": [
+      null,
+      0,
+      388734,
+      866171,
+      1449957,
+      2160316,
+      3515827,
+      4654704,
+      6022937,
+      7661275,
+      9617923,
+      13273107,
+      16290434,
+      19866666,
+      24098333,
+      26493411,
+      34914474,
+      51074457,
+      92244824,
+      179039272,
+      336444335
     ],
     "Playtest Attack": [null, 0, 10, 20, 30, 40, 50],
     "Playtest Spell": [null, 0, 10, 20, 30, 40, 50],
@@ -19484,7 +19673,7 @@
     "Vaal Rain of Arrows": 20,
     "Concentrated Effect Support": 20,
     "Minion Damage Support": 20,
-    "Increased Duration Support": 20,
+    "More Duration Support": 20,
     "Cold to Fire Support": 20,
     "Combustion Support": 20,
     "Minion Speed Support": 20,
@@ -19505,6 +19694,7 @@
     "Power Siphon of the Archmage": 20,
     "Vaal Power Siphon": 20,
     "Puncture": 20,
+    "Puncture of Shanking": 20,
     "Lightning Arrow": 20,
     "Lightning Arrow of Electrocution": 20,
     "Haste": 20,
@@ -19679,11 +19869,14 @@
     "Mirror Arrow": 20,
     "Mirror Arrow of Bombarding Clones": 20,
     "Mirror Arrow of Prismatic Clones": 20,
-    "Riposte": 20,
-    "Reckoning": 20,
+    "Glacial Shield Swipe": 20,
+    "Swordstorm": 20,
+    "Eviscerate": 20,
     "Static Strike": 20,
     "Physical to Lightning Support": 20,
-    "Vengeance": 20,
+    "Crushing Fist": 20,
+    "Divine Retribution": 20,
+    "Vengeful Cry": 20,
     "Summon Chaos Golem": 20,
     "Summon Chaos Golem of Hordes": 20,
     "Summon Chaos Golem of the Maelström": 20,
@@ -20114,8 +20307,11 @@
     "Controlled Blaze Support": 20,
     "Volatility Support": 20,
     "Automation": 20,
-    "Call to Arms": 20,
+    "Autoexertion": 20,
     "Sacred Wisps Support": 20,
+    "Overexertion Support": 20,
+    "Expert Retaliation Support": 20,
+    "Rupture Support": 20,
     "Playtest Attack": 6,
     "Playtest Spell": 6,
     "Playtest Slam": 6
@@ -20264,7 +20460,7 @@
     "Vaal Rain of Arrows": "g",
     "Concentrated Effect Support": "b",
     "Minion Damage Support": "b",
-    "Increased Duration Support": "r",
+    "More Duration Support": "r",
     "Cold to Fire Support": "r",
     "Combustion Support": "b",
     "Minion Speed Support": "b",
@@ -20285,6 +20481,7 @@
     "Power Siphon of the Archmage": "b",
     "Vaal Power Siphon": "b",
     "Puncture": "g",
+    "Puncture of Shanking": "g",
     "Lightning Arrow": "g",
     "Lightning Arrow of Electrocution": "g",
     "Haste": "g",
@@ -20459,11 +20656,14 @@
     "Mirror Arrow": "g",
     "Mirror Arrow of Bombarding Clones": "g",
     "Mirror Arrow of Prismatic Clones": "g",
-    "Riposte": "g",
-    "Reckoning": "r",
+    "Glacial Shield Swipe": "g",
+    "Swordstorm": "r",
+    "Eviscerate": "r",
     "Static Strike": "r",
     "Physical to Lightning Support": "b",
-    "Vengeance": "r",
+    "Crushing Fist": "r",
+    "Divine Retribution": "b",
+    "Vengeful Cry": "r",
     "Summon Chaos Golem": "b",
     "Summon Chaos Golem of Hordes": "b",
     "Summon Chaos Golem of the Maelström": "b",
@@ -20894,8 +21094,11 @@
     "Controlled Blaze Support": "r",
     "Volatility Support": "r",
     "Automation": "b",
-    "Call to Arms": "r",
+    "Autoexertion": "r",
     "Sacred Wisps Support": "b",
+    "Overexertion Support": "r",
+    "Expert Retaliation Support": "r",
+    "Rupture Support": "g",
     "Playtest Attack": "w",
     "Playtest Spell": "w",
     "Playtest Slam": "w"
@@ -20944,6 +21147,7 @@
     "Firestorm": { "alt_x": "Firestorm of Meteors", "alt_y": "Firestorm of Pelting" },
     "Lightning Strike": { "alt_x": "Lightning Strike of Arcing" },
     "Power Siphon": { "alt_x": "Power Siphon of the Archmage" },
+    "Puncture": { "alt_x": "Puncture of Shanking" },
     "Lightning Arrow": { "alt_x": "Lightning Arrow of Electrocution" },
     "Burning Arrow": { "alt_x": "Burning Arrow of Vigour" },
     "Icicle Mine": { "alt_x": "Icicle Mine of Fanning", "alt_y": "Icicle Mine of Sabotage" },
@@ -21156,6 +21360,7 @@
     "Firestorm of Pelting": { "baseName": "Firestorm", "discriminator": "alt_y" },
     "Lightning Strike of Arcing": { "baseName": "Lightning Strike", "discriminator": "alt_x" },
     "Power Siphon of the Archmage": { "baseName": "Power Siphon", "discriminator": "alt_x" },
+    "Puncture of Shanking": { "baseName": "Puncture", "discriminator": "alt_x" },
     "Lightning Arrow of Electrocution": { "baseName": "Lightning Arrow", "discriminator": "alt_x" },
     "Burning Arrow of Vigour": { "baseName": "Burning Arrow", "discriminator": "alt_x" },
     "Icicle Mine of Fanning": { "baseName": "Icicle Mine", "discriminator": "alt_x" },
@@ -21497,6 +21702,7 @@
       "Rain of Arrows of Artillery",
       "Rain of Arrows of Saturation",
       "Lightning Strike of Arcing",
+      "Puncture of Shanking",
       "Lightning Arrow of Electrocution",
       "Burning Arrow of Vigour",
       "Bear Trap of Skewers",
