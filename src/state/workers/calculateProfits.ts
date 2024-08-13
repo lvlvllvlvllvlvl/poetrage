@@ -504,6 +504,7 @@ export const calculateProfits = async (
             lowConfidence,
           ),
         }));
+        gem.transData.sort((l, r) => (r.gem.Price || 0) - (l.gem.Price || 0));
         gem.transValue =
           (gem.transData?.reduce(
             (sum, { gem: { Price }, chance }) => sum + (Price || 0) * chance,
@@ -617,6 +618,7 @@ export const calculateProfits = async (
           }
         });
         merged && gem.vaalData?.push(merged);
+        gem.vaalData?.sort((l, r) => (r.gem.Price || 0) - (l.gem.Price || 0));
         if (sumChance < 0.99 || sumChance > 1.01) {
           console.debug("Incorrect vaal outcome chance", sumChance, vaalData);
         }
@@ -679,6 +681,7 @@ export const calculateProfits = async (
           }
         });
         merged && gem.templeData?.push(merged);
+        gem.templeData?.sort((l, r) => (r.gem.Price || 0) - (l.gem.Price || 0));
         if (sumChance < 0.99 || sumChance > 1.01) {
           console.debug("Incorrect temple outcome chance", sumChance, gem.templeData);
         }

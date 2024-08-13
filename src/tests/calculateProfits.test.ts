@@ -51,6 +51,6 @@ it("calculates graph outputs", async () => {
   } as any);
   const id = getId(leveledSpark as any);
 
-  console.log(JSON.stringify(graph[id]));
+  //console.log(JSON.stringify(graph[id]));
   expect(graph[id]).toEqual(leveledSparkGraph);
 });

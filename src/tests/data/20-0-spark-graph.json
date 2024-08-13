@@ -145,6 +145,74 @@
         "gem": {
           "original": {
             "name": "Spark",
+            "variant": "21c",
+            "chaosValue": 3.8,
+            "gemLevel": 21,
+            "corrupted": true,
+            "listingCount": 545,
+            "sparkline": {
+              "data": [0, 0, 0, 0, 0, 33.33, 26.67],
+              "totalChange": 26.67
+            }
+          },
+          "baseName": "Spark",
+          "variant": "21/0c",
+          "Name": "Spark",
+          "Level": 21,
+          "Color": "b",
+          "Quality": 0,
+          "Corrupted": true,
+          "Vaal": false,
+          "canVaal": true,
+          "Price": 4,
+          "Meta": 2.1,
+          "Listings": 545,
+          "lowMeta": false,
+          "lowConfidence": false,
+          "maxLevel": 20
+        },
+        "chance": 0.125,
+        "outcomes": ["Add level"]
+      },
+      {
+        "gem": {
+          "original": {
+            "name": "Spark",
+            "variant": "20/20c",
+            "chaosValue": 4,
+            "gemLevel": 20,
+            "gemQuality": 20,
+            "corrupted": true,
+            "listingCount": 315,
+            "sparkline": {
+              "data": [0, 0, 0, 0, 0, 0, 0],
+              "totalChange": 0
+            }
+          },
+          "baseName": "Spark",
+          "variant": "20/20c",
+          "Name": "Spark",
+          "Level": 20,
+          "Color": "b",
+          "Quality": 20,
+          "Corrupted": true,
+          "Vaal": false,
+          "canVaal": true,
+          "Price": 4,
+          "Meta": 2.1,
+          "XP": 342051651,
+          "Listings": 315,
+          "lowMeta": false,
+          "lowConfidence": false,
+          "maxLevel": 20
+        },
+        "chance": 0.00625,
+        "outcomes": ["Add quality"]
+      },
+      {
+        "gem": {
+          "original": {
+            "name": "Spark",
             "variant": "20c",
             "chaosValue": 2,
             "gemLevel": 20,
@@ -213,107 +281,6 @@
         "gem": {
           "original": {
             "name": "Spark",
-            "variant": "21c",
-            "chaosValue": 3.8,
-            "gemLevel": 21,
-            "corrupted": true,
-            "listingCount": 545,
-            "sparkline": {
-              "data": [0, 0, 0, 0, 0, 33.33, 26.67],
-              "totalChange": 26.67
-            }
-          },
-          "baseName": "Spark",
-          "variant": "21/0c",
-          "Name": "Spark",
-          "Level": 21,
-          "Color": "b",
-          "Quality": 0,
-          "Corrupted": true,
-          "Vaal": false,
-          "canVaal": true,
-          "Price": 4,
-          "Meta": 2.1,
-          "Listings": 545,
-          "lowMeta": false,
-          "lowConfidence": false,
-          "maxLevel": 20
-        },
-        "chance": 0.125,
-        "outcomes": ["Add level"]
-      },
-      {
-        "gem": {
-          "original": {
-            "name": "Spark",
-            "variant": "20",
-            "chaosValue": 3,
-            "gemLevel": 20,
-            "listingCount": 290,
-            "sparkline": {
-              "data": [0, 0, 0, 0, 0, 0, 0],
-              "totalChange": 0
-            }
-          },
-          "baseName": "Spark",
-          "variant": "19/0c",
-          "Name": "Spark",
-          "Level": 19,
-          "Color": "b",
-          "Quality": 0,
-          "Corrupted": true,
-          "Vaal": false,
-          "canVaal": true,
-          "Price": 0,
-          "Meta": 2.1,
-          "XP": 342051651,
-          "Listings": 0,
-          "lowMeta": false,
-          "lowConfidence": true,
-          "maxLevel": 20
-        },
-        "chance": 0.125,
-        "outcomes": ["Remove level"]
-      },
-      {
-        "gem": {
-          "original": {
-            "name": "Spark",
-            "variant": "20/20c",
-            "chaosValue": 4,
-            "gemLevel": 20,
-            "gemQuality": 20,
-            "corrupted": true,
-            "listingCount": 315,
-            "sparkline": {
-              "data": [0, 0, 0, 0, 0, 0, 0],
-              "totalChange": 0
-            }
-          },
-          "baseName": "Spark",
-          "variant": "20/20c",
-          "Name": "Spark",
-          "Level": 20,
-          "Color": "b",
-          "Quality": 20,
-          "Corrupted": true,
-          "Vaal": false,
-          "canVaal": true,
-          "Price": 4,
-          "Meta": 2.1,
-          "XP": 342051651,
-          "Listings": 315,
-          "lowMeta": false,
-          "lowConfidence": false,
-          "maxLevel": 20
-        },
-        "chance": 0.00625,
-        "outcomes": ["Add quality"]
-      },
-      {
-        "gem": {
-          "original": {
-            "name": "Spark",
             "variant": "20c",
             "chaosValue": 2,
             "gemLevel": 20,
@@ -377,6 +344,39 @@
         },
         "chance": 0.12500000000000003,
         "outcomes": ["Remove quality"]
+      },
+      {
+        "gem": {
+          "original": {
+            "name": "Spark",
+            "variant": "20",
+            "chaosValue": 3,
+            "gemLevel": 20,
+            "listingCount": 290,
+            "sparkline": {
+              "data": [0, 0, 0, 0, 0, 0, 0],
+              "totalChange": 0
+            }
+          },
+          "baseName": "Spark",
+          "variant": "19/0c",
+          "Name": "Spark",
+          "Level": 19,
+          "Color": "b",
+          "Quality": 0,
+          "Corrupted": true,
+          "Vaal": false,
+          "canVaal": true,
+          "Price": 0,
+          "Meta": 2.1,
+          "XP": 342051651,
+          "Listings": 0,
+          "lowMeta": false,
+          "lowConfidence": true,
+          "maxLevel": 20
+        },
+        "chance": 0.125,
+        "outcomes": ["Remove level"]
       }
     ],
     "templeData": [
@@ -417,39 +417,6 @@
       {
         "gem": {
           "original": {
-            "name": "Spark",
-            "variant": "21c",
-            "chaosValue": 3.8,
-            "gemLevel": 21,
-            "corrupted": true,
-            "listingCount": 545,
-            "sparkline": {
-              "data": [0, 0, 0, 0, 0, 33.33, 26.67],
-              "totalChange": 26.67
-            }
-          },
-          "baseName": "Spark",
-          "variant": "21/0c",
-          "Name": "Spark",
-          "Level": 21,
-          "Color": "b",
-          "Quality": 0,
-          "Corrupted": true,
-          "Vaal": false,
-          "canVaal": true,
-          "Price": 4,
-          "Meta": 2.1,
-          "Listings": 545,
-          "lowMeta": false,
-          "lowConfidence": false,
-          "maxLevel": 20
-        },
-        "chance": 0.24791666666666637,
-        "outcomes": ["Add level"]
-      },
-      {
-        "gem": {
-          "original": {
             "name": "Vaal Spark",
             "variant": "20/20c",
             "chaosValue": 8,
@@ -485,36 +452,35 @@
       {
         "gem": {
           "original": {
-            "name": "Vaal Spark",
-            "variant": "20c",
-            "chaosValue": 2,
-            "gemLevel": 20,
+            "name": "Spark",
+            "variant": "21c",
+            "chaosValue": 3.8,
+            "gemLevel": 21,
             "corrupted": true,
-            "listingCount": 222,
+            "listingCount": 545,
             "sparkline": {
-              "data": [0, 0, 0, 0, 0, 0, 0],
-              "totalChange": 0
+              "data": [0, 0, 0, 0, 0, 33.33, 26.67],
+              "totalChange": 26.67
             }
           },
           "baseName": "Spark",
-          "variant": "20/0c",
-          "Name": "Vaal Spark",
-          "Level": 20,
+          "variant": "21/0c",
+          "Name": "Spark",
+          "Level": 21,
           "Color": "b",
           "Quality": 0,
           "Corrupted": true,
-          "Vaal": true,
+          "Vaal": false,
           "canVaal": true,
-          "Price": 2,
-          "Meta": 0.3,
-          "XP": 342051651,
-          "Listings": 222,
+          "Price": 4,
+          "Meta": 2.1,
+          "Listings": 545,
           "lowMeta": false,
           "lowConfidence": false,
           "maxLevel": 20
         },
-        "chance": 0.3291666666666661,
-        "outcomes": ["Vaal"]
+        "chance": 0.24791666666666637,
+        "outcomes": ["Add level"]
       },
       {
         "gem": {
@@ -550,6 +516,40 @@
         },
         "chance": 0.004166666666666667,
         "outcomes": ["Add quality"]
+      },
+      {
+        "gem": {
+          "original": {
+            "name": "Vaal Spark",
+            "variant": "20c",
+            "chaosValue": 2,
+            "gemLevel": 20,
+            "corrupted": true,
+            "listingCount": 222,
+            "sparkline": {
+              "data": [0, 0, 0, 0, 0, 0, 0],
+              "totalChange": 0
+            }
+          },
+          "baseName": "Spark",
+          "variant": "20/0c",
+          "Name": "Vaal Spark",
+          "Level": 20,
+          "Color": "b",
+          "Quality": 0,
+          "Corrupted": true,
+          "Vaal": true,
+          "canVaal": true,
+          "Price": 2,
+          "Meta": 0.3,
+          "XP": 342051651,
+          "Listings": 222,
+          "lowMeta": false,
+          "lowConfidence": false,
+          "maxLevel": 20
+        },
+        "chance": 0.3291666666666661,
+        "outcomes": ["Vaal"]
       },
       {
         "gem": {
