@@ -1,6 +1,10 @@
+import { fromBinary } from "@bufbuild/protobuf";
 import { api } from "apis/axios";
 import { Leagues } from "models/ninja/Leagues";
-import { NinjaSearchResult, SearchResultDictionary } from "models/ninja/protobuf/ninja_pb";
+import {
+  NinjaSearchResultSchema,
+  SearchResultDictionarySchema,
+} from "models/ninja/protobuf/ninja_pb";
 
 export const getMeta = async (league: string, type: "exp" | "depthsolo", leagues: Leagues) => {
   const { url, version } = leagues.snapshotVersions.find(
@@ -10,7 +14,7 @@ export const getMeta = async (league: string, type: "exp" | "depthsolo", leagues
     `https://poe.ninja/api/builds/search/${version}?overview=${url}&type=${type}&language=en`,
     { responseType: "arraybuffer" },
   );
-  const data = NinjaSearchResult.fromBinary(new Uint8Array(response.data)).result!;
+  const data = fromBinary(NinjaSearchResultSchema, new Uint8Array(response.data)).result!;
   const allSkills = data.dimensions.find((d) => d.id === "allskills")!;
   const hash = data.dictionaries.find((d) => d.id === allSkills.dictionaryId)!.hash;
   const dictResp = await api.get<ArrayBuffer>(
@@ -19,7 +23,7 @@ export const getMeta = async (league: string, type: "exp" | "depthsolo", leagues
       responseType: "arraybuffer",
     },
   );
-  const dict = SearchResultDictionary.fromBinary(new Uint8Array(dictResp.data))!;
+  const dict = fromBinary(SearchResultDictionarySchema, new Uint8Array(dictResp.data))!;
 
   const result: { [key: string]: number } = {};
   allSkills.counts.forEach(({ key = 0, count }) => {

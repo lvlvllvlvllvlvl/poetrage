@@ -32,7 +32,7 @@ export default defineConfig({
     },
   },
   worker: {
-    plugins: [tsconfigPaths()],
+    plugins: () =>[tsconfigPaths()],
   },
   test: {
     globals: true,

@@ -1,5 +1,3 @@
-import { proto3 } from "@bufbuild/protobuf";
-proto3.util.newFieldList;
 export const scalarType = {
   1: "double",
   2: "float",
