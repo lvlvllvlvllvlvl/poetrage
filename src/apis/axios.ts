@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setupCache } from "axios-cache-adapter";
+import adapter from "axios-cache-adapter";
 import { AxiosRateLimiter } from "rate-limit-rules";
 import { forageStore } from "./localForage";
 
@@ -15,7 +15,7 @@ const corsAdapter = (req: any) => {
 const rateLimitAdapter = new AxiosRateLimiter({ adapter: corsAdapter }).request as any;
 
 export const cache = (async () => {
-  return setupCache({
+  return adapter.setupCache({
     store: await forageStore,
     maxAge: hour,
     adapter: (req: any) =>
